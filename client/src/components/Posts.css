@@ -1,0 +1,21 @@
+.posts {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 661px;
+}
+.post {
+    margin-top: 30px;
+    width: 661px;
+    background-color: #fff;
+    mix-blend-mode: normal;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+}
+.post__author {
+    font-size: 20px;
+}
+.post__info {
+    margin-top: 10px;
+}
