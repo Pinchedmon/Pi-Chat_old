@@ -5,12 +5,18 @@ import Nav from "./components/Nav";
 
 import Posts from "./components/Posts";
 function App() {
-
+  const [filterCategory, setFilterCategory] = useState('Общее');
+  const [filterSort, setFilterSort] = useState('1');
   const [data, setData] = useState([{}]);
+  const returnCategory = (value) => {
+    setFilterCategory(value);
+  }
+  const returnSort = (value) => {
+    setFilterSort(value);
+  }
   useEffect(() => {
     axios.get('http://localhost:6060/feed')
       .then(response => {
-        console.log(response.data.data)
         setData(Object.values(response.data.data))
       })
       .catch(error => {
@@ -20,10 +26,10 @@ function App() {
   return (
     <div className="app">
       <div className="menu">
-        <Nav/>
+        <Nav returnCategory={returnCategory} returnSort={returnSort}/>
       </div>
         <div className="posts">
-          <Posts data={data} />
+          <Posts category={filterCategory} sort={filterSort} data={data} />
         </div> 
     </div>
   );

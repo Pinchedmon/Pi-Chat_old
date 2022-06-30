@@ -17,13 +17,13 @@ app.use(cors())
 
 app.post('/feed', (req, res) => {
   try {
-    const { author, text, likes, comments, date } = req.body;
-    sql = "INSERT INTO posts (author, text, likes, comments, date) VALUES (?, ?, ?, ?, ?)"
-    db.run(sql, [author, text, likes, comments, date], (err) => {
+    const { author, text, course, category, comments, likes, date } = req.body;
+    sql = "INSERT INTO posts (author, text, course, category, comments, likes, date) VALUES (?, ?, ?, ?, ?, ?, ?)"
+    db.run(sql, [author, text, course, category, comments, likes, date], (err) => {
       if (err) return res.json({ status: 300, success: false, error: err })
     })
     return res.json({
-      status: 200,
+      status:  200,
       success: true
     });
   } catch (error) {
