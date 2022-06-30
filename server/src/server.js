@@ -21,7 +21,6 @@ app.post('/feed', (req, res) => {
     sql = "INSERT INTO posts (author, text, likes, comments, date) VALUES (?, ?, ?, ?, ?)"
     db.run(sql, [author, text, likes, comments, date], (err) => {
       if (err) return res.json({ status: 300, success: false, error: err })
-      console.log("successful input:", author, text, likes, comments, date)
     })
     return res.json({
       status: 200,

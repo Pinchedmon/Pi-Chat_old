@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import './App.css';
-import Options from "./components/Options";
+import Nav from "./components/Nav";
+
 import Posts from "./components/Posts";
 function App() {
 
@@ -16,28 +17,14 @@ function App() {
         console.error('error')
       })
   })
-  const handleDelete = () => {
-    axios.delete('http://localhost:6060/feed')
-    // setData([{}])
-    
-      
-  }
   return (
-    <div>
-      <nav>
-        <div className="title">
-          <button>
-            / π - Чат /
-          </button>
-        </div>
-        <div className="button__profile">
-          <button onClick={handleDelete}>Профиль</button>
-        </div>
-      </nav>
-      <Options />
-      <div className="posts">
-        <Posts data={data} />
+    <div className="app">
+      <div className="menu">
+        <Nav/>
       </div>
+        <div className="posts">
+          <Posts data={data} />
+        </div> 
     </div>
   );
 }
