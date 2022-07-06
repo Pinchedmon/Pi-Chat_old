@@ -7,8 +7,15 @@
     border: 2px solid #37B34A;
     border-radius: 4px;
     padding: 10px;
-   
-    
+}
+.comment {
+    margin-bottom: 30px;
+    width: 60vmax;
+    background-color: #fff;
+    mix-blend-mode: normal;
+    border: 2px solid #37B34A;
+    border-radius: 4px;
+    padding: 10px;
 }
 .post__author {
     font-weight: 700;

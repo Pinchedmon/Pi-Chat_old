@@ -1,14 +1,19 @@
-import './Popup.css'
+import './AddPost.css'
 import axios from 'axios'
 import React, {useState} from 'react'
+import { useDispatch } from 'react-redux'
+import { Refetch } from '../../components/Refetch'
 const Popup = (props) => {
     const [text, setText] = useState('');
     const [category, setCategory] = useState('Общее');
     const [course, setCourse] = useState('1')
+    const dispatch = useDispatch();
     const handleAdd = (event) => {
         if(text !== "" && category !== "" && course !== ""){
         axios.post('http://localhost:6060/feed', { author: 'Noname', text: text, category: category, course: course })
         props.handlePopup()
+        
+        Refetch(dispatch);
         event.preventDefault();  
         } else {
             window.alert("Какое-то поле незаполнено")
