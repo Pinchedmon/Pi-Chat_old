@@ -10,7 +10,7 @@ const db = new sqlite.Database(path.resolve(__dirname,'./db/posts.db'), sqlite.O
 // const sql = "DROP TAble posts";
 // db.run(sql)
  
-const sql = "INSERT INTO comments (id, author, text, likes) VALUES (?, ?, ?, ?)"
-db.run(sql, [2, "pinchedmon", "bro i just commented your post, its my first comment!!!!!", 0], (err) => {
-      if (err) return console.error(err.message)
-    })  
+// const sql = "INSERT INTO comments (id, author, text, likes) VALUES (?, ?, ?, ?)"
+// db.run(sql, [2, "pinchedmon", "bro i just commented your post, its my first comment!!!!!", 0], (err) => {
+//       if (err) return console.error(err.message)
+//     })  

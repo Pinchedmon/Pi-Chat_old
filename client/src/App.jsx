@@ -1,21 +1,14 @@
-import React, { useEffect} from "react";
-import Nav from "./pages/Feed/Nav/Nav";
+import Nav from "./pages/Feed/Feed";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Refetch } from "./pages/components/Refetch";
-function App() {
-  const posts = useSelector(state => state.posts)
-  const dispatch = useDispatch()
+import {useDispatch } from "react-redux";
 
-  // Вот злодейский хух эффект
-  useEffect(() => {
-    Refetch(dispatch)
-  },[])
+function App() {
+  const dispatch = useDispatch()
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Nav dispatch={dispatch} data={posts} />} />
+          <Route path="/" element={<Nav dispatch={dispatch}  />} />
         </Routes>
       </BrowserRouter>
     </div>

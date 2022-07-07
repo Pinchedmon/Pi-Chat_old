@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 let initialState = {
     category: 'Общее',
-    sort: '1'
+    sort: '1',
+    addPostStyle: 'nav__add'
 }
 const navSlice = createSlice({
     name: 'nav',
@@ -12,9 +13,12 @@ const navSlice = createSlice({
         },
         setSort: (state, action) => {
             state.sort = action.payload;
+        },
+        setAddPostStyle: (state, action) => {
+            state.addPostStyle = action.payload;
         }
     }
 })
 
-export const {setCategory, setSort } = navSlice.actions
+export const {setCategory, setSort, setAddPostStyle} = navSlice.actions
 export default navSlice.reducer

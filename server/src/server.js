@@ -75,12 +75,16 @@ app.get('/comments', (req, res) => {
 })
 app.get('/feed', (req, res) => {
   try {
-    sql = "SELECT * FROM posts "
+    const queryObject = url.parse(req.url, true).query;
+    sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `
+    console.log(queryObject)
+    console.log(sql)
     db.all(sql, [], (err, rows) => {
       if (err) {
         return res.json({ status: 300, success: false, error: err })
       }
       if (rows.length) { if (err) return res.json({ status: 300, success: false, error: 'No match' }) }
+      
       return res.json({ status: 200, data: rows, success: true })
     })
   } catch (error) {
@@ -93,7 +97,8 @@ app.get('/feed', (req, res) => {
 })
 app.delete('/feed', (req, res) => {
   try {
-    sql = "DELETE FROM posts WHERE   ID = (SELECT MAX(ID)  FROM posts );"
+    const queryObject = url.parse(req.url, true).query;
+    sql = `DELETE FROM posts WHERE ID = ${queryObject.id}`
     db.run(sql, (err) => {
       if (err) return console.error(err.message)
     })

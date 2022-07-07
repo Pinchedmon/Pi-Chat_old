@@ -1,43 +1,40 @@
-import './Nav.css'
-import Posts from './../Posts/Posts'
-import React, { useState} from "react"
-import Popup from "../AddPostBtn/AddPost";
-import { DeletePost } from '../../components/deletePost';
+import { setCategory, setSort, setAddPostStyle } from "./../../components/states/navReducer";
+import { DeletePost } from './../../components/deletePost'
+import AddPost from './../AddPostBtn/AddPost'
 import { useSelector } from "react-redux";
-import { setCategory, setSort } from "../../components/states/navReducer";
+import { filterSort, filterCategory } from "../../components/navFilter";
 const Nav = (props) => {
-    const {dispatch, data} = props
-    const sort = useSelector(state => state.nav.sort);
-    const category = useSelector(state => state.nav.category);
-    const [popup, setPopup] = useState('nav__add');
-    
+    const { category, sort, dispatch } = props;
+    // Кнопка добавления addPost
+    const style = useSelector(state => state.nav.addPostStyle)
     const handlePopup = () => {
-        if (popup === 'nav__add-popup') { setPopup('nav__add') } else {
-            setPopup('nav__add-popup')
+        if (style === 'nav__add-popup') { dispatch(setAddPostStyle('nav__add')) } else {
+            dispatch(setAddPostStyle('nav__add-popup'));
         }
     }
-    return (    
+    return (
         <>
             <div className="nav__logo"><button onClick={() => DeletePost(dispatch)}>/ π - Чат /</button></div>
             <div className="nav__profile"><button >Профиль</button></div>
-            <select  value={sort} onChange={(e)=> dispatch(setSort(e.target.value))}>
-                <option  value="value1" disabled>Сортировать по</option>
+            <select value={sort} onChange={(e) => filterSort(e, dispatch, setSort, sort, category)}>
+                <option value="value1" disabled>Сортировать по</option>
                 <option value="1">1 Курс</option>
                 <option value="2">2 Курс</option>
                 <option value="3">3 Курс</option>
                 <option value="4">4 Курс</option>
                 <option value="Late" >Последнее</option>
             </select>
-            <select value={category} onChange={(e)=> dispatch(setCategory(e.target.value))}>
+            <select value={category} onChange={(e) => filterCategory(e, dispatch, setCategory, sort, category)}>
                 <option value="value1" disabled >Категория</option>
                 <option value="Общее">Общее</option>
                 <option value="Предметы" >Предметы</option>
                 <option value="Вопросы">Вопросы</option>
             </select>
-            {popup === 'nav__add-popup' && <Popup handlePopup={handlePopup} />}
-            <button className={popup}  onClick={handlePopup}>Добавить пост</button>
-            <Posts data={data}/>
+            {style === 'nav__add-popup' && <AddPost handlePopup={handlePopup} dispatch={dispatch} />}
+            <button className={style} onClick={handlePopup}>Добавить пост</button>
         </>
     )
+
 }
+
 export default Nav;
