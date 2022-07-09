@@ -30,7 +30,7 @@ const Nav = (props) => {
                             </Popover.Button>
                         </div>
                         <Popover.Group as="nav" className="hidden md:flex ">
-                            <select  value={sort} onChange={(e) => filterSort(e, dispatch, setSort, sort, category)} className="text-base mr-8 before:font-medium text-gray-500 hover:text-gray-900">
+                            <select  defaultValue={sort} onChange={(e) => filterSort(e, dispatch, setSort, sort, category)} className="text-base mr-8 before:font-medium text-gray-500 hover:text-gray-900">
                                 <option value="value1" disabled>Сортировать по</option>
                                 <option value="1">1 Курс</option>
                                 <option value="2">2 Курс</option>
@@ -38,7 +38,7 @@ const Nav = (props) => {
                                 <option value="4">4 Курс</option>
                                 <option value="Late" >Последнее</option>
                             </select>
-                            <select  value={category} onChange={(e) => filterCategory(e, dispatch, setCategory, sort, category)} className="text-base mr-8 font-medium text-gray-500 hover:text-gray-900">
+                            <select  defaultValue={category} onChange={(e) => filterCategory(e, dispatch, setCategory, sort, category)} className="text-base mr-8 font-medium text-gray-500 hover:text-gray-900">
                                 <option value="value1" disabled >Категория</option>
                                 <option value="Общее">Общее</option>
                                 <option value="Предметы" >Предметы</option>

@@ -30,7 +30,7 @@ const MobileNav = (props) => {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                                    <select value={sort} onChange={(e) => filterSort(e, dispatch, setSort, sort, category)} className="text-base font-medium text-gray-500 hover:text-gray-900">
+                                    <select defaultValue={sort} onChange={(e) => filterSort(e, dispatch, setSort, sort, category)} className="text-base font-medium text-gray-500 hover:text-gray-900">
                                         <option value="value1" disabled>Сортировать по</option>
                                         <option value="1">1 Курс</option>
                                         <option value="2">2 Курс</option>
@@ -38,7 +38,7 @@ const MobileNav = (props) => {
                                         <option value="4">4 Курс</option>
                                         <option value="Late" >Последнее</option>
                                     </select>
-                                    <select value={category} onChange={(e) => filterCategory(e, dispatch, setCategory, sort, category)} className="text-base font-medium text-gray-500 hover:text-gray-900">
+                                    <select defaultValue={category} onChange={(e) => filterCategory(e, dispatch, setCategory, sort, category)} className="text-base font-medium text-gray-500 hover:text-gray-900">
                                         <option value="value1" disabled >Категория</option>
                                         <option value="Общее">Общее</option>
                                         <option value="Предметы" >Предметы</option>
@@ -46,7 +46,7 @@ const MobileNav = (props) => {
                                     </select>
                                 </div>
                                 <Popover.Button className="w-full">
-                                <button onClick={handlePopup}  className="text-base font-medium text-gray-500 hover:text-gray-900">Добавить пост</button>
+                                <div onClick={handlePopup}  className="text-base font-medium text-gray-500 hover:text-gray-900">Добавить пост</div>
                                 </Popover.Button>
                                 
 
