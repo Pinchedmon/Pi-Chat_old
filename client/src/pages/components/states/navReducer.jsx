@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 let initialState = {
     category: 'Общее',
     sort: '1',
-    addPostStyle: 'nav__add'
+    addPostStyle: false
 }
 const navSlice = createSlice({
     name: 'nav',

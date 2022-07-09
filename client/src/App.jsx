@@ -1,4 +1,4 @@
-import Nav from "./pages/Feed/Feed";
+import Feed from "./pages/Feed/Feed";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {useDispatch } from "react-redux";
 
@@ -8,7 +8,7 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Nav dispatch={dispatch}  />} />
+         <Route path="/" element={<Feed dispatch={dispatch}  />} /> 
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,13 +1,13 @@
-
 .post {
     margin-bottom: 30px;
-    width: 70vmax;
+
     background-color: #fff;
     mix-blend-mode: normal;
-    border: 2px solid #37B34A;
-    border-radius: 4px;
-    padding: 10px;
+    border-left: 2px solid #37B34A;
+    border-radius: 30px;
+    padding: 16px;
 }
+
 .comment {
     margin-bottom: 30px;
     width: 60vmax;
@@ -17,16 +17,19 @@
     border-radius: 4px;
     padding: 10px;
 }
+
 .post__author {
     font-weight: 700;
     font-size: 20px;
 }
+
 .post__info {
     font-weight: 500;
     font-size: 16px;
     line-height: 26px;
-} 
-.post__likes{
+}
+
+.post__likes {
     width: 120px;
     font-size: 12px;
     background: #FFFFFF;
@@ -36,6 +39,7 @@
     color: #37B34A;
     cursor: pointer;
 }
+
 .post__comments {
     width: 120px;
     margin-left: 5px;

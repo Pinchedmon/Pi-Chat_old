@@ -10,7 +10,7 @@ const Posts = (props) => {
     return (
     <div>
         {posts.reverse().map(item =>
-            <div key={item.ID} className="post">
+            <div key={item.ID} className="post max-w-md mx-auto shadow-md overflow-hidden md:max-w-3xl">
                 <p className="post__author">{item.author}</p>
                 <p className="post__info">{item.text}</p>
                 <button value={item.ID} onClick={(e) => deleteButton(e.target.value)} className="post__likes">delete</button>
