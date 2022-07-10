@@ -4,17 +4,13 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import postsReducer from "./pages/components/states/postReducer";
-import navReducer from './pages/components/states/navReducer';
-import addPostBtnReducer from './pages/components/states/addPostBtnReducer';
+import navReducer from './state/navReducer';
 const store = configureStore({
   reducer: {
-    posts: postsReducer,
-    nav: navReducer,
-    addPostBtn: addPostBtnReducer
+    nav: navReducer
   }
 });
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>

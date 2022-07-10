@@ -22,3 +22,75 @@
    justify-content: center;
     margin-top: 40px;
 } */
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup_inner {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    background: white;
+}
+
+.post {
+    margin-bottom: 30px;
+    background-color: #fff;
+    mix-blend-mode: normal;
+    border-left: 2px solid #37B34A;
+    border-radius: 30px;
+    padding: 16px;
+}
+
+.comment {
+    margin-bottom: 30px;
+    width: 60vmax;
+    background-color: #fff;
+    mix-blend-mode: normal;
+    border: 2px solid #37B34A;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.post__author {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.post__info {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.post__likes {
+    width: 120px;
+    font-size: 12px;
+    background: #FFFFFF;
+    border: 1px solid #37B34A;
+    border-radius: 4px;
+    text-align: center;
+    color: #37B34A;
+    cursor: pointer;
+}
+
+.post__comments {
+    width: 120px;
+    margin-left: 5px;
+    font-size: 12px;
+    background: #FFFFFF;
+    border: 1px solid #37B34A;
+    border-radius: 4px;
+    text-align: center;
+    color: #37B34A;
+    cursor: pointer;
+}

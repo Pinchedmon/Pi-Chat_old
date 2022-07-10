@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.18"
+  },
+  "scripts": {
+    "run": "node src/server.js"
   }
 }

@@ -21,7 +21,7 @@ app.post('/comments', (req, res) => {
       if (err) return res.json({ status: 300, success: false, error: err })
     })
     return res.json({
-      status:  200,
+      status: 200,
       success: true
     });
   } catch (error) {
@@ -35,11 +35,11 @@ app.post('/feed', (req, res) => {
   try {
     const { author, text, course, category, comments, likes, date } = req.body;
     sql = "INSERT INTO posts (author, text, course, category, comments, likes) VALUES (?, ?, ?, ?, ?, ?)"
-    db.run(sql, [author, text, course, category, comments, likes, date], (err) => {
+    db.all(sql, [author, text, course, category, comments, likes, date], (err) => {
       if (err) return res.json({ status: 300, success: false, error: err })
     })
     return res.json({
-      status:  200,
+      status: 200,
       success: true
     });
   } catch (error) {
@@ -55,7 +55,7 @@ app.get('/comments', (req, res) => {
   try {
     sql = "SELECT * FROM comments"
     const queryObject = url.parse(req.url, true).query;
-    if (queryObject.field && queryObject.type){
+    if (queryObject.field && queryObject.type) {
       sql += `WHERE ${queryObject.field} LIKE '%${queryObject.type}%'`
     }
     db.all(sql, [], (err, rows) => {
@@ -74,47 +74,34 @@ app.get('/comments', (req, res) => {
   }
 })
 app.get('/feed', (req, res) => {
-  try {
-    const queryObject = url.parse(req.url, true).query;
-    sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `
-    console.log(queryObject)
-    console.log(sql)
-    db.all(sql, [], (err, rows) => {
-      if (err) {
-        return res.json({ status: 300, success: false, error: err })
-      }
-      if (rows.length) { if (err) return res.json({ status: 300, success: false, error: 'No match' }) }
-      
-      return res.json({ status: 200, data: rows, success: true })
-    })
-  } catch (error) {
-    return res.json({
-      status: 400,
-      success: false
+  const queryObject = url.parse(req.url, true).query;
+  sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `
+  console.log(queryObject)
+  console.log(sql)
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
     }
-    )
-  }
-})
-app.delete('/feed', (req, res) => {
-  try {
-    const queryObject = url.parse(req.url, true).query;
-    sql = `DELETE FROM posts WHERE ID = ${queryObject.id}`
-    db.run(sql, (err) => {
-      if (err) return console.error(err.message)
+    res.json({
+      "message": "success",
+      "data": rows
     })
-    return res.json({
-      status: 200,
-      succes: true
-    })
-  } catch (error) {
-    return res.json({
-      status: 400,
-      success: false
-    }
-    )
-  }
+  });
 }
+)
+app.delete('/feed', (req, res) => {
 
+  const queryObject = url.parse(req.url, true).query;
+  sql = `DELETE FROM posts WHERE ID = ${queryObject.id}`
+  db.run(sql,(err) => {
+    if (err) return console.error(err.message)
+  })
+  return res.json({
+    status: 200,
+    succes: true
+  })
+}
 )
 app.listen(port)
 

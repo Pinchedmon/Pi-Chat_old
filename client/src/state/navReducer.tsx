@@ -8,13 +8,13 @@ const navSlice = createSlice({
     name: 'nav',
     initialState,
     reducers: {
-        setCategory: (state, action) => {
+        setCategory: (state: { category: string }, action: { payload: string }) => {
             state.category = action.payload;
         },
-        setSort: (state, action) => {
+        setSort: (state: {sort: string | number}, action: { payload: string | number }) => {
             state.sort = action.payload;
         },
-        setAddPostStyle: (state, action) => {
+        setAddPostStyle: (state: { addPostStyle: boolean}, action: { payload: boolean }) => {
             state.addPostStyle = action.payload;
         }
     }
