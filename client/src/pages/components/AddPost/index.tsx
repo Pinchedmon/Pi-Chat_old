@@ -7,20 +7,28 @@ interface IAddPost {
 }
 
 interface IAddPostSubmit {
-    text: string;
-    course: string;
-    category: string;
-    handlePopup: () => void;
+  text: string;
+  course: string;
+  category: string;
+  handlePopup: () => void;
 }
-function addPostSubmit (event:FormEvent<HTMLFormElement> ,{text, category, course, handlePopup}:IAddPostSubmit) {
-    if (text !== "" && category !== "" && course !== "") {
-        axios.post('http://localhost:6060/feed', { author: 'Noname', text: text, category: category, course: course })
-        handlePopup()
-        event.preventDefault();
-    } else {
-        window.alert("Какое-то поле незаполнено!")
-        event.preventDefault();
-    }
+function addPostSubmit(
+  event: FormEvent<HTMLFormElement>,
+  { text, category, course, handlePopup }: IAddPostSubmit
+) {
+  if (text !== "" && category !== "" && course !== "") {
+    axios.post("http://localhost:6060/feed", {
+      author: "Noname",
+      text: text,
+      category: category,
+      course: course,
+    });
+    handlePopup();
+    event.preventDefault();
+  } else {
+    window.alert("Какое-то поле незаполнено!");
+    event.preventDefault();
+  }
 }
 const AddPost = (props: IAddPost) => {
   const { handlePopup } = props;
