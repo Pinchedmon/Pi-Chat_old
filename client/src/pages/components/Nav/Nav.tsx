@@ -19,9 +19,12 @@ const Nav = (props: { sort: string | number; category: string }) => {
       <div className='fixed w-full rounded-lg p-2 bg-white'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6'>
           <div className='flex justify-between items-center border-b-2 border-gray-100 py-4 '>
-            <button className='rounded-md p-2 text-lg md:text-2xl hover:bg-gray-100 text-green-600  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'>
+            <Link
+              to='/'
+              className='rounded-md p-2 text-lg md:text-2xl hover:bg-gray-100 text-green-600  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
+            >
               / π - Чат /
-            </button>
+            </Link>
             <div className=' flex items-center justify-end flex-1'>
               <Link
                 to='/profile'

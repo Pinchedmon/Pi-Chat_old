@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import useAuth, { AuthProvider } from './hooks/useAuth'
+import { AuthProvider } from './hooks/useAuth'
 import SignUpPage from './pages/components/SignUp'
 import Login from './pages/components/Login'
 import Profile from './pages/Profile'
@@ -24,7 +24,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path='/'
+              path='/*'
               element={
                 <AuthProvider>
                   <AuthenticatedRoute component={() => <Feed />} />
@@ -44,14 +44,6 @@ function App() {
               element={
                 <AuthProvider>
                   <Login />
-                </AuthProvider>
-              }
-            />
-            <Route
-              path='/profile'
-              element={
-                <AuthProvider>
-                  <AuthenticatedRoute component={() => <Profile />} />
                 </AuthProvider>
               }
             />

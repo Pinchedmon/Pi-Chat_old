@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { getPosts } from '../api/getPosts'
 import { useQuery } from 'react-query'
+import { useLocation } from 'react-router-dom'
+import Profile from './Profile'
 const Feed = () => {
   const sort = useSelector((state: any) => state.nav.sort)
   const category = useSelector((state: any) => state.nav.category)
@@ -11,15 +13,22 @@ const Feed = () => {
     refetchInterval: 100,
     refetchOnMount: true,
   })
+  const location = useLocation()
+
   const [posts, setPosts] = useState([{}])
   useEffect(() => {
     setPosts(data)
     // refetch(data)
   }, [data])
+
   return (
     <>
       <Nav sort={sort} category={category} />
-      {posts !== undefined && <Posts sort={sort} category={category} data={posts} />}
+      {location.pathname === '/profile' ? (
+        <Profile />
+      ) : (
+        posts !== undefined && <Posts sort={sort} category={category} data={posts} />
+      )}
     </>
   )
 }

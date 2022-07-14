@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as sessionsApi from '../api/session'
 import * as usersApi from '../api/users'
 
@@ -43,14 +43,14 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   function signUp(email: string, name: string, password: string) {
     setLoading(true)
     usersApi.signUp({ email, name, password }).then((user: any) => {
-      if (user.user.status === 200) {
+      if (user.status === 200) {
         sessionsApi.login({ email, password }).then((user) => {
           setUser(user.user)
           localStorage.setItem('user', JSON.stringify(user))
           navigate('/')
         })
       } else {
-        setError(user)
+        setError(user.message)
       }
     })
   }
