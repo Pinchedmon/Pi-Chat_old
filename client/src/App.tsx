@@ -24,7 +24,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path='/*'
+              path='/'
               element={
                 <AuthProvider>
                   <AuthenticatedRoute component={() => <Feed />} />
