@@ -24,23 +24,20 @@ const Posts = (props: IPosts) => {
     if (likes !== '0') {
       if (/\s/.test(likes)) {
         if (likes.split(' ').indexOf(userId) !== -1) {
-          console.log(likes.split(' '))
-          console.log(likes.split(' ').indexOf(userId))
-          let fork = likes
-            .split(' ')
-            .splice(likes.split(' ').indexOf(userId) + 1, 1)
-            .join(' ')
-          axios.put(`http://localhost:6060/feed?id=${id}&likes='${fork}' `)
+          axios.put(
+            `http://localhost:6060/feed?id=${id}&likes='${likes
+              .split(' ')
+              .splice(likes.split(' ').indexOf(userId) + 1, 1)
+              .join(' ')}' `,
+          )
         } else {
-          let fork = likes.split(' ').push(`${userId}`).join(' ')
-          axios.put(`http://localhost:6060/feed?id=${id}&likes='${fork}' `)
+          axios.put(`http://localhost:6060/feed?id=${id}&likes='${likes.split(' ').push(`${userId}`).join(' ')}' `)
         }
       } else {
         if (likes === userId) {
           axios.put(`http://localhost:6060/feed?id=${id}&likes="0"`)
         } else {
-          let fork = likes + ` ${userId}`
-          axios.put(`http://localhost:6060/feed?id=${id}&likes='${fork}' `)
+          axios.put(`http://localhost:6060/feed?id=${id}&likes='${likes + ` ${userId}`}' `)
         }
       }
     } else {
@@ -49,11 +46,11 @@ const Posts = (props: IPosts) => {
   }
 
   return (
-    <div className='pt-28'>
+    <div className='flex justify-center  pt-40 md:pt-28 '>
       {posts.map((item: any, index: any) => (
-        <div key={index} className='post max-w-md mx-auto shadow-md overflow-hidden md:max-w-3xl'>
-          <div className='post__author'>{item.author}</div>
-          <div className='post__info'>{item.text}</div>
+        <div key={index} className='post w-3/4  shadow-md overflow-hidden md:max-w-3xl'>
+          <div className='post__author text-md md:text-xl'>{item.author}</div>
+          <div className='post__info text-sm md:text-lg'>{item.text}</div>
           <button onClick={() => handleLike(user.user.id.toString(), item.ID, item.likes)} className=''>
             {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
           </button>

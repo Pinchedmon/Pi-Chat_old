@@ -25,19 +25,19 @@ const Nav = (props: { sort: string | number; category: string }) => {
   const [filterModal, setFilterModal] = useState(false)
   return (
     <>
-      <div className='fixed w-full rounded-lg p-2 bg-white'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-          <div className='flex justify-between items-center border-b-2 border-gray-100 py-4 '>
+      <div className='fixed w-full rounded-lg p-2 '>
+        <div className='max-w-7xl mx-auto px-4 border-b-2 border-gray-100 sm:px-6'>
+          <div className='flex justify-between items-center  py-4 '>
             <Link
               to='/'
-              className='rounded-md p-2 text-lg md:text-2xl hover:bg-gray-100 text-green-600  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
+              className='rounded-md p-2 text-lg font-bold md:text-2xl hover:bg-gray-100 text-green-600  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
             >
               / π - Чат /
             </Link>
             <div className=' flex items-center justify-end flex-1'>
               <Link
                 to='/profile'
-                className='text-md md:text-xl rounded-md p-2 mr-2 inline-flex items-center justify-center text-green-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
+                className='text-md md:text-xl rounded-md p-2 mr-2 inline-flex items-center justify-center  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
               >
                 Профиль
               </Link>
@@ -45,9 +45,9 @@ const Nav = (props: { sort: string | number; category: string }) => {
             <div>
               <button
                 onClick={() => setFilterModal(!filterModal)}
-                className='rounded-md p-2 inline-flex items-center justify-center text-green-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
+                className='rounded-md p-2 inline-flex items-center justify-center  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
               >
-                <MenuIcon className='h-4 w-4 md:h-6 md:w-6' />
+                <MenuIcon className='h-6 w-6 md:h-8 md:w-8' />
               </button>
             </div>
           </div>

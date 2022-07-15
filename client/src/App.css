@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 .popup {
@@ -28,7 +28,7 @@ body {
     margin-bottom: 30px;
     background-color: #fff;
     border-left: 2px solid #37B34A;
-    border-radius: 30px;
+    border-radius: 3px;
     padding: 16px;
 }
 
@@ -36,7 +36,7 @@ body {
 
 .post__author {
     font-weight: 700;
-    font-size: 20px;
+
 }
 
 .post__info {
@@ -44,6 +44,6 @@ body {
     word-wrap: break-word;
     padding: 0;
     font-weight: 500;
-    font-size: 16px;
+
     line-height: 26px;
 }
