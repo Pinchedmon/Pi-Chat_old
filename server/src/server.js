@@ -38,7 +38,11 @@ app.post('/feed', (req, res) => {
 
 app.get('/feed', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
-  sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `
+  if (queryObject.sort !== 'Late') {
+    sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `
+  } else {
+    sql = `SELECT * FROM posts WHERE category = "${queryObject.category}"`
+  }
   db.all(sql, [], (err, rows) => {
     if (err) {
       res.status(400).json({ "error": err.message });
@@ -46,10 +50,18 @@ app.get('/feed', (req, res) => {
     }
     res.json({
       "message": "success",
-      "data": rows
+      "data": rows.reverse()
     })
   });
 })
+app.put('/feed', function (req, res) {
+
+  const queryObject = url.parse(req.url, true).query;
+  console.log(queryObject.likes)
+  db.all(`UPDATE posts SET likes=${queryObject.likes} WHERE ID=${queryObject.id}`, [], (err) => {
+    if (err) return console.error(err.message)
+  })
+});
 app.delete('/feed', (req, res) => {
 
   const queryObject = url.parse(req.url, true).query;

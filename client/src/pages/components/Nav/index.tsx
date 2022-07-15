@@ -5,13 +5,22 @@ import { useSelector } from 'react-redux'
 import { MenuIcon } from '@heroicons/react/outline'
 import { useDispatch } from 'react-redux'
 import FilterModal from './FilterModal'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 const Nav = (props: { sort: string | number; category: string }) => {
+  let user: any
+  if (localStorage['user']) {
+    user = JSON.parse(localStorage.getItem('user') || '')
+  }
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { category, sort } = props
   const style = useSelector((state: any) => state.nav.addPostStyle)
   const handlePopup = () => {
-    dispatch(setAddPostStyle(!style))
+    if (!user) {
+      navigate('/login')
+    } else {
+      dispatch(setAddPostStyle(!style))
+    }
   }
   const [filterModal, setFilterModal] = useState(false)
   return (

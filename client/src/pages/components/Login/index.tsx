@@ -22,7 +22,7 @@ export default function Login() {
   return (
     <>
       {error !== '' && (
-        <div className='absolute left-1/2 mt-16 lg:mt-36 transform -translate-x-1/2 translate-y-1/2   rounded-md w-72 text-center text-red-600 p-1 border border-red-600'>
+        <div className='absolute left-1/2 mt-16 lg:mt-24 transform -translate-x-1/2 translate-y-1/2   rounded-md w-72 text-center text-red-600 p-1 border border-red-600'>
           {error}
         </div>
       )}

@@ -62,7 +62,7 @@ class authController {
                 })
             }
             const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: { email: rows[0].email, name: rows[0].name }, authToken: token })
+            return res.json({ status: 200, user: { id: rows[0].ID, email: rows[0].email, name: rows[0].name }, authToken: token })
         });
     }
     async getUsers(req, res) {

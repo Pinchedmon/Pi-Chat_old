@@ -11,10 +11,10 @@ module.exports = function (req, res, next) {
         }
         const decodedData = jwt.verify(token, secret)
         req.user = decodedData;
-        console.log(req.user)
+
         next()
     } catch (error) {
-        console.log(error)
+
         return res.status(403).json({ message: "Пользователь не авторизован" })
     }
 };

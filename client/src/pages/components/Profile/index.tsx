@@ -1,14 +1,14 @@
 import React from 'react'
-import useAuth from '../hooks/useAuth'
-import { Navigate } from 'react-router-dom'
+import useAuth from '../../../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 export default function Profile() {
   const { logout } = useAuth()
+  const navigate = useNavigate()
   let user
   if (localStorage['user']) {
     user = JSON.parse(localStorage.getItem('user') || '')
   }
-  if (!user) return <Navigate to='/login' />
-
+  if (!user) navigate('/login')
   return (
     <div className='pt-36 ml-36'>
       {user && (

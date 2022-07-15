@@ -27,21 +27,12 @@ body {
 .post {
     margin-bottom: 30px;
     background-color: #fff;
-    mix-blend-mode: normal;
     border-left: 2px solid #37B34A;
     border-radius: 30px;
     padding: 16px;
 }
 
-.comment {
-    margin-bottom: 30px;
-    width: 60vmax;
-    background-color: #fff;
-    mix-blend-mode: normal;
-    border: 2px solid #37B34A;
-    border-radius: 4px;
-    padding: 10px;
-}
+
 
 .post__author {
     font-weight: 700;
@@ -49,30 +40,10 @@ body {
 }
 
 .post__info {
+    height: auto;
+    word-wrap: break-word;
+    padding: 0;
     font-weight: 500;
     font-size: 16px;
     line-height: 26px;
-}
-
-.post__likes {
-    width: 120px;
-    font-size: 12px;
-    background: #FFFFFF;
-    border: 1px solid #37B34A;
-    border-radius: 4px;
-    text-align: center;
-    color: #37B34A;
-    cursor: pointer;
-}
-
-.post__comments {
-    width: 120px;
-    margin-left: 5px;
-    font-size: 12px;
-    background: #FFFFFF;
-    border: 1px solid #37B34A;
-    border-radius: 4px;
-    text-align: center;
-    color: #37B34A;
-    cursor: pointer;
 }

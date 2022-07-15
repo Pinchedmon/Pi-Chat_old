@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }, [])
 
   function login(email: string, password: string) {
+    setError('')
     setLoading(true)
     sessionsApi.login({ email, password }).then((user: any) => {
       if (user.status === 200) {
@@ -36,11 +37,13 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
         navigate('/')
       } else {
         setError(user.message)
+        setTimeout(() => setError(''), 2000)
       }
     })
   }
 
   function signUp(email: string, name: string, password: string) {
+    setError('')
     setLoading(true)
     usersApi.signUp({ email, name, password }).then((user: any) => {
       if (user.status === 200) {
@@ -51,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
         })
       } else {
         setError(user.message)
+        setTimeout(() => setError(''), 2000)
       }
     })
   }
