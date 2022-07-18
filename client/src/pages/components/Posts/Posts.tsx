@@ -46,26 +46,32 @@ const Posts = (props: IPosts) => {
   }
 
   return (
-    <div className='flex justify-center  pt-40 md:pt-28 '>
+    <div className='flex flex-col pt-90px md:pt-96px '>
       {posts.map((item: any, index: any) => (
-        <div key={index} className='post w-3/4  shadow-md overflow-hidden md:max-w-3xl'>
-          <div className='post__author text-md md:text-xl'>{item.author}</div>
-          <div className='post__info text-sm md:text-lg'>{item.text}</div>
-          <button onClick={() => handleLike(user.user.id.toString(), item.ID, item.likes)} className=''>
-            {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
-          </button>
-
-          {name !== undefined ? (
-            name === item.author ? (
-              <button onClick={() => deleteButton(item.ID)} className=''>
-                <XIcon className='h-6 w-6 text-green-600' />
-              </button>
+        <div
+          key={index}
+          className='w-90% md:w-2/3 flex flex-col self-center mb-16px rounded-2xl overflow-hidden md:max-w-3xl border-3 border-green-600 bg-white'
+        >
+          <div className='flex flex-col p-10px'>
+            <div className='text-md md:text-lg font-bold'>{item.author}</div>
+            <div className='break-all text-sm md:text-md'>{item.text}</div>
+          </div>
+          <div className='flex flex-row p-10px'>
+            <button onClick={() => handleLike(user.user.id.toString(), item.ID, item.likes)} className=''>
+              {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
+            </button>
+            {name !== undefined ? (
+              name === item.author ? (
+                <button onClick={() => deleteButton(item.ID)} className=''>
+                  <XIcon className='h-32px w-32px text-green-600' />
+                </button>
+              ) : (
+                ''
+              )
             ) : (
               ''
-            )
-          ) : (
-            ''
-          )}
+            )}
+          </div>
         </div>
       ))}
     </div>

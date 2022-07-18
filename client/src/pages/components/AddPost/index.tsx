@@ -41,24 +41,28 @@ const AddPost = (props: IAddPost) => {
 
   return (
     <div className='popup flex justify-center items-center '>
-      <div className='absolute w-96 h-96 bg-white rounded-lg'>
+      <div className='absolute w-300px  bg-green-600 rounded-lg'>
         <button
           onClick={handlePopup}
-          className='bg-white rounded-md p-2 flex items-center float-right justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100'
+          className=' rounded-md p-2px flex items-center float-right justify-center text-white   hover:text-red-600 hover:bg-gray-100'
         >
-          <XIcon className='h-6 w-6 text-green-600' />
+          <XIcon className='h-32px w-32px bg-white-600' />
         </button>
         <form
           className='w-100% text-center flex flex-col mt-10'
           onSubmit={(e) => addPostSubmit(e, { text, category, course, handlePopup })}
         >
-          <h1 className='text-2xl text-green-600'>Создание поста</h1>
-          <div className='flex flex-row justify-evenly mt-4'>
-            <h4 className='text-lg mt-3'> Категория</h4>
-            <h4 className='text-lg mt-3'> Курс</h4>
+          <h1 className='text-2xl ml-40px mt-40px rounded-md p-10px font-bold bg-white text-black'>Создание поста</h1>
+          <div className='flex flex-row justify-evenly ml-40px mt-12px'>
+            <h4 className='text-lg text-white mr-10px mt-3'> Категория</h4>
+            <h4 className='text-lg text-white mt-3'> Курс</h4>
           </div>
-          <div className='flex flex-row justify-evenly mt-4'>
-            <select className='w-20' value={category} onChange={handleCategoryChange}>
+          <div className='flex flex-row pl-40px mt-10px justify-evenly'>
+            <select
+              className='bg-gray-50 ml-8px text-sm rounded-lg block '
+              value={category}
+              onChange={handleCategoryChange}
+            >
               <option value='value1' disabled>
                 Категория
               </option>
@@ -66,7 +70,12 @@ const AddPost = (props: IAddPost) => {
               <option value='Предметы'>Предметы</option>
               <option value='Вопросы'>Вопросы</option>
             </select>
-            <select value={course} onChange={handleCourseChange}>
+
+            <select
+              className='bg-gray-50 text-sm rounded-lg w-54px block ml-10px'
+              value={course}
+              onChange={handleCourseChange}
+            >
               <option disabled>Курс</option>
               <option value='1'>1</option>
               <option value='2'>2</option>
@@ -75,11 +84,11 @@ const AddPost = (props: IAddPost) => {
             </select>
           </div>
           <textarea
-            className='resize-none w-72 m-auto h-20 border-2 border-green-600 rounded-lg mt-10 p-2 focus:outline-none focus:border-green-700'
+            className='resize-none w-200px   ml-54px rounded-lg mt-16px  p-10px focus:outline-none focus:border-green-700'
             value={text}
             onChange={handleTextChange}
           ></textarea>
-          <button className='text-lg mt-8 text-green-600 hover:text-green-700'>Добавить пост</button>
+          <button className='text-lg ml-40px mt-12px mb-12px text-white hover:text-green-700'>Добавить пост</button>
         </form>
       </div>
     </div>

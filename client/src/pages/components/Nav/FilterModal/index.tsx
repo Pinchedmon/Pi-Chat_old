@@ -25,11 +25,14 @@ export default function FilterModal(props: IFilterModal) {
     dispatch(setSort(e.target.value))
   }
   return (
-    <div className='absolute flex flex-row left-1/2 top-24 md:top-10 -translate-x-1/2 '>
+    <div
+      p-4px
+      className='absolute flex flex-row left-1/2 mt-24px drop-shadow bg-green-600 rounded-xl -translate-x-1/2 '
+    >
       <select
         defaultValue={sort}
         onChange={(e) => filterSort(e, dispatch, setSort)}
-        className='mr-8 text-sm  md:text-lg  text-gray-500 hover:text-gray-900'
+        className='w-96px md:w-120px text-sm ml-10px roundred-xl md:text-md bg-green-600 text-white'
       >
         <option value='value1' disabled>
           Сортировать по
@@ -43,7 +46,7 @@ export default function FilterModal(props: IFilterModal) {
       <select
         defaultValue={category}
         onChange={(e) => filterCategory(e, dispatch, setCategory)}
-        className='mr-8 text-sm md:text-lg  text-gray-500 hover:text-gray-900'
+        className='mr-4px ml-4px text-sm md:text-md bg-green-600  text-white '
       >
         <option value='value1' disabled>
           Категория
@@ -52,11 +55,7 @@ export default function FilterModal(props: IFilterModal) {
         <option value='Предметы'>Предметы</option>
         <option value='Вопросы'>Вопросы</option>
       </select>
-      <button
-        onClick={handlePopup}
-        className=' text-sm  md:text-lg text-gray-500 hover:text-gray-900'
-        aria-hidden='false'
-      >
+      <button onClick={handlePopup} className=' text-sm  md:text-md text-white pr-8px' aria-hidden='false'>
         Добавить пост
       </button>
     </div>

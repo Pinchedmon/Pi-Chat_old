@@ -17,10 +17,6 @@ const generateAccessToken = (ID, role) => {
 
 class authController {
     async registration(req, res) {
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     return res.status(400).json({ message: "Ошибка при регистрации", errors })
-        // }
         const { user } = req.body
         const hashPassword = bcrypt.hashSync(`${user.password}`, 1)
         db.all(`SELECT * FROM users WHERE name = "${user.name}" OR email = "${user.email}";`, [], (err, rows) => {
@@ -38,7 +34,7 @@ class authController {
             } else return res.json({
                 status: 400,
                 succes: false,
-                message: "Такой пользовтель уже существует"
+                message: "Такой пользователь уже существует"
             })
         });
 

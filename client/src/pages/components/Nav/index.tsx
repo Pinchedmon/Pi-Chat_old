@@ -25,30 +25,30 @@ const Nav = (props: { sort: string | number; category: string }) => {
   const [filterModal, setFilterModal] = useState(false)
   return (
     <>
-      <div className='fixed w-full rounded-lg p-2 '>
-        <div className='max-w-7xl mx-auto px-4 border-b-2 border-gray-100 sm:px-6'>
-          <div className='flex justify-between items-center  py-4 '>
+      <div className='fixed w-full bg-green-600 '>
+        <div className='max-w-7xl mx-auto pt-8px pb-8px '>
+          <div className='flex justify-between items-center drop-shadow '>
             <Link
               to='/'
-              className='rounded-md p-2 text-lg font-bold md:text-2xl hover:bg-gray-100 text-green-600  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
+              className='ml-8px rounded-xl bg-white  p-6px text-lg pl-24px pr-24px font-bold md:text-2xl hover:bg-gray-100  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
             >
               / π - Чат /
             </Link>
-            <div className=' flex items-center justify-end flex-1'>
-              <Link
-                to='/profile'
-                className='text-md md:text-xl rounded-md p-2 mr-2 inline-flex items-center justify-center  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
-              >
-                Профиль
-              </Link>
-            </div>
-            <div>
-              <button
-                onClick={() => setFilterModal(!filterModal)}
-                className='rounded-md p-2 inline-flex items-center justify-center  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
-              >
-                <MenuIcon className='h-6 w-6 md:h-8 md:w-8' />
-              </button>
+            <div className='flex justify-end mr-8px'>
+              <div className=' bg-white flex align-center rounded-xl'>
+                <Link
+                  to='/profile'
+                  className='text-md md:text-lg font-bold rounded-xl pr-16px pl-16px pt-8px pb-8px mr-8px  items-center   hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
+                >
+                  Профиль
+                </Link>
+                <button
+                  onClick={() => setFilterModal(!filterModal)}
+                  className='flex self-center h-32px w-32px rounded-md mr-8px     hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
+                >
+                  <MenuIcon />
+                </button>
+              </div>
             </div>
           </div>
           {filterModal && <FilterModal category={category} sort={sort} dispatch={dispatch} handlePopup={handlePopup} />}
