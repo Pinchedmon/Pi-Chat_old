@@ -30,21 +30,21 @@ const Nav = (props: { sort: string | number; category: string }) => {
           <div className='flex justify-between items-center drop-shadow '>
             <Link
               to='/'
-              className='ml-8px rounded-xl bg-white  p-6px text-lg pl-24px pr-24px font-bold md:text-2xl hover:bg-gray-100  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
+              className='ml-8px rounded-xl bg-green-800 text-green-300 p-6px text-lg pl-24px pr-24px font-bold md:text-2xl hover:bg-green-300 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600'
             >
               / π - Чат /
             </Link>
             <div className='flex justify-end mr-8px'>
-              <div className=' bg-white flex align-center rounded-xl'>
+              <div className=' bg-green-800 text-green-300 flex align-center rounded-xl'>
                 <Link
                   to='/profile'
-                  className='text-md md:text-lg font-bold rounded-xl pr-16px pl-16px pt-8px pb-8px mr-8px  items-center   hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
+                  className='text-md md:text-lg font-bold rounded-xl pr-16px pl-16px pt-8px pb-8px mr-8px  items-center   hover:bg-green-300 hover:text-green-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 '
                 >
                   Профиль
                 </Link>
                 <button
                   onClick={() => setFilterModal(!filterModal)}
-                  className='flex self-center h-32px w-32px rounded-md mr-8px     hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
+                  className='flex self-center h-32px w-32px rounded-md mr-8px     hover:bg-green-800  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
                 >
                   <MenuIcon />
                 </button>
