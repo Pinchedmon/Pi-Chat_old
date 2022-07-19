@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import { AuthProvider } from './hooks/useAuth'
 import SignUpPage from './pages/components/SignUp'
 import Login from './pages/components/Login'
+import Profile from './pages/components/Profile'
 function AuthenticatedRoute(props: any) {
   let user
   if (localStorage['user']) {

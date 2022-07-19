@@ -18,9 +18,9 @@ app.use('/auth', authRouter)
 
 app.post('/feed', (req, res) => {
   try {
-    const { author, text, course, category, comments, likes, date } = req.body;
-    sql = "INSERT INTO posts (author, text, course, category, comments, likes) VALUES (?, ?, ?, ?, ?, ?)"
-    db.all(sql, [author, text, course, category, comments, likes, date], (err) => {
+    const { author, text, course, category } = req.body;
+    sql = "INSERT INTO posts (author, text, course, category) VALUES (?, ?, ?, ?)"
+    db.all(sql, [author, text, course, category], (err) => {
       if (err) return res.json({ status: 300, success: false, error: err })
     })
     return res.json({
@@ -34,8 +34,32 @@ app.post('/feed', (req, res) => {
     });
   }
 })
+app.post('/feed/comments', (req, res) => {
 
+  const { id, author, text } = req.body;
+  sql = "INSERT INTO posts (id, author, text) VALUES (?, ?, ?)"
+  db.all(sql, [id, author, text], (err) => {
+    if (err) return res.json({ status: 300, success: false, error: err })
+  })
+  return res.json({
+    status: 200,
+    success: true
+  });
 
+})
+app.get('/feed/comments', (req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  sql = `SELECT * FROM comments WHERE id = "${queryObject.id}" `
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(400).json({ "error": err.message });
+    }
+    return res.json({
+      "message": "success",
+      "data": rows
+    })
+  });
+})
 app.get('/feed', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   if (queryObject.sort !== 'Late') {
@@ -45,12 +69,24 @@ app.get('/feed', (req, res) => {
   }
   db.all(sql, [], (err, rows) => {
     if (err) {
-      res.status(400).json({ "error": err.message });
-      return;
+      return res.status(400).json({ "error": err.message });
     }
-    res.json({
+    return res.json({
       "message": "success",
       "data": rows.reverse()
+    })
+  });
+})
+app.get('/post', (req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  sql = `SELECT * FROM posts WHERE id = ${queryObject.id}`
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(400).json({ "error": err.message });
+    }
+    return res.json({
+      "message": "success",
+      "data": rows
     })
   });
 })

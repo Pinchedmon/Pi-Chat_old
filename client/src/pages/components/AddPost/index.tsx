@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 interface IAddPost {
   handlePopup: () => void
 }
@@ -10,9 +11,14 @@ interface IAddPostSubmit {
   course: string
   category: string
   handlePopup: () => void
+  navigate: (arg0: string) => void
 }
-function addPostSubmit(event: FormEvent<HTMLFormElement>, { text, category, course, handlePopup }: IAddPostSubmit) {
+function addPostSubmit(
+  event: FormEvent<HTMLFormElement>,
+  { text, category, course, handlePopup, navigate }: IAddPostSubmit,
+) {
   let user: any
+
   if (localStorage['user']) {
     user = JSON.parse(localStorage.getItem('user') || '')
   }
@@ -20,17 +26,19 @@ function addPostSubmit(event: FormEvent<HTMLFormElement>, { text, category, cour
     axios.post('http://localhost:6060/feed', {
       author: user.user.name,
       text: text,
-      category: category,
       course: course,
+      category: category,
     })
     handlePopup()
     event.preventDefault()
+    navigate('/')
   } else {
     window.alert('Какое-то поле незаполнено!')
     event.preventDefault()
   }
 }
 const AddPost = (props: IAddPost) => {
+  let navigate = useNavigate()
   const { handlePopup } = props
   const [category, setCategory] = useState('Общее')
   const [course, setCourse] = useState('1')
@@ -41,7 +49,7 @@ const AddPost = (props: IAddPost) => {
 
   return (
     <div className='popup flex justify-center items-center '>
-      <div className='absolute w-300px  bg-green-600 text-green-300 rounded-lg'>
+      <div className='absolute w-310px md:w-361px  bg-green-600 text-green-300 rounded-lg'>
         <button
           onClick={handlePopup}
           className=' rounded-md p-2px flex items-center float-right justify-center text-white   hover:text-red-600 hover:bg-gray-100'
@@ -50,7 +58,7 @@ const AddPost = (props: IAddPost) => {
         </button>
         <form
           className='w-100% text-center flex flex-col mt-10'
-          onSubmit={(e) => addPostSubmit(e, { text, category, course, handlePopup })}
+          onSubmit={(e) => addPostSubmit(e, { text, category, course, handlePopup, navigate })}
         >
           <h1 className='text-2xl ml-40px mt-40px rounded-md p-10px font-bold bg-green-700 text-green-300'>
             Создание поста
@@ -86,7 +94,7 @@ const AddPost = (props: IAddPost) => {
             </select>
           </div>
           <textarea
-            className='resize-none w-200px bg-green-200 text-black ml-54px rounded-lg mt-16px  p-10px focus:outline-none focus:border-green-700'
+            className='resize-none w-300px bg-green-200 ml-5px md:ml-32px text-black  rounded-lg mt-16px  p-10px focus:outline-none focus:border-green-700'
             value={text}
             placeholder='Введите текст поста'
             onChange={handleTextChange}

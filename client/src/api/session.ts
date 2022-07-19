@@ -8,7 +8,10 @@ export async function login(params: apiParams): Promise<any> {
   const response = await redaxios.post('http://localhost:6060/auth/login', { session: params })
   return response.data
 }
-
+export async function getComments(id: number): Promise<any> {
+  const response = await redaxios.post(`http://localhost:6060/feed/comments/?id=${id}`)
+  return response.data.data
+}
 export async function logout() {
   localStorage.removeItem('user')
 }

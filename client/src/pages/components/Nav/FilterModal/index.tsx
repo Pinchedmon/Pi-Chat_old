@@ -25,10 +25,7 @@ export default function FilterModal(props: IFilterModal) {
     dispatch(setSort(e.target.value))
   }
   return (
-    <div
-      p-4px
-      className='absolute flex flex-row left-1/2 mt-24px drop-shadow bg-green-600 rounded-xl -translate-x-1/2 '
-    >
+    <div className='absolute flex flex-row left-1/2 mt-24px drop-shadow bg-green-600 rounded-xl -translate-x-1/2 '>
       <select
         defaultValue={sort}
         onChange={(e) => filterSort(e, dispatch, setSort)}
