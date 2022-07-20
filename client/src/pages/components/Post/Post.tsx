@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { likeHandler } from '../../../api/likeHandler'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -14,6 +14,7 @@ const Post = () => {
   }
   const location = useLocation()
   const [post, setPost] = useState<any>()
+  const [img, setImg] = useState('')
   const [comments, setComments] = useState<any>()
   const [text, setText] = useState('')
   const [textError, setTextError] = useState('Сообщение не может быть пустым')
@@ -34,7 +35,8 @@ const Post = () => {
   }
   const getPost = async () => {
     const response = await axios.get(`http://localhost:6060/post${location.search}`)
-    console.log(response)
+    // let file = await axios.get('http://localhost:6060/image')
+    setImg(response.data.image)
     setPost(response.data.post[0])
     setComments(response.data.comments)
   }
@@ -58,6 +60,7 @@ const Post = () => {
         <div className='pt-100px w-90% md:w-2/3 md:max-w-3xl ml-auto mr-auto '>
           <div className='rounded-2xl overflow-hidden  border-3 border-green-600 bg-white mb-10px '>
             <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
+              <img className='w-32px h-32px' src={img} />
               <div className='text-lg md:text-xl font-bold'>{post.author}</div>
               <div className='break-all text-md '>{post.text}</div>
             </div>
