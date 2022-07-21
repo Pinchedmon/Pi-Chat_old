@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { likeHandler, likeHandlerCom } from '../../../api/likeHandler'
-import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon, PaperClipIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../api/session'
@@ -131,9 +131,15 @@ const Post = () => {
               className='w-full text-green-700 rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
               placeholder='Написать комментарий'
             />
+            <button className='ml-10px'>
+              <input type='file' />
+              <button className='text-green-600'>Изменить аватар</button>
+              <PaperClipIcon className='w-32px text-white bg-green-600 p-6px rounded-md' />
+            </button>
+
             <button
               disabled={!validForm}
-              className='float-right bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
+              className='float-right mr-10px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
             >
               Отправить
             </button>

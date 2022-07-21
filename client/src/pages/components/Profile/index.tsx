@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import FilesUploadComponent from './FilesUploadComponent/FilesUploadComponent'
@@ -34,7 +34,7 @@ const Profile = () => {
           {' '}
           {user && (
             <p className='text-2xl text-green-600'>
-              Привет <span className='font-bold '>{user.user.name}</span>
+              Вы: <span className='font-bold '>{user.user.name}</span>
             </p>
           )}
         </div>

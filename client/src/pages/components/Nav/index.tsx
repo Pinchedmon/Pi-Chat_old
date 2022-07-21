@@ -53,8 +53,8 @@ const Nav = (props: { sort: string | number; category: string }) => {
           </div>
           {filterModal && <FilterModal category={category} sort={sort} dispatch={dispatch} handlePopup={handlePopup} />}
         </div>
-        {style && <AddPost handlePopup={handlePopup} />}
       </div>
+      {style && <AddPost handlePopup={handlePopup} />}
     </>
   )
 }

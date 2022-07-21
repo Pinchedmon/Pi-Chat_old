@@ -3,6 +3,7 @@ import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import TextareaAutosize from 'react-textarea-autosize'
 interface IAddPost {
   handlePopup: () => void
 }
@@ -49,8 +50,8 @@ const AddPost = (props: IAddPost) => {
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)
 
   return (
-    <div className='popup flex justify-center items-center '>
-      <div className='absolute w-310px md:w-361px  bg-green-600 text-green-300 rounded-lg'>
+    <div className=' flex justify-center items-center '>
+      <div className='fixed mt-450px w-90% md:max-w-3xl border-3 border-green-700  bg-green-600 text-green-300 rounded-lg'>
         <button
           onClick={handlePopup}
           className=' rounded-md p-2px flex items-center float-right justify-center text-white   hover:text-red-600 hover:bg-gray-100'
@@ -58,7 +59,7 @@ const AddPost = (props: IAddPost) => {
           <XIcon className='h-32px w-32px bg-white-600' />
         </button>
         <form
-          className='w-100% text-center flex flex-col mt-10'
+          className='w-100%  text-center flex flex-col mt-10'
           onSubmit={(e) => addPostSubmit(e, { text, category, course, handlePopup, navigate })}
         >
           <h1 className='text-2xl ml-40px mt-40px rounded-md p-10px font-bold bg-green-700 text-green-300'>
@@ -68,7 +69,7 @@ const AddPost = (props: IAddPost) => {
             <h4 className='text-lg bg-green-600 text-green-300 mr-10px mt-3'> Категория</h4>
             <h4 className='text-lg bg-green-600 text-green-300 mt-3'> Курс</h4>
           </div>
-          <div className='flex flex-row pl-40px mt-10px justify-evenly'>
+          <div className='flex flex-row pl-40px mt-10px mb-32px justify-evenly'>
             <select
               className='bg-green-700 text-green-300ml-8px text-sm rounded-lg block '
               value={category}
@@ -94,13 +95,14 @@ const AddPost = (props: IAddPost) => {
               <option value='4'>4</option>
             </select>
           </div>
-          <textarea
-            className='resize-none w-300px bg-green-200 ml-5px md:ml-32px text-black  rounded-lg mt-16px  p-10px focus:outline-none focus:border-green-700'
-            value={text}
-            placeholder='Введите текст поста'
+          <TextareaAutosize
+            cacheMeasurements
             onChange={handleTextChange}
-          ></textarea>
-          <button className='text-lg ml-40px mt-12px mb-12px  text-white hover:text-green-700'>Добавить пост</button>
+            value={text}
+            className='w-full ml-16px text-green-700 rounded-2xl resize-none outline-none p-10px'
+            placeholder='Текст поста'
+          />
+          <button className=' text-lg mt-12px mb-32px  text-white hover:text-green-700'>Добавить пост</button>
         </form>
       </div>
     </div>

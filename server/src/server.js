@@ -133,6 +133,10 @@ app.put('/feed', function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   db.all(`UPDATE posts SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
 });
+app.put('/profile/name', function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  db.all(`UPDATE posts SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
+});
 app.put('/feed/comments', function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   db.all(`UPDATE comments SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
