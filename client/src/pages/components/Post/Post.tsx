@@ -1,8 +1,9 @@
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { likeHandler } from '../../../api/likeHandler'
+import { likeHandler, likeHandlerCom } from '../../../api/likeHandler'
+import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../api/session'
@@ -13,6 +14,7 @@ const Post = () => {
     name = user.user.name
     userImg = user.user.img
   }
+  const navigate = useNavigate()
   const location = useLocation()
   const [post, setPost] = useState<any>()
   const [img, setImg] = useState('')
@@ -57,45 +59,76 @@ const Post = () => {
   }, [textError])
   return (
     <>
+      <div className='fixed mt-10px md:mt-16px ml-24px md:10% ' onClick={() => navigate('/')}>
+        <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
+      </div>
       {post !== undefined && (
-        <div className='pt-100px w-90% md:w-2/3 md:max-w-3xl ml-auto mr-auto '>
-          <div className='rounded-2xl overflow-hidden  border-3 border-green-600 bg-white mb-10px '>
-            <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-              <img className='w-32px h-32px' alt='' src={img} />
-              <div className='text-lg md:text-xl font-bold'>{post.author}</div>
-              <div className='break-all text-md '>{post.text}</div>
-            </div>
-            <div className='flex flex-row ml-10px pb-8px'>
-              <button onClick={() => likeHandler(user.user.id.toString(), post.ID, post.likes)} className=''>
-                {post.likes === '0' ? '0' : /\s/.test(post.likes) ? post.likes.split(' ').length : [post.likes].length}
-              </button>
-
-              <button>Комментарии {post.comments}</button>
+        <div>
+          <img className=' top-1px  w-full h-120px object-cover hover:object-scale-down ' alt='' src={img} />
+          <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto  '>
+            <div className=' border-4 border-green-600 rounded-smoverflow-hidden  bg-white mb-10px '>
+              <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
+                <div className='text-xl p-10px md:text-2xl text-green-900 text-center font-bold'>{post.author}</div>
+                <div className='break-all text-lg text-green-900 text-center  '>{post.text}</div>
+              </div>
+              <div className='flex flex-row ml-10px pb-8px'>
+                <button className='flex ' onClick={() => likeHandler(user.user.id.toString(), post.ID, post.likes)}>
+                  <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
+                    {post.likes === '0'
+                      ? '0'
+                      : /\s/.test(post.likes)
+                      ? post.likes.split(' ').length
+                      : [post.likes].length}
+                  </span>
+                  <ThumbUpIcon className='text-green-600 w-32px' />
+                </button>
+                <button className='flex ml-auto mr-16px cursor-default'>
+                  <AnnotationIcon className='w-32px pt-2px text-green-600' />
+                  <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>{post.comments}</span>
+                </button>
+              </div>
             </div>
           </div>
-          <div className='rounded-2xl overflow-hidden  border-3 border-green-600 mb-16px bg-white '>
+          <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto rounded-2xl overflow-hidden  mb-16px bg-white '>
             {' '}
             {post.comments == 0 ? (
               <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
             ) : (
               <div>
-                {comments.map((item: { author: string; text: string; likes: string | number; userImg: string }) => (
-                  <div>
-                    <img src={item.userImg} alt='' />
-                    <div>{item.author}</div>
-                    <div>{item.text}</div>
-                    <div>{item.likes}</div>
-                  </div>
-                ))}
+                {comments !== undefined &&
+                  comments.map((item: { ID: number; author: string; text: string; likes: string; userImg: string }) => (
+                    <div>
+                      <div className='flex items-center pl-8px pt-8px'>
+                        <img className='w-54px h-54px' src={item.userImg} alt='' />
+                        <div className='ml-12px font-bold text-lg text-green-900'>{item.author}</div>
+                      </div>
+                      <div className='ml-16px text-lg text-green-900'>{item.text}</div>
+                      <div>
+                        <button
+                          className='flex  p-8px '
+                          onClick={() => likeHandlerCom(user.user.id.toString(), item.ID, item.likes)}
+                        >
+                          <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
+                            {item.likes === '0'
+                              ? '0'
+                              : /\s/.test(item.likes)
+                              ? item.likes.split(' ').length
+                              : [item.likes].length}
+                          </span>
+                          <ThumbUpIcon className='text-green-600 w-32px' />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
               </div>
             )}
           </div>
-          <form className='' onSubmit={handleSubmit}>
+          <form className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto mb-54px' onSubmit={handleSubmit}>
             <TextareaAutosize
               cacheMeasurements
               onChange={(e) => handleChangeText(e)}
               value={text}
-              className='w-full rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
+              className='w-full text-green-700 rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
               placeholder='Написать комментарий'
             />
             <button

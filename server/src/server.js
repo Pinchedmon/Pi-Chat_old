@@ -44,8 +44,8 @@ app.put('/profile', upload.single('avatar'), function (req, res, next) {
   const urlange = req.protocol + '://' + req.get('host')
   console.log(queryObject.name)
   db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name LIKE ${queryObject.name}`, [])
-  db.all(`UPDATE posts SET userimg = "${urlange + '/public/' + req.file.filename}" WHERE author LIKE ${queryObject.name}`, [])
-  db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author LIKE ${queryObject.name}`, [])
+  db.all(`UPDATE posts SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
+  db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
   res.status(201).json({
     'profileImg': urlange + '/public/' + req.file.filename
   })
@@ -132,6 +132,10 @@ app.get('/post', (req, res) => {
 app.put('/feed', function (req, res) {
   const queryObject = url.parse(req.url, true).query;
   db.all(`UPDATE posts SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
+});
+app.put('/feed/comments', function (req, res) {
+  const queryObject = url.parse(req.url, true).query;
+  db.all(`UPDATE comments SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
 });
 app.put('/post', function (req, res) {
   const queryObject = url.parse(req.url, true).query;

@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { getPosts } from '../../../api/getPosts'
-import { XIcon } from '@heroicons/react/outline'
+import { XIcon, AnnotationIcon, ThumbUpIcon } from '@heroicons/react/outline'
 import { likeHandler } from '../../../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
-import { getPath } from '../../../api/session'
 interface IPosts {
   data: any
   sort: string | number
@@ -32,17 +31,18 @@ const Posts = (props: IPosts) => {
       {posts.map((item: any, index: any) => (
         <div
           key={index}
-          className='w-90% md:w-2/3 flex flex-col self-center mb-16px rounded-2xl overflow-hidden md:max-w-3xl border-3 border-green-600 bg-white'
+          className=' w-90% flex flex-col self-center mb-16px rounded-2xl overflow-hidden md:max-w-3xl border-3 border-green-600 bg-white'
         >
-          <img className=' w-300px' src={item.userImg} alt=' ' />
+          <img
+            className='border-b-3 border-green-600 h-100px object-cover hover:object-scale-down'
+            src={item.userImg}
+            alt=' '
+          />
           <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-            <div className='text-lg md:text-xl font-bold'>{item.author}</div>
-            <div className='break-all text-md'>{item.text}</div>
+            <div className='text-lg md:text-xl text-green-900 text-center font-bold'>{item.author}</div>
+            <div className='break-all text-md text-green-900  text-center'>{item.text}</div>
           </div>
           <div className='flex flex-row ml-10px pb-4px'>
-            <button onClick={() => likeHandler(user.user.id.toString(), item.ID, item.likes)} className=''>
-              {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
-            </button>
             {name !== undefined ? (
               name === item.author ? (
                 <button onClick={() => deleteButton(item.ID)} className=''>
@@ -54,7 +54,17 @@ const Posts = (props: IPosts) => {
             ) : (
               ''
             )}
-            <button onClick={() => showComments(item.ID)}>Комментарии {item.comments}</button>
+            <button className='flex ' onClick={() => likeHandler(user.user.id.toString(), item.ID, item.likes)}>
+              <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
+                {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
+              </span>
+              <ThumbUpIcon className='text-green-600 w-32px' />
+            </button>
+
+            <button className='flex ml-auto mr-16px ' onClick={() => showComments(item.ID)}>
+              <AnnotationIcon className='w-32px pt-2px text-green-600' />
+              <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>{item.comments}</span>
+            </button>
           </div>
         </div>
       ))}

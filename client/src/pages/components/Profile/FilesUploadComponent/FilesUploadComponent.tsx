@@ -14,7 +14,9 @@ const FilesUploadComponent = (name: any) => {
   return (
     <div>
       <input type='file' onChange={(e) => setImg(e.target.files[0])} />
-      <button onClick={sendFile}>Edit Avatar</button>
+      <button className='text-green-600' onClick={sendFile}>
+        Изменить аватар
+      </button>
     </div>
   )
 }
