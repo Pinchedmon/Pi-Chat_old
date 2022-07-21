@@ -28,6 +28,7 @@ function addPostSubmit(
       text: text,
       course: course,
       category: category,
+      userimg: user.user.img,
     })
     handlePopup()
     event.preventDefault()

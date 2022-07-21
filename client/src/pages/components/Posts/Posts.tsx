@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { getPosts } from '../../../api/getPosts'
 import { XIcon } from '@heroicons/react/outline'
 import { likeHandler } from '../../../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
+import { getPath } from '../../../api/session'
 interface IPosts {
   data: any
   sort: string | number
@@ -33,6 +34,7 @@ const Posts = (props: IPosts) => {
           key={index}
           className='w-90% md:w-2/3 flex flex-col self-center mb-16px rounded-2xl overflow-hidden md:max-w-3xl border-3 border-green-600 bg-white'
         >
+          <img className=' w-300px' src={item.userImg} alt=' ' />
           <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
             <div className='text-lg md:text-xl font-bold'>{item.author}</div>
             <div className='break-all text-md'>{item.text}</div>
@@ -52,8 +54,7 @@ const Posts = (props: IPosts) => {
             ) : (
               ''
             )}
-
-            <button onClick={() => showComments(item.ID)}>Комментарии</button>
+            <button onClick={() => showComments(item.ID)}>Комментарии {item.comments}</button>
           </div>
         </div>
       ))}

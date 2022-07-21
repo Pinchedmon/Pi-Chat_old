@@ -44,6 +44,8 @@ app.put('/profile', upload.single('avatar'), function (req, res, next) {
   const urlange = req.protocol + '://' + req.get('host')
   console.log(queryObject.name)
   db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name LIKE ${queryObject.name}`, [])
+  db.all(`UPDATE posts SET userimg = "${urlange + '/public/' + req.file.filename}" WHERE author LIKE ${queryObject.name}`, [])
+  db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author LIKE ${queryObject.name}`, [])
   res.status(201).json({
     'profileImg': urlange + '/public/' + req.file.filename
   })
@@ -51,9 +53,9 @@ app.put('/profile', upload.single('avatar'), function (req, res, next) {
 
 app.post('/feed', (req, res) => {
   try {
-    const { author, text, course, category } = req.body;
-    sql = "INSERT INTO posts (author, text, course, category) VALUES (?, ?, ?, ?)"
-    db.all(sql, [author, text, course, category], (err) => {
+    const { author, text, course, category, userimg } = req.body;
+    sql = "INSERT INTO posts (author, text, course, category, userImg) VALUES (?, ?, ?, ?, ?)"
+    db.all(sql, [author, text, course, category, userimg], (err) => {
       if (err) return res.json({ status: 300, success: false, error: err })
     })
     return res.json({
@@ -69,8 +71,8 @@ app.post('/feed', (req, res) => {
 })
 app.post('/feed/comments', (req, res) => {
   const { comment } = req.body;
-  sql = "INSERT INTO comments (id, author, text) VALUES (?, ?, ?)"
-  db.all(sql, [comment.id, comment.author, comment.text], (err) => {
+  sql = "INSERT INTO comments (id, author, text, userImg) VALUES (?, ?, ?, ?)"
+  db.all(sql, [comment.id, comment.author, comment.text, comment.userImg], (err) => {
     if (err) return res.json({ status: 300, success: false, error: err })
   })
   return res.json({
@@ -96,9 +98,15 @@ app.get('/feed', (req, res) => {
     }
     return res.json({
       "message": "success",
-      "data": rows.reverse()
+      "data": rows.reverse(),
     })
   });
+})
+app.get('/path', (req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  db.all(`SELECT * from users WHERE name = ${queryObject.name};`, [], (err, rows) => {
+    return res.json({ data: rows[0].pathImg })
+  })
 })
 app.get('/post', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
@@ -106,11 +114,8 @@ app.get('/post', (req, res) => {
   db.all(sql, [], (err, rows) => {
     let post = rows
     let image;
-    console.log(`${post[0].author}`)
-
     db.all(`SELECT * from users WHERE name LIKE "${post[0].author}";`, [], (err, rows) => {
       image = rows[0].pathImg
-
     })
     sql = `SELECT * FROM comments WHERE id = ${queryObject.id}`
     db.all(sql, [], (err, rows) => {
@@ -123,7 +128,6 @@ app.get('/post', (req, res) => {
     })
   })
 })
-
 
 app.put('/feed', function (req, res) {
   const queryObject = url.parse(req.url, true).query;

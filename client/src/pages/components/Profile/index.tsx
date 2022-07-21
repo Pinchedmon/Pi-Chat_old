@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-
 import FilesUploadComponent from './FilesUploadComponent/FilesUploadComponent'
-import axios from 'axios'
-export default function Profile() {
-  const { logout } = useAuth()
-  const [img, setImg] = useState()
+import { getPath } from '../../../api/session'
+import { useQuery } from 'react-query'
 
+const Profile = () => {
+  const { logout } = useAuth()
   const navigate = useNavigate()
   let user: any
+  let name: any
   if (localStorage['user']) {
     user = JSON.parse(localStorage.getItem('user') || '')
+    name = user.user.name
   }
-  // const getImage = async (id: number) => {
-  //   let response = await axios.get(`http://localhost:6060/image?id=${id}`)
-  //   console.log(response)
-
+  const img = useRef(user.user.Img)
+  const { data } = useQuery('post', () => getPath(name), {
+    refetchInterval: 1000,
+    refetchOnMount: true,
+  })
   useEffect(() => {
     if (!user) navigate('/login')
-
-    // getImage(user.user.id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+    img.current = data
+  }, [data, navigate, user])
 
   return (
     <div className='pt-100px ml-48px'>
+      <img className='w-100px' src={img.current} alt='загружается...' />
+
       {user && (
         <p className='text-2xl text-green-600'>
           Hello <span className='font-bold '>{user.user.name}</span>
@@ -41,3 +43,4 @@ export default function Profile() {
     </div>
   )
 }
+export default Profile

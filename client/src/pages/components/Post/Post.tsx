@@ -1,16 +1,17 @@
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { likeHandler } from '../../../api/likeHandler'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../api/session'
 const Post = () => {
-  let user: any, name: string
+  let user: any, name: string, userImg: string
   if (localStorage['user']) {
     user = JSON.parse(localStorage.getItem('user') || '')
     name = user.user.name
+    userImg = user.user.img
   }
   const location = useLocation()
   const [post, setPost] = useState<any>()
@@ -28,8 +29,8 @@ const Post = () => {
     }
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    axios.put(`http://localhost:6060/post?id=${post.ID}&comments=${post.comments + 1}`)
-    postComment({ id: post.ID, author: name, text: text })
+    axios.put(`http://localhost:6060/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
+    postComment({ id: post.ID, author: name, text: text, userImg: userImg })
     setText('')
     event.preventDefault()
   }
@@ -60,7 +61,7 @@ const Post = () => {
         <div className='pt-100px w-90% md:w-2/3 md:max-w-3xl ml-auto mr-auto '>
           <div className='rounded-2xl overflow-hidden  border-3 border-green-600 bg-white mb-10px '>
             <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-              <img className='w-32px h-32px' src={img} />
+              <img className='w-32px h-32px' alt='' src={img} />
               <div className='text-lg md:text-xl font-bold'>{post.author}</div>
               <div className='break-all text-md '>{post.text}</div>
             </div>
@@ -78,8 +79,9 @@ const Post = () => {
               <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
             ) : (
               <div>
-                {comments.map((item: { author: string; text: string; likes: string | number }) => (
+                {comments.map((item: { author: string; text: string; likes: string | number; userImg: string }) => (
                   <div>
+                    <img src={item.userImg} alt='' />
                     <div>{item.author}</div>
                     <div>{item.text}</div>
                     <div>{item.likes}</div>

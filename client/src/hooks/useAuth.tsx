@@ -41,7 +41,6 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       }
     })
   }
-
   function signUp(email: string, name: string, password: string) {
     setError('')
     setLoading(true)

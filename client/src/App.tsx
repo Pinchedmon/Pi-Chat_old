@@ -7,6 +7,7 @@ import { AuthProvider } from './hooks/useAuth'
 import SignUpPage from './pages/components/SignUp'
 import Login from './pages/components/Login'
 import Post from './pages/components/Post/Post'
+import Profile from './pages/components/Profile'
 function AuthenticatedRoute(props: any) {
   let user
   if (localStorage['user']) {
@@ -52,6 +53,14 @@ function App() {
               element={
                 <AuthProvider>
                   <Post />
+                </AuthProvider>
+              }
+            />
+            <Route
+              path='/profile'
+              element={
+                <AuthProvider>
+                  <Profile />
                 </AuthProvider>
               }
             />
