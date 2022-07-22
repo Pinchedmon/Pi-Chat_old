@@ -6,12 +6,12 @@ const express = require('express'),
   { v4: uuidv4 } = require('uuid'),
   sqlite = require('sqlite3').verbose(),
   url = require('url'),
-  authRouter = require('./authRouter'),
+  authRouter = require('./src/authRouter'),
   multer = require('multer');
 
-const db = new sqlite.Database('posts.db', sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
+const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 const port = 6060;
-var exists = fs.existsSync(path.resolve(__dirname, 'posts.db'));
+
 app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -21,10 +21,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.get('/*', (req, res) => {
-
-  res.json({
-    data: exists
-  })
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 const DIR = './public';
