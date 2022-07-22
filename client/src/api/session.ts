@@ -13,11 +13,8 @@ export async function login(props: apiParams): Promise<any> {
   const response = await redaxios.post('http://localhost:6060/auth/login', { session: props })
   return response.data
 }
-export async function postComment(props: apiParamComments, formData: any): Promise<any> {
-  const response = await redaxios.post(
-    `http://localhost:6060/feed/comments?id=${props.id}&author=${props.author}&text=${props.text}&userImg=${props.userImg}`,
-    formData,
-  )
+export async function postComment(props: apiParamComments): Promise<any> {
+  const response = await redaxios.post('http://localhost:6060/feed/comments', { comment: props })
   return response.data.data
 }
 

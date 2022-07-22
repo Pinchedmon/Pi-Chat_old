@@ -4,7 +4,6 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     spacing: {
-      '0px': '0px',
       '1px': '1px',
       '2px': '2px',
       '3px': '3px',
@@ -32,7 +31,7 @@ module.exports = {
       '361px': '361px',
       '400px': '400px',
       '420px': '420px',
-      '450px': '470px',
+      '450px': '450px',
       '800px': '800px',
       '2/3': '66%',
       '1/2': '50%',

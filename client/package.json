@@ -55,7 +55,6 @@
     "@types/node": "^18.0.1",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "@types/react-file-input": "^0.0.10",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "stylelint-config-prettier": "^9.0.3",

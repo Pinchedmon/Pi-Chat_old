@@ -13,7 +13,7 @@ function AuthenticatedRoute(props: any) {
   if (localStorage['user']) {
     user = JSON.parse(localStorage.getItem('user') || '')
   }
-
+  console.log(user)
   if (!user) return <Navigate to='/login' />
   return <props.component />
 }

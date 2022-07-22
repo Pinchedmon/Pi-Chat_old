@@ -60,17 +60,28 @@ app.put('/profile', upload.single('avatar'), function (req, res, next) {
   })
 })
 
-app.post('/feed', upload.single('post'), (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
-  const urlange = req.protocol + '://' + req.get('host')
-  let postImg
-  if (req.file) {
-    postImg = urlange + '/public/' + req.file.filename;
-  } else {
-    postImg = ''
+app.post('/feed', (req, res) => {
+  try {
+    const { author, text, course, category, userimg } = req.body;
+    sql = "INSERT INTO posts (author, text, course, category, userImg) VALUES (?, ?, ?, ?, ?)"
+    db.all(sql, [author, text, course, category, userimg], (err) => {
+      if (err) return res.json({ status: 300, success: false, error: err })
+    })
+    return res.json({
+      status: 200,
+      success: true
+    });
+  } catch (error) {
+    return res.json({
+      status: 400,
+      success: false
+    });
   }
-  sql = "INSERT INTO posts (author, text, course, category, userImg, postImg) VALUES (?, ?, ?, ?, ?, ?)"
-  db.all(sql, [queryObject.author, queryObject.text, queryObject.course, queryObject.category, queryObject.userImg, postImg], (err) => {
+})
+app.post('/feed/comments', (req, res) => {
+  const { comment } = req.body;
+  sql = "INSERT INTO comments (id, author, text, userImg) VALUES (?, ?, ?, ?)"
+  db.all(sql, [comment.id, comment.author, comment.text, comment.userImg], (err) => {
     if (err) return res.json({ status: 300, success: false, error: err })
   })
   return res.json({
@@ -79,26 +90,6 @@ app.post('/feed', upload.single('post'), (req, res) => {
   });
 
 })
-app.post('/feed/comments', upload.single('comment'), (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
-  const urlange = req.protocol + '://' + req.get('host')
-  sql = "INSERT INTO comments (id, author, text, userImg, commentImg) VALUES (?, ?, ?, ?, ?)"
-  let commentImg
-  if (req.file) {
-    commentImg = urlange + '/public/' + req.file.filename;
-  } else {
-    commentImg = ''
-  }
-  db.all(sql, [queryObject.id, queryObject.author, queryObject.text, queryObject.userImg, commentImg], (err) => {
-    if (err) return res.json({ status: 300, success: false, error: err })
-  })
-  return res.json({
-    status: 200,
-    success: true
-  });
-
-})
-
 
 app.get('/public/*', function (req, res) {
   return res.sendFile(path.resolve(__dirname, '..' + req.url))
@@ -174,14 +165,7 @@ app.delete('/feed', (req, res) => {
     status: 200,
     succes: true
   })
-})
-app.delete('/feed/comments', (req, res) => {
-  const queryObject = url.parse(req.url, true).query;
-  sql = `DELETE FROM comments WHERE text = "${queryObject.text}"`
-  db.run(sql, (err) => {
-    if (err) return console.error(err.message)
-  })
-  db.run(`UPDATE posts SET comments = comments - 1 WHERE ID = ${queryObject.id}`)
+
 })
 
 app.listen(port)
