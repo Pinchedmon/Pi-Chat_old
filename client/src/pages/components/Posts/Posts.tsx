@@ -38,12 +38,18 @@ const Posts = (props: IPosts) => {
             src={item.userImg}
             alt=' '
           />
-          <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-            <div className='text-lg md:text-xl text-green-900 text-center font-bold'>{item.author}</div>
-            <div className='break-all text-md text-green-900  text-center'>{item.text}</div>
+          <div className='flex '>
+            {item.postImg !== '' && (
+              <img className='  w-100px object-cover hover:object-scale-down' src={item.postImg} alt=' ' />
+            )}
+            <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
+              <div className='text-lg md:text-xl text-green-900 text-center font-bold'>{item.author}</div>
+              <div className='break-all text-md text-green-900  text-center'>{item.text}</div>
+            </div>
           </div>
+
           <div className='flex flex-row ml-10px pb-4px'>
-            {name !== undefined ? (
+            {user.user.role !== 'ADMIN' ? (
               name === item.author ? (
                 <button onClick={() => deleteButton(item.ID)} className=''>
                   <XIcon className='h-32px w-32px text-green-600' />
@@ -53,6 +59,11 @@ const Posts = (props: IPosts) => {
               )
             ) : (
               ''
+            )}
+            {user.user.role === 'ADMIN' && (
+              <button onClick={() => deleteButton(item.ID)} className=''>
+                <XIcon className='h-32px w-32px text-green-600' />
+              </button>
             )}
             <button className='flex ' onClick={() => likeHandler(user.user.id.toString(), item.ID, item.likes)}>
               <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
