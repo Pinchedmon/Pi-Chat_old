@@ -16,6 +16,15 @@
     "nodemon": "^2.0.18"
   },
   "scripts": {
-    "run": "node src/server.js"
+    "start": "nodemon server.js"
+  },
+  "name": "pi-chat",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Pinchedmon",
+  "license": "ISC",
+  "description": "",
+  "engines": {
+    "node": "14.x"
   }
 }

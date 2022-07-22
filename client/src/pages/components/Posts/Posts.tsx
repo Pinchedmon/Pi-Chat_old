@@ -40,11 +40,11 @@ const Posts = (props: IPosts) => {
           />
           <div className='flex '>
             {item.postImg !== '' && (
-              <img className='  w-100px object-cover hover:object-scale-down' src={item.postImg} alt=' ' />
+              <img className='  w-100px  object-cover hover:object-scale-down' src={item.postImg} alt=' ' />
             )}
-            <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-              <div className='text-lg md:text-xl text-green-900 text-center font-bold'>{item.author}</div>
-              <div className='break-all text-md text-green-900  text-center'>{item.text}</div>
+            <div className='flex w-full   flex-col pt-10px pl-10px pr-10px pb-4px'>
+              <div className='text-lg md:text-xl text-green-900  font-bold'>{item.author}</div>
+              <div className='break-all text-md text-green-900  '>{item.text}</div>
             </div>
           </div>
 
