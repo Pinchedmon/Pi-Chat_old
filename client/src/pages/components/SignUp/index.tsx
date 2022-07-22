@@ -32,8 +32,8 @@ export default function SignUpPage() {
   }
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
-    if (e.target.value.length < 3 || e.target.value.length > 12) {
-      setNameError('Имя должно быть от 3 до 12 символов')
+    if (e.target.value.length < 3 || e.target.value.length > 16) {
+      setNameError('Имя должно быть от 3 до 16 символов')
       if (!e.target.value) {
         setNameError('Имя не может быть пустым')
       }

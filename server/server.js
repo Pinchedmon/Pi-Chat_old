@@ -9,7 +9,7 @@ const express = require('express'),
   authRouter = require('./src/authRouter'),
   multer = require('multer');
 
-const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
+const db = new sqlite.Database(path.resolve(__dirname, 'src/db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 const port = 6060;
 
 app.set('view engine', 'ejs');
@@ -17,12 +17,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use('/auth', authRouter)
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 const DIR = './public';
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -97,7 +97,7 @@ app.post('/feed/comments', upload.single('comment'), (req, res) => {
 
 
 app.get('/public/*', function (req, res) {
-  return res.sendFile(path.resolve(__dirname, '..' + req.url))
+  return res.sendFile(path.resolve(__dirname, `server/..${req.url}`))
 })
 app.get('/feed', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
