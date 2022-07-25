@@ -94,7 +94,6 @@ app.post('/feed/comments', upload.single('comment'), (req, res) => {
     status: 200,
     success: true
   });
-
 })
 
 
@@ -126,7 +125,7 @@ app.get('/path', (req, res) => {
 })
 app.get('/post', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
-  sql = `SELECT * FROM posts WHERE id = ${queryObject.id}`
+  sql = `SELECT * FROM posts WHERE id = "${queryObject.id}"`
   db.all(sql, [], (err, rows) => {
     let post = rows
     let image;

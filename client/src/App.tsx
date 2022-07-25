@@ -3,17 +3,14 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import { AuthProvider } from './hooks/useAuth'
-import SignUpPage from './pages/components/SignUp'
-import Login from './pages/components/Login'
-import Post from './pages/components/Post/Post'
-import Profile from './pages/components/Profile'
+import useAuth, { AuthProvider } from './hooks/useAuth'
+import SignUp from './pages/SignUp'
+import Login from './pages/Login'
+import Post from './pages/Post'
+import Profile from './pages/Profile'
 function AuthenticatedRoute(props: any) {
-  let user
-  if (localStorage['user']) {
-    user = JSON.parse(localStorage.getItem('user') || '')
-  }
-
+  const { user } = useAuth()
+  console.log(user)
   if (!user) return <Navigate to='/login' />
   return <props.component />
 }
@@ -36,7 +33,7 @@ function App() {
               path='/signup'
               element={
                 <AuthProvider>
-                  <SignUpPage />
+                  <SignUp />
                 </AuthProvider>
               }
             />
@@ -52,7 +49,7 @@ function App() {
               path='/post'
               element={
                 <AuthProvider>
-                  <Post />
+                  <AuthenticatedRoute component={() => <Post />} />
                 </AuthProvider>
               }
             />
@@ -60,7 +57,7 @@ function App() {
               path='/profile'
               element={
                 <AuthProvider>
-                  <Profile />
+                  <AuthenticatedRoute component={() => <Profile />} />
                 </AuthProvider>
               }
             />

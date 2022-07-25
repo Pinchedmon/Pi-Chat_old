@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { likeHandler } from '../../../api/likeHandler'
+import { likeHandler } from '../api/likeHandler'
 import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon, PaperClipIcon, XIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
-import { getPath, postComment } from '../../../api/session'
+import { postComment } from '../api/session'
+import useAuth from '../hooks/useAuth'
 
 const Post = () => {
-  let user: any, name: string
-  if (localStorage['user']) {
-    user = JSON.parse(localStorage.getItem('user') || '')
-    name = user.user.name
-  }
+  const { user } = useAuth()
+  const name = user.user.name
   const navigate = useNavigate()
   const location = useLocation()
-  const [path, setPath] = useState()
+  const [path, setPath] = useState(null)
   const [post, setPost] = useState<any>()
   const [img, setImg] = useState('')
   const [file, setFile] = useState(null)
@@ -38,15 +36,20 @@ const Post = () => {
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
     axios.put(`http://localhost:6060/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
     const commentImg = new FormData()
     if (file !== null) {
       commentImg.append('comment', file)
     }
+    event.preventDefault()
     postComment({ id: post.ID, author: name, text: text, userImg: path }, commentImg)
     setText('')
     setFile(null)
+
+    navigate(`?id=${post.ID}`)
+    setTimeout(() => {
+      refetch()
+    }, 1000)
   }
   const getPost = async () => {
     const response = await axios.get(`http://localhost:6060/post${location.search}`)
@@ -56,17 +59,17 @@ const Post = () => {
   }
   const handleDelete = (text: string, id: number) => {
     axios.delete(`http://localhost:6060/feed/comments?text=${text}&id=${id}`)
+    setTimeout(() => {
+      refetch()
+    }, 100)
   }
-  const { data } = useQuery('post', () => getPost(), {
-    refetchInterval: 1000,
-    refetchOnMount: true,
-  })
+  const { data, refetch } = useQuery('post', () => getPost(), {})
   useEffect(() => {
     setPost(data)
   }, [data])
 
   useEffect(() => {
-    getPath(name).then((res) => setPath(res))
+    setPath(user.user.img)
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
@@ -81,7 +84,7 @@ const Post = () => {
     } else {
       setValidForm(true)
     }
-  }, [file, name, setPost, textError])
+  }, [file, name, setPost, textError, user.user.img])
   return (
     <>
       <div className='fixed mt-32px ml-24px md:10% ' onClick={() => navigate('/')}>
@@ -97,7 +100,13 @@ const Post = () => {
                 <div className='break-all text-lg text-green-900 text-center  '>{post.text}</div>
               </div>
               <div className='flex flex-row ml-10px pb-8px'>
-                <button className='flex ' onClick={() => likeHandler(user.user.id.toString(), post.ID, post.likes)}>
+                <button
+                  className='flex '
+                  onClick={() => {
+                    likeHandler(user.user.id.toString(), post.ID, post.likes)
+                    refetch()
+                  }}
+                >
                   <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
                     {post.likes === '0'
                       ? '0'

@@ -1,20 +1,36 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import axios from 'axios'
-
+import { useQuery } from 'react-query'
+import { getPath } from '../../../../api/session'
 const FilesUploadComponent = (name: any) => {
-  const [img, setImg] = useState(null)
+  const [image, setImage] = useState(null)
+  const [validForm, setValidForm] = useState(false)
+  const { refetch } = useQuery('profile', () => getPath(name))
   const sendFile = useCallback(async () => {
     const data = new FormData()
-    data.append('avatar', img)
+    data.append('avatar', image)
     await axios.put(`http://localhost:6060/profile?name="${name.name}"`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
-  }, [img, name])
-
+    setTimeout(() => refetch(), 1000)
+  }, [image, name.name, refetch])
+  useEffect(() => {
+    if (image !== null) {
+      setValidForm(true)
+    } else {
+      setValidForm(false)
+    }
+  }, [setValidForm, image])
   return (
     <div>
-      <input type='file' onChange={(e) => setImg(e.target.files[0])} />
-      <button className='text-green-600' onClick={sendFile}>
+      <input type='file' onChange={(e) => setImage(e.target.files[0])} />
+      <button
+        disabled={!validForm}
+        className='text-green-600'
+        onClick={() => {
+          sendFile()
+        }}
+      >
         Изменить аватар
       </button>
     </div>

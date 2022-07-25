@@ -25,7 +25,12 @@ export async function logout() {
   localStorage.removeItem('user')
 }
 
-export async function getPath(name: string) {
-  const response = await redaxios.get(`http://localhost:6060/path?name="${name.toString()}";`)
+export async function getPath(name: string | object | any) {
+  let response
+  if (name.name === undefined) {
+    response = await redaxios.get(`http://localhost:6060/path?name="${name}";`)
+  } else {
+    response = await redaxios.get(`http://localhost:6060/path?name="${name.name}";`)
+  }
   return response.data.data.toString()
 }

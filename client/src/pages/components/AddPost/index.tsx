@@ -3,7 +3,10 @@ import { PaperClipIcon, XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { FormEvent } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import { getPath } from '../../../api/session'
+import { useQuery } from 'react-query'
+import { getPosts } from '../../../api/getPosts'
+import { useSelector } from 'react-redux'
+import useAuth from '../../../hooks/useAuth'
 interface IAddPost {
   handlePopup: () => void
 }
@@ -12,43 +15,51 @@ interface IAddPostSubmit {
   text: string
   course: string
   path: string
-  category: string
+  addCategory: string
   handlePopup: () => void
   file: File
+  refetch: () => void
 }
 function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
   let data = new FormData()
   data.append('post', props.file)
-  if (props.text !== '' && props.category !== '' && props.course !== '') {
+  if (props.text !== '' && props.addCategory !== '' && props.course !== '') {
     axios.post(
-      `http://localhost:6060/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
+      `http://localhost:6060/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
       data,
     )
-
     props.handlePopup()
     event.preventDefault()
+    setTimeout(() => {
+      props.refetch()
+    }, 1000)
   } else {
     window.alert('Какое-то поле незаполнено!')
     event.preventDefault()
+    setTimeout(() => {
+      props.refetch()
+    }, 1000)
   }
 }
 const AddPost = (props: IAddPost) => {
-  let user: any, name: string
-  if (localStorage['user']) {
-    user = JSON.parse(localStorage.getItem('user') || '')
-    name = user.user.name
-  }
+  // @ts-ignore
+  const sort = useSelector((state) => state.nav.sort)
+  // @ts-ignore
+  const category = useSelector((state) => state.nav.category)
+  const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
+  const { user } = useAuth()
+  const name = user.user.name
   const { handlePopup } = props
   const [file, setFile] = useState(null)
-  const [path, setPath] = useState(null)
+  const path = user.user.img
   const [preview, setPreview] = useState<string>()
   const [validForm, setValidForm] = useState(false)
-  const [category, setCategory] = useState('Общее')
+  const [addCategory, setAddCategory] = useState('Общее')
   const [course, setCourse] = useState('1')
   const [text, setText] = useState('')
   const [textError, setTextError] = useState('пустое поле ввода')
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCourse(e.target.value)
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => setAddCategory(e.target.value)
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
     if (!e.target.value) {
@@ -69,7 +80,6 @@ const AddPost = (props: IAddPost) => {
     }
   }, [file, textError])
   useEffect(() => {
-    getPath(name).then((res) => setPath(res))
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
@@ -79,7 +89,7 @@ const AddPost = (props: IAddPost) => {
     } else {
       setPreview(null)
     }
-  }, [file, name])
+  }, [file])
   return (
     <div>
       <div className=' fixed mt-90px left-1/2 transition -translate-x-1/2 w-90% md:max-w-3xl border-3 border-green-700  bg-white rounded-lg'>
@@ -90,7 +100,7 @@ const AddPost = (props: IAddPost) => {
           />
           <form
             className=' text-center flex flex-col pb-16px'
-            onSubmit={(e) => addPostSubmit(e, { name, text, category, course, path, handlePopup, file })}
+            onSubmit={(e) => addPostSubmit(e, { name, text, addCategory, course, path, handlePopup, file, refetch })}
           >
             <h1 className='text-2xl w-200px ml-auto mr-auto md:w-full rounded-md p-10px font-bold bg-green-600 text-white border-3 border-green-600 '>
               Создание поста
@@ -102,7 +112,7 @@ const AddPost = (props: IAddPost) => {
             <div className='flex flex-row  mt-10px mb-32px justify-evenly'>
               <select
                 className='border-2 text-green-600 text-sm rounded-lg block '
-                value={category}
+                value={addCategory}
                 onChange={handleCategoryChange}
               >
                 <option value='value1' disabled>

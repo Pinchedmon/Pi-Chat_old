@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import { getPosts } from '../../../api/getPosts'
+import { getPosts } from '../api/getPosts'
 import { XIcon, AnnotationIcon, ThumbUpIcon } from '@heroicons/react/outline'
-import { likeHandler } from '../../../api/likeHandler'
+import { likeHandler } from '../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import useAuth from '../hooks/useAuth'
 interface IPosts {
   data: any
   sort: string | number
@@ -11,18 +13,17 @@ interface IPosts {
 }
 const Posts = (props: IPosts) => {
   let navigate = useNavigate()
-  let user: any, name: string
-  if (localStorage['user']) {
-    user = JSON.parse(localStorage.getItem('user') || '')
-    name = user.user.name
-  }
+  const { user } = useAuth()
+  const name = user.user.name
   const { sort, category } = props
+
   let posts = props.data
+  const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const deleteButton = (id: number) => {
     axios.delete(`http://localhost:6060/feed?id=${id}`)
     getPosts({ sort, category })
+    refetch()
   }
-
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
   }
@@ -65,7 +66,13 @@ const Posts = (props: IPosts) => {
                 <XIcon className='h-32px w-32px text-green-600' />
               </button>
             )}
-            <button className='flex ' onClick={() => likeHandler(user.user.id.toString(), item.ID, item.likes)}>
+            <button
+              className='flex '
+              onClick={() => {
+                likeHandler(user.user.id.toString(), item.ID, item.likes)
+                refetch()
+              }}
+            >
               <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
                 {item.likes === '0' ? '0' : /\s/.test(item.likes) ? item.likes.split(' ').length : [item.likes].length}
               </span>

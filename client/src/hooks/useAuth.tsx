@@ -3,8 +3,19 @@ import { useNavigate } from 'react-router-dom'
 import * as sessionsApi from '../api/session'
 import * as usersApi from '../api/users'
 
+interface iUser {
+  status: number
+  authToken: string
+  user: {
+    id: number
+    email: string
+    img: string
+    name: string
+    role: string
+  }
+}
 interface AuthContextType {
-  user?: string
+  user?: iUser
   loading?: boolean
   error?: any
   login: (email: string, password: string) => void
@@ -22,7 +33,6 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     if (error) setError(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   useEffect(() => {
     usersApi.getCurrentUser().then((user) => setUser(user))
   }, [])
@@ -32,8 +42,8 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     setLoading(true)
     sessionsApi.login({ email, password }).then((user: any) => {
       if (user.status === 200) {
-        setUser(user.user)
-        localStorage.setItem('user', JSON.stringify(user))
+        setUser(user)
+        localStorage.setItem('user', JSON.stringify(user.AuthToken))
         navigate('/')
       } else {
         setError(user.message)
@@ -47,8 +57,8 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     usersApi.signUp({ email, name, password }).then((user: any) => {
       if (user.status === 200) {
         sessionsApi.login({ email, password }).then((user) => {
-          setUser(user.user)
-          localStorage.setItem('user', JSON.stringify(user))
+          setUser(user)
+          localStorage.setItem('user', JSON.stringify(user.AuthToken))
           navigate('/')
         })
       } else {
@@ -60,7 +70,8 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
 
   function logout() {
     sessionsApi.logout()
-    navigate('/')
+    setUser(' ')
+    navigate('/login')
   }
   const memoedValue = useMemo(
     () => ({

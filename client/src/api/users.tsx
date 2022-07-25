@@ -7,7 +7,9 @@ interface apiParams {
   password: string
 }
 export async function getCurrentUser(): Promise<number | string> {
-  const response = await redaxios.get('http://localhost:6060/auth/user', { headers: authHeader() })
+  const response = await redaxios.get('http://localhost:6060/auth/user', {
+    headers: authHeader(),
+  })
   return response.data
 }
 
