@@ -17,16 +17,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use('/auth', authRouter)
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
 
-app.get('/*', (req, res) => {
+// app.get('/*', (req, res) => {
 
-  res.json({
-    data: exists
-  })
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+//   res.json({
+//     data: exists
+//   })
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 const DIR = './public';
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
