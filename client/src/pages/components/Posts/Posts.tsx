@@ -1,11 +1,11 @@
 import React from 'react'
-import axios from 'axios'
-import { getPosts } from '../api/getPosts'
+import redaxios from 'redaxios'
+import { getPosts } from '../../../api/getPosts'
 import { XIcon, AnnotationIcon, ThumbUpIcon } from '@heroicons/react/outline'
-import { likeHandler } from '../api/likeHandler'
+import { likeHandler } from '../../../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 interface IPosts {
   data: any
   sort: string | number
@@ -20,7 +20,7 @@ const Posts = (props: IPosts) => {
   let posts = props.data
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const deleteButton = (id: number) => {
-    axios.delete(`http://localhost:6060/feed?id=${id}`)
+    redaxios.delete(`http://localhost:6060/feed?id=${id}`)
     getPosts({ sort, category })
     refetch()
   }

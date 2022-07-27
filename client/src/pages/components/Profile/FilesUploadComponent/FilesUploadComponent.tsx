@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import axios from 'axios'
+import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
 import { getPath } from '../../../../api/session'
 const FilesUploadComponent = (name: any) => {
@@ -9,7 +9,7 @@ const FilesUploadComponent = (name: any) => {
   const sendFile = useCallback(async () => {
     const data = new FormData()
     data.append('avatar', image)
-    await axios.put(`http://localhost:6060/profile?name="${name.name}"`, data, {
+    await redaxios.put(`http://localhost:6060/profile?name="${name.name}"`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     setTimeout(() => refetch(), 1000)

@@ -42,7 +42,7 @@ const Nav = (props: { sort: string | number; category: string }) => {
                 </Link>
                 <button
                   onClick={() => setFilterModal(!filterModal)}
-                  className='flex self-center h-32px w-32px rounded-md mr-8px     hover:bg-green-800  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
+                  className='flex self-center h-32px w-32px rounded-md mr-8px  hover:bg-green-800  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500'
                 >
                   <MenuIcon />
                 </button>

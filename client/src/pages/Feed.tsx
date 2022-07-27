@@ -1,4 +1,4 @@
-import Posts from './Posts'
+import Posts from './components/Posts/Posts'
 import Nav from './components/Nav'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'

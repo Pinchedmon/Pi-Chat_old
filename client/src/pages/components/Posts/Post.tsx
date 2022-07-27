@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { likeHandler } from '../api/likeHandler'
+import redaxios from 'redaxios'
+import { likeHandler } from '../../../api/likeHandler'
 import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon, PaperClipIcon, XIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
-import { postComment } from '../api/session'
-import useAuth from '../hooks/useAuth'
+import { postComment } from '../../../api/session'
+import useAuth from '../../../hooks/useAuth'
 
 const Post = () => {
-  const { user } = useAuth()
-  const name = user.user.name
   const navigate = useNavigate()
   const location = useLocation()
+  const { user } = useAuth()
+  const name = user.user.name
   const [path, setPath] = useState(null)
   const [post, setPost] = useState<any>()
   const [img, setImg] = useState('')
@@ -36,7 +36,7 @@ const Post = () => {
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    axios.put(`http://localhost:6060/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
+    redaxios.put(`http://localhost:6060/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
     const commentImg = new FormData()
     if (file !== null) {
       commentImg.append('comment', file)
@@ -52,13 +52,13 @@ const Post = () => {
     }, 1000)
   }
   const getPost = async () => {
-    const response = await axios.get(`http://localhost:6060/post${location.search}`)
+    const response = await redaxios.get(`http://localhost:6060/post${location.search}`)
     setImg(response.data.image)
     setPost(response.data.post[0])
     setComments(response.data.comments)
   }
   const handleDelete = (text: string, id: number) => {
-    axios.delete(`http://localhost:6060/feed/comments?text=${text}&id=${id}`)
+    redaxios.delete(`http://localhost:6060/feed/comments?text=${text}&id=${id}`)
     setTimeout(() => {
       refetch()
     }, 100)
