@@ -6,7 +6,7 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import useAuth, { AuthProvider } from './hooks/useAuth'
 import SignUp from './pages/SignUp'
 import Login from './pages/Login'
-import Post from './pages/components/Posts/Post'
+import Post from './pages/components/Posts/Post/Post'
 import Profile from './pages/Profile'
 function AuthenticatedRoute(props: any) {
   const { user } = useAuth()

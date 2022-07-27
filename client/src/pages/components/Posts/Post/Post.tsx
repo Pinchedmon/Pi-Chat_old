@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import redaxios from 'redaxios'
-import { likeHandler } from '../../../api/likeHandler'
+import { likeHandler } from '../../../../api/likeHandler'
 import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon, PaperClipIcon, XIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
-import { postComment } from '../../../api/session'
-import useAuth from '../../../hooks/useAuth'
+import { postComment } from '../../../../api/session'
+import useAuth from '../../../../hooks/useAuth'
 
 const Post = () => {
   const navigate = useNavigate()
