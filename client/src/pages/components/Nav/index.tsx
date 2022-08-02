@@ -16,8 +16,8 @@ const Nav = (props: { sort: string | number; category: string }) => {
     dispatch(setAddPostStyle(!style))
   }
   return (
-    <div className='h-screen  flex justify-center'>
-      <div>
+    <div className='  flex justify-center'>
+      <div className='fixed h-screen'>
         <div className='flex  flex-col items-center text-2xl font-bold'>
           <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
             / π - Чат /

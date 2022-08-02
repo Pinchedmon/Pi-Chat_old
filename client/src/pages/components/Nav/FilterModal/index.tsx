@@ -24,15 +24,15 @@ export default function FilterModal(props: IFilterModal) {
     dispatch(setSort(e.target.value))
   }
   return (
-    <div className='w-full flex-col  bg-green-600 '>
+    <div className='w-full flex-col '>
       <div className='flex justify-center'>
-        <p className='text-xl text-white font-bold mt-12px'>Сортировка</p>
+        <p className='text-2xl text-green-600 font-bold mt-12px'>Сортировка</p>
       </div>
       <div className='flex p-16px justify-center'>
         <select
           defaultValue={sort}
           onChange={(e) => filterSort(e, dispatch, setSort)}
-          className=' text-sm  md:text-md bg-green-600 text-white'
+          className=' text-md  font-bold md:text-lg text-green-600'
         >
           <option value='value1' disabled>
             Сортировать по
@@ -46,7 +46,7 @@ export default function FilterModal(props: IFilterModal) {
         <select
           defaultValue={category}
           onChange={(e) => filterCategory(e, dispatch, setCategory)}
-          className='text-sm ml-32px md:text-md bg-green-600  text-white '
+          className='text-md ml-32px font-bold md:text-lg text-green-600  '
         >
           <option value='value1' disabled>
             Категория

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import redaxios from 'redaxios'
 import { likeHandler } from '../../../../api/likeHandler'
-import { ArrowLeftIcon, AnnotationIcon, ThumbUpIcon, PaperClipIcon, XIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, AnnotationIcon, HeartIcon, PaperClipIcon, XIcon } from '@heroicons/react/solid'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../../api/session'
@@ -87,116 +87,122 @@ const Post = () => {
   }, [file, name, setPost, textError, user.user.img])
   return (
     <>
-      <div className='fixed mt-32px ml-24px md:10% ' onClick={() => navigate('/')}>
+      <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>
         <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
       </div>
-      {post !== undefined && (
-        <div>
-          <img className=' top-1px  w-full h-120px object-cover hover:object-scale-down ' alt='' src={img} />
-          <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto  '>
-            <div className=' border-4 border-green-600 rounded-smoverflow-hidden  bg-white mb-10px '>
-              <div className='flex flex-col pt-10px pl-10px pr-10px pb-4px'>
-                <div className='text-xl p-10px md:text-2xl text-green-900 text-center font-bold'>{post.author}</div>
-                <div className='break-all text-lg text-green-900 text-center  '>{post.text}</div>
-              </div>
-              <div className='flex flex-row ml-10px pb-8px'>
-                <button
-                  className='flex '
-                  onClick={() => {
-                    likeHandler(user.user.id.toString(), post.ID, post.likes)
-                    refetch()
-                  }}
-                >
-                  <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>
-                    {post.likes === '0'
-                      ? '0'
-                      : /\s/.test(post.likes)
-                      ? post.likes.split(' ').length
-                      : [post.likes].length}
-                  </span>
-                  <ThumbUpIcon className='text-green-600 w-32px' />
-                </button>
-                <button className='flex ml-auto mr-16px cursor-default'>
-                  <AnnotationIcon className='w-32px pt-2px text-green-600' />
-                  <span className='text-green-600 text-xl font-bold ml-6px pb-4px p-4px'>{post.comments}</span>
-                </button>
+      <div className='flex flex-col mt-16px '>
+        {post !== undefined && (
+          <div className=''>
+            <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
+              <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={post.userImg} alt=' ' />
+              <div className='flex-col '>
+                <div className='flex items-center align-center  -mt-4px'>
+                  <div className='text-lg md:text-xl  font-bold'>{post.author}</div>
+                  <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                  <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
+                </div>
+                <div className='mt-4px mb-12px'>{post.text}</div>
+                {post.postImg !== '' && <img className='w-1/2 rounded-xl' src={post.postImg} alt=' ' />}
+                <div className='flex items-center mb-16px mt-16px'>
+                  <button
+                    className='flex'
+                    onClick={() => {
+                      likeHandler(user.user.id.toString(), post.ID, post.likes)
+                      refetch()
+                    }}
+                  >
+                    <HeartIcon className='text-green-600 w-28px' />
+                    <span className='text-green-600 text-xl font-bold '>
+                      {post.likes === '0'
+                        ? '0'
+                        : /\s/.test(post.likes)
+                        ? post.likes.split(' ').length
+                        : [post.likes].length}
+                    </span>
+                  </button>
+                  <button className='flex ml-16px'>
+                    <AnnotationIcon className=' text-green-600 w-28px' />
+                    <span className='text-green-600 text-xl font-bold ml-6px '>{post.comments}</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto  overflow-hidden  mb-6px '>
-            {' '}
-            {post.comments == 0 ? (
-              <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
-            ) : (
-              <div>
-                {comments !== undefined &&
-                  comments.map(
-                    (item: {
-                      ID: number
-                      author: string
-                      text: string
-                      likes: string
-                      userImg: string
-                      commentImg: string
-                    }) => (
-                      <div className='rounded-2xl bg-white mb-6px'>
-                        <div className='flex items-center pl-8px pt-8px'>
-                          <img className='w-54px h-54px' src={item.userImg} alt='' />
-                          <div className='ml-12px font-bold text-lg text-green-900'>{item.author}</div>
-                          {user.user.role === 'ADMIN' && (
-                            <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
-                              <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                            </button>
-                          )}
-                          {user.user.role !== 'ADMIN' && user.user.name === item.author && (
-                            <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
-                              <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                            </button>
+
+            <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto  overflow-hidden  mb-6px '>
+              {' '}
+              {post.comments == 0 ? (
+                <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
+              ) : (
+                <div>
+                  {comments !== undefined &&
+                    comments.map(
+                      (item: {
+                        ID: number
+                        author: string
+                        text: string
+                        likes: string
+                        userImg: string
+                        commentImg: string
+                      }) => (
+                        <div className='rounded-2xl bg-white mb-6px'>
+                          <div className='flex items-center pl-8px pt-8px'>
+                            <img className='w-54px h-54px' src={item.userImg} alt='' />
+                            <div className='ml-12px font-bold text-lg text-green-900'>{item.author}</div>
+                            {user.user.role === 'ADMIN' && (
+                              <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
+                                <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                              </button>
+                            )}
+                            {user.user.role !== 'ADMIN' && user.user.name === item.author && (
+                              <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
+                                <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                              </button>
+                            )}
+                          </div>
+                          <div className='ml-16px text-lg pb-6px text-green-900'>{item.text}</div>
+                          {item.commentImg !== '' && (
+                            <img className='w-200px ml-10px pb-10px' src={item.commentImg} alt='загружается...' />
                           )}
                         </div>
-                        <div className='ml-16px text-lg pb-6px text-green-900'>{item.text}</div>
-                        {item.commentImg !== '' && (
-                          <img className='w-200px ml-10px pb-10px' src={item.commentImg} alt='загружается...' />
-                        )}
-                      </div>
-                    ),
-                  )}
-              </div>
-            )}
-          </div>
-          <form className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto mb-6px' onSubmit={handleSubmit}>
-            <TextareaAutosize
-              cacheMeasurements
-              onChange={(e) => handleChangeText(e)}
-              value={text}
-              className='w-full text-green-700 rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
-              placeholder='Написать комментарий'
-            />
-            <div className='flex'>
-              <label className='flex ml-10px md:ml-0px'>
-                <input
-                  type='file'
-                  className='hidden'
-                  accept='.png,.gif,.jpg,.jpeg'
-                  onChange={(e) => handleChangeFile(e)}
-                />
-                <i className=''>
-                  <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
-                </i>
-                {file !== null && (
-                  <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={preview} />
-                )}
-              </label>
-              <button
-                disabled={!validForm}
-                className='ml-auto mr-10px md:mr-0px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
-              >
-                Отправить
-              </button>
+                      ),
+                    )}
+                </div>
+              )}
             </div>
-          </form>
-        </div>
-      )}
+            <form className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto mb-6px' onSubmit={handleSubmit}>
+              <TextareaAutosize
+                cacheMeasurements
+                onChange={(e) => handleChangeText(e)}
+                value={text}
+                className='w-full text-green-700 rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
+                placeholder='Написать комментарий'
+              />
+              <div className='flex'>
+                <label className='flex ml-10px md:ml-0px'>
+                  <input
+                    type='file'
+                    className='hidden'
+                    accept='.png,.gif,.jpg,.jpeg'
+                    onChange={(e) => handleChangeFile(e)}
+                  />
+                  <i className=''>
+                    <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
+                  </i>
+                  {file !== null && (
+                    <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={preview} />
+                  )}
+                </label>
+                <button
+                  disabled={!validForm}
+                  className='ml-auto mr-10px md:mr-0px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
+                >
+                  Отправить
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
     </>
   )
 }
