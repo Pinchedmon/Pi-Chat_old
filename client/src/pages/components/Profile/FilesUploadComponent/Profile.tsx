@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-import FilesUploadComponent from './components/Profile/FilesUploadComponent/FilesUploadComponent'
+import FilesUploadComponent from './FilesUploadComponent'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
-import { getPath } from '../api/session'
+import { getPath } from '../../../../api/session'
 const Profile = () => {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
