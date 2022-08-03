@@ -53,14 +53,14 @@ function App() {
                 </AuthProvider>
               }
             /> */}
-            <Route
+            {/* <Route
               path='/profile'
               element={
                 <AuthProvider>
                   <AuthenticatedRoute component={() => <Profile />} />
                 </AuthProvider>
               }
-            />
+            /> */}
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

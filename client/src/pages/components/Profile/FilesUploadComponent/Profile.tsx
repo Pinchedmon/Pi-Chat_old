@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import { getPath } from '../../../../api/session'
 const Profile = () => {
   const navigate = useNavigate()
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   const img = useRef(user.user.img)
   let name = user.user.name
   const { data, refetch } = useQuery('profile', () => getPath(name))
@@ -22,27 +22,28 @@ const Profile = () => {
 
   return (
     <div>
-      <div className='fixed mt-10px md:mt-16px ml-24px md:ml-10% ' onClick={() => navigate('/')}>
+      <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>
         <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
       </div>
-      <div className='flex flex-col h-screen mt-10% items-center'>
-        <div className=' mb-10px float-right w-300px bg-white border-3 border-green-600  rounded-xl p-16px'>
-          <p className='text-2xl text-green-600'>
-            Вы: <span className='font-bold '>{user.user.name}</span>
-          </p>
-        </div>
-        <div className='flex flex-col '>
+      <div className='w-full flex mt-16px self-center mb-16px'>
+        <img className='ml-24px mr-16px h-100px rounded-xl w-100px' src={img.current} alt='загружается...' />
+
+        <div className='flex flex-col'>
+          <div className='flex items-center align-center  -mt-6px'>
+            <div className='text-lg md:text-xl  font-bold'>{name}</div>
+            <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+          </div>
           <div className='float-right w-300px border-3 border-green-600  rounded-xl p-16px border-dashed bg-white'>
-            <img className='w-100px' src={img.current} alt='загружается...' />
             <FilesUploadComponent name={name} />
           </div>
         </div>
-        <button
+
+        {/* <button
           className='w-100px bg-white p-6px rounded-md font-bold text-green-600  mt-6px  text-center border-2 border-green-600'
           onClick={logout}
         >
           Выйти
-        </button>
+        </button> */}
       </div>
     </div>
   )

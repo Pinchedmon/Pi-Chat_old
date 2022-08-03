@@ -8,7 +8,7 @@ import FilterModal from './FilterModal'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 const Nav = (props: { sort: string | number; category: string }) => {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const dispatch = useDispatch()
 
   const style = useSelector((state: any) => state.nav.addPostStyle)
@@ -16,9 +16,9 @@ const Nav = (props: { sort: string | number; category: string }) => {
     dispatch(setAddPostStyle(!style))
   }
   return (
-    <div className='  flex justify-center'>
+    <div className=' h-full flex justify-center'>
       <div className='fixed h-screen'>
-        <div className='flex  flex-col items-center text-2xl font-bold'>
+        <div className='flex flex-col items-center text-2xl font-bold'>
           <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
             / π - Чат /
           </Link>
@@ -55,13 +55,12 @@ const Nav = (props: { sort: string | number; category: string }) => {
               <div className='text-xl font-bold'>{user.user.name}</div>
               <div>@псевдоимя</div>
             </div>
-            <div className='w-32px h-32px text-green-600'>
+            <div onClick={logout} className='w-32px h-32px text-green-600 cursor-pointer'>
               <LogoutIcon />
             </div>
           </div>
         </div>
       </div>
-
       {/* <AddPost handlePopup={handlePopup} /> */}
     </div>
   )

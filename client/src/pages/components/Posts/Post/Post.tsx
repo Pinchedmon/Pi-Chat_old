@@ -128,57 +128,61 @@ const Post = () => {
               </div>
             </div>
 
-            <div className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto  overflow-hidden  mb-6px '>
-              {' '}
-              {post.comments == 0 ? (
-                <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
-              ) : (
-                <div>
-                  {comments !== undefined &&
-                    comments.map(
-                      (item: {
-                        ID: number
-                        author: string
-                        text: string
-                        likes: string
-                        userImg: string
-                        commentImg: string
-                      }) => (
-                        <div className='rounded-2xl bg-white mb-6px'>
-                          <div className='flex items-center pl-8px pt-8px'>
-                            <img className='w-54px h-54px' src={item.userImg} alt='' />
-                            <div className='ml-12px font-bold text-lg text-green-900'>{item.author}</div>
-                            {user.user.role === 'ADMIN' && (
-                              <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
-                                <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                              </button>
-                            )}
-                            {user.user.role !== 'ADMIN' && user.user.name === item.author && (
-                              <button className='w-full' onClick={() => handleDelete(item.text, item.ID)}>
-                                <XIcon className='h-32px w-32px float-right mr-16px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                              </button>
-                            )}
+            {post.comments == 0 ? (
+              <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
+            ) : (
+              <div>
+                {comments !== undefined &&
+                  comments.map(
+                    (item: {
+                      ID: number
+                      author: string
+                      text: string
+                      likes: string
+                      userImg: string
+                      commentImg: string
+                    }) => (
+                      <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
+                        <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
+                        <div className='flex-col '>
+                          <div className='flex items-center align-center  -mt-4px'>
+                            <div className='text-lg md:text-xl  font-bold'>{item.author}</div>
+                            <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                            <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                           </div>
-                          <div className='ml-16px text-lg pb-6px text-green-900'>{item.text}</div>
+                          <div className='mt-4px mb-12px'>{item.text}</div>
                           {item.commentImg !== '' && (
-                            <img className='w-200px ml-10px pb-10px' src={item.commentImg} alt='загружается...' />
+                            <img className='w-1/2 pb-10px rounded-xl' src={item.commentImg} alt='загружается...' />
+                          )}
+                          {user.user.role === 'ADMIN' && (
+                            <button className='' onClick={() => handleDelete(item.text, item.ID)}>
+                              <XIcon className='h-32px w-32px  hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                            </button>
+                          )}
+                          {user.user.role !== 'ADMIN' && user.user.name === item.author && (
+                            <button className='' onClick={() => handleDelete(item.text, item.ID)}>
+                              <XIcon className='h-32px w-32px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                            </button>
                           )}
                         </div>
-                      ),
-                    )}
-                </div>
-              )}
-            </div>
-            <form className='w-full md:w-2/3 md:max-w-3xl ml-auto mr-auto mb-6px' onSubmit={handleSubmit}>
-              <TextareaAutosize
-                cacheMeasurements
-                onChange={(e) => handleChangeText(e)}
-                value={text}
-                className='w-full text-green-700 rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px'
-                placeholder='Написать комментарий'
-              />
-              <div className='flex'>
-                <label className='flex ml-10px md:ml-0px'>
+                      </div>
+                    ),
+                  )}
+              </div>
+            )}
+
+            <form className='w-full mb-6px' onSubmit={handleSubmit}>
+              <div className='flex justify-center mb-10px'>
+                <TextareaAutosize
+                  cacheMeasurements
+                  onChange={(e) => handleChangeText(e)}
+                  value={text}
+                  className='rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%'
+                  placeholder='Написать комментарий'
+                />
+              </div>
+              <div className='flex ml-16px'>
+                <label className='flex  '>
                   <input
                     type='file'
                     className='hidden'
@@ -194,7 +198,7 @@ const Post = () => {
                 </label>
                 <button
                   disabled={!validForm}
-                  className='ml-auto mr-10px md:mr-0px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
+                  className='ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
                 >
                   Отправить
                 </button>
