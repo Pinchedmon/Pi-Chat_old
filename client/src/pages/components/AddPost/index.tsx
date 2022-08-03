@@ -25,7 +25,7 @@ function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit)
   data.append('post', props.file)
   if (props.text !== '' && props.addCategory !== '' && props.course !== '') {
     axios.post(
-      `http://localhost:6060/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
+      `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
       data,
     )
     props.handlePopup()
@@ -91,8 +91,8 @@ const AddPost = (props: IAddPost) => {
     }
   }, [file])
   return (
-    <div>
-      <div className=' fixed mt-90px left-1/2 transition -translate-x-1/2 w-90% md:max-w-3xl border-3 border-green-700  bg-white rounded-lg'>
+    <div className='absolute w-2/4 top-0px bg-gray-300 h-screen'>
+      <div>
         <div className='flex flex-col justify-center  items-center'>
           <XIcon
             onClick={handlePopup}
@@ -102,7 +102,7 @@ const AddPost = (props: IAddPost) => {
             className=' text-center flex flex-col pb-16px'
             onSubmit={(e) => addPostSubmit(e, { name, text, addCategory, course, path, handlePopup, file, refetch })}
           >
-            <h1 className='text-2xl w-200px ml-auto mr-auto md:w-full rounded-md p-10px font-bold bg-green-600 text-white border-3 border-green-600 '>
+            <h1 className='text-2xl  ml-auto mr-auto md:w-full rounded-md p-10px font-bold bg-green-600 text-white border-3 border-green-600 '>
               Создание поста
             </h1>
             <div className='flex flex-row justify-evenly  mt-12px'>

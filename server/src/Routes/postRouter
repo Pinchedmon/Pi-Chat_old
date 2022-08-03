@@ -24,7 +24,7 @@ var upload = multer({
         }
     }
 });
-router.post('/post', upload.single('post'), controller.postUpload);
+router.post('/feed', upload.single('post'), controller.postUpload);
 router.post('/comment', upload.single('comment'), controller.commentUpload);
 router.get('/feed', controller.getFeed);
 router.get('/post', controller.getPost);

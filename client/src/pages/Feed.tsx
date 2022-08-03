@@ -8,6 +8,8 @@ import FilterModal from './components/Nav/FilterModal'
 import { Route, Routes } from 'react-router-dom'
 import Post from './components/Posts/Post/Post'
 import Profile from './components/Profile/FilesUploadComponent/Profile'
+import AddPost from './components/AddPost'
+import { setAddPostStyle } from '../state/navReducer'
 const Feed = () => {
   const sort = useSelector((state: any) => state.nav.sort)
   const category = useSelector((state: any) => state.nav.category)
@@ -20,6 +22,9 @@ const Feed = () => {
   useEffect(() => {
     refetch()
   }, [category, refetch, sort])
+
+  const style = useSelector((state: any) => state.nav.addPostStyle)
+
   return (
     <div className='grid grid-cols-4 gap-0px'>
       <div className='h-screen  '>
@@ -31,6 +36,7 @@ const Feed = () => {
           <Route path='/post' element={<Post />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
+        {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
       </div>
       <div className=''>
         <FilterModal category={category} sort={sort} dispatch={dispatch} />

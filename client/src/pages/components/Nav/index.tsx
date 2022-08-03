@@ -4,7 +4,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
-import FilterModal from './FilterModal'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 const Nav = (props: { sort: string | number; category: string }) => {
@@ -43,7 +42,10 @@ const Nav = (props: { sort: string | number; category: string }) => {
             <p className='ml-16px'>Настройки</p>
           </Link>
         </div>
-        <div className='bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold'>
+        <div
+          onClick={handlePopup}
+          className='bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold'
+        >
           <button>Постить</button>
         </div>
         <div className='flex justify-center'>
@@ -61,7 +63,6 @@ const Nav = (props: { sort: string | number; category: string }) => {
           </div>
         </div>
       </div>
-      {/* <AddPost handlePopup={handlePopup} /> */}
     </div>
   )
 }

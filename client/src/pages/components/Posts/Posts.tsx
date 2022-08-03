@@ -20,7 +20,7 @@ const Posts = (props: IPosts) => {
   let posts = props.data
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const deleteButton = (id: number) => {
-    redaxios.delete(`http://localhost:6060/feed?id=${id}`)
+    redaxios.delete(`http://localhost:6060/posts/feed?id=${id}`)
     getPosts({ sort, category })
     refetch()
   }
