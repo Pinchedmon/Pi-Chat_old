@@ -6,7 +6,7 @@ interface apiPayload {
 }
 export const addPost = (payload: apiPayload) => {
   const { text, category, course } = payload
-  return redaxios.post('http://localhost:6060/feed', {
+  return redaxios.post('http://localhost:6060/posts/feed', {
     author: 'Noname',
     text: text,
     category: category,

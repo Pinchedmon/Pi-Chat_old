@@ -36,7 +36,7 @@ const Post = () => {
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    redaxios.put(`http://localhost:6060/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
+    redaxios.put(`http://localhost:6060/posts/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
     const commentImg = new FormData()
     if (file !== null) {
       commentImg.append('comment', file)
@@ -52,13 +52,13 @@ const Post = () => {
     }, 1000)
   }
   const getPost = async () => {
-    const response = await redaxios.get(`http://localhost:6060/post${location.search}`)
+    const response = await redaxios.get(`http://localhost:6060/posts/post${location.search}`)
     setImg(response.data.image)
     setPost(response.data.post[0])
     setComments(response.data.comments)
   }
   const handleDelete = (text: string, id: number) => {
-    redaxios.delete(`http://localhost:6060/feed/comments?text=${text}&id=${id}`)
+    redaxios.delete(`http://localhost:6060/posts/comment?text=${text}&id=${id}`)
     setTimeout(() => {
       refetch()
     }, 100)

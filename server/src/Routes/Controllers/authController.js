@@ -1,11 +1,9 @@
 const bcrypt = require('bcryptjs')
 const sqlite = require('sqlite3').verbose();
 const path = require('path');
-var store = require('store')
 const jwt = require('jsonwebtoken')
-const { secret } = require("./config.js")
-const { validationResult } = require('express-validator');
-const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
+const { secret } = require("../../config");
+const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 
 const generateAccessToken = (ID, role) => {
     const payload = {
@@ -37,7 +35,6 @@ class authController {
                 message: "Такой пользователь уже существует"
             })
         });
-
     }
     async login(req, res) {
         const { session } = req.body;
@@ -79,7 +76,6 @@ class authController {
         jwt.destroy(token)
     }
     async getUser(req, res) {
-
         if (req.user !== undefined) {
             const { id } = req.user
             db.all(`SELECT * FROM users WHERE ID = ${id}`, [], (err, rows) => {

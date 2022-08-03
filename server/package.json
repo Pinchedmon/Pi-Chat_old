@@ -23,8 +23,5 @@
   "main": "server.js",
   "author": "Pinchedmon",
   "license": "ISC",
-  "description": "",
-  "engines": {
-    "node": "14.x"
-  }
+  "description": ""
 }
