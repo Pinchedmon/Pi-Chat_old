@@ -42,10 +42,8 @@ function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit)
   }
 }
 const AddPost = (props: IAddPost) => {
-  // @ts-ignore
-  const sort = useSelector((state) => state.nav.sort)
-  // @ts-ignore
-  const category = useSelector((state) => state.nav.category)
+  const sort = useSelector((state: any) => state.nav.sort)
+  const category = useSelector((state: any) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const { user } = useAuth()
   const name = user.user.name

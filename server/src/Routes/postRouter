@@ -30,7 +30,6 @@ router.get('/feed', controller.getFeed);
 router.get('/post', controller.getPost);
 router.put('/feed', controller.likePost);
 router.put('/comment', controller.likeComment)
-router.put('/post', controller.comments);
 router.delete('/feed', controller.deletePost);
 router.delete('/comment', controller.deleteComment);
 

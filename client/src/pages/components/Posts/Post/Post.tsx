@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import redaxios from 'redaxios'
-import { likeHandler } from '../../../../api/likeHandler'
+// import { likeHandler } from '../../../../api/likeHandler'
 import { ArrowLeftIcon, AnnotationIcon, HeartIcon, PaperClipIcon, XIcon } from '@heroicons/react/solid'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -36,7 +36,6 @@ const Post = () => {
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    redaxios.put(`http://localhost:6060/posts/post?id=${post.ID}&comments=${Number(post.comments) + 1}`)
     const commentImg = new FormData()
     if (file !== null) {
       commentImg.append('comment', file)
@@ -107,8 +106,8 @@ const Post = () => {
                   <button
                     className='flex'
                     onClick={() => {
-                      likeHandler(user.user.id.toString(), post.ID, post.likes)
-                      refetch()
+                      redaxios.put(`http://localhost:6060/posts/feed?postId=${post.ID}&profileName=${name}`)
+                      setTimeout(() => refetch(), 300)
                     }}
                   >
                     <HeartIcon className='text-green-600 w-28px' />

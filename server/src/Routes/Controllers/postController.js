@@ -39,6 +39,9 @@ class postController {
         db.all(sql, [queryObject.id, queryObject.author, queryObject.text, queryObject.userImg, commentImg], (err) => {
             if (err) return res.json({ status: 300, success: false, error: err })
         })
+        db.all(`SELECT * FROM comments WHERE ID = ${queryObject.id}`, [], (err, rows) => {
+            db.all(`UPDATE posts set comments = ${rows.length} WHERE ID = ${queryObject.id}`)
+        })
         return res.json({
             status: 200,
             success: true
@@ -63,7 +66,16 @@ class postController {
     }
     async likePost(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`UPDATE posts SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
+        db.all(`SELECT * FROM likes WHERE name = "${queryObject.profileName}" AND postId = "${Number(queryObject.postId)}"`, [], (err, rows) => {
+            if (rows.length === 0) {
+                db.all(`UPDATE posts SET likes = likes + 1  WHERE ID = ${queryObject.postId}`)
+                db.all('INSERT INTO likes (name, postID) values (? , ?)', [queryObject.profileName, queryObject.postId])
+            } else {
+                db.all(`UPDATE posts SET likes = likes - 1  WHERE ID = ${queryObject.postId}`)
+                db.all(`DELETE FROM likes WHERE name = "${queryObject.profileName}" and postId = "${queryObject.postId}"`)
+            }
+        })
+
     }
     async getPost(req, res) {
         const queryObject = url.parse(req.url, true).query;
@@ -88,10 +100,6 @@ class postController {
     async likeComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`UPDATE comments SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`)
-    }
-    async comments(req, res) {
-        const queryObject = url.parse(req.url, true).query;
-        db.all(`UPDATE posts SET comments = ${queryObject.comments} WHERE ID = ${queryObject.id}`)
     }
     async deletePost(req, res) {
         const queryObject = url.parse(req.url, true).query;

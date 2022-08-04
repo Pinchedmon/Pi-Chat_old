@@ -10,8 +10,9 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 // db.run(sql, ["pinchedmon", "temnikovalx@icloud.com", 12341234], (err) => {
 //         if (err) return console.error(err.message)
 // })
-// const sql = "DROP TAble users";
+// const sql = "DROP TAble likes";
 // db.run(sql)
+// db.run('CREATE TABLE likes ( name, postId, commentId)')
 
 
 

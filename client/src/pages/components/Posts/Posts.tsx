@@ -2,7 +2,7 @@ import React from 'react'
 import redaxios from 'redaxios'
 import { getPosts } from '../../../api/getPosts'
 import { XIcon, AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
-import { likeHandler } from '../../../api/likeHandler'
+// import { likeHandler } from '../../../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import useAuth from '../../../hooks/useAuth'
@@ -53,18 +53,12 @@ const Posts = (props: IPosts) => {
                 <button
                   className='flex '
                   onClick={() => {
-                    likeHandler(user.user.id.toString(), item.ID, item.likes)
-                    refetch()
+                    redaxios.put(`http://localhost:6060/posts/feed?postId=${item.ID}&profileName=${name}`)
+                    setTimeout(() => refetch(), 300)
                   }}
                 >
                   <HeartIcon className='text-green-600 w-28px' />
-                  <span className='text-green-600 text-lg font-bold ml-6px'>
-                    {item.likes === '0'
-                      ? '0'
-                      : /\s/.test(item.likes)
-                      ? item.likes.split(' ').length
-                      : [item.likes].length}
-                  </span>
+                  <span className='text-green-600 text-lg font-bold ml-6px'>{item.likes}</span>
                 </button>
 
                 <button className='flex items-center ml-16px' onClick={() => showComments(item.ID)}>
