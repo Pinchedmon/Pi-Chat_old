@@ -75,6 +75,7 @@ class postController {
                 db.all(`DELETE FROM likes WHERE name = "${queryObject.profileName}" and postId = "${queryObject.postId}"`)
             }
         })
+        return res.json({ status: 200 })
 
     }
     async getPost(req, res) {

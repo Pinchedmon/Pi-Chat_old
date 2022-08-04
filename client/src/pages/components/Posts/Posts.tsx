@@ -53,8 +53,13 @@ const Posts = (props: IPosts) => {
                 <button
                   className='flex '
                   onClick={() => {
-                    redaxios.put(`http://localhost:6060/posts/feed?postId=${item.ID}&profileName=${name}`)
-                    setTimeout(() => refetch(), 300)
+                    redaxios
+                      .put(`http://localhost:6060/posts/feed?postId=${item.ID}&profileName=${name}`)
+                      .then((response) => {
+                        if (response.status === 200) {
+                          refetch()
+                        }
+                      })
                   }}
                 >
                   <HeartIcon className='text-green-600 w-28px' />
