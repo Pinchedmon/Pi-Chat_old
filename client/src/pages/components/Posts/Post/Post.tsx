@@ -7,51 +7,62 @@ import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../../api/session'
 import useAuth from '../../../../hooks/useAuth'
-
+interface iPost {
+  post: any | string
+  file: File | null
+  preview: string
+  comments: any | string
+  textArea: string
+  textAreaError: string
+  validForm: boolean
+}
 const Post = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { user } = useAuth()
   const name = user.user.name
   const [path, setPath] = useState(null)
-  const [post, setPost] = useState<any>()
-  const [img, setImg] = useState('')
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState<string>()
-  const [comments, setComments] = useState<any>()
-  const [text, setText] = useState('')
-  const [textError, setTextError] = useState('Сообщение не может быть пустым')
-  const [validForm, setValidForm] = useState(false)
+  const [postData, setPostData] = useState<iPost>({
+    post: '',
+    file: null,
+    preview: '',
+    comments: '',
+    textArea: '',
+    textAreaError: 'Сообщение не может быть пустым',
+    validForm: false,
+  })
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value)
+    setPostData((postData: iPost) => ({ ...postData, textArea: e.target.value }))
     if (!e.target.value) {
-      setTextError('Имя не может быть пустым')
+      setPostData((postData: iPost) => ({ ...postData, textArea: 'Сообщение не может быть пустым' }))
     } else {
-      setTextError('')
+      setPostData((postData: iPost) => ({ ...postData, textAreaError: '' }))
     }
   }
   const handleChangeFile = (e: React.SyntheticEvent<any, Event>) => {
     const target = e.target as HTMLInputElement
-    setFile(target.files[0])
+    setPostData((postData: iPost) => ({ ...postData, file: target.files[0] }))
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const commentImg = new FormData()
-    if (file !== null) {
-      commentImg.append('comment', file)
+    if (postData.file !== null) {
+      commentImg.append('comment', postData.file)
     }
     event.preventDefault()
-    postComment({ id: post.ID, author: name, text: text, userImg: path, refetch: refetch }, commentImg)
-    setText('')
-    setFile(null)
+    postComment(
+      { id: postData.post.ID, author: name, text: postData.textArea, userImg: path, refetch: refetch },
+      commentImg,
+    )
+    setPostData((postData: iPost) => ({ ...postData, textArea: '' }))
+    setPostData((postData: iPost) => ({ ...postData, file: null }))
 
-    navigate(`?id=${post.ID}`)
+    navigate(`?id=${postData.post.ID}`)
   }
   const getPost = async () => {
     const response = await redaxios.get(`http://localhost:6060/posts/post${location.search}`)
-    setImg(response.data.image)
-    setPost(response.data.post[0])
-    setComments(response.data.comments)
+    setPostData((postData: iPost) => ({ ...postData, post: response.data.post[0] }))
+    setPostData((postData: iPost) => ({ ...postData, comments: response.data.comments }))
   }
   const handleDelete = (text: string, id: number) => {
     redaxios.delete(`http://localhost:6060/posts/comment?text=${text}&id=${id}`).then((response) => {
@@ -60,52 +71,55 @@ const Post = () => {
       }
     })
   }
+
   const { data, refetch } = useQuery('post', () => getPost(), {})
   useEffect(() => {
-    setPost(data)
+    setPostData((postData: iPost) => ({ ...postData, post: data }))
   }, [data])
 
   useEffect(() => {
     setPath(user.user.img)
-    if (file) {
+    if (postData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setPreview(reader.result as string)
+        setPostData((postData: iPost) => ({ ...postData, preview: reader.result as string }))
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(postData.file)
     } else {
-      setPreview(null)
+      setPostData((postData: iPost) => ({ ...postData, preview: null }))
     }
-    if (textError && file === null) {
-      setValidForm(false)
+    if (postData.textAreaError && postData.file === null) {
+      setPostData((postData: iPost) => ({ ...postData, validForm: false }))
     } else {
-      setValidForm(true)
+      setPostData((postData: iPost) => ({ ...postData, validForm: true }))
     }
-  }, [file, name, setPost, textError, user.user.img])
+  }, [postData.file, name, postData.textAreaError, user.user.img])
   return (
     <>
       <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>
         <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
       </div>
       <div className='flex flex-col mt-16px '>
-        {post !== undefined && (
+        {postData.post !== undefined && (
           <div className=''>
             <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
-              <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={post.userImg} alt=' ' />
+              <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={postData.post.userImg} alt=' ' />
               <div className='flex-col '>
                 <div className='flex items-center align-center  -mt-4px'>
-                  <div className='text-lg md:text-xl  font-bold'>{post.author}</div>
+                  <div className='text-lg md:text-xl  font-bold'>{postData.post.author}</div>
                   <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
                   <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                 </div>
-                <div className='mt-4px mb-12px'>{post.text}</div>
-                {post.postImg !== '' && <img className='w-1/2 rounded-xl' src={post.postImg} alt=' ' />}
+                <div className='mt-4px mb-12px'>{postData.post.text}</div>
+                {postData.post.postImg !== '' && (
+                  <img className='w-1/2 rounded-xl' src={postData.post.postImg} alt=' ' />
+                )}
                 <div className='flex items-center mb-16px mt-16px'>
                   <button
                     className='flex'
                     onClick={() => {
                       redaxios
-                        .put(`http://localhost:6060/posts/feed?postId=${post.ID}&profileName=${name}`)
+                        .put(`http://localhost:6060/posts/feed?postId=${postData.post.ID}&profileName=${name}`)
                         .then((response) => {
                           if (response.status === 200) {
                             refetch()
@@ -114,22 +128,22 @@ const Post = () => {
                     }}
                   >
                     <HeartIcon className='text-green-600 w-28px' />
-                    <span className='text-green-600 text-xl font-bold '>{post.likes}</span>
+                    <span className='text-green-600 text-xl font-bold '>{postData.post.likes}</span>
                   </button>
                   <button className='flex ml-16px'>
                     <AnnotationIcon className=' text-green-600 w-28px' />
-                    <span className='text-green-600 text-xl font-bold ml-6px '>{post.comments}</span>
+                    <span className='text-green-600 text-xl font-bold ml-6px '>{postData.post.comments}</span>
                   </button>
                 </div>
               </div>
             </div>
 
-            {post.comments == 0 ? (
+            {postData.post.comments == 0 ? (
               <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
             ) : (
               <div>
-                {comments !== undefined &&
-                  comments.map(
+                {postData.comments !== '' &&
+                  postData.comments.map(
                     (item: {
                       ID: number
                       author: string
@@ -172,7 +186,7 @@ const Post = () => {
                 <TextareaAutosize
                   cacheMeasurements
                   onChange={(e) => handleChangeText(e)}
-                  value={text}
+                  value={postData.textArea}
                   className='rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%'
                   placeholder='Написать комментарий'
                 />
@@ -188,12 +202,12 @@ const Post = () => {
                   <i className=''>
                     <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
                   </i>
-                  {file !== null && (
-                    <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={preview} />
+                  {postData.file !== null && (
+                    <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={postData.preview} />
                   )}
                 </label>
                 <button
-                  disabled={!validForm}
+                  disabled={!postData.validForm}
                   className='ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
                 >
                   Отправить
