@@ -38,7 +38,7 @@ export default function Login() {
   }, [form.emailError, form.passwordError])
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form: iForm) => ({ ...form, email: e.currentTarget.value }))
+    setForm((form: iForm) => ({ ...form, email: e.target.value }))
     const re =
       // eslint-disable-next-line no-useless-escape
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -48,11 +48,11 @@ export default function Login() {
         setForm((form: iForm) => ({ ...form, emailError: 'Email не может быть пустым' }))
       }
     } else {
-      setForm((form: iForm) => ({ ...form, emailError: 'Некорректен email' }))
+      setForm((form: iForm) => ({ ...form, emailError: '' }))
     }
   }
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form: iForm) => ({ ...form, password: e.currentTarget.value }))
+    setForm((form: iForm) => ({ ...form, password: e.target.value }))
     if (e.target.value.length < 3 || e.target.value.length > 12) {
       setForm((form: iForm) => ({ ...form, passwordError: 'пароль должен быть от 3 до 12 символов' }))
       if (!e.target.value) {
@@ -69,7 +69,7 @@ export default function Login() {
         break
       }
       case 'password': {
-        setForm((form: iForm) => ({ ...form, emailDirty: true }))
+        setForm((form: iForm) => ({ ...form, passwordDirty: true }))
         break
       }
     }
@@ -95,6 +95,7 @@ export default function Login() {
           className='w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600'
           name='email'
           placeholder='Email'
+          type='email'
           value={form.email}
           onBlur={(e) => blurHandler(e)}
           onChange={handleChangeEmail}

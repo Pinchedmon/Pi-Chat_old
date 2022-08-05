@@ -41,9 +41,15 @@ function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit)
     event.preventDefault()
   }
 }
+interface IState {
+  nav: {
+    sort: string | number
+    category: string
+  }
+}
 const AddPost = (props: IAddPost) => {
-  const sort = useSelector((state: any) => state.nav.sort)
-  const category = useSelector((state: any) => state.nav.category)
+  const sort = useSelector((state: IState) => state.nav.sort)
+  const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const { user } = useAuth()
   const name = user.user.name
@@ -66,7 +72,7 @@ const AddPost = (props: IAddPost) => {
       setTextError('')
     }
   }
-  const handleChangeFile = (e: React.SyntheticEvent<any, Event>) => {
+  const handleChangeFile = (e: React.SyntheticEvent<EventTarget>) => {
     const target = e.target as HTMLInputElement
     setFile(target.files[0])
   }

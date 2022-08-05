@@ -1,14 +1,13 @@
 import redaxios from 'redaxios'
-import authHeader from './authHeader'
 
 interface apiParams {
   name: string
   email: string
   password: string
 }
-export async function getCurrentUser(): Promise<number | string> {
+export async function getCurrentUser(authToken: string | undefined): Promise<any> {
   const response = await redaxios.get('http://localhost:6060/auth/user', {
-    headers: authHeader(),
+    headers: { Authorization: 'Bearer ' + authToken },
   })
   return response.data
 }

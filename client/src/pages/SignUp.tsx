@@ -54,7 +54,7 @@ export default function SignUpPage() {
     }
   }
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form: iForm) => ({ ...form, email: e.currentTarget.value }))
+    setForm((form: iForm) => ({ ...form, email: e.target.value }))
     const re =
       // eslint-disable-next-line no-useless-escape
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -64,11 +64,11 @@ export default function SignUpPage() {
         setForm((form: iForm) => ({ ...form, emailError: 'Email не может быть пустым' }))
       }
     } else {
-      setForm((form: iForm) => ({ ...form, emailError: 'Некорректен email' }))
+      setForm((form: iForm) => ({ ...form, emailError: '' }))
     }
   }
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form: iForm) => ({ ...form, password: e.currentTarget.value }))
+    setForm((form: iForm) => ({ ...form, password: e.target.value }))
     if (e.target.value.length < 3 || e.target.value.length > 12) {
       setForm((form: iForm) => ({ ...form, passwordError: 'пароль должен быть от 3 до 12 символов' }))
       if (!e.target.value) {
@@ -89,7 +89,7 @@ export default function SignUpPage() {
         break
       }
       case 'password': {
-        setForm((form: iForm) => ({ ...form, emailDirty: true }))
+        setForm((form: iForm) => ({ ...form, passwordDirty: true }))
         break
       }
     }

@@ -6,11 +6,18 @@ import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from 
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
+interface IState {
+  nav: {
+    sort: string | number
+    category: string
+    addPostStyle: boolean
+  }
+}
 const Nav = (props: { sort: string | number; category: string }) => {
   const { user, logout } = useAuth()
   const dispatch = useDispatch()
 
-  const style = useSelector((state: any) => state.nav.addPostStyle)
+  const style = useSelector((state: IState) => state.nav.addPostStyle)
   const handlePopup = () => {
     dispatch(setAddPostStyle(!style))
   }

@@ -25,7 +25,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
-  const [user, setUser] = useState<any>()
+  const [user, setUser] = useState<iUser>()
   const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -34,7 +34,9 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    usersApi.getCurrentUser().then((user) => setUser(user))
+    if (user !== undefined) {
+      usersApi.getCurrentUser(user.authToken).then((res) => setUser(res))
+    }
   }, [])
 
   function login(email: string, password: string) {
@@ -70,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
 
   function logout() {
     sessionsApi.logout()
-    setUser(' ')
+    setUser(null)
     navigate('/login')
   }
   const memoedValue = useMemo(
