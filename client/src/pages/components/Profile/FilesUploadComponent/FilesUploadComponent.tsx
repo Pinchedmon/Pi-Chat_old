@@ -9,8 +9,11 @@ const FilesUploadComponent = (name: any) => {
   const sendFile = useCallback(async () => {
     const data = new FormData()
     data.append('avatar', image)
-    await redaxios.put(`http://localhost:6060/profile/img?name="${name.name}"`, data)
-    setTimeout(() => refetch(), 1000)
+    await redaxios.put(`http://localhost:6060/profile/img?name="${name.name}"`, data).then((response) => {
+      if (response.status === 200) {
+        refetch()
+      }
+    })
   }, [image, name.name, refetch])
   useEffect(() => {
     if (image !== null) {

@@ -41,14 +41,11 @@ const Post = () => {
       commentImg.append('comment', file)
     }
     event.preventDefault()
-    postComment({ id: post.ID, author: name, text: text, userImg: path }, commentImg)
+    postComment({ id: post.ID, author: name, text: text, userImg: path, refetch: refetch }, commentImg)
     setText('')
     setFile(null)
 
     navigate(`?id=${post.ID}`)
-    setTimeout(() => {
-      refetch()
-    }, 1000)
   }
   const getPost = async () => {
     const response = await redaxios.get(`http://localhost:6060/posts/post${location.search}`)
@@ -57,10 +54,11 @@ const Post = () => {
     setComments(response.data.comments)
   }
   const handleDelete = (text: string, id: number) => {
-    redaxios.delete(`http://localhost:6060/posts/comment?text=${text}&id=${id}`)
-    setTimeout(() => {
-      refetch()
-    }, 100)
+    redaxios.delete(`http://localhost:6060/posts/comment?text=${text}&id=${id}`).then((response) => {
+      if (response.status === 200) {
+        refetch()
+      }
+    })
   }
   const { data, refetch } = useQuery('post', () => getPost(), {})
   useEffect(() => {

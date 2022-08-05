@@ -21,7 +21,7 @@ const Posts = (props: IPosts) => {
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const deleteButton = (id: number) => {
     redaxios.delete(`http://localhost:6060/posts/feed?id=${id}`)
-    getPosts({ sort, category })
+
     refetch()
   }
   const showComments = async (id: number) => {

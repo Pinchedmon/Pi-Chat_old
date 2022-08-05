@@ -121,6 +121,7 @@ class postController {
             if (err) return console.error(err.message)
         })
         db.run(`UPDATE posts SET comments = comments - 1 WHERE ID = ${queryObject.id}`)
+        return res.json({ status: 200 })
     }
 }
 module.exports = new postController

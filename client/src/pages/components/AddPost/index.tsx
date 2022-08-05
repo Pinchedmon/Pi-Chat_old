@@ -24,21 +24,21 @@ function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit)
   let data = new FormData()
   data.append('post', props.file)
   if (props.text !== '' && props.addCategory !== '' && props.course !== '') {
-    axios.post(
-      `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
-      data,
-    )
+    axios
+      .post(
+        `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
+        data,
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          props.refetch()
+        }
+      })
     props.handlePopup()
     event.preventDefault()
-    setTimeout(() => {
-      props.refetch()
-    }, 1000)
   } else {
     window.alert('Какое-то поле незаполнено!')
     event.preventDefault()
-    setTimeout(() => {
-      props.refetch()
-    }, 1000)
   }
 }
 const AddPost = (props: IAddPost) => {

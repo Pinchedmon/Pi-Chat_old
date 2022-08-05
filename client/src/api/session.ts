@@ -8,18 +8,24 @@ interface apiParamComments {
   author: string
   text: string
   userImg: string
+  refetch: () => void
 }
 export async function login(props: apiParams): Promise<any> {
   const response = await redaxios.post('http://localhost:6060/auth/login', { session: props })
   return response.data
 }
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
-  const response = await redaxios.post(
-    `http://localhost:6060/posts/comment?id=${props.id}&author=${props.author}&text=${props.text}&userImg=${props.userImg}`,
-    formData,
-  )
-  console.log(response)
-  return response.data.data
+  await redaxios
+    .post(
+      `http://localhost:6060/posts/comment?id=${props.id}&author=${props.author}&text=${props.text}&userImg=${props.userImg}`,
+      formData,
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        props.refetch()
+        return res.data.data
+      }
+    })
 }
 
 export async function logout() {

@@ -10,7 +10,7 @@ class profileController {
         db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name LIKE ${queryObject.name}`, [])
         db.all(`UPDATE posts SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
         db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
-        res.status(201).json({
+        res.status(200).json({
             'profileImg': urlange + '/public/' + req.file.filename
         })
     }
