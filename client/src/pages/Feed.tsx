@@ -39,14 +39,18 @@ const Feed = () => {
       </div>
       <div className='col-span-2 border-l-2 border-r-2 border-gray-300'>
         <Routes>
-          <Route path='/*' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
+          <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
           <Route path='/post' element={<Post />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
         {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
       </div>
       <div className=''>
-        <FilterModal category={category} sort={sort} dispatch={dispatch} />
+        <Routes>
+          <Route path='/' element={<FilterModal category={category} sort={sort} dispatch={dispatch} />} />
+          {/* <Route path='/post' element={<Post />} />
+          <Route path='/profile' element={<Profile />} /> */}
+        </Routes>
       </div>
     </div>
   )

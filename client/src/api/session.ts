@@ -39,5 +39,10 @@ export async function getPath(name: string | object | any) {
   } else {
     response = await redaxios.get(`http://localhost:6060/path?name="${name.name}";`)
   }
-  return response.data.data.toString()
+  return response.data.data as string
+}
+
+export async function getMyPosts(name: string) {
+  const response = await redaxios.get(`http://localhost:6060/posts/getMyPosts?name=${name}`)
+  return response.data.data
 }

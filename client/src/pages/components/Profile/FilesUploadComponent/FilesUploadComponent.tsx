@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
 import { getPath } from '../../../../api/session'
-const FilesUploadComponent = (name: any) => {
+const FilesUploadComponent = (name: { name: string }) => {
   const [image, setImage] = useState(null)
   const [validForm, setValidForm] = useState(false)
   const { refetch } = useQuery('profile', () => getPath(name))

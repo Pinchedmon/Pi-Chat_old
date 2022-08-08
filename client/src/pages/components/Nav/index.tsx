@@ -1,11 +1,11 @@
 import { setAddPostStyle } from '../../../state/navReducer'
-import AddPost from '../AddPost/index'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
+
 interface IState {
   nav: {
     sort: string | number
@@ -28,26 +28,26 @@ const Nav = (props: { sort: string | number; category: string }) => {
           <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
             / π - Чат /
           </Link>
-          <Link className='w-200px flex mb-32px text-green-600' to=''>
+          <NavLink to='' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
             <MenuAlt1Icon className='w-32px h-32px' />
             <p className='ml-16px'>Посты</p>
-          </Link>
-          <Link className='w-200px flex mb-32px' to=''>
+          </NavLink>
+          <NavLink to='notifs' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
             <BellIcon className='w-32px h-32px' />
             <p className='ml-16px'> Уведомления</p>
-          </Link>
-          <Link className='w-200px flex mb-32px' to=''>
+          </NavLink>
+          <NavLink to='messages' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
             <ChatIcon className='w-32px h-32px' />
             <p className='ml-16px'> Сообщения</p>
-          </Link>
-          <Link className='w-200px flex mb-32px' to='/profile'>
+          </NavLink>
+          <NavLink to='profile' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
             <UserIcon className='w-32px h-32px' />
             <p className='ml-16px'>Профиль</p>
-          </Link>
-          <Link className='w-200px flex mb-54px' to=''>
+          </NavLink>
+          <NavLink to='settings' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
             <CogIcon className='w-32px h-32px' />
             <p className='ml-16px'>Настройки</p>
-          </Link>
+          </NavLink>
         </div>
         <div
           onClick={handlePopup}

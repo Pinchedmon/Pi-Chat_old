@@ -64,6 +64,19 @@ class postController {
             })
         })
     }
+    async getMyPosts(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        sql = `SELECT * FROM posts WHERE author = "${queryObject.name}"`
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                return res.status(400).json({ "error": err.message });
+            }
+            return res.json({
+                status: 200,
+                "data": rows
+            })
+        })
+    }
     async likePost(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM likes WHERE name = "${queryObject.profileName}" AND postId = "${Number(queryObject.postId)}"`, [], (err, rows) => {

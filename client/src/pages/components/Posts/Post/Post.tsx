@@ -24,7 +24,6 @@ type iComment = {
   userImg: string
   commentImg: string
 }
-
 interface iPostPage {
   post: iPost
   file: File | null
@@ -89,7 +88,6 @@ const Post = () => {
       }
     })
   }
-
   const { data, refetch } = useQuery('post', () => getPost(), {})
   useEffect(() => {
     setPostData((postData: any) => ({ ...postData, post: data }))
@@ -155,7 +153,6 @@ const Post = () => {
                 </div>
               </div>
             </div>
-
             {postData.post.comments == 0 ? (
               <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
             ) : (
@@ -189,7 +186,6 @@ const Post = () => {
                   ))}
               </div>
             )}
-
             <form className='w-full mb-6px' onSubmit={handleSubmit}>
               <div className='flex justify-center mb-10px'>
                 <TextareaAutosize

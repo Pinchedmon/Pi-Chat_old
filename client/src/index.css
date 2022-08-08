@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .activeNavMenu {
+        @apply w-200px flex mb-32px text-green-600
+    }
+
+    .navMenu {
+        @apply w-200px flex mb-32px
+    }
+}
