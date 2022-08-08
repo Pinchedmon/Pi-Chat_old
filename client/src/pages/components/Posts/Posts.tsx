@@ -2,12 +2,20 @@ import React from 'react'
 import redaxios from 'redaxios'
 import { getPosts } from '../../../api/getPosts'
 import { XIcon, AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
-// import { likeHandler } from '../../../api/likeHandler'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import useAuth from '../../../hooks/useAuth'
+type iPost = {
+  userImg: string
+  author: string
+  text: string
+  postImg: string
+  likes: number | string
+  ID: number
+  comments: number | string
+}
 interface IPosts {
-  data: any
+  data: Array<iPost>
   sort: string | number
   category: string
 }
@@ -16,13 +24,14 @@ const Posts = (props: IPosts) => {
   const { user } = useAuth()
   const name = user.user.name
   const { sort, category } = props
-
   let posts = props.data
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const deleteButton = (id: number) => {
-    redaxios.delete(`http://localhost:6060/posts/feed?id=${id}`)
-
-    refetch()
+    redaxios.delete(`http://localhost:6060/posts/feed?id=${id}`).then((res) => {
+      if (res.status === 200) {
+        refetch()
+      }
+    })
   }
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
@@ -31,7 +40,7 @@ const Posts = (props: IPosts) => {
     <>
       <div className='p-32px text-xl border-b-2 border-gray-300'>Сделать пост</div>
       <div className='flex flex-col mt-16px '>
-        {posts.map((item: any, index: any) => (
+        {posts.map((item: iPost, index: string | number) => (
           <div key={index} className='w-full flex  self-center mb-16px border-b-2 border-gray-300'>
             <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
 

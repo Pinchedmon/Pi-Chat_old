@@ -10,11 +10,18 @@ import Post from './components/Posts/Post/Post'
 import Profile from './components/Profile/FilesUploadComponent/Profile'
 import AddPost from './components/AddPost'
 import { setAddPostStyle } from '../state/navReducer'
+interface iState {
+  nav: {
+    sort: string | number
+    category: string
+    addPostStyle: boolean
+  }
+}
 const Feed = () => {
-  const sort = useSelector((state: any) => state.nav.sort)
-  const category = useSelector((state: any) => state.nav.category)
+  const sort = useSelector((state: iState) => state.nav.sort)
+  const category = useSelector((state: iState) => state.nav.category)
   const { data, refetch } = useQuery('posts', () => getPosts({ sort, category }))
-  const [posts, setPosts] = useState([{}])
+  const [posts, setPosts] = useState()
   const dispatch = useDispatch()
   useEffect(() => {
     setPosts(data)
@@ -23,7 +30,7 @@ const Feed = () => {
     refetch()
   }, [category, refetch, sort])
 
-  const style = useSelector((state: any) => state.nav.addPostStyle)
+  const style = useSelector((state: iState) => state.nav.addPostStyle)
 
   return (
     <div className='grid grid-cols-4 gap-0px'>

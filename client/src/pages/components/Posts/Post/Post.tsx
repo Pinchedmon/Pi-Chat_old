@@ -7,11 +7,29 @@ import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postComment } from '../../../../api/session'
 import useAuth from '../../../../hooks/useAuth'
-interface iPost {
-  post: any | string
+type iPost = {
+  userImg: string
+  author: string
+  text: string
+  postImg: string
+  likes: number | string
+  ID: number
+  comments: number | string
+}
+type iComment = {
+  ID: number
+  author: string
+  text: string
+  likes: string
+  userImg: string
+  commentImg: string
+}
+
+interface iPostPage {
+  post: iPost
   file: File | null
   preview: string
-  comments: any | string
+  comments: Array<iComment> | undefined
   textArea: string
   textAreaError: string
   validForm: boolean
@@ -22,26 +40,26 @@ const Post = () => {
   const { user } = useAuth()
   const name = user.user.name
   const [path, setPath] = useState(null)
-  const [postData, setPostData] = useState<iPost>({
-    post: '',
+  const [postData, setPostData] = useState<iPostPage>({
+    post: { ID: 0, author: '', text: '', userImg: '', postImg: '', likes: '', comments: 0 },
     file: null,
     preview: '',
-    comments: '',
+    comments: [],
     textArea: '',
     textAreaError: 'Сообщение не может быть пустым',
     validForm: false,
   })
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPostData((postData: iPost) => ({ ...postData, textArea: e.target.value }))
+    setPostData((postData: iPostPage) => ({ ...postData, textArea: e.target.value }))
     if (!e.target.value) {
-      setPostData((postData: iPost) => ({ ...postData, textArea: 'Сообщение не может быть пустым' }))
+      setPostData((postData: iPostPage) => ({ ...postData, textArea: 'Сообщение не может быть пустым' }))
     } else {
-      setPostData((postData: iPost) => ({ ...postData, textAreaError: '' }))
+      setPostData((postData: iPostPage) => ({ ...postData, textAreaError: '' }))
     }
   }
-  const handleChangeFile = (e: React.SyntheticEvent<any, Event>) => {
+  const handleChangeFile = (e: React.SyntheticEvent<HTMLInputElement, Event>) => {
     const target = e.target as HTMLInputElement
-    setPostData((postData: iPost) => ({ ...postData, file: target.files[0] }))
+    setPostData((postData: iPostPage) => ({ ...postData, file: target.files[0] }))
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,15 +72,15 @@ const Post = () => {
       { id: postData.post.ID, author: name, text: postData.textArea, userImg: path, refetch: refetch },
       commentImg,
     )
-    setPostData((postData: iPost) => ({ ...postData, textArea: '' }))
-    setPostData((postData: iPost) => ({ ...postData, file: null }))
+    setPostData((postData: iPostPage) => ({ ...postData, textArea: '' }))
+    setPostData((postData: iPostPage) => ({ ...postData, file: null }))
 
     navigate(`?id=${postData.post.ID}`)
   }
   const getPost = async () => {
     const response = await redaxios.get(`http://localhost:6060/posts/post${location.search}`)
-    setPostData((postData: iPost) => ({ ...postData, post: response.data.post[0] }))
-    setPostData((postData: iPost) => ({ ...postData, comments: response.data.comments }))
+    setPostData((postData: iPostPage) => ({ ...postData, post: response.data.post[0] }))
+    setPostData((postData: iPostPage) => ({ ...postData, comments: response.data.comments }))
   }
   const handleDelete = (text: string, id: number) => {
     redaxios.delete(`http://localhost:6060/posts/comment?text=${text}&id=${id}`).then((response) => {
@@ -74,7 +92,7 @@ const Post = () => {
 
   const { data, refetch } = useQuery('post', () => getPost(), {})
   useEffect(() => {
-    setPostData((postData: iPost) => ({ ...postData, post: data }))
+    setPostData((postData: any) => ({ ...postData, post: data }))
   }, [data])
 
   useEffect(() => {
@@ -82,16 +100,16 @@ const Post = () => {
     if (postData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setPostData((postData: iPost) => ({ ...postData, preview: reader.result as string }))
+        setPostData((postData: iPostPage) => ({ ...postData, preview: reader.result as string }))
       }
       reader.readAsDataURL(postData.file)
     } else {
-      setPostData((postData: iPost) => ({ ...postData, preview: null }))
+      setPostData((postData: iPostPage) => ({ ...postData, preview: null }))
     }
     if (postData.textAreaError && postData.file === null) {
-      setPostData((postData: iPost) => ({ ...postData, validForm: false }))
+      setPostData((postData: iPostPage) => ({ ...postData, validForm: false }))
     } else {
-      setPostData((postData: iPost) => ({ ...postData, validForm: true }))
+      setPostData((postData: iPostPage) => ({ ...postData, validForm: true }))
     }
   }, [postData.file, name, postData.textAreaError, user.user.img])
   return (
@@ -142,42 +160,33 @@ const Post = () => {
               <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
             ) : (
               <div>
-                {postData.comments !== '' &&
-                  postData.comments.map(
-                    (item: {
-                      ID: number
-                      author: string
-                      text: string
-                      likes: string
-                      userImg: string
-                      commentImg: string
-                    }) => (
-                      <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
-                        <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
-                        <div className='flex-col '>
-                          <div className='flex items-center align-center  -mt-4px'>
-                            <div className='text-lg md:text-xl  font-bold'>{item.author}</div>
-                            <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
-                            <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
-                          </div>
-                          <div className='mt-4px mb-12px'>{item.text}</div>
-                          {item.commentImg !== '' && (
-                            <img className='w-1/2 pb-10px rounded-xl' src={item.commentImg} alt='загружается...' />
-                          )}
-                          {user.user.role === 'ADMIN' && (
-                            <button className='' onClick={() => handleDelete(item.text, item.ID)}>
-                              <XIcon className='h-32px w-32px  hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                            </button>
-                          )}
-                          {user.user.role !== 'ADMIN' && user.user.name === item.author && (
-                            <button className='' onClick={() => handleDelete(item.text, item.ID)}>
-                              <XIcon className='h-32px w-32px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                            </button>
-                          )}
+                {postData.comments !== undefined &&
+                  postData.comments.map((item: iComment) => (
+                    <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
+                      <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
+                      <div className='flex-col '>
+                        <div className='flex items-center align-center  -mt-4px'>
+                          <div className='text-lg md:text-xl  font-bold'>{item.author}</div>
+                          <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                          <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                         </div>
+                        <div className='mt-4px mb-12px'>{item.text}</div>
+                        {item.commentImg !== '' && (
+                          <img className='w-1/2 pb-10px rounded-xl' src={item.commentImg} alt='загружается...' />
+                        )}
+                        {user.user.role === 'ADMIN' && (
+                          <button className='' onClick={() => handleDelete(item.text, item.ID)}>
+                            <XIcon className='h-32px w-32px  hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                          </button>
+                        )}
+                        {user.user.role !== 'ADMIN' && user.user.name === item.author && (
+                          <button className='' onClick={() => handleDelete(item.text, item.ID)}>
+                            <XIcon className='h-32px w-32px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
+                          </button>
+                        )}
                       </div>
-                    ),
-                  )}
+                    </div>
+                  ))}
               </div>
             )}
 
