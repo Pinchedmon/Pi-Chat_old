@@ -55,7 +55,7 @@ const AddPost = (props: IAddPost) => {
   const name = user.user.name
   const { handlePopup } = props
   const [file, setFile] = useState(null)
-  const path = user.user.img
+  const path = user.user.pathImg
   const [preview, setPreview] = useState<string>()
   const [validForm, setValidForm] = useState(false)
   const [addCategory, setAddCategory] = useState('Общее')

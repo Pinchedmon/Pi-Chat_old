@@ -58,7 +58,7 @@ const Nav = (props: { sort: string | number; category: string }) => {
         <div className='flex justify-center'>
           <div className='absolute bottom-32px flex items-center'>
             <div className='mr-16px'>
-              <img className='rounded-2xl w-54px h-54px ' src={user.user.img} alt='' />
+              <img className='rounded-2xl w-54px h-54px ' src={user.user.pathImg} alt='' />
             </div>
             <div className='flex-col mr-32px '>
               <div className='text-xl font-bold'>{user.user.name}</div>

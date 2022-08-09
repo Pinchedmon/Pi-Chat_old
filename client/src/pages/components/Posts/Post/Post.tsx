@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import redaxios from 'redaxios'
-// import { likeHandler } from '../../../../api/likeHandler'
 import { ArrowLeftIcon, AnnotationIcon, HeartIcon, PaperClipIcon, XIcon } from '@heroicons/react/solid'
 import { useQuery } from 'react-query'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -94,7 +93,7 @@ const Post = () => {
   }, [data])
 
   useEffect(() => {
-    setPath(user.user.img)
+    setPath(user.user.pathImg)
     if (postData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
@@ -109,7 +108,7 @@ const Post = () => {
     } else {
       setPostData((postData: iPostPage) => ({ ...postData, validForm: true }))
     }
-  }, [postData.file, name, postData.textAreaError, user.user.img])
+  }, [postData.file, name, postData.textAreaError, user.user.pathImg])
   return (
     <>
       <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>

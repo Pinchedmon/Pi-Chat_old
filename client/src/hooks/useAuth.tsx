@@ -9,9 +9,10 @@ interface iUser {
   user: {
     id: number
     email: string
-    img: string
+    pathImg: string
     name: string
     role: string
+    backImg: string
   }
 }
 interface AuthContextType {
@@ -21,6 +22,7 @@ interface AuthContextType {
   login: (email: string, password: string) => void
   signUp: (email: string, name: string, password: string) => void
   logout: () => void
+  getCurrentUser: () => void
 }
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
@@ -53,6 +55,9 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       }
     })
   }
+  function getCurrentUser() {
+    usersApi.getCurrentUser(user.authToken).then((res) => setUser(res))
+  }
   function signUp(email: string, name: string, password: string) {
     setError('')
     setLoading(true)
@@ -83,9 +88,10 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       login,
       signUp,
       logout,
+      getCurrentUser,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, error, loading],
+    [user, error, loading, getCurrentUser],
   )
   return <AuthContext.Provider value={memoedValue}>{children}</AuthContext.Provider>
 }
