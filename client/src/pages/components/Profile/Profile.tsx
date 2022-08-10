@@ -6,6 +6,7 @@ import { getMyPosts } from '../../../api/session'
 import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
 import CPost from '../../../components/CPost'
 import EditBackground from './FilesUploadComponent/EditBackground'
+import EditText from './FilesUploadComponent/EditText'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -27,8 +28,7 @@ const Profile = () => {
         <div className='flex w-full flex-col'>
           {/* naming */}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <div className='text-lg md:text-2xl  font-bold'>{name}</div>
-            <PencilIcon className='ml-4px w-24px text-green-600' />
+            <EditText name={name} />
             <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
           </div>
           <div className='flex'>

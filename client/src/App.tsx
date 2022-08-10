@@ -2,20 +2,15 @@ import Feed from './pages/Feed'
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
-import { QueryClientProvider, QueryClient, useQuery } from 'react-query'
+import { QueryClientProvider, QueryClient } from 'react-query'
 import useAuth, { AuthProvider } from './hooks/useAuth'
 import SignUp from './pages/SignUp'
 import Login from './pages/Login'
-import { getCurrentUser } from './api/users'
+
 function AuthenticatedRoute(props: any) {
   let { user } = useAuth()
-  const { data } = useQuery('profile', () => getCurrentUser(user.authToken))
-  if (data !== undefined) {
-    user.user = data.data[0]
-    console.log(user.user)
-  }
-
   if (!user) return <Navigate to='/login' />
+  console.log(user)
   return <props.component />
 }
 function App() {
