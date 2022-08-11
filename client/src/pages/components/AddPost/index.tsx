@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 import { getPosts } from '../../../api/getPosts'
 import { useSelector } from 'react-redux'
 import useAuth from '../../../hooks/useAuth'
+import { ArrowLeftIcon } from '@heroicons/react/solid'
 interface IaddPost {
   handlePopup: () => void
 }
@@ -100,15 +101,11 @@ const AddPost = (props: IaddPost) => {
     }
   }, [addPost.file])
   return (
-    <div className='absolute w-2/4 top-0px bg-gray-300 h-screen'>
-      <div>
-        <div className='flex flex-col justify-center  items-center'>
-          <XIcon
-            onClick={handlePopup}
-            className='ml-auto  h-32px w-32px bg-white-600 text-black hover:text-red-600 cursor-pointer '
-          />
+    <div className='absolute w-full top-0px backdrop-blur-sm h-screen'>
+      <div className='mt-100px'>
+        <div className='flex flex-col justify-center items-center'>
           <form
-            className=' text-center flex flex-col pb-16px'
+            className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'
             onSubmit={(e) =>
               addPostSubmit(e, {
                 name,
@@ -122,43 +119,51 @@ const AddPost = (props: IaddPost) => {
               })
             }
           >
-            <h1 className='text-2xl  ml-auto mr-auto md:w-full rounded-md p-10px font-bold bg-green-600 text-white border-3 border-green-600 '>
-              Создание поста
-            </h1>
-            <div className='flex flex-row justify-evenly  mt-12px'>
-              <h4 className='text-lg  text-green-600  mt-3'> Категория</h4>
-              <h4 className='text-lg  text-green-600 mt-3'> Курс</h4>
+            <div className='flex h-54px items-center text-green-600 rounded-2xl '>
+              <ArrowLeftIcon
+                onClick={handlePopup}
+                className='w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700'
+              />
+              <h1 className='absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold  '>
+                Создание поста
+              </h1>
             </div>
-            <div className='flex flex-row  mt-10px mb-32px justify-evenly'>
-              <select
-                className='border-2 text-green-600 text-sm rounded-lg block '
-                value={addPost.category}
-                onChange={handleCategoryChange}
-              >
-                <option value='value1' disabled>
-                  Категория
-                </option>
-                <option value='Общее'>Общее</option>
-                <option value='Предметы'>Предметы</option>
-                <option value='Вопросы'>Вопросы</option>
-              </select>
-              <select
-                className='border-2 text-green-600 text-sm rounded-lg w-54px '
-                value={addPost.course}
-                onChange={handleCourseChange}
-              >
-                <option disabled>Курс</option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-              </select>
+            <div className='flex justify-evenly items-center mt-12px mb-16px'>
+              <div className='w-100px text-lg  flex  font-bold '>
+                <h4 className='mr-4px'> Категория</h4>
+                <select
+                  className='border-2 text-green-600 rounded-lg block '
+                  value={addPost.category}
+                  onChange={handleCategoryChange}
+                >
+                  <option value='value1' disabled>
+                    Категория
+                  </option>
+                  <option value='Общее'>Общее</option>
+                  <option value='Предметы'>Предметы</option>
+                  <option value='Вопросы'>Вопросы</option>
+                </select>
+              </div>
+              <div className='ml-10px text-lg text-left flex  font-bold '>
+                <h4 className='mr-4px'> Курс</h4>
+                <select
+                  className='border-2 text-green-600 rounded-lg w-54px '
+                  value={addPost.course}
+                  onChange={handleCourseChange}
+                >
+                  <option disabled>Курс</option>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                </select>
+              </div>
             </div>
             <TextareaAutosize
               cacheMeasurements
               onChange={handleTextChange}
               value={addPost.text}
-              className=' w-260px md:w-300px mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
+              className='mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
               placeholder='Текст поста'
             />
             <div className='flex'>
@@ -178,7 +183,7 @@ const AddPost = (props: IaddPost) => {
               </label>
               <button
                 disabled={!addPost.validForm}
-                className='ml-auto mr-10px bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'
+                className='ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'
               >
                 Отправить
               </button>
