@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import { getPosts } from '../../../api/getPosts'
 import { useSelector } from 'react-redux'
 import useAuth from '../../../hooks/useAuth'
-interface IAddPost {
+interface IaddPost {
   handlePopup: () => void
 }
 interface IAddPostSubmit {
@@ -15,7 +15,7 @@ interface IAddPostSubmit {
   text: string
   course: string
   path: string
-  addCategory: string
+  category: string
   handlePopup: () => void
   file: File
   refetch: () => void
@@ -23,10 +23,10 @@ interface IAddPostSubmit {
 function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
   let data = new FormData()
   data.append('post', props.file)
-  if (props.text !== '' && props.addCategory !== '' && props.course !== '') {
+  if (props.text !== '' && props.category !== '' && props.course !== '') {
     axios
       .post(
-        `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.addCategory}&userImg=${props.path}`,
+        `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
         data,
       )
       .then((response) => {
@@ -47,53 +47,58 @@ interface IState {
     category: string
   }
 }
-const AddPost = (props: IAddPost) => {
+const AddPost = (props: IaddPost) => {
   const sort = useSelector((state: IState) => state.nav.sort)
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const { user } = useAuth()
+  const path = user.user.pathImg
   const name = user.user.name
   const { handlePopup } = props
-  const [file, setFile] = useState(null)
-  const path = user.user.pathImg
-  const [preview, setPreview] = useState<string>()
-  const [validForm, setValidForm] = useState(false)
-  const [addCategory, setAddCategory] = useState('Общее')
-  const [course, setCourse] = useState('1')
-  const [text, setText] = useState('')
-  const [textError, setTextError] = useState('пустое поле ввода')
-  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => setCourse(e.target.value)
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => setAddCategory(e.target.value)
+
+  const [addPost, setAddPost] = useState({
+    file: null,
+    preview: '',
+    validForm: false,
+    category: 'Общее',
+    course: '1',
+    text: '',
+    textError: 'Пустое поле ввода',
+  })
+  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setAddPost((addPost) => ({ ...addPost, course: e.target.value }))
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setAddPost((addPost) => ({ ...addPost, category: e.target.value }))
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value)
+    setAddPost((addPost) => ({ ...addPost, text: e.target.value }))
     if (!e.target.value) {
-      setTextError('Имя не может быть пустым')
+      setAddPost((addPost) => ({ ...addPost, textError: 'Имя не может быть пустым' }))
     } else {
-      setTextError('')
+      setAddPost((addPost) => ({ ...addPost, textError: '' }))
     }
   }
   const handleChangeFile = (e: React.SyntheticEvent<EventTarget>) => {
     const target = e.target as HTMLInputElement
-    setFile(target.files[0])
+    setAddPost((addPost) => ({ ...addPost, file: target.files[0] }))
   }
   useEffect(() => {
-    if (textError && file === null) {
-      setValidForm(false)
+    if (addPost.textError && addPost.file === null) {
+      setAddPost((addPost) => ({ ...addPost, validForm: false }))
     } else {
-      setValidForm(true)
+      setAddPost((addPost) => ({ ...addPost, validForm: true }))
     }
-  }, [file, textError])
+  }, [addPost.file, addPost.textError])
   useEffect(() => {
-    if (file) {
+    if (addPost.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setPreview(reader.result as string)
+        setAddPost((addPost) => ({ ...addPost, preview: reader.result as string }))
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(addPost.file)
     } else {
-      setPreview(null)
+      setAddPost((addPost) => ({ ...addPost, preview: null }))
     }
-  }, [file])
+  }, [addPost.file])
   return (
     <div className='absolute w-2/4 top-0px bg-gray-300 h-screen'>
       <div>
@@ -104,7 +109,18 @@ const AddPost = (props: IAddPost) => {
           />
           <form
             className=' text-center flex flex-col pb-16px'
-            onSubmit={(e) => addPostSubmit(e, { name, text, addCategory, course, path, handlePopup, file, refetch })}
+            onSubmit={(e) =>
+              addPostSubmit(e, {
+                name,
+                text: addPost.text,
+                category: addPost.category,
+                course: addPost.course,
+                path,
+                handlePopup,
+                file: addPost.file,
+                refetch,
+              })
+            }
           >
             <h1 className='text-2xl  ml-auto mr-auto md:w-full rounded-md p-10px font-bold bg-green-600 text-white border-3 border-green-600 '>
               Создание поста
@@ -116,7 +132,7 @@ const AddPost = (props: IAddPost) => {
             <div className='flex flex-row  mt-10px mb-32px justify-evenly'>
               <select
                 className='border-2 text-green-600 text-sm rounded-lg block '
-                value={addCategory}
+                value={addPost.category}
                 onChange={handleCategoryChange}
               >
                 <option value='value1' disabled>
@@ -128,7 +144,7 @@ const AddPost = (props: IAddPost) => {
               </select>
               <select
                 className='border-2 text-green-600 text-sm rounded-lg w-54px '
-                value={course}
+                value={addPost.course}
                 onChange={handleCourseChange}
               >
                 <option disabled>Курс</option>
@@ -141,7 +157,7 @@ const AddPost = (props: IAddPost) => {
             <TextareaAutosize
               cacheMeasurements
               onChange={handleTextChange}
-              value={text}
+              value={addPost.text}
               className=' w-260px md:w-300px mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
               placeholder='Текст поста'
             />
@@ -156,12 +172,12 @@ const AddPost = (props: IAddPost) => {
                 <i className=''>
                   <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
                 </i>
-                {file !== null && (
-                  <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={preview} />
+                {addPost.file !== null && (
+                  <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={addPost.preview} />
                 )}
               </label>
               <button
-                disabled={!validForm}
+                disabled={!addPost.validForm}
                 className='ml-auto mr-10px bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'
               >
                 Отправить
