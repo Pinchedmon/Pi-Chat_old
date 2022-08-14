@@ -61,8 +61,8 @@ const Nav = (props: { sort: string | number; category: string }) => {
               <img className='rounded-2xl w-54px h-54px ' src={user.user.pathImg} alt='' />
             </div>
             <div className='flex-col mr-32px '>
-              <div className='text-xl font-bold'>{user.user.name}</div>
-              <div>@псевдоимя</div>
+              <div className='text-xl font-bold'>{user.user.username}</div>
+              <div>@{user.user.name}</div>
             </div>
             <div onClick={logout} className='w-32px h-32px text-green-600 cursor-pointer'>
               <LogoutIcon />

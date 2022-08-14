@@ -9,6 +9,7 @@ import useAuth from '../../../../hooks/useAuth'
 type iPost = {
   userImg: string
   author: string
+  username: string
   text: string
   postImg: string
   likes: number | string
@@ -18,6 +19,7 @@ type iPost = {
 type iComment = {
   ID: number
   author: string
+  username: string
   text: string
   likes: string
   userImg: string
@@ -39,7 +41,7 @@ const Post = () => {
   const name = user.user.name
   const [path, setPath] = useState(null)
   const [postData, setPostData] = useState<iPostPage>({
-    post: { ID: 0, author: '', text: '', userImg: '', postImg: '', likes: '', comments: 0 },
+    post: { ID: 0, author: '', username: '', text: '', userImg: '', postImg: '', likes: '', comments: 0 },
     file: null,
     preview: '',
     comments: [],
@@ -67,7 +69,7 @@ const Post = () => {
     }
     event.preventDefault()
     postComment(
-      { id: postData.post.ID, author: name, text: postData.textArea, userImg: path, refetch: refetch },
+      { id: postData.post.ID, author: name, name: user.user.username, text: postData.textArea, userImg: path, refetch: refetch },
       commentImg,
     )
     setPostData((postData: iPostPage) => ({ ...postData, textArea: '' }))
@@ -121,8 +123,8 @@ const Post = () => {
               <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={postData.post.userImg} alt=' ' />
               <div className='flex-col '>
                 <div className='flex items-center align-center  -mt-4px'>
-                  <div className='text-lg md:text-xl  font-bold'>{postData.post.author}</div>
-                  <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                  <div className='text-lg md:text-xl  font-bold'>{postData.post.username}</div>
+                  <p className='ml-8px font-bold text-md text-gray-500'>@{postData.post.author}</p>
                   <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                 </div>
                 <div className='mt-4px mb-12px'>{postData.post.text}</div>
@@ -162,8 +164,8 @@ const Post = () => {
                       <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
                       <div className='flex-col '>
                         <div className='flex items-center align-center  -mt-4px'>
-                          <div className='text-lg md:text-xl  font-bold'>{item.author}</div>
-                          <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                          <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
+                          <p className='ml-8px font-bold text-md text-gray-500'>@{item.author}</p>
                           <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                         </div>
                         <div className='mt-4px mb-12px'>{item.text}</div>

@@ -1,23 +1,44 @@
 import { PencilIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-
+import redaxios from 'redaxios'
+import useAuth from '../../../../hooks/useAuth'
 function EditText(props: { name: string }) {
   const { name } = props
+  const { user } = useAuth()
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(name)
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
     setValue(target.value)
   }
+  const handleSubmit = () => {
+    redaxios
+      .put(`http://localhost:6060/profile/name?username=${value.toString()}&name=${user.user.name}`)
+      .then((res) => {
+        if (res.status === 200) {
+          user.user.username = value
+        }
+      })
+  }
   return (
     <>
-      {status === false && <div className='text-lg md:text-2xl  font-bold'>{name}</div>}
-      {status === true && (
-        <input value={value} maxLength={14} onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e)} />
+      {status === false && (
+        <div className='flex text-lg md:text-2xl  font-bold'>
+          {user.user.username}
+          <PencilIcon onClick={() => setStatus(!status)} className='ml-4px w-24px text-green-600' />
+        </div>
       )}
-      <button onClick={() => setStatus(!status)}>
-        <PencilIcon className='ml-4px w-24px text-green-600' />
-      </button>
+      {status === true && (
+        <input
+          onMouseLeave={() => {
+            setStatus(!status)
+            handleSubmit()
+          }}
+          value={value}
+          maxLength={14}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e)}
+        />
+      )}
     </>
   )
 }

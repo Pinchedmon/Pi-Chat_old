@@ -19,7 +19,7 @@ class authController {
         const hashPassword = bcrypt.hashSync(`${user.password}`, 1)
         db.all(`SELECT * FROM users WHERE name = "${user.name}" OR email = "${user.email}";`, [], (err, rows) => {
             if (rows.length === 0) {
-                db.all("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [user.name, user.email, hashPassword], (err) => {
+                db.all("INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)", [user.name, user.name, user.email, hashPassword], (err) => {
                     if (err) return res.json({
                         status: 400,
                         succes: false
@@ -55,7 +55,7 @@ class authController {
                 })
             }
             const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: { id: rows[0].ID, email: rows[0].email, name: rows[0].name, pathImg: rows[0].pathImg, role: rows[0].roles, backImg: rows[0].backImg }, authToken: token })
+            return res.json({ status: 200, user: { id: rows[0].ID, email: rows[0].email, name: rows[0].name, username: rows[0].username, pathImg: rows[0].pathImg, role: rows[0].roles, backImg: rows[0].backImg }, authToken: token })
         });
     }
     async getUsers(req, res) {

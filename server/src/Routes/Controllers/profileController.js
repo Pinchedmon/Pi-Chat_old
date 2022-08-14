@@ -21,6 +21,12 @@ class profileController {
             data: urlange + '/public/' + req.file.filename
         })
     }
-
+    async editUsername(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`UPDATE users SET username = "${queryObject.username}" WHERE name = "${queryObject.name.toString()}"`, [])
+        db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`,[])
+        db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`,[])
+        return res.status(200)
+    }
 }
 module.exports = new profileController;

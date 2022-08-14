@@ -16,8 +16,8 @@ class postController {
         } else {
             postImg = ''
         }
-        sql = "INSERT INTO posts (author, text, course, category, userImg, postImg) VALUES (?, ?, ?, ?, ?, ?)"
-        db.all(sql, [queryObject.author, queryObject.text, queryObject.course, queryObject.category, queryObject.userImg, postImg], (err) => {
+        sql = "INSERT INTO posts (author, username, text, course, category, userImg, postImg) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        db.all(sql, [queryObject.author, queryObject.name, queryObject.text, queryObject.course, queryObject.category, queryObject.userImg, postImg], (err) => {
             if (err) return res.json({ status: 300, success: false, error: err })
         })
         return res.json({
@@ -29,14 +29,14 @@ class postController {
     async commentUpload(req, res) {
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        sql = "INSERT INTO comments (id, author, text, userImg, commentImg) VALUES (?, ?, ?, ?, ?)"
+        sql = "INSERT INTO comments (id, author, username, text, userImg, commentImg) VALUES (?, ?, ?, ?, ?, ?)"
         let commentImg
         if (req.file) {
             commentImg = urlange + '/public/' + req.file.filename;
         } else {
             commentImg = ''
         }
-        db.all(sql, [queryObject.id, queryObject.author, queryObject.text, queryObject.userImg, commentImg], (err) => {
+        db.all(sql, [queryObject.id, queryObject.author, queryObject.name, queryObject.text, queryObject.userImg, commentImg], (err) => {
             if (err) return res.json({ status: 300, success: false, error: err })
         })
         db.all(`SELECT * FROM comments WHERE ID = ${queryObject.id}`, [], (err, rows) => {

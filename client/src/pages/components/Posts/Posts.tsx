@@ -1,6 +1,6 @@
 import React from 'react'
 import { getPosts } from '../../../api/getPosts'
-import CPost from '../../../components/CPost'
+import CPost from '../../../components/СPost'
 
 type iPost = {
   userImg: string

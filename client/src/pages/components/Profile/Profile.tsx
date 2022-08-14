@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import FilesUploadComponent from './FilesUploadComponent/FilesUploadComponent'
 import { getMyPosts } from '../../../api/session'
 import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
-import CPost from '../../../components/CPost'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
+import CPost from '../../../components/СPost'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -28,8 +28,8 @@ const Profile = () => {
         <div className='flex w-full flex-col'>
           {/* naming */}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <EditText name={name} />
-            <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+            <EditText name={user.user.username} />
+            <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
           </div>
           <div className='flex'>
             <p>Описание о себе и всё такое </p>

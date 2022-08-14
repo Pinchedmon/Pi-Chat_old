@@ -8,6 +8,7 @@ import useAuth from '../hooks/useAuth'
 type iPost = {
   userImg: string
   author: string
+  username: string
   text: string
   postImg: string
   likes: number | string
@@ -45,8 +46,8 @@ function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: strin
 
             <div className='flex flex-col'>
               <div className='flex items-center align-center  -mt-6px'>
-                <div className='text-lg md:text-xl  font-bold'>{item.author}</div>
-                <p className='ml-8px font-bold text-md text-gray-500'>@Псевдоимя</p>
+                <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
+                <p className='ml-8px font-bold text-md text-gray-500'>@{item.author}</p>
                 <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
               </div>
               <div

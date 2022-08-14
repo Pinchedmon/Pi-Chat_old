@@ -6,6 +6,7 @@ interface apiParams {
 interface apiParamComments {
   id: number
   author: string
+  name: string
   text: string
   userImg: string
   refetch: () => void

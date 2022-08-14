@@ -21,27 +21,7 @@ interface IAddPostSubmit {
   file: File
   refetch: () => void
 }
-function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
-  let data = new FormData()
-  data.append('post', props.file)
-  if (props.text !== '' && props.category !== '' && props.course !== '') {
-    axios
-      .post(
-        `http://localhost:6060/posts/feed?author=${props.name}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
-        data,
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          props.refetch()
-        }
-      })
-    props.handlePopup()
-    event.preventDefault()
-  } else {
-    window.alert('Какое-то поле незаполнено!')
-    event.preventDefault()
-  }
-}
+
 interface IState {
   nav: {
     sort: string | number
@@ -56,7 +36,6 @@ const AddPost = (props: IaddPost) => {
   const path = user.user.pathImg
   const name = user.user.name
   const { handlePopup } = props
-
   const [addPost, setAddPost] = useState({
     file: null,
     preview: '',
@@ -100,6 +79,28 @@ const AddPost = (props: IaddPost) => {
       setAddPost((addPost) => ({ ...addPost, preview: null }))
     }
   }, [addPost.file])
+  function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
+
+    let data = new FormData()
+    data.append('post', props.file)
+    if (props.text !== '' && props.category !== '' && props.course !== '') {
+      axios
+          .post(
+              `http://localhost:6060/posts/feed?author=${props.name}&name=${user.user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
+              data,
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              props.refetch()
+            }
+          })
+      props.handlePopup()
+      event.preventDefault()
+    } else {
+      window.alert('Какое-то поле незаполнено!')
+      event.preventDefault()
+    }
+  }
   return (
     <div className='absolute w-full top-0px backdrop-blur-sm h-screen'>
       <div className='mt-100px'>
