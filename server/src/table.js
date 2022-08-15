@@ -6,14 +6,14 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 // db.run(sql)
 // const sql = ` CREATE TABLE posts (ID INTEGER PRIMARY KEY AUTOINCREMENT, author, username, text, course, category, comments default 0, likes default 0, userImg, postImg);`
 // db.run(sql)
-// const sql = ` CREATE TABLE users (ID INTEGER PRIMARY KEY AUTOINCREMENT,username, name, email, password, roles DEFAULT "USER", pathImg DEFAULT "http://localhost:6060/public/default.jpeg", backImg  DEFAULT "http://localhost:6060/public/default.jpeg", about);`
-// db.run(sql)
-// const sql = "INSERT INTO users (name, username, email, password) VALUES (?, ?, ?)"
+//  const sql = ` CREATE TABLE users (ID INTEGER PRIMARY KEY AUTOINCREMENT,username, name, email, password, roles DEFAULT "USER", pathImg DEFAULT "http://localhost:6060/public/default.jpeg", backImg  DEFAULT "http://localhost:6060/public/default.jpeg", info);`
+//  db.run(sql)
+// const sql = "INSERT INTO users (name, username,info, email, password) VALUES (?, ?, ?)"
 // db.run(sql, ["pinchedmon", "temnikovalx@icloud.com", 12341234], (err) => {
 //         if (err) return console.error(err.message)
 // })
-// const sql = "DROP TAble comments";
-// db.run(sql)
+//  const sql = "DROP TAble users";
+//  db.run(sql)
 // db.run('CREATE TABLE likes ( name, postId, commentId)')
 
 

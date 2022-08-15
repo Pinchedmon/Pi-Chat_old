@@ -42,11 +42,10 @@ function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: strin
       {posts !== undefined &&
         posts.map((item: iPost, index: string | number) => (
           <div key={index} className='w-full flex  self-center mb-16px border-b-2 border-gray-300'>
-            <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
-
+            <img onClick={() => navigate(`/${item.author}`)} className='ml-24px mr-16px h-54px rounded-xl w-54px cursor-pointer' src={item.userImg} alt=' ' />
             <div className='flex flex-col'>
-              <div className='flex items-center align-center  -mt-6px'>
-                <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
+              <div className='flex items-center align-center -mt-6px'>
+                <button onClick={() => navigate(`/${item.author}`)} className='text-lg md:text-xl hover:underline font-bold'>{item.username}</button>
                 <p className='ml-8px font-bold text-md text-gray-500'>@{item.author}</p>
                 <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
               </div>

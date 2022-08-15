@@ -27,4 +27,5 @@ var upload = multer({
 router.put('/img', upload.single('avatar'), controller.setImg);
 router.put('/backImg', upload.single('backImg'), controller.editBackground);
 router.put('/name', controller.editUsername);
+router.put('/info', controller.editInfo);
 module.exports = router;

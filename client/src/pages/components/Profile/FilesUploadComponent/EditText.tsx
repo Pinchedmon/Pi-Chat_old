@@ -2,11 +2,10 @@ import { PencilIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 import redaxios from 'redaxios'
 import useAuth from '../../../../hooks/useAuth'
-function EditText(props: { name: string }) {
-  const { name } = props
+function EditText() {
   const { user } = useAuth()
   const [status, setStatus] = useState(false)
-  const [value, setValue] = useState(name)
+  const [value, setValue] = useState(user.user.name)
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
     setValue(target.value)

@@ -2,6 +2,8 @@
 
 # dependencies
 /client/node_modules
+/client/.idea
+.idea
 /server/node_modules
 /.pnp
 .pnp.js

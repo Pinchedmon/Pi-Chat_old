@@ -7,6 +7,7 @@ import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
 import CPost from '../../../components/СPost'
+import EditInfo from "./FilesUploadComponent/EditInfo";
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -28,13 +29,10 @@ const Profile = () => {
         <div className='flex w-full flex-col'>
           {/* naming */}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <EditText name={user.user.username} />
+            <EditText/>
             <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
           </div>
-          <div className='flex'>
-            <p>Описание о себе и всё такое </p>
-            <PencilIcon className='ml-4px w-24px text-green-600' />
-          </div>
+           <EditInfo/>
         </div>
       </div>
       {/* posts */}

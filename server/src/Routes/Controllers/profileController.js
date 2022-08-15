@@ -28,5 +28,10 @@ class profileController {
         db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`,[])
         return res.status(200)
     }
+    async editInfo(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`UPDATE users SET info = "${queryObject.text}" WHERE name = "${queryObject.name.toString()}"`, [])
+        return res.status(200)
+    }
 }
 module.exports = new profileController;

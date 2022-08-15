@@ -12,6 +12,7 @@ interface iUser {
     pathImg: string
     name: string
     username: string
+    info: string
     role: string
     backImg: string
   }
