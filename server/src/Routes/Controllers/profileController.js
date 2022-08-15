@@ -33,5 +33,11 @@ class profileController {
         db.all(`UPDATE users SET info = "${queryObject.text}" WHERE name = "${queryObject.name.toString()}"`, [])
         return res.status(200)
     }
+    async getUser(req,res){
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
+            return res.status(200).json({"data": rows})
+        })
+    }
 }
 module.exports = new profileController;

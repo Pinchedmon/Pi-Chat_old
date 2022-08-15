@@ -13,10 +13,10 @@ const storage = multer.diskStorage({
         cb(null, uuidv4() + '-' + file.originalname)
     }
 });
-var upload = multer({
+let upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+        if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
             cb(null, true);
         } else {
             cb(null, false);
@@ -28,4 +28,5 @@ router.put('/img', upload.single('avatar'), controller.setImg);
 router.put('/backImg', upload.single('backImg'), controller.editBackground);
 router.put('/name', controller.editUsername);
 router.put('/info', controller.editInfo);
+router.get('/user', controller.getUser);
 module.exports = router;

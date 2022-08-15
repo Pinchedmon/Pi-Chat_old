@@ -10,6 +10,7 @@ import Post from './components/Posts/Post/Post'
 import Profile from './components/Profile/Profile'
 import AddPost from './components/AddPost'
 import { setAddPostStyle } from '../state/navReducer'
+import UserProfile from "./components/UserProfile/UserProfile";
 interface iState {
   nav: {
     sort: string | number
@@ -42,6 +43,7 @@ const Feed = () => {
           <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
           <Route path='/post' element={<Post />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/*' element={<UserProfile />} />
         </Routes>
 
         {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
