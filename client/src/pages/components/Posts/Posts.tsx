@@ -1,6 +1,6 @@
 import React from 'react'
 import { getPosts } from '../../../api/getPosts'
-import CPost from '../../../components/СPost'
+import CPost from '../../../components/CPost'
 
 type iPost = {
   userImg: string
@@ -11,11 +11,13 @@ type iPost = {
   ID: number
   comments: number | string
 }
+
 interface IPosts {
   data: Array<iPost>
   sort: string | number
   category: string
 }
+
 const Posts = (props: IPosts) => {
   const { sort, category } = props
   return (

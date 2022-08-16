@@ -1,8 +1,10 @@
 import redaxios from 'redaxios'
+
 interface apiParams {
   email: string
   password: string
 }
+
 interface apiParamComments {
   id: number
   author: string
@@ -11,14 +13,16 @@ interface apiParamComments {
   userImg: string
   refetch: () => void
 }
+
 export async function login(props: apiParams): Promise<any> {
   const response = await redaxios.post('http://localhost:6060/auth/login', { session: props })
   return response.data
 }
+
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await redaxios
     .post(
-      `http://localhost:6060/posts/comment?id=${props.id}&author=${props.author}&text=${props.text}&userImg=${props.userImg}`,
+      `http://localhost:6060/posts/comment?id=${props.id}&author=${props.author}&username=${props.name}&text=${props.text}&userImg=${props.userImg}`,
       formData,
     )
     .then((res) => {

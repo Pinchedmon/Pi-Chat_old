@@ -6,7 +6,7 @@ import { getMyPosts } from '../../../api/session'
 import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
-import CPost from '../../../components/СPost'
+import CPost from '../../../components/CPost'
 import EditInfo from "./FilesUploadComponent/EditInfo";
 
 const Profile = () => {
