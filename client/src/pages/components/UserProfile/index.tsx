@@ -58,7 +58,7 @@ function UserProfile() {
               </div>
               {/* info */}
               <div>{user.info}</div>
-              <div onClick={showMessage} className='mt-16px flex items-center text-green-600'>
+              <div onClick={showMessage} className='mt-16px flex cursor-pointer items-center text-green-600'>
                 <ChatAlt2Icon className='w-32px mr-8px  ' />
                 <p>Написать сообщение</p>
               </div>

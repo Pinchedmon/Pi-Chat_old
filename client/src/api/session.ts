@@ -40,14 +40,25 @@ export async function logout() {
 export async function getPath(name: string | object | any) {
   let response
   if (name.name === undefined) {
-    response = await redaxios.get(`http://localhost:6060/path?name="${name}";`)
+    await redaxios.get(`http://localhost:6060/path?name="${name}"`).then((res) => {
+      if (res.status === 200) {
+        response = res
+      }
+    })
   } else {
-    response = await redaxios.get(`http://localhost:6060/path?name="${name.name}";`)
+    await redaxios.get(`http://localhost:6060/path?name="${name.name}";`).then((res) => {
+      if (res.status === 200) {
+        response = res
+      }
+    })
   }
-  return response.data.data as string
+  return response
 }
-
 export async function getMyPosts(name: string) {
   const response = await redaxios.get(`http://localhost:6060/posts/getMyPosts?name=${name}`)
   return response.data.data
+}
+export async function getMessages(name: string) {
+  const response = await redaxios.get(`http://localhost:6060/message/links?name=${name}`)
+  return response.data
 }
