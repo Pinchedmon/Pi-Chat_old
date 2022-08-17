@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import * as sessionsApi from '../api/session'
 import * as usersApi from '../api/users'
@@ -24,22 +25,25 @@ interface AuthContextType {
   login: (email: string, password: string) => void
   signUp: (email: string, name: string, password: string) => void
   logout: () => void
-  getCurrentUser: () => void
+  refetchUser: () => void
 }
+
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
-  const [user, setUser] = useState<iUser>()
+  const [user, setUser] = useState<iUser | any>()
   const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
+  const { data, refetch } = useQuery('main', () => usersApi.getCurrentUser(user!.authToken))
+
   useEffect(() => {
     if (error) setError(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   useEffect(() => {
     if (user !== undefined) {
-      usersApi.getCurrentUser(user.authToken).then((res) => setUser(res))
+      setUser(data)
     }
   }, [])
 
@@ -49,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     sessionsApi.login({ email, password }).then((user: any) => {
       if (user.status === 200) {
         setUser(user)
-        localStorage.setItem('user', JSON.stringify(user.AuthToken))
+        // localStorage.setItem('user', JSON.stringify(user.AuthToken))
         navigate('/')
       } else {
         setError(user.message)
@@ -57,9 +61,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       }
     })
   }
-  function getCurrentUser() {
-    usersApi.getCurrentUser(user.authToken).then((res) => setUser(res))
+
+  function refetchUser() {
+    refetch()
   }
+
   function signUp(email: string, name: string, password: string) {
     setError('')
     setLoading(true)
@@ -67,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       if (user.status === 200) {
         sessionsApi.login({ email, password }).then((user) => {
           setUser(user)
-          localStorage.setItem('user', JSON.stringify(user.AuthToken))
+          localStorage.setItem('user', JSON.stringify(user.authToken))
           navigate('/')
         })
       } else {
@@ -82,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     setUser(null)
     navigate('/login')
   }
+
   const memoedValue = useMemo(
     () => ({
       user,
@@ -90,11 +97,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       login,
       signUp,
       logout,
-      getCurrentUser,
+      refetchUser,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, error, loading, getCurrentUser],
+    [user, error, loading, refetchUser],
   )
+
   return <AuthContext.Provider value={memoedValue}>{children}</AuthContext.Provider>
 }
 

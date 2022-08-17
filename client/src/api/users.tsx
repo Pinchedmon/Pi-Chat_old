@@ -18,4 +18,3 @@ export async function signUp(params: apiParams): Promise<number | string> {
   const response = await redaxios.post('http://localhost:6060/auth/registration', { user: params })
   return response.data
 }
-

@@ -7,7 +7,8 @@ const express = require('express'),
   url = require('url'),
   authRouter = require('./src/Routes/authRouter'),
   postRouter = require('./src/Routes/postRouter'),
-  profileRouter = require('./src/Routes/profileRouter');
+  profileRouter = require('./src/Routes/profileRouter'),
+  messageRouter = require('./src/Routes/messageRouter');
 
 const db = new sqlite.Database(path.resolve(__dirname, 'src/db/posts.db'));
 const port = 6060;
@@ -19,6 +20,7 @@ app.use(cors())
 app.use('/auth', authRouter)
 app.use('/posts', postRouter)
 app.use('/profile', profileRouter)
+app.use('/message', messageRouter)
 app.get('/public/*', function (req, res) {
   return res.sendFile(path.resolve(__dirname, `server/..${req.url}`))
 })

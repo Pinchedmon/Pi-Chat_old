@@ -4,6 +4,7 @@ import { PaperClipIcon } from '@heroicons/react/solid'
 import { postComment } from '../../../../../api/session'
 import useAuth from '../../../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
 interface iPostPage {
   file: File | null
   preview: string
@@ -12,6 +13,7 @@ interface iPostPage {
   validForm: boolean
 }
 function Buttons(id: any) {
+  const { refetch } = useQuery('comments')
   const navigate = useNavigate()
   const { user } = useAuth()
   const [path, setPath] = useState(null)
@@ -55,6 +57,7 @@ function Buttons(id: any) {
     )
     setPostData((postData: iPostPage) => ({ ...postData, textArea: '' }))
     setPostData((postData: iPostPage) => ({ ...postData, file: null }))
+    refetch()
     navigate(`?id=${id.id}`)
   }
   useEffect(() => {

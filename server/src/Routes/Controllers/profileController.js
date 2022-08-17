@@ -24,8 +24,8 @@ class profileController {
     async editUsername(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`UPDATE users SET username = "${queryObject.username}" WHERE name = "${queryObject.name.toString()}"`, [])
-        db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`,[])
-        db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`,[])
+        db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
+        db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
         return res.status(200)
     }
     async editInfo(req, res) {
@@ -33,10 +33,10 @@ class profileController {
         db.all(`UPDATE users SET info = "${queryObject.text}" WHERE name = "${queryObject.name.toString()}"`, [])
         return res.status(200)
     }
-    async getUser(req,res){
+    async getUser(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-            return res.status(200).json({"data": rows})
+            return res.status(200).json({ "data": rows })
         })
     }
 }

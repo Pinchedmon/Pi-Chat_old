@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { PaperClipIcon, XIcon } from '@heroicons/react/outline'
-import axios from 'axios'
+import { PaperClipIcon } from '@heroicons/react/outline'
+import redaxios from 'redaxios'
 import { FormEvent } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
@@ -80,20 +80,19 @@ const AddPost = (props: IaddPost) => {
     }
   }, [addPost.file])
   function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
-
     let data = new FormData()
     data.append('post', props.file)
     if (props.text !== '' && props.category !== '' && props.course !== '') {
-      axios
-          .post(
-              `http://localhost:6060/posts/feed?author=${props.name}&name=${user.user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
-              data,
-          )
-          .then((response) => {
-            if (response.status === 200) {
-              props.refetch()
-            }
-          })
+      redaxios
+        .post(
+          `http://localhost:6060/posts/feed?author=${props.name}&name=${user.user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
+          data,
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            props.refetch()
+          }
+        })
       props.handlePopup()
       event.preventDefault()
     } else {

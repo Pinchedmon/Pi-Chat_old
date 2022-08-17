@@ -10,7 +10,7 @@ import Post from './components/Posts/Post/Post'
 import Profile from './components/Profile/Profile'
 import AddPost from './components/AddPost'
 import { setAddPostStyle } from '../state/navReducer'
-import UserProfile from "./components/UserProfile/UserProfile";
+import UserProfile from './components/UserProfile'
 interface iState {
   nav: {
     sort: string | number
