@@ -5,18 +5,14 @@ import * as sessionsApi from '../api/session'
 import * as usersApi from '../api/users'
 
 interface iUser {
-  status: number
-  authToken: string
-  user: {
-    id: number
-    email: string
-    pathImg: string
-    name: string
-    username: string
-    info: string
-    role: string
-    backImg: string
-  }
+  id: number
+  email: string
+  pathImg: string
+  name: string
+  username: string
+  info: string
+  role: string
+  backImg: string
 }
 interface AuthContextType {
   user?: iUser
@@ -35,25 +31,31 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { data, refetch } = useQuery('main', () => usersApi.getCurrentUser(user!.authToken))
+  const { data } = useQuery('main', () => usersApi.getCurrentUser(), {})
 
   useEffect(() => {
     if (error) setError(null)
   }, [])
 
   useEffect(() => {
-    if (user !== undefined) {
-      setUser(data)
+    // usersApi.getCurrentUser().then((res) => {
+    //   if (res.status === 200) {
+    //     setUser(res.data)
+    //   }
+    // })
+
+    if (data !== undefined) {
+      setUser(data.data.data[0])
     }
-  }, [])
+  }, [data])
 
   function login(email: string, password: string) {
     setError('')
-    setLoading(true)
+    // setLoading(true)
     sessionsApi.login({ email, password }).then((user: any) => {
       if (user.status === 200) {
         setUser(user)
-        // localStorage.setItem('user', JSON.stringify(user.AuthToken))
+        document.cookie = user.authToken
         navigate('/')
       } else {
         setError(user.message)
@@ -63,17 +65,17 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function refetchUser() {
-    refetch()
+    // refetch()
   }
 
   function signUp(email: string, name: string, password: string) {
     setError('')
-    setLoading(true)
+    // setLoading(true)
     usersApi.signUp({ email, name, password }).then((user: any) => {
       if (user.status === 200) {
         sessionsApi.login({ email, password }).then((user) => {
           setUser(user)
-          localStorage.setItem('user', JSON.stringify(user.authToken))
+          document.cookie = user.authToken
           navigate('/')
         })
       } else {
@@ -86,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   function logout() {
     sessionsApi.logout()
     setUser(null)
+    document.cookie = '0'
     navigate('/login')
   }
 

@@ -12,6 +12,7 @@ import AddPost from './components/AddPost'
 import { setAddPostStyle } from '../state/navReducer'
 import UserProfile from './components/UserProfile'
 import Messages from './components/Messages'
+import useAuth from '../hooks/useAuth'
 interface iState {
   nav: {
     sort: string | number
@@ -20,6 +21,7 @@ interface iState {
   }
 }
 const Feed = () => {
+  const { user } = useAuth()
   const sort = useSelector((state: iState) => state.nav.sort)
   const category = useSelector((state: iState) => state.nav.category)
   const { data, refetch } = useQuery('posts', () => getPosts({ sort, category }))
@@ -36,27 +38,31 @@ const Feed = () => {
 
   return (
     <div className='grid grid-cols-4 gap-0px'>
-      <div className='h-screen  '>
-        <Nav sort={sort} category={category} />
-      </div>
-      <div className='relative col-span-2 border-l-2 border-r-2 border-gray-300'>
-        <Routes>
-          <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
-          <Route path='/post' element={<Post />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/*' element={<UserProfile />} />
-          <Route path='/messages' element={<Messages />} />
-        </Routes>
+      {user !== undefined && (
+        <>
+          <div className='h-screen  '>
+            <Nav sort={sort} category={category} />
+          </div>
+          <div className='relative col-span-2 border-l-2 border-r-2 border-gray-300'>
+            <Routes>
+              <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
+              <Route path='/post' element={<Post />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/*' element={<UserProfile />} />
+              <Route path='/messages' element={<Messages />} />
+            </Routes>
 
-        {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
-      </div>
-      <div className=''>
-        <Routes>
-          <Route path='/' element={<FilterModal category={category} sort={sort} dispatch={dispatch} />} />
-          {/* <Route path='/post' element={<Post />} />
+            {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
+          </div>
+          <div className=''>
+            <Routes>
+              <Route path='/' element={<FilterModal category={category} sort={sort} dispatch={dispatch} />} />
+              {/* <Route path='/post' element={<Post />} />
           <Route path='/profile' element={<Profile />} /> */}
-        </Routes>
-      </div>
+            </Routes>
+          </div>
+        </>
+      )}
     </div>
   )
 }

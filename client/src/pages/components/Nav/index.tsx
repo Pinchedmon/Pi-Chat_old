@@ -21,55 +21,58 @@ const Nav = (props: { sort: string | number; category: string }) => {
   const handlePopup = () => {
     dispatch(setAddPostStyle(!style))
   }
+  console.log(user)
   return (
     <div className=' h-full flex justify-center'>
-      <div className='fixed h-screen'>
-        <div className='flex flex-col items-center text-2xl font-bold'>
-          <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
-            / π - Чат /
-          </Link>
-          <NavLink to='' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-            <MenuAlt1Icon className='w-32px h-32px' />
-            <p className='ml-16px'>Посты</p>
-          </NavLink>
-          <NavLink to='notifs' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-            <BellIcon className='w-32px h-32px' />
-            <p className='ml-16px'> Уведомления</p>
-          </NavLink>
-          <NavLink to='messages' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-            <ChatIcon className='w-32px h-32px' />
-            <p className='ml-16px'> Сообщения</p>
-          </NavLink>
-          <NavLink to='profile' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-            <UserIcon className='w-32px h-32px' />
-            <p className='ml-16px'>Профиль</p>
-          </NavLink>
-          <NavLink to='settings' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-            <CogIcon className='w-32px h-32px' />
-            <p className='ml-16px'>Настройки</p>
-          </NavLink>
-        </div>
-        <div
-          onClick={handlePopup}
-          className='bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold'
-        >
-          <button>Постить</button>
-        </div>
-        <div className='flex justify-center'>
-          <div className='absolute bottom-32px flex items-center'>
-            <div className='mr-16px'>
-              <img className='rounded-2xl w-54px h-54px ' src={user.user.pathImg} alt='' />
-            </div>
-            <div className='flex-col mr-32px '>
-              <div className='text-xl font-bold'>{user.user.username}</div>
-              <div>@{user.user.name}</div>
-            </div>
-            <div onClick={logout} className='w-32px h-32px text-green-600 cursor-pointer'>
-              <LogoutIcon />
+      {user !== undefined && (
+        <div className='fixed h-screen'>
+          <div className='flex flex-col items-center text-2xl font-bold'>
+            <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
+              / π - Чат /
+            </Link>
+            <NavLink to='' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <MenuAlt1Icon className='w-32px h-32px' />
+              <p className='ml-16px'>Посты</p>
+            </NavLink>
+            <NavLink to='notifs' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <BellIcon className='w-32px h-32px' />
+              <p className='ml-16px'> Уведомления</p>
+            </NavLink>
+            <NavLink to='messages' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <ChatIcon className='w-32px h-32px' />
+              <p className='ml-16px'> Сообщения</p>
+            </NavLink>
+            <NavLink to='profile' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <UserIcon className='w-32px h-32px' />
+              <p className='ml-16px'>Профиль</p>
+            </NavLink>
+            <NavLink to='settings' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <CogIcon className='w-32px h-32px' />
+              <p className='ml-16px'>Настройки</p>
+            </NavLink>
+          </div>
+          <div
+            onClick={handlePopup}
+            className='bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold'
+          >
+            <button>Постить</button>
+          </div>
+          <div className='flex justify-center'>
+            <div className='absolute bottom-32px flex items-center'>
+              <div className='mr-16px'>
+                <img className='rounded-2xl w-54px h-54px ' src={user.pathImg} alt='' />
+              </div>
+              <div className='flex-col mr-32px '>
+                <div className='text-xl font-bold'>{user.username}</div>
+                <div>@{user.name}</div>
+              </div>
+              <div onClick={logout} className='w-32px h-32px text-green-600 cursor-pointer'>
+                <LogoutIcon />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

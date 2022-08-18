@@ -5,13 +5,13 @@ import useAuth from '../../../../hooks/useAuth'
 function EditInfo() {
   const { user, refetchUser } = useAuth()
   const [status, setStatus] = useState(false)
-  const [value, setValue] = useState(user.user.info)
+  const [value, setValue] = useState(user.info)
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement
     setValue(target.value)
   }
   const handleSubmit = () => {
-    redaxios.put(`http://localhost:6060/profile/info?text=${value.toString()}&name=${user.user.name}`).then((res) => {
+    redaxios.put(`http://localhost:6060/profile/info?text=${value.toString()}&name=${user.name}`).then((res) => {
       if (res.status === 200) {
         refetchUser()
       }
@@ -21,7 +21,7 @@ function EditInfo() {
     <>
       {status === false && (
         <div className='flex text-md  '>
-          {user.user.info}
+          {user.info}
           <PencilIcon onClick={() => setStatus(!status)} className='ml-4px w-24px text-green-600' />
         </div>
       )}

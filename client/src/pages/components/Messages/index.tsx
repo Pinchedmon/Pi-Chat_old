@@ -6,7 +6,7 @@ function Messages() {
   const { user } = useAuth()
   return (
     <div>
-      <CMessages name={user.user.name} />
+      <CMessages name={user.name} />
     </div>
   )
 }

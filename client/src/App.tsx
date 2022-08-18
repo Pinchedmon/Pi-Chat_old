@@ -8,9 +8,9 @@ import SignUp from './pages/SignUp'
 import Login from './pages/Login'
 
 function AuthenticatedRoute(props: any) {
-  let { user } = useAuth()
-  if (!user) return <Navigate to='/login' />
-  console.log(user)
+  const { user } = useAuth()
+
+  if (!user && document.cookie === '0') return <Navigate to='/login' />
   return <props.component />
 }
 function App() {

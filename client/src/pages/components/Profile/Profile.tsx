@@ -7,12 +7,12 @@ import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
 import CPost from '../../../components/CPost'
-import EditInfo from "./FilesUploadComponent/EditInfo";
+import EditInfo from './FilesUploadComponent/EditInfo'
 
 const Profile = () => {
   const navigate = useNavigate()
   const { user } = useAuth()
-  let name = user.user.name
+  let name = user.name
 
   return (
     <div>
@@ -27,12 +27,12 @@ const Profile = () => {
       <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
         <FilesUploadComponent />
         <div className='flex w-full flex-col'>
-          {/* naming */}
+          {/* naming  |  info*/}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <EditText/>
+            <EditText />
             <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
           </div>
-           <EditInfo/>
+          <EditInfo />
         </div>
       </div>
       {/* posts */}

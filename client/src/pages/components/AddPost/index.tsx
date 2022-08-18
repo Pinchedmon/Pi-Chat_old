@@ -33,8 +33,8 @@ const AddPost = (props: IaddPost) => {
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const { user } = useAuth()
-  const path = user.user.pathImg
-  const name = user.user.name
+  const path = user.pathImg
+  const name = user.name
   const { handlePopup } = props
   const [addPost, setAddPost] = useState({
     file: null,
@@ -85,7 +85,7 @@ const AddPost = (props: IaddPost) => {
     if (props.text !== '' && props.category !== '' && props.course !== '') {
       redaxios
         .post(
-          `http://localhost:6060/posts/feed?author=${props.name}&name=${user.user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
+          `http://localhost:6060/posts/feed?author=${props.name}&name=${user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
           data,
         )
         .then((response) => {

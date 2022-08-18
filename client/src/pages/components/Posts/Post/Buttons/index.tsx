@@ -47,8 +47,8 @@ function Buttons(id: any) {
     postComment(
       {
         id: id.id,
-        author: user.user.name,
-        name: user.user.username,
+        author: user.name,
+        name: user.username,
         text: postData.textArea,
         userImg: path,
         refetch: () => null,
@@ -61,7 +61,7 @@ function Buttons(id: any) {
     navigate(`?id=${id.id}`)
   }
   useEffect(() => {
-    setPath(user.user.pathImg)
+    setPath(user.pathImg)
     if (postData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
@@ -76,7 +76,7 @@ function Buttons(id: any) {
     } else {
       setPostData((postData: iPostPage) => ({ ...postData, validForm: true }))
     }
-  }, [postData.file, user.user.name, postData.textAreaError, user.user.pathImg])
+  }, [postData.file, user.name, postData.textAreaError, user.pathImg])
   return (
     <>
       <form className='w-full mb-6px' onSubmit={handleSubmit}>

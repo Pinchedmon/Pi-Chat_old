@@ -19,7 +19,7 @@ interface IAddMessageSubmit {
 
 const AddMessage = (props: IaddMessage) => {
   const { user } = useAuth()
-  const path = user.user.pathImg
+  const path = user.pathImg
   const { showMessage, name } = props
 
   const [message, setMessage] = useState({
@@ -69,7 +69,7 @@ const AddMessage = (props: IaddMessage) => {
     data.append('message', props.file)
     if (props.text !== '') {
       redaxios.post(
-        `http://localhost:6060/message/post?name=${user.user.name}&secondName=${name}&text=${props.text}&userImg=${props.path}`,
+        `http://localhost:6060/message/post?name=${user.name}&secondName=${name}&text=${props.text}&userImg=${props.path}`,
         data,
       )
       props.showMessage()
@@ -88,7 +88,7 @@ const AddMessage = (props: IaddMessage) => {
             className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'
             onSubmit={(e) =>
               addMessageSubmit(e, {
-                name: user.user.name,
+                name: user.name,
                 text: message.text,
                 path,
                 showMessage,

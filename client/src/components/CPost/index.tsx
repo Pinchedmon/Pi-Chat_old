@@ -21,9 +21,7 @@ type iPost = {
 function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
   const { getPost, naming, getObject } = props
   const [posts, setPosts] = useState([])
-  const navigate = useNavigate()
   const { user } = useAuth()
-  let name = user.user.name
   const { data, refetch } = useQuery(naming, () => getPost(getObject), {})
   useEffect(() => {
     setPosts(data)
@@ -40,11 +38,11 @@ function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: strin
               <Buttons
                 refetch={refetch}
                 author={item.author}
-                name={user.user.name}
+                name={user.name}
                 ID={item.ID}
                 comments={item.comments}
                 likes={item.likes}
-                role={user.user.role}
+                role={user.role}
               />
             </div>
           </div>
