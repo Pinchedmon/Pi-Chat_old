@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getPath } from '../../api/session'
 
-function Img(props: { name: string; className: string }) {
+function Img(props: { name: string; className: string; onClick: Function }) {
   const [img, setImg] = useState('')
   useEffect(() => {
     getPath(props.name).then((res: any) => {
@@ -13,7 +13,7 @@ function Img(props: { name: string; className: string }) {
 
   return (
     <>
-      <img src={img} alt='' className={props.className} />
+      <img onClick={() => props.onClick()} src={img} alt='' className={props.className} />
     </>
   )
 }

@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { data } = useQuery('main', () => usersApi.getCurrentUser(), {})
+  const { data, refetch } = useQuery('main', () => usersApi.getCurrentUser(), {})
 
   useEffect(() => {
     if (error) setError(null)
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     if (data !== undefined) {
       setUser(data.data.data[0])
     }
-  }, [data])
+  }, [data, refetch])
 
   function login(email: string, password: string) {
     setError('')
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function refetchUser() {
-    // refetch()
+    refetch()
   }
 
   function signUp(email: string, name: string, password: string) {

@@ -3,17 +3,18 @@ import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import FilesUploadComponent from './FilesUploadComponent/FilesUploadComponent'
 import { getMyPosts } from '../../../api/session'
-import { ArrowLeftIcon, PencilIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon } from '@heroicons/react/solid'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
 import CPost from '../../../components/CPost'
 import EditInfo from './FilesUploadComponent/EditInfo'
+import { useQuery } from 'react-query'
 
 const Profile = () => {
   const navigate = useNavigate()
   const { user } = useAuth()
   let name = user.name
-
+  const { refetch } = useQuery('myPosts')
   return (
     <div>
       {/* exit */}
@@ -25,11 +26,11 @@ const Profile = () => {
       <EditBackground />
       {/* icon */}
       <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
-        <FilesUploadComponent />
+        <FilesUploadComponent fetchPosts={refetch} />
         <div className='flex w-full flex-col'>
           {/* naming  |  info*/}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <EditText />
+            <EditText fetchPosts={refetch} />
             <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
           </div>
           <EditInfo />

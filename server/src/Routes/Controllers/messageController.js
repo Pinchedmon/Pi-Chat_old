@@ -29,5 +29,12 @@ class messageController {
             return res.status(200).json({ data: rows })
         })
     }
+    async getMessages(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`SELECT * FROM messages_info WHERE name = '${queryObject.names}'`, [], (err, rows) => {
+
+            return res.status(200).json({ data: rows })
+        })
+    }
 }
 module.exports = new messageController;

@@ -2,8 +2,8 @@ import { PencilIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 import redaxios from 'redaxios'
 import useAuth from '../../../../hooks/useAuth'
-function EditText() {
-  const { user } = useAuth()
+function EditText(props: { fetchPosts: () => void }) {
+  const { user, refetchUser } = useAuth()
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.name)
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -14,6 +14,8 @@ function EditText() {
     redaxios.put(`http://localhost:6060/profile/name?username=${value.toString()}&name=${user.name}`).then((res) => {
       if (res.status === 200) {
         user.username = value
+        props.fetchPosts()
+        refetchUser()
       }
     })
   }

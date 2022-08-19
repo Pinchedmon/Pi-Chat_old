@@ -15,7 +15,6 @@ export async function getCurrentUser(): Promise<any> {
       }
     })
   if (response !== undefined) {
-    console.log(response)
     return response
   }
 }

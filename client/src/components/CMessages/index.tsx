@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { XIcon } from '@heroicons/react/solid'
-import { getMessages, getPath } from '../../api/session'
+import { useNavigate } from 'react-router-dom'
+import { getMessages } from '../../api/session'
 import Img from './Img'
 
 type iMessage = {
@@ -12,6 +12,7 @@ type iMessage = {
 
 function CMessages(props: { name: string }) {
   const { name } = props
+  const navigate = useNavigate()
   const { data } = useQuery('messages', () => getMessages(name), {})
   const [messages, setMessages] = useState<any>()
 
@@ -30,11 +31,19 @@ function CMessages(props: { name: string }) {
       {messages !== undefined ? (
         messages.data.map((item: iMessage) => (
           <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
-            <Img className='ml-24px mr-16px h-54px rounded-xl w-54px' name={name} />
+            <Img
+              onClick={() => navigate('/message', { state: { names: item.names } })}
+              className='ml-24px mr-16px h-54px cursor-pointer rounded-xl w-54px'
+              name={item.names.replace(name, '').trim()}
+            />
             <div className='flex-col '>
               <div className='flex items-center align-center  -mt-4px'>
-                <div className='text-lg md:text-xl  font-bold'>{item.names.replace(name, '')}</div>
-
+                <div
+                  onClick={() => navigate('/message', { state: { names: item.names } })}
+                  className='text-lg md:text-xl font-bold cursor-pointer hover:underline'
+                >
+                  {item.names.replace(name, '')}
+                </div>
                 <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
               </div>
               <div className='mt-4px mb-12px'>{item.last}</div>

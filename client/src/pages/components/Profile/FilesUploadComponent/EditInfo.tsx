@@ -14,6 +14,7 @@ function EditInfo() {
     redaxios.put(`http://localhost:6060/profile/info?text=${value.toString()}&name=${user.name}`).then((res) => {
       if (res.status === 200) {
         refetchUser()
+        user.info = value
       }
     })
   }

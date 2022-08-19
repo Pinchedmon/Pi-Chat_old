@@ -4,8 +4,8 @@ import { useQuery } from 'react-query'
 import { PencilIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../hooks/useAuth'
 import { getCurrentUser } from '../../../../api/users'
-const FilesUploadComponent = () => {
-  let { user } = useAuth()
+const FilesUploadComponent = (props: { fetchPosts: () => void }) => {
+  let { user, refetchUser } = useAuth()
   let name = user.name
   const { refetch } = useQuery('profile', () => getCurrentUser())
   const sendFile = useCallback(
@@ -17,6 +17,8 @@ const FilesUploadComponent = () => {
         if (response.status === 200) {
           user.pathImg = response.data.data
           refetch()
+          props.fetchPosts()
+          refetchUser()
         }
       })
     },

@@ -29,6 +29,7 @@ function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: strin
   return (
     <div>
       {posts !== undefined &&
+        posts.length > 0 &&
         posts.map((item: iPost, index: string | number) => (
           <div key={index} className='w-full flex  self-center mb-16px border-b-2 border-gray-300'>
             <UserImg name={item.author} userImg={item.userImg} />
