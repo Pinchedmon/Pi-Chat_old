@@ -13,9 +13,10 @@ class messageController {
         } else {
             messageImg = "";
         }
-        db.all(`SELECT * from messages WHERE names = ${queryObject.secondName} ${queryObject.name} OR names = ${queryObject.name} ${queryObject.secondName}`, [], (err, rows) => {
+        let names = `${queryObject.secondName} ${queryObject.name}`
+        db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             console.log(rows)
-            if (rows === undefined || rows === []) {
+            if (rows === undefined) {
                 db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [queryObject.name + ' ' + queryObject.secondName, `${queryObject.text}`])
             }
             db.run(`UPDATE messages SET last = ${queryObject.text}`)
@@ -31,8 +32,7 @@ class messageController {
     }
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT * FROM messages_info WHERE name = '${queryObject.names}'`, [], (err, rows) => {
-
+        db.all(`SELECT * FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             return res.status(200).json({ data: rows })
         })
     }

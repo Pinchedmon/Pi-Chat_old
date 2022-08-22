@@ -29,21 +29,19 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 export function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
   const [user, setUser] = useState<iUser | any>()
   const [error, setError] = useState<any>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
   const { data, refetch } = useQuery('main', () => usersApi.getCurrentUser(), {})
 
   useEffect(() => {
     if (error) setError(null)
   }, [])
-
   useEffect(() => {
-    // usersApi.getCurrentUser().then((res) => {
-    //   if (res.status === 200) {
-    //     setUser(res.data)
-    //   }
-    // })
-
+    if (user !== undefined) {
+      setLoading(false)
+    }
+  }, [])
+  useEffect(() => {
     if (data !== undefined) {
       setUser(data.data.data[0])
     }
@@ -51,10 +49,12 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
 
   function login(email: string, password: string) {
     setError('')
-    // setLoading(true)
+    setLoading(true)
     sessionsApi.login({ email, password }).then((user: any) => {
       if (user.status === 200) {
-        setUser(user)
+        if (user !== undefined) {
+          setUser(user.user)
+        }
         document.cookie = user.authToken
         navigate('/')
       } else {
@@ -74,7 +74,9 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     usersApi.signUp({ email, name, password }).then((user: any) => {
       if (user.status === 200) {
         sessionsApi.login({ email, password }).then((user) => {
-          setUser(user)
+          if (user !== undefined) {
+            setUser(user.user)
+          }
           document.cookie = user.authToken
           navigate('/')
         })
