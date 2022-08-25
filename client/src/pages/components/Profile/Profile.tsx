@@ -6,7 +6,7 @@ import { getMyPosts } from '../../../api/session'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import EditBackground from './FilesUploadComponent/EditBackground'
 import EditText from './FilesUploadComponent/EditText'
-import CPost from '../../../components/CPost'
+import CPost from '../../../components/Post'
 import EditInfo from './FilesUploadComponent/EditInfo'
 import { useQuery } from 'react-query'
 

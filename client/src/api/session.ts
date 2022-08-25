@@ -64,5 +64,7 @@ export async function getMessages(name: string) {
 }
 export async function getMessagesInfo(names: string) {
   const response = await redaxios.get(`http://localhost:6060/message/info?names=${names}`)
-  return response.data.data
+  if (response !== undefined) {
+    return response.data.data
+  }
 }

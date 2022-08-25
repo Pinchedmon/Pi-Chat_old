@@ -4,6 +4,7 @@ let initialState = {
   sort: 'Late',
   addPostStyle: false,
   addMessageStyle: false,
+  messageStyle: false,
 }
 const navSlice = createSlice({
   name: 'nav',
@@ -21,8 +22,11 @@ const navSlice = createSlice({
     setAddMessageStyle: (state: { addMessageStyle: boolean }, action: { payload: boolean }) => {
       state.addMessageStyle = action.payload
     },
+    setMessageStyle: (state: { messageStyle: boolean }, action: { payload: boolean }) => {
+      state.messageStyle = action.payload
+    },
   },
 })
 
-export const { setCategory, setSort, setAddPostStyle, setAddMessageStyle } = navSlice.actions
+export const { setCategory, setSort, setAddPostStyle, setAddMessageStyle, setMessageStyle } = navSlice.actions
 export default navSlice.reducer

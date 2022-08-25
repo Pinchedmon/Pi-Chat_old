@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getMessagesInfo } from '../../../../api/session'
-interface CustomState {
-  names: string
-}
-const Message = () => {
-  //   const navigate = useNavigate()
-  //   const { user } = useAuth()
-  //   let name = user.name
-  const location = useLocation()
-  const state = location.state as CustomState
-  const { data, refetch } = useQuery('myPosts', () => getMessagesInfo(state.names))
+import Img from '../../../../components/Img'
+import Buttons from './Buttons'
+
+const Message = (props: { names: string }) => {
+  const navigate = useNavigate()
+
+  const { data, refetch } = useQuery('message', () => getMessagesInfo(props.names))
   const [messages, setMessage] = useState<any>()
   useEffect(() => {
     if (data !== undefined) {
       setMessage(data)
     }
-  }, [])
+    refetch()
+  }, [data, refetch])
   return (
-    <>
+    <div className='mt-10px'>
       {messages !== undefined &&
         messages.map((item: any) => (
-          <div>
-            <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
-              <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
+          <div className=''>
+            <div className='w-full flex flex-row mb-16px border-gray-300'>
+              <Img
+                name={item.username}
+                className='ml-24px mr-16px h-54px rounded-xl w-54px'
+                onClick={() => navigate(`/${item.username}`)}
+              />
               <div className='flex-col '>
                 <div className='flex items-center align-center  -mt-4px'>
                   <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
@@ -35,7 +37,8 @@ const Message = () => {
             </div>
           </div>
         ))}
-    </>
+      <Buttons />
+    </div>
   )
 }
 export default Message

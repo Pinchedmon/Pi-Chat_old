@@ -2,9 +2,9 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../hooks/useAuth'
-import CPost from '../../../../components/CPost'
+import CPost from '../../../../components/Post'
 import { getPost } from '../../../../api/getPosts'
-import CComments from '../../../../components/CComments'
+import CComments from '../../../../components/Comments'
 import Buttons from './Buttons'
 const Post = () => {
   const navigate = useNavigate()

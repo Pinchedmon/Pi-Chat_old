@@ -42,7 +42,7 @@ const Feed = () => {
     <div className='grid grid-cols-4 gap-0px'>
       {user !== undefined && (
         <>
-          <div className='h-screen  '>
+          <div className='h-screen'>
             <Nav sort={sort} category={category} />
           </div>
           <div className='relative col-span-2 border-l-2 border-r-2 border-gray-300'>
@@ -52,9 +52,7 @@ const Feed = () => {
               <Route path='/profile' element={<Profile />} />
               <Route path='/*' element={<UserProfile />} />
               <Route path='/messages' element={<Messages />} />
-              <Route path='/message' element={<Message />} />
             </Routes>
-
             {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
           </div>
           <div className=''>

@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     setError('')
     // setLoading(true)
     usersApi.signUp({ email, name, password }).then((user: any) => {
-      if (user.status === 200) {
+      if (user.status === 200) { 
         sessionsApi.login({ email, password }).then((user) => {
           if (user !== undefined) {
             setUser(user.user)
