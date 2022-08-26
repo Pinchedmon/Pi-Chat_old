@@ -1,4 +1,4 @@
-import { setAddPostStyle } from '../../../state/navReducer'
+import { setAddPostStyle, setMessageStyle } from '../../../state/navReducer'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
@@ -38,7 +38,11 @@ const Nav = (props: { sort: string | number; category: string }) => {
               <BellIcon className='w-32px h-32px' />
               <p className='ml-16px'> Уведомления</p>
             </NavLink>
-            <NavLink to='messages' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+            <NavLink
+              onClick={() => dispatch(setMessageStyle(false))}
+              to='messages'
+              className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}
+            >
               <ChatIcon className='w-32px h-32px' />
               <p className='ml-16px'> Сообщения</p>
             </NavLink>

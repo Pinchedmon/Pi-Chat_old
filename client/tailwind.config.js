@@ -4,6 +4,7 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     spacing: {
+      'auto': 'auto',
       '0px': '0px',
       '1px': '1px',
       '2px': '2px',

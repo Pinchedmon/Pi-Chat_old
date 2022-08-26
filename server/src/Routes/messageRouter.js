@@ -25,6 +25,7 @@ let upload = multer({
     }
 });
 router.post('/post', upload.single('message'), controller.postMessage);
+
 router.get('/links', controller.getLinks);
 router.get('/info', controller.getMessages);
 module.exports = router;

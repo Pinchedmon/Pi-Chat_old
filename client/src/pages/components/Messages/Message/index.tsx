@@ -3,7 +3,6 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { getMessagesInfo } from '../../../../api/session'
 import Img from '../../../../components/Img'
-import Buttons from './Buttons'
 
 const Message = (props: { names: string }) => {
   const navigate = useNavigate()
@@ -13,6 +12,7 @@ const Message = (props: { names: string }) => {
   useEffect(() => {
     if (data !== undefined) {
       setMessage(data)
+      console.log(messages)
     }
     refetch()
   }, [data, refetch])
@@ -37,7 +37,6 @@ const Message = (props: { names: string }) => {
             </div>
           </div>
         ))}
-      <Buttons />
     </div>
   )
 }

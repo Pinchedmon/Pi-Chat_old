@@ -17,12 +17,15 @@ class messageController {
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             console.log(rows)
             if (rows === undefined) {
-                db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [queryObject.name + ' ' + queryObject.secondName, `${queryObject.text}`])
+                db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
             }
-            db.run(`UPDATE messages SET last = ${queryObject.text}`)
-            db.all('INSERT INTO messages_info (name,username, text, userImg, messageImg) VALUES  (?,?,?,?,?)', [`${queryObject.name} ${queryObject.secondName}`, `${queryObject.name}`, queryObject.text, queryObject.userImg, messageImg])
-            return res.status(200)
+            db.run(`UPDATE messages SET last = '${queryObject.text}' WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`)
+            db.run('INSERT INTO messages_info (name,username, text, messageImg) VALUES  (?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg], () => {
+                return res.json({ status: 200 })
+            })
+
         })
+
     }
     async getLinks(req, res) {
         const queryObject = url.parse(req.url, true).query;
@@ -36,5 +39,6 @@ class messageController {
             return res.status(200).json({ data: rows })
         })
     }
+
 }
 module.exports = new messageController;

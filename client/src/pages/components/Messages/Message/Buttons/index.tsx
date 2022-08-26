@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
-import { postComment } from '../../../../../api/session'
+import { getMessages, getMessagesInfo, postMessage } from '../../../../../api/session'
 import useAuth from '../../../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -12,8 +12,8 @@ interface iPostPage {
   textAreaError: string
   validForm: boolean
 }
-function Buttons(id: any) {
-  const { refetch } = useQuery('messages')
+function Buttons(props: { firstName: string; secondName: string }) {
+  const { refetch } = useQuery('message', () => getMessagesInfo(`${props.firstName} ${props.secondName}`))
   const navigate = useNavigate()
   const { user } = useAuth()
   const [path, setPath] = useState(null)
@@ -39,27 +39,24 @@ function Buttons(id: any) {
     e.preventDefault()
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const commentImg = new FormData()
+    const messageImg = new FormData()
     if (messageData.file !== null) {
-      commentImg.append('comment', messageData.file)
+      messageImg.append('comment', messageData.file)
     }
     event.preventDefault()
-    postComment(
+    postMessage(
       {
-        id: id.id,
-        author: user.name,
-        name: user.username,
+        firstName: props.firstName.trim(),
+        secondName: props.secondName.trim(),
         text: messageData.textArea,
-        userImg: path,
-        refetch: () => null,
+        refetch: refetch,
       },
-      commentImg,
+      messageImg,
     )
     setMessageData((messageData: iPostPage) => ({ ...messageData, textArea: '' }))
     setMessageData((messageData: iPostPage) => ({ ...messageData, file: null }))
-    refetch()
-    navigate(`?id=${id.id}`)
   }
+
   useEffect(() => {
     setPath(user.pathImg)
     if (messageData.file) {
@@ -72,9 +69,9 @@ function Buttons(id: any) {
       setMessageData((messageData: iPostPage) => ({ ...messageData, preview: null }))
     }
     if (messageData.textAreaError && messageData.file === null) {
-      setMessageData((messageData: iPostPage) => ({ ...messageData, validForm: false }))
-    } else {
       setMessageData((messageData: iPostPage) => ({ ...messageData, validForm: true }))
+    } else {
+      setMessageData((messageData: iPostPage) => ({ ...messageData, validForm: false }))
     }
   }, [messageData.file, user.name, messageData.textAreaError, user.pathImg])
   return (

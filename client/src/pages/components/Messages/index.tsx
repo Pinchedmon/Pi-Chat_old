@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import Img from '../../../components/Img'
 import useAuth from '../../../hooks/useAuth'
 import { setMessageStyle } from '../../../state/navReducer'
 import Message from './Message'
+import Buttons from './Message/Buttons'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -25,8 +26,11 @@ function Messages() {
 
   const visible = useSelector((state: IState) => state.nav.messageStyle)
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setMessageStyle(false))
+  }, [])
   return (
-    <div>
+    <div className='w-full h-screen'>
       {!visible && (
         <>
           {data !== undefined ? (
@@ -74,12 +78,24 @@ function Messages() {
       )}
 
       {visible === true && (
-        <>
-          <div className='border-b-2 border-gray-300 p-16px ' onClick={() => dispatch(setMessageStyle(!visible))}>
-            <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
+        <div className='flex flex-col w-full h-full items-stretch'>
+          <div className='w-full  border-b-2  border-gray-300 p-10px '>
+            <ArrowLeftIcon
+              onClick={() => dispatch(setMessageStyle(!visible))}
+              className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white'
+            />
+            <p className='absolute left-1/2 -translate-x-1/2 text-2xl rounded-xl top-16px font-bold'>
+              {names.replace(user.name, '')}
+            </p>
           </div>
-          <Message names={names} />
-        </>
+
+          <div className='overflow-y-scroll overflow-visible h-full  '>
+            <Message names={names} />
+          </div>
+          <div className=''>
+            <Buttons firstName={user.name} secondName={names.replace(user.name, '')} />
+          </div>
+        </div>
       )}
     </div>
   )
