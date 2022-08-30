@@ -41,7 +41,7 @@ function Buttons(props: { firstName: string; secondName: string }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const messageImg = new FormData()
     if (messageData.file !== null) {
-      messageImg.append('comment', messageData.file)
+      messageImg.append('message', messageData.file)
     }
     event.preventDefault()
     postMessage(

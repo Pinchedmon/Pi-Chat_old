@@ -23,7 +23,6 @@ class messageController {
             db.run('INSERT INTO messages_info (name,username, text, messageImg) VALUES  (?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg], () => {
                 return res.json({ status: 200 })
             })
-
         })
 
     }

@@ -33,6 +33,9 @@ function Messages() {
     <div className='w-full h-screen'>
       {!visible && (
         <>
+          <div className='w-full  border-b-2  border-gray-300 p-10px '>
+            <p className='text-2xl rounded-xl top-16px font-bold'>Диалоги</p>
+          </div>
           {data !== undefined ? (
             data.data.map((item: iMessage) => (
               <div
@@ -40,7 +43,7 @@ function Messages() {
                   dispatch(setMessageStyle(!visible))
                   setNames(item.names)
                 }}
-                className='w-full flex flex-row mb-16px border-b-2 border-gray-300 hover:bg-gray-300'
+                className='w-full pt-8px flex flex-row mb-16px border-b-2 border-gray-300 hover:bg-gray-300'
               >
                 <Img
                   onClick={() => 1}

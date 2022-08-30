@@ -32,6 +32,8 @@ const Message = (props: { names: string }) => {
                   <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
                   <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                 </div>
+                {/* item.mesageImg} */}
+                <img src={item.messageImg} alt='' />
                 <div className='mt-4px mb-12px'>{item.text}</div>
               </div>
             </div>
