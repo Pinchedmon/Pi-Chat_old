@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import UserImg from './UserImg'
 import ProfileInfo from './ProfileInfo'
@@ -18,7 +17,7 @@ type iPost = {
   comments: number | string
 }
 
-function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
+function Post(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
   const { getPost, naming, getObject } = props
   const [posts, setPosts] = useState([])
   const { user } = useAuth()
@@ -52,4 +51,4 @@ function CPost(props: { getPost: (getObject: any) => Promise<any>; naming: strin
   )
 }
 
-export default CPost
+export default Post

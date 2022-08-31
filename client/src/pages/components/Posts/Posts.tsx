@@ -1,6 +1,6 @@
 import React from 'react'
-import { getPosts } from '../../../api/getPosts'
-import CPost from '../../../components/Post'
+import { getPosts } from '../../../api/get'
+import Post from '../../../components/Post'
 
 type iPost = {
   userImg: string
@@ -24,7 +24,7 @@ const Posts = (props: IPosts) => {
     <>
       <div className='p-32px text-xl border-b-2 border-gray-300'>Сделать пост</div>
       <div className='flex flex-col mt-16px '>
-        <CPost getPost={getPosts} getObject={{ sort, category }} naming='posts' />
+        <Post getPost={getPosts} getObject={{ sort, category }} naming='posts' />
       </div>
     </>
   )

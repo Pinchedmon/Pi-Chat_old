@@ -1,7 +1,7 @@
 import { PencilIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 import redaxios from 'redaxios'
-import useAuth from '../../../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 function EditText(props: { fetchPosts: () => void }) {
   const { user, refetchUser } = useAuth()
   const [status, setStatus] = useState(false)

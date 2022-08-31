@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeftIcon, ChatAlt2Icon } from '@heroicons/react/solid'
 import CPost from '../../../components/Post'
-import { getMyPosts } from '../../../api/session'
+import { getMyPosts } from '../../../api/get'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getUserData } from '../../../api/users'
+import { getUserData } from '../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAddMessageStyle } from '../../../state/navReducer'
 import AddMessage from '../AddMessage'
@@ -58,6 +58,7 @@ function UserProfile() {
               </div>
               {/* info */}
               <div>{user.info}</div>
+              {user.username}
               <div onClick={showMessage} className='mt-16px flex cursor-pointer items-center text-green-600'>
                 <ChatAlt2Icon className='w-32px mr-8px  ' />
                 <p>Написать сообщение</p>

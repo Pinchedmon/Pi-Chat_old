@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { getMessagesInfo } from '../../../../api/session'
+import { getMessagesInfo } from '../../../../api/get'
 import Img from '../../../../components/Img'
 
 const Message = (props: { names: string }) => {
   const navigate = useNavigate()
-
+  const bottomRef = useRef(null)
   const { data, refetch } = useQuery('message', () => getMessagesInfo(props.names))
   const [messages, setMessage] = useState<any>()
   useEffect(() => {
     if (data !== undefined) {
       setMessage(data)
-      console.log(messages)
     }
     refetch()
   }, [data, refetch])
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+  }, [messages])
   return (
     <div className='mt-10px'>
       {messages !== undefined &&
         messages.map((item: any) => (
           <div className=''>
-            <div className='w-full flex flex-row mb-16px border-gray-300'>
+            <div className='w-full flex flex-row mb-16px '>
               <Img
                 name={item.username}
                 className='ml-24px mr-16px h-54px rounded-xl w-54px'
@@ -29,7 +32,9 @@ const Message = (props: { names: string }) => {
               />
               <div className='flex-col '>
                 <div className='flex items-center align-center  -mt-4px'>
-                  <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
+                  <div className='text-lg md:text-xl  font-bold' onClick={() => navigate(`/${item.username}`)}>
+                    {item.username}
+                  </div>
                   <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                 </div>
                 {/* item.mesageImg} */}
@@ -39,6 +44,7 @@ const Message = (props: { names: string }) => {
             </div>
           </div>
         ))}
+      <div ref={bottomRef} />
     </div>
   )
 }

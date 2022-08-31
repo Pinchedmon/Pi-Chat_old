@@ -4,10 +4,10 @@ import redaxios from 'redaxios'
 import { FormEvent } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
-import { getPosts } from '../../../api/getPosts'
 import { useSelector } from 'react-redux'
 import useAuth from '../../../hooks/useAuth'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
+import { getPosts } from '../../../api/get'
 interface IaddPost {
   handlePopup: () => void
 }

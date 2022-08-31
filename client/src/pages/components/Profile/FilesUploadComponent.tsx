@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
 import { PencilIcon } from '@heroicons/react/solid'
-import useAuth from '../../../../hooks/useAuth'
-import { getCurrentUser } from '../../../../api/users'
+import useAuth from '../../../hooks/useAuth'
+import { getCurrentUser } from '../../../api/auth'
 const FilesUploadComponent = (props: { fetchPosts: () => void }) => {
   let { user, refetchUser } = useAuth()
   let name = user.name

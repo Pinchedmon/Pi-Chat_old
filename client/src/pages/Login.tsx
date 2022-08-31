@@ -11,7 +11,7 @@ interface iForm {
   validForm: boolean
 }
 export default function Login() {
-  const { login, error } = useAuth()
+  const { logIn, error } = useAuth()
   const [form, setForm] = useState<iForm>({
     email: '',
     password: '',
@@ -24,7 +24,7 @@ export default function Login() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     if (form.email !== '' && form.password !== '') {
       event.preventDefault()
-      login(form.email, form.password)
+      logIn(form.email, form.password)
     } else {
       window.alert('какое-то поле не заполнено')
     }

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../hooks/useAuth'
 import CPost from '../../../../components/Post'
-import { getPost } from '../../../../api/getPosts'
+import { getPost } from '../../../../api/get'
 import CComments from '../../../../components/Comments'
 import Buttons from './Buttons'
 const Post = () => {

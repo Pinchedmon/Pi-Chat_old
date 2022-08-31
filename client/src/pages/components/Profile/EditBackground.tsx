@@ -1,7 +1,7 @@
 import React from 'react'
-import useAuth from '../../../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 import redaxios from 'redaxios'
-import { getCurrentUser } from '../../../../api/users'
+import { getCurrentUser } from '../../../api/auth'
 import { useQuery } from 'react-query'
 function EditBackground() {
   const { user } = useAuth()

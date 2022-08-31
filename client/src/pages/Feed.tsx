@@ -1,20 +1,18 @@
-import Posts from './components/Posts/Posts'
 import Nav from './components/Nav'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts } from '../api/getPosts'
+import { getPosts } from '../api/get'
 import { useQuery } from 'react-query'
 import FilterModal from './components/Nav/FilterModal'
 import { Route, Routes } from 'react-router-dom'
 import Post from './components/Posts/Post/Post'
-import Profile from './components/Profile/Profile'
 import AddPost from './components/AddPost'
 import { setAddPostStyle } from '../state/navReducer'
 import UserProfile from './components/UserProfile'
-import Messages from './components/Messages'
 import useAuth from '../hooks/useAuth'
-import Message from './components/Messages/Message'
-
+import Posts from './components/Posts/Posts'
+import Profile from './components/Profile/Profile'
+import Messages from './components/Messages/Messages'
 interface iState {
   nav: {
     sort: string | number

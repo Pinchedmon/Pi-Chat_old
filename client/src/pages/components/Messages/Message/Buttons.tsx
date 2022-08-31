@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
-import { getMessages, getMessagesInfo, postMessage } from '../../../../../api/session'
-import useAuth from '../../../../../hooks/useAuth'
+import useAuth from '../../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { getMessagesInfo } from '../../../../api/get'
+import { postMessage } from '../../../../api/post'
 interface iPostPage {
   file: File | null
   preview: string

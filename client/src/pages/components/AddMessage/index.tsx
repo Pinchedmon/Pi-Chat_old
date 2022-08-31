@@ -65,18 +65,22 @@ const AddMessage = (props: IaddMessage) => {
   }, [message.file])
 
   function addMessageSubmit(event: FormEvent<HTMLFormElement>, props: IAddMessageSubmit) {
-    let data = new FormData()
-    data.append('message', props.file)
-    if (props.text !== '') {
-      redaxios.post(
-        `http://localhost:6060/message/post?name=${user.name}&secondName=${name}&text=${props.text}&userImg=${props.path}`,
-        data,
-      )
-      props.showMessage()
-      event.preventDefault()
+    if (user.name == name) {
+      window.alert('Вы не можете отправлять себе сообщения')
     } else {
-      window.alert('Какое-то поле незаполнено!')
-      event.preventDefault()
+      let data = new FormData()
+      data.append('message', props.file)
+      if (props.text !== '') {
+        redaxios.post(
+          `http://localhost:6060/message/post?name=${user.name}&secondName=${name}&text=${props.text}&userImg=${props.path}`,
+          data,
+        )
+        props.showMessage()
+        event.preventDefault()
+      } else {
+        window.alert('Какое-то поле незаполнено!')
+        event.preventDefault()
+      }
     }
   }
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-import FilesUploadComponent from './FilesUploadComponent/FilesUploadComponent'
-import { getMyPosts } from '../../../api/session'
+import FilesUploadComponent from './FilesUploadComponent'
+import { getMyPosts } from '../../../api/get'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import EditBackground from './FilesUploadComponent/EditBackground'
-import EditText from './FilesUploadComponent/EditText'
+import EditBackground from './EditBackground'
+import EditText from './EditText'
 import CPost from '../../../components/Post'
-import EditInfo from './FilesUploadComponent/EditInfo'
+import EditInfo from './EditInfo'
 import { useQuery } from 'react-query'
 
 const Profile = () => {

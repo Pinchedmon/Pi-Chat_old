@@ -1,9 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import * as sessionsApi from '../api/session'
-import * as usersApi from '../api/users'
-
+import { getCurrentUser, login, signup } from '../api/auth'
 interface iUser {
   id: number
   email: string
@@ -18,7 +16,7 @@ interface AuthContextType {
   user?: iUser
   loading?: boolean
   error?: any
-  login: (email: string, password: string) => void
+  logIn: (email: string, password: string) => void
   signUp: (email: string, name: string, password: string) => void
   logout: () => void
   refetchUser: () => void
@@ -31,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [error, setError] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
-  const { data, refetch } = useQuery('main', () => usersApi.getCurrentUser(), {})
+  const { data, refetch } = useQuery('main', () => getCurrentUser(), {})
 
   useEffect(() => {
     if (error) setError(null)
@@ -47,10 +45,10 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     }
   }, [data, refetch])
 
-  function login(email: string, password: string) {
+  function logIn(email: string, password: string) {
     setError('')
     setLoading(true)
-    sessionsApi.login({ email, password }).then((user: any) => {
+    login({ email, password }).then((user: any) => {
       if (user.status === 200) {
         if (user !== undefined) {
           setUser(user.user)
@@ -71,9 +69,9 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   function signUp(email: string, name: string, password: string) {
     setError('')
     // setLoading(true)
-    usersApi.signUp({ email, name, password }).then((user: any) => {
-      if (user.status === 200) { 
-        sessionsApi.login({ email, password }).then((user) => {
+    signup({ email, name, password }).then((user: any) => {
+      if (user.status === 200) {
+        login({ email, password }).then((user) => {
           if (user !== undefined) {
             setUser(user.user)
           }
@@ -88,7 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function logout() {
-    sessionsApi.logout()
+    logout()
     setUser(null)
     document.cookie = '0'
     navigate('/login')
@@ -99,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       user,
       error,
       loading,
-      login,
+      logIn,
       signUp,
       logout,
       refetchUser,
