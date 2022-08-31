@@ -16,9 +16,10 @@ const Message = (props: { names: string }) => {
     refetch()
   }, [data, refetch])
   useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    bottomRef.current?.scrollIntoView({ behavior: 'auto' })
-  }, [messages])
+    if (data !== undefined) {
+      bottomRef.current?.scrollIntoView({ behavior: 'auto' })
+    }
+  }, [data, messages])
   return (
     <div className='mt-10px'>
       {messages !== undefined &&

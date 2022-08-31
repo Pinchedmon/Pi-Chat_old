@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon, DotsVerticalIcon, XIcon } from '@heroicons/react/solid'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,39 +38,31 @@ function Messages() {
           </div>
           {data !== undefined ? (
             data.data.map((item: iMessage) => (
-              <div
-                onClick={() => {
-                  dispatch(setMessageStyle(!visible))
-                  setNames(item.names)
-                }}
-                className='w-full pt-8px flex flex-row mb-16px border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'
-              >
-                <Img
-                  onClick={() => 1}
-                  className='ml-24px mr-16px h-54px rounded-xl w-54px'
-                  name={item.names.replace(user.name, '').trim()}
-                />
-                <div className='flex-col '>
-                  <div className='flex items-center align-center  -mt-4px'>
-                    <div onClick={() => 1} className='text-lg md:text-xl font-bold'>
-                      {item.names.replace(user.name, '')}
+              <div className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'>
+                <div
+                  onClick={() => {
+                    dispatch(setMessageStyle(!visible))
+                    setNames(item.names)
+                  }}
+                  className='w-full flex mt-10px flex-row'
+                >
+                  <Img
+                    onClick={() => 1}
+                    className='ml-24px mr-16px h-54px rounded-xl w-54px'
+                    name={item.names.replace(user.name, '').trim()}
+                  />
+                  <div className='flex-col '>
+                    <div className='flex items-center align-center  -mt-4px'>
+                      <div onClick={() => 1} className='text-lg md:text-xl font-bold'>
+                        {item.names.replace(user.name, '')}
+                      </div>
+                      <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                     </div>
-                    <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
+                    <div className='mt-4px mb-12px'>{item.last}</div>
                   </div>
-                  <div className='mt-4px mb-12px'>{item.last}</div>
-                  {/* {item.commentImg !== '' && (
-                    <img className='w-1/2 pb-10px rounded-xl' src={item.commentImg} alt='загружается...' />
-                  )}
-                  {role === 'ADMIN' && (
-                    <button className='' onClick={() => handleDelete(item.text, item.ID)}>
-                      <XIcon className='h-32px w-32px  hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                    </button>
-                  )}
-                  {role !== 'ADMIN' && name === item.author && (
-                    <button className='' onClick={() => handleDelete(item.text, item.ID)}>
-                      <XIcon className='h-32px w-32px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
-                    </button>
-                  )} */}
+                </div>
+                <div className='self-center right-16px absolute justify-end '>
+                  <DotsVerticalIcon className='w-24px hover:text-green-600' onClick={() => window.alert('!')} />
                 </div>
               </div>
             ))
