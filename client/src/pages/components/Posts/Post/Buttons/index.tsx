@@ -27,7 +27,7 @@ function Buttons(id: any) {
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostData((postData: iPostPage) => ({ ...postData, textArea: e.target.value }))
     if (!e.target.value) {
-      setPostData((postData: iPostPage) => ({ ...postData, textArea: 'Сообщение не может быть пустым' }))
+      setPostData((postData: iPostPage) => ({ ...postData, textAreaError: 'Сообщение не может быть пустым' }))
     } else {
       setPostData((postData: iPostPage) => ({ ...postData, textAreaError: '' }))
     }
@@ -56,7 +56,9 @@ function Buttons(id: any) {
       commentImg,
     )
     setPostData((postData: iPostPage) => ({ ...postData, textArea: '' }))
+    setPostData((postData: iPostPage) => ({ ...postData, textAreaError: '' }))
     setPostData((postData: iPostPage) => ({ ...postData, file: null }))
+    setPostData((postData: iPostPage) => ({ ...postData, validForm: true }))
     refetch()
     navigate(`?id=${id.id}`)
   }
@@ -71,16 +73,21 @@ function Buttons(id: any) {
     } else {
       setPostData((postData: iPostPage) => ({ ...postData, preview: null }))
     }
-    if (postData.textAreaError && postData.file === null) {
+  }, [postData.file, user.name, postData.textAreaError, user.pathImg])
+  useEffect(() => {
+    if (postData.textArea === '') {
+      setPostData((postData: iPostPage) => ({ ...postData, textAreaError: 'Сообщение не может быть пустым' }))
+    }
+    if (postData.textAreaError === '' && postData.file === null) {
       setPostData((postData: iPostPage) => ({ ...postData, validForm: false }))
     } else {
       setPostData((postData: iPostPage) => ({ ...postData, validForm: true }))
     }
-  }, [postData.file, user.name, postData.textAreaError, user.pathImg])
+  }, [postData.file, postData.textArea, postData.textAreaError])
   return (
     <>
       <form className='w-full mb-6px' onSubmit={handleSubmit}>
-        <div className='flex justify-center mb-10px'>
+        <div className='flex flex-col items-center mb-10px'>
           <TextareaAutosize
             cacheMeasurements
             onChange={(e) => handleChangeText(e)}
@@ -100,7 +107,7 @@ function Buttons(id: any) {
             )}
           </label>
           <button
-            disabled={!postData.validForm}
+            disabled={postData.validForm}
             className='ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
           >
             Отправить
