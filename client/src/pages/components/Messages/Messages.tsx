@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, DotsVerticalIcon, XIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon } from '@heroicons/react/solid'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ import { setMessageStyle } from '../../../state/navReducer'
 import Message from './Message/Message'
 import Buttons from './Message/Buttons'
 import { getMessages } from '../../../api/get'
+import Options from './Options'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -22,7 +23,7 @@ function Messages() {
   const { user } = useAuth()
   const navigate = useNavigate()
 
-  const { data } = useQuery('messages', () => getMessages(user.name), {})
+  const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
   const [names, setNames] = useState<any>(false)
   const visible = useSelector((state: IState) => state.nav.messageStyle)
   const dispatch = useDispatch()
@@ -61,9 +62,7 @@ function Messages() {
                     <div className='mt-4px mb-12px'>{item.last}</div>
                   </div>
                 </div>
-                <div className='self-center right-16px absolute justify-end '>
-                  <DotsVerticalIcon className='w-24px hover:text-green-600' onClick={() => window.alert('!')} />
-                </div>
+                <Options names={item.names} refetch={refetch} />
               </div>
             ))
           ) : (

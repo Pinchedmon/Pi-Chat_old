@@ -38,6 +38,12 @@ class messageController {
             return res.status(200).json({ data: rows })
         })
     }
+    async deleteDialog(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`DELETE * FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
+            return res.status(200).json({ data: rows })
+        })
+    }
 
 }
 module.exports = new messageController;
