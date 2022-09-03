@@ -35,7 +35,10 @@ function Options(props: { names: string; refetch: () => void }) {
             <div className='mb-16px'>Вы действительно уверены, что хотите удалить диалог?</div>
             <button
               className='pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white'
-              onClick={() => setShowWarning(false)}
+              onClick={() => {
+                setShowWarning(false)
+                deleteDialog()
+              }}
             >
               Да
             </button>

@@ -86,7 +86,6 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function logout() {
-    logout()
     setUser(null)
     document.cookie = '0'
     navigate('/login')

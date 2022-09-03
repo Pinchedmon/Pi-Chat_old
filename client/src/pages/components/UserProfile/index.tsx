@@ -58,7 +58,6 @@ function UserProfile() {
               </div>
               {/* info */}
               <div>{user.info}</div>
-              {user.username}
               <div onClick={showMessage} className='mt-16px flex cursor-pointer items-center text-green-600'>
                 <ChatAlt2Icon className='w-32px mr-8px  ' />
                 <p>Написать сообщение</p>
@@ -69,9 +68,7 @@ function UserProfile() {
           <div className='mt-16px'>
             <CPost getPost={getMyPosts} naming='myPosts' getObject={user.name} />
           </div>
-          {style === true && (
-            <AddMessage name={user.username} showMessage={() => dispatch(setAddMessageStyle(!style))} />
-          )}
+          {style === true && <AddMessage name={user.name} showMessage={() => dispatch(setAddMessageStyle(!style))} />}
         </div>
       )}
     </>

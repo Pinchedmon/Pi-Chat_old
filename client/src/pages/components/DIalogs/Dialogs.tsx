@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import Img from '../../../components/Img'
 import useAuth from '../../../hooks/useAuth'
 import { setMessageStyle } from '../../../state/navReducer'
-import Message from './Message/Message'
-import Buttons from './Message/Buttons'
+
+import Buttons from './Messages/Buttons'
 import { getMessages } from '../../../api/get'
 import Options from './Options'
+import Messages from './Messages/Messages'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -19,7 +20,7 @@ interface iMessage {
   names: string
   last: string
 }
-function Messages() {
+function Dialogs() {
   const { user } = useAuth()
   const navigate = useNavigate()
 
@@ -37,7 +38,7 @@ function Messages() {
           <div className='w-full  border-b-2 border-green-600 p-10px '>
             <p className='text-2xl rounded-xl text-center  top-16px font-bold'>Диалоги</p>
           </div>
-          {data !== undefined ? (
+          {data !== undefined && data.data.length > 0 ? (
             data.data.map((item: iMessage) => (
               <div className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'>
                 <div
@@ -84,7 +85,7 @@ function Messages() {
           </div>
 
           <div className='overflow-y-scroll overflow-visible h-full  '>
-            <Message names={names} />
+            <Messages names={names} />
           </div>
           <div className=''>
             <Buttons firstName={user.name} secondName={names.replace(user.name, '')} />
@@ -95,4 +96,4 @@ function Messages() {
   )
 }
 
-export default Messages
+export default Dialogs

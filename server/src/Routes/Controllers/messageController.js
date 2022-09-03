@@ -16,7 +16,7 @@ class messageController {
         let names = `${queryObject.secondName} ${queryObject.name}`
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             console.log(rows)
-            if (rows === undefined) {
+            if (rows.length < 1) {
                 db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
             }
             db.run(`UPDATE messages SET last = '${queryObject.text}' WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`)
@@ -40,10 +40,9 @@ class messageController {
     }
     async deleteDialog(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`DELETE * FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-            return res.status(200).json({ data: rows })
-        })
+        db.run(`DELETE FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
+        db.run(`DELETE FROM messages WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
+        return res.json({ status: 200 })
     }
-
 }
 module.exports = new messageController;

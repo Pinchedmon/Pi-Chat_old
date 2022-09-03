@@ -12,7 +12,7 @@ import UserProfile from './components/UserProfile'
 import useAuth from '../hooks/useAuth'
 import Posts from './components/Posts/Posts'
 import Profile from './components/Profile/Profile'
-import Messages from './components/Messages/Messages'
+import Messages from './components/Dialogs/Dialogs'
 interface iState {
   nav: {
     sort: string | number
