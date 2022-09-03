@@ -56,7 +56,7 @@ function Dialogs() {
                   <div className='flex-col '>
                     <div className='flex items-center align-center  -mt-4px'>
                       <div onClick={() => 1} className='text-lg md:text-xl font-bold'>
-                        {item.names.replace(user.name, '')}
+                        {item.names.replace(user.name, '').trim()}
                       </div>
                       <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                     </div>

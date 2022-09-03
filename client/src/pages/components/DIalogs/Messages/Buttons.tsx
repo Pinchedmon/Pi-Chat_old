@@ -14,7 +14,7 @@ interface iPostPage {
   validForm: boolean
 }
 function Buttons(props: { firstName: string; secondName: string }) {
-  const { refetch } = useQuery('message', () => getMessagesInfo(`${props.firstName} ${props.secondName}`))
+  const { refetch } = useQuery('message', () => getMessagesInfo(`${props.firstName.trim()} ${props.secondName.trim()}`))
   const navigate = useNavigate()
   const { user } = useAuth()
   const [path, setPath] = useState(null)

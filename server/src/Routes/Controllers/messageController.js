@@ -35,7 +35,10 @@ class messageController {
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-            return res.status(200).json({ data: rows })
+            return res.status(200).json({
+                data: rows,
+                answer: queryObject.names.split(' ').reverse().join(' ')
+            })
         })
     }
     async deleteDialog(req, res) {
