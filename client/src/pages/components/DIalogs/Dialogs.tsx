@@ -84,7 +84,7 @@ function Dialogs() {
             </p>
           </div>
 
-          <div className='overflow-y-scroll overflow-visible h-full  '>
+          <div className='overflow-y-scroll h-full  '>
             <Messages names={names} />
           </div>
           <div className=''>

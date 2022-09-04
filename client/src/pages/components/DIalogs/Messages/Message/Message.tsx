@@ -1,22 +1,33 @@
 import { CheckCircleIcon } from '@heroicons/react/outline'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Img from '../../../../../components/Img'
 
-function Message(props: { username: string; messageImg: string; text: string; checkSelect: (x: any) => any }) {
-  const { username, messageImg, text, checkSelect } = props
+function Message(props: {
+  username: string
+  messageImg: string
+  text: string
+  checkSelect: (x: any, y: any) => any
+  reset: boolean
+}) {
+  const { username, messageImg, text, checkSelect, reset } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   const navigate = useNavigate()
   const handleClick = () => {
     if (selectedMsg === '') {
       setSelectedMsg('bg-gray-100')
-      checkSelect('+')
+      checkSelect('+', text)
     } else {
       setSelectedMsg('')
-      checkSelect('-')
+      checkSelect('-', text)
     }
   }
-
+  useEffect(() => {
+    if (reset) {
+      setSelectedMsg('')
+      checkSelect('x', text)
+    }
+  }, [checkSelect, reset, text])
   return (
     <div className={`flex items-center relative ${selectedMsg} mb-4px `}>
       <div className='w-full flex flex-row p-8px'>
@@ -35,7 +46,6 @@ function Message(props: { username: string; messageImg: string; text: string; ch
             </div>
             <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
           </div>
-          {/* item.mesageImg} */}
           <img src={messageImg} alt='' />
           <div className='mt-4px '>{text}</div>
         </div>

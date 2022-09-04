@@ -47,5 +47,13 @@ class messageController {
         db.run(`DELETE FROM messages WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
         return res.json({ status: 200 })
     }
+    async deleteMessages(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        let text = queryObject.text.split(',')
+        for (let i = 0; i < text.length; i++) {
+            db.run(`DELETE FROM messages_info WHERE text = '${text}'`, [])
+        }
+        return res.json({ status: 200 })
+    }
 }
 module.exports = new messageController;
