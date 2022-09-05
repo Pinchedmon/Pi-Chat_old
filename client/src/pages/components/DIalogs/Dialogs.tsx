@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Img from '../../../components/Img'
+import Img from '../elements/Img'
 import useAuth from '../../../hooks/useAuth'
 import { setMessageStyle } from '../../../state/navReducer'
 

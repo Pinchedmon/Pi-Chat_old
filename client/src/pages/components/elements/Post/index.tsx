@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../../hooks/useAuth'
 import UserImg from './UserImg'
 import ProfileInfo from './ProfileInfo'
 import Info from './Info'

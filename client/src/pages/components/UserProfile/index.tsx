@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeftIcon, ChatAlt2Icon } from '@heroicons/react/solid'
-import CPost from '../../../components/Post'
+import CPost from '../elements/Post'
 import { getMyPosts } from '../../../api/get'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getUserData } from '../../../api/auth'

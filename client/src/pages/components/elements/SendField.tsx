@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
-import { postComment } from '../../../../api/post'
-import useAuth from '../../../../hooks/useAuth'
+import { postComment } from '../../../api/post'
+import useAuth from '../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 interface iPostPage {
@@ -12,7 +12,7 @@ interface iPostPage {
   textAreaError: string
   validForm: boolean
 }
-function Buttons(id: any) {
+function SendField(id: any, postFunc: () => void) {
   const { refetch } = useQuery('comments')
   const navigate = useNavigate()
   const { user } = useAuth()
@@ -118,4 +118,4 @@ function Buttons(id: any) {
   )
 }
 
-export default Buttons
+export default SendField

@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/outline'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Img from '../../../../../components/Img'
+import Img from '../../../elements/Img'
 
 function Message(props: {
   username: string

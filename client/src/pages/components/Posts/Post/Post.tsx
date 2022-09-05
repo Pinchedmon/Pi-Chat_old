@@ -2,10 +2,12 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../hooks/useAuth'
-import CPost from '../../../../components/Post'
+import CPost from '../../elements/Post'
 import { getPost } from '../../../../api/get'
-import CComments from '../../../../components/Comments'
-import Buttons from './Buttons'
+import CComments from '../../elements/Comments'
+import SendField from '../../elements/SendField'
+import { postComment } from '../../../../api/post'
+
 const Post = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -19,7 +21,7 @@ const Post = () => {
       <div className='flex flex-col mt-16px '>
         <CPost getPost={getPost} naming={'post'} getObject={{ search: location.search }} />
         <CComments name={user.name} getObject={{ search: location.search }} role={user.role} />
-        <Buttons id={location.search.replace(/[^0-9]/g, '')} />
+        <SendField id={location.search.replace(/[^0-9]/g, '')} postFunc={postComment} />
       </div>
     </>
   )

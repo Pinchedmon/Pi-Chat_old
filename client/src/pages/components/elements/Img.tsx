@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getPath } from '../api/get'
+import { getPath } from '../../../api/get'
 
 function Img(props: { name: string; className: string; onClick: Function }) {
   const [img, setImg] = useState('')

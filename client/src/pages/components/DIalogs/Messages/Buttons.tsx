@@ -28,7 +28,7 @@ function Buttons(props: { firstName: string; secondName: string }) {
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessageData((messageData: iPostPage) => ({ ...messageData, textArea: e.target.value }))
     if (!e.target.value) {
-      setMessageData((messageData: iPostPage) => ({ ...messageData, textArea: 'Сообщение не может быть пустым' }))
+      setMessageData((messageData: iPostPage) => ({ ...messageData, textAreaError: 'Сообщение не может быть пустым' }))
     } else {
       setMessageData((messageData: iPostPage) => ({ ...messageData, textAreaError: '' }))
     }
