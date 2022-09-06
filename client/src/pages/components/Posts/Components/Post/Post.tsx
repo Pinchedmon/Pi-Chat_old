@@ -1,12 +1,13 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import useAuth from '../../../../hooks/useAuth'
-import CPost from '../../elements/Post'
-import { getPost } from '../../../../api/get'
-import CComments from '../../elements/Comments'
-import SendField from '../../elements/SendField'
-import { postComment } from '../../../../api/post'
+import useAuth from '../../../../../hooks/useAuth'
+
+import { getPost } from '../../../../../api/get'
+import CComments from '../../../../../components/CommentData'
+import SendField from '../../../../../components/SendField'
+import { postComment } from '../../../../../api/post'
+import PostData from '../../../../../components/PostData'
 
 const Post = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Post = () => {
         <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
       </div>
       <div className='flex flex-col mt-16px '>
-        <CPost getPost={getPost} naming={'post'} getObject={{ search: location.search }} />
+        <PostData getPost={getPost} naming={'post'} getObject={{ search: location.search }} />
         <CComments name={user.name} getObject={{ search: location.search }} role={user.role} />
         <SendField id={location.search.replace(/[^0-9]/g, '')} postFunc={postComment} />
       </div>

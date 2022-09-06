@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeftIcon, ChatAlt2Icon } from '@heroicons/react/solid'
-import CPost from '../elements/Post'
 import { getMyPosts } from '../../../api/get'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getUserData } from '../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAddMessageStyle } from '../../../state/navReducer'
 import AddMessage from '../AddMessage'
+import PostData from '../../../components/PostData'
 
 interface IUser {
   backImg: string
@@ -66,7 +66,7 @@ function UserProfile() {
           </div>
           {/* posts */}
           <div className='mt-16px'>
-            <CPost getPost={getMyPosts} naming='myPosts' getObject={user.name} />
+            <PostData getPost={getMyPosts} naming='myPosts' getObject={user.name} />
           </div>
           {style === true && <AddMessage name={user.name} showMessage={() => dispatch(setAddMessageStyle(!style))} />}
         </div>

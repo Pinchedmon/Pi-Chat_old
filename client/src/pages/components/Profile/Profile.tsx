@@ -6,9 +6,10 @@ import { getMyPosts } from '../../../api/get'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import EditBackground from './EditBackground'
 import EditText from './EditText'
-import CPost from '../elements/Post'
+
 import EditInfo from './EditInfo'
 import { useQuery } from 'react-query'
+import PostData from '../../../components/PostData'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -38,7 +39,7 @@ const Profile = () => {
       </div>
       {/* posts */}
       <div className='mt-16px'>
-        <CPost getPost={getMyPosts} naming='myPosts' getObject={name} />
+        <PostData getPost={getMyPosts} naming='myPosts' getObject={name} />
       </div>
     </div>
   )

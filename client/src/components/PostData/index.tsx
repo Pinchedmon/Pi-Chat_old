@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import useAuth from '../../../../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import UserImg from './UserImg'
 import ProfileInfo from './ProfileInfo'
 import Info from './Info'
@@ -17,7 +17,7 @@ type iPost = {
   comments: number | string
 }
 
-function Post(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
+function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
   const { getPost, naming, getObject } = props
   const [posts, setPosts] = useState([])
   const { user } = useAuth()
@@ -51,4 +51,4 @@ function Post(props: { getPost: (getObject: any) => Promise<any>; naming: string
   )
 }
 
-export default Post
+export default PostData
