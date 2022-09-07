@@ -1,8 +1,8 @@
-import { CheckCircleIcon } from '@heroicons/react/outline'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Img from '../../../../../../../components/ui/Img'
-
+import { CheckCircleIcon } from '@heroicons/react/outline'
+import Img from '../../../../../../../../components/ui/Img'
+import { handleClick } from './utils/handleClick'
 function Message(props: {
   username: string
   messageImg: string
@@ -13,15 +13,6 @@ function Message(props: {
   const { username, messageImg, text, checkSelect, reset } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   const navigate = useNavigate()
-  const handleClick = () => {
-    if (selectedMsg === '') {
-      setSelectedMsg('bg-gray-100')
-      checkSelect('+', text)
-    } else {
-      setSelectedMsg('')
-      checkSelect('-', text)
-    }
-  }
   useEffect(() => {
     if (reset) {
       setSelectedMsg('')
@@ -50,7 +41,10 @@ function Message(props: {
           <div className='mt-4px '>{text}</div>
         </div>
       </div>
-      <div className='z-0 absolute w-full h-full flex justify-end' onClick={handleClick}>
+      <div
+        className='z-0 absolute w-full h-full flex justify-end'
+        onClick={() => handleClick({ selectedMsg, checkSelect, setSelectedMsg, text })}
+      >
         <CheckCircleIcon className={'w-24px mr-10px ' + (selectedMsg === '' ? 'text-gray-300' : 'text-green-500')} />
       </div>
     </div>

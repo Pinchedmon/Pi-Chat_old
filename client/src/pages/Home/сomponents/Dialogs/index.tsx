@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom'
 import Img from '../../../../components/ui/Img'
 import useAuth from '../../../../hooks/useAuth'
 import { setMessageStyle } from '../../../../state/navReducer'
-
-import Buttons from './Components/Messages/Buttons'
+import { postMessage } from '../../../../api/post'
+import Buttons from './сomponents/Messages/сomponents/Buttons'
 import { getMessages } from '../../../../api/get'
-import Options from './Components/Options'
-import Messages from './Components/Messages/Messages'
+import Options from './сomponents/Options'
+import Messages from './сomponents/Messages/Messages'
+import SendField from '../../../../components/ux/SendField'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -88,7 +89,15 @@ function Dialogs() {
             <Messages names={names} />
           </div>
           <div className=''>
-            <Buttons firstName={user.name} secondName={names.replace(user.name, '')} />
+            {/* <Buttons firstName={user.name} secondName={names.replace(user.name, '')} /> */}
+            <SendField
+              postFuncProps={{
+                firstName: user.name.trim(),
+                secondName: names.replace(user.name, '').trim(),
+                refetch: refetch,
+              }}
+              postFunc={postMessage}
+            />
           </div>
         </div>
       )}

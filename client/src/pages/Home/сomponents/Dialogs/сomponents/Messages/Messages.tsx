@@ -2,7 +2,7 @@ import { TrashIcon } from '@heroicons/react/outline'
 import React, { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getMessagesInfo } from '../../../../../../api/get'
-import Message from './Message/Message'
+import Message from './сomponents/Message'
 import redaxios from 'redaxios'
 interface iSelected {
   amount: number

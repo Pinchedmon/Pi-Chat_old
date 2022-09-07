@@ -36,7 +36,6 @@ export async function postMessage(props: apiParamMessages, messageImg: any): Pro
     )
     .then((res) => {
       if (res.status === 200) {
-        console.log('gre ty')
         props.refetch()
         return res
       }

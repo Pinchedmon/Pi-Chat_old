@@ -5,9 +5,10 @@ import useAuth from '../../../../../../hooks/useAuth'
 
 import { getPost } from '../../../../../../api/get'
 import CComments from '../../../../../../components/ui/CommentData'
-import SendField from '../../../../../../components/ux/SendField'
+
 import { postComment } from '../../../../../../api/post'
 import PostData from '../../../../../../components/ui/PostData'
+import SendField from '../../../../../../components/ui/SendField'
 
 const Post = () => {
   const navigate = useNavigate()
