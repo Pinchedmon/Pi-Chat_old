@@ -1,11 +1,11 @@
-import Feed from './pages/Feed'
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import useAuth, { AuthProvider } from './hooks/useAuth'
-import SignUp from './pages/SignUp'
 import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import Feed from './pages/Home'
 
 function AuthenticatedRoute(props: any) {
   const { user } = useAuth()

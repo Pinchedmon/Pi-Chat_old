@@ -1,0 +1,68 @@
+import Nav from './Components/Nav'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../../api/get'
+import { useQuery } from 'react-query'
+import FilterModal from './Components/Nav/Components/FilterModal'
+import { Route, Routes } from 'react-router-dom'
+import Post from './Components/Posts/Components/Post/Post'
+import AddPost from './Components/Nav/Components/AddPost'
+import { setAddPostStyle } from '../../state/navReducer'
+import UserProfile from './Components/UserProfile'
+import useAuth from '../../hooks/useAuth'
+import Posts from './Components/Posts/Posts'
+import Profile from './Components/Profile/Profile'
+import Messages from './Components/Dialogs'
+interface iState {
+  nav: {
+    sort: string | number
+    category: string
+    addPostStyle: boolean
+  }
+}
+const Feed = () => {
+  const { user } = useAuth()
+  const sort = useSelector((state: iState) => state.nav.sort)
+  const category = useSelector((state: iState) => state.nav.category)
+  const { data, refetch } = useQuery('posts', () => getPosts({ sort, category }))
+  const [posts, setPosts] = useState()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    setPosts(data)
+  }, [data])
+  useEffect(() => {
+    refetch()
+  }, [category, refetch, sort])
+
+  const style = useSelector((state: iState) => state.nav.addPostStyle)
+
+  return (
+    <div className='grid grid-cols-4 gap-0px'>
+      {user !== undefined && (
+        <>
+          <div className='h-screen'>
+            <Nav sort={sort} category={category} />
+          </div>
+          <div className='relative col-span-2 border-l-2 border-r-2 max-w-full border-gray-300'>
+            <Routes>
+              <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
+              <Route path='/post' element={<Post />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/*' element={<UserProfile />} />
+              <Route path='/messages' element={<Messages />} />
+            </Routes>
+            {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
+          </div>
+          <div className=''>
+            <Routes>
+              <Route path='/' element={<FilterModal category={category} sort={sort} dispatch={dispatch} />} />
+              {/* <Route path='/post' element={<Post />} />
+          <Route path='/profile' element={<Profile />} /> */}
+            </Routes>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+export default Feed
