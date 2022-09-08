@@ -2,16 +2,12 @@ import { ArrowLeftIcon } from '@heroicons/react/solid'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import Img from '../../../../components/ui/Img'
 import useAuth from '../../../../hooks/useAuth'
 import { setMessageStyle } from '../../../../state/navReducer'
-import { postMessage } from '../../../../api/post'
-import Buttons from './сomponents/Messages/сomponents/Buttons'
 import { getMessages } from '../../../../api/get'
 import Options from './сomponents/Options'
-import Messages from './сomponents/Messages/Messages'
-import SendField from '../../../../components/ux/SendField'
+import Dialog from './сomponents/Dialog'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -23,8 +19,6 @@ interface iMessage {
 }
 function Dialogs() {
   const { user } = useAuth()
-  const navigate = useNavigate()
-
   const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
   const [names, setNames] = useState<any>(false)
   const visible = useSelector((state: IState) => state.nav.messageStyle)
@@ -84,21 +78,7 @@ function Dialogs() {
               {names.replace(user.name, '')}
             </p>
           </div>
-
-          <div className='overflow-y-scroll h-full  '>
-            <Messages names={names} />
-          </div>
-          <div className=''>
-            {/* <Buttons firstName={user.name} secondName={names.replace(user.name, '')} /> */}
-            <SendField
-              postFuncProps={{
-                firstName: user.name.trim(),
-                secondName: names.replace(user.name, '').trim(),
-                refetch: refetch,
-              }}
-              postFunc={postMessage}
-            />
-          </div>
+          <Dialog names={names} />
         </div>
       )}
     </div>

@@ -71,7 +71,7 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
   return (
     <>
       <form className='w-full mb-6px' onSubmit={handleSubmit}>
-        <div className='flex flex-col items-center mb-10px'>
+        <div className='flex justify-center mb-10px'>
           <TextareaAutosize
             cacheMeasurements
             onChange={(e) => handleChangeText(e)}
