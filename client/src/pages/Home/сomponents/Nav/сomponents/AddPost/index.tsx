@@ -7,6 +7,10 @@ import useAuth from '../../../../../../hooks/useAuth'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getPosts } from '../../../../../../api/get'
 import { addPostSubmit } from './utils/addPostSubmit'
+import { handleCourseChange } from './utils/handleCourseChange'
+import { handleCategoryChange } from './utils/handleCategoryChange'
+import { handleTextChange } from './utils/handleTextChange'
+import { handleChangeFile } from '../../../UserProfile/AddMessage/utils/handleChangeFile'
 interface IaddPost {
   handlePopup: () => void
 }
@@ -33,22 +37,6 @@ const AddPost = (props: IaddPost) => {
     text: '',
     textError: 'Пустое поле ввода',
   })
-  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setAddPost((addPost) => ({ ...addPost, course: e.target.value }))
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setAddPost((addPost) => ({ ...addPost, category: e.target.value }))
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAddPost((addPost) => ({ ...addPost, text: e.target.value }))
-    if (!e.target.value) {
-      setAddPost((addPost) => ({ ...addPost, textError: 'Имя не может быть пустым' }))
-    } else {
-      setAddPost((addPost) => ({ ...addPost, textError: '' }))
-    }
-  }
-  const handleChangeFile = (e: React.SyntheticEvent<EventTarget>) => {
-    const target = e.target as HTMLInputElement
-    setAddPost((addPost) => ({ ...addPost, file: target.files[0] }))
-  }
   useEffect(() => {
     if (addPost.textError && addPost.file === null) {
       setAddPost((addPost) => ({ ...addPost, validForm: false }))
@@ -102,7 +90,7 @@ const AddPost = (props: IaddPost) => {
                 <select
                   className='border-2 text-green-600 rounded-lg block '
                   value={addPost.category}
-                  onChange={handleCategoryChange}
+                  onChange={(e) => handleCategoryChange(e, setAddPost)}
                 >
                   <option value='value1' disabled>
                     Категория
@@ -117,7 +105,7 @@ const AddPost = (props: IaddPost) => {
                 <select
                   className='border-2 text-green-600 rounded-lg w-54px '
                   value={addPost.course}
-                  onChange={handleCourseChange}
+                  onChange={(e) => handleCourseChange(e, setAddPost)}
                 >
                   <option disabled>Курс</option>
                   <option value='1'>1</option>
@@ -129,7 +117,7 @@ const AddPost = (props: IaddPost) => {
             </div>
             <TextareaAutosize
               cacheMeasurements
-              onChange={handleTextChange}
+              onChange={(e) => handleTextChange(e, setAddPost)}
               value={addPost.text}
               className='mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
               placeholder='Текст поста'
@@ -140,7 +128,7 @@ const AddPost = (props: IaddPost) => {
                   type='file'
                   className='hidden'
                   accept='.png,.gif,.jpg,.jpeg'
-                  onChange={(e) => handleChangeFile(e)}
+                  onChange={(e) => handleChangeFile(e, setAddPost)}
                 />
                 <i className=''>
                   <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
