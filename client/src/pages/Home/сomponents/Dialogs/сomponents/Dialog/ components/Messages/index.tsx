@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getMessagesInfo } from '../../../../../../../../api/get'
 import Message from './сomponents/Message'
-import redaxios from 'redaxios'
+import { checkSelect } from './utils/checkSelect'
+import { deleteMessage } from './utils/deleteMessage'
 interface iSelected {
   amount: number
   statements: string[]
@@ -18,33 +19,6 @@ const Messages = (props: { names: string }) => {
       bottomRef.current?.scrollIntoView({ behavior: 'auto' })
     }
   }, [data])
-  const deleteMessage = () => {
-    redaxios.delete(`http://localhost:6060/message/messages?text=${selected.statements}`).then((res) => {
-      if (res.status === 200) {
-        setSelected((selected: iSelected) => ({ ...selected, resetStatus: true }))
-        refetch()
-      }
-    })
-  }
-  const checkSelect = (x: string, y: string) => {
-    if (x === 'x') {
-      setSelected((selected: iSelected) => ({ ...selected, amount: 0, statements: [], resetStatus: false }))
-    }
-    if (x === '+') {
-      setSelected((selected: iSelected) => ({
-        ...selected,
-        amount: selected.amount + 1,
-        statements: [...selected.statements, y],
-      }))
-    }
-    if (x === '-') {
-      setSelected((selected: iSelected) => ({
-        ...selected,
-        amount: selected.amount - 1,
-        statements: selected.statements.filter((item) => item !== y),
-      }))
-    }
-  }
   return (
     <div className=''>
       {selected.amount > 0 && (
@@ -57,7 +31,7 @@ const Messages = (props: { names: string }) => {
             >
               Отменить
             </div>
-            <div className='flex' onClick={() => deleteMessage()}>
+            <div className='flex' onClick={() => deleteMessage(refetch, setSelected, selected.statements)}>
               <TrashIcon className='mr-4px w-24px' />
               Удалить
             </div>
@@ -72,7 +46,7 @@ const Messages = (props: { names: string }) => {
               username={item.username}
               messageImg={item.messageImg}
               text={item.text}
-              checkSelect={checkSelect}
+              checkSelect={() => checkSelect}
               reset={selected.resetStatus}
             />
           ))}
