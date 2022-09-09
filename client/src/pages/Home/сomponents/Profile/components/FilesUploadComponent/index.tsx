@@ -1,5 +1,4 @@
-import React, { useCallback } from 'react'
-import redaxios from 'redaxios'
+import React from 'react'
 import { useQuery } from 'react-query'
 import { PencilIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../../../hooks/useAuth'
