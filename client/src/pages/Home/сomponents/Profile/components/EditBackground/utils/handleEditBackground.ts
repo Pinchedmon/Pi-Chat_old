@@ -1,0 +1,15 @@
+import redaxios from 'redaxios'
+export const handleEditBackground = async (
+  e: React.SyntheticEvent<HTMLInputElement, Event>,
+  refetch: () => void,
+  backImg: string,
+  name: string,
+) => {
+  const target = e.target as HTMLInputElement
+  const data = new FormData()
+  data.append('backImg', target.files[0])
+  await redaxios.put(`http://localhost:6060/profile/backImg?name=${name}`, data).then((res) => {
+    backImg = res.data.data
+    refetch()
+  })
+}

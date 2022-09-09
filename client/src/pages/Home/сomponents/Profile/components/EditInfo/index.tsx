@@ -1,23 +1,14 @@
 import { PencilIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import redaxios from 'redaxios'
-import useAuth from '../../../../../hooks/useAuth'
+
+import useAuth from '../../../../../../hooks/useAuth'
+import { handleChange } from './utils/handleChange'
+import { handleSubmit } from './utils/handleSubmit'
 function EditInfo() {
   const { user, refetchUser } = useAuth()
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.info)
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement
-    setValue(target.value)
-  }
-  const handleSubmit = () => {
-    redaxios.put(`http://localhost:6060/profile/info?text=${value.toString()}&name=${user.name}`).then((res) => {
-      if (res.status === 200) {
-        refetchUser()
-        user.info = value
-      }
-    })
-  }
+
   return (
     <>
       {status === false && (
@@ -31,11 +22,11 @@ function EditInfo() {
           className='w-220px'
           onMouseLeave={() => {
             setStatus(!status)
-            handleSubmit()
+            handleSubmit(value.toString(), user.name, refetchUser, user.info)
           }}
           value={value}
           maxLength={42}
-          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e)}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e, setValue)}
         />
       )}
     </>

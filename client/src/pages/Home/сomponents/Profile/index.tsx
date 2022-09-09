@@ -1,15 +1,15 @@
 import React from 'react'
 import useAuth from '../../../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-import FilesUploadComponent from './Components/FilesUploadComponent'
+import FilesUploadComponent from './components/FilesUploadComponent'
 import { getMyPosts } from '../../../../api/get'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import EditBackground from './Components/EditBackground'
-import EditText from './Components/EditText'
+import EditName from './components/EditName'
 
-import EditInfo from './Components/EditInfo'
+import EditInfo from './components/EditInfo'
 import { useQuery } from 'react-query'
 import PostData from '../../../../components/ui/PostData'
+import EditBackground from './components/EditBackground'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -31,7 +31,7 @@ const Profile = () => {
         <div className='flex w-full flex-col'>
           {/* naming  |  info*/}
           <div className='flex items-center align-center w-full  -mt-6px'>
-            <EditText fetchPosts={refetch} />
+            <EditName fetchPosts={refetch} />
             <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
           </div>
           <EditInfo />
