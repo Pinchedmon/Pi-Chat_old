@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
-import redaxios from 'redaxios'
-import { FormEvent } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import useAuth from '../../../../../../hooks/useAuth'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getPosts } from '../../../../../../api/get'
+import { addPostSubmit } from './utils/addPostSubmit'
 interface IaddPost {
   handlePopup: () => void
 }
-interface IAddPostSubmit {
-  name: string
-  text: string
-  course: string
-  path: string
-  category: string
-  handlePopup: () => void
-  file: File
-  refetch: () => void
-}
-
 interface IState {
   nav: {
     sort: string | number
@@ -79,27 +67,6 @@ const AddPost = (props: IaddPost) => {
       setAddPost((addPost) => ({ ...addPost, preview: null }))
     }
   }, [addPost.file])
-  function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
-    let data = new FormData()
-    data.append('post', props.file)
-    if (props.text !== '' && props.category !== '' && props.course !== '') {
-      redaxios
-        .post(
-          `http://localhost:6060/posts/feed?author=${props.name}&name=${user.username}&text=${props.text}&course=${props.course}&category=${props.category}&userImg=${props.path}`,
-          data,
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            props.refetch()
-          }
-        })
-      props.handlePopup()
-      event.preventDefault()
-    } else {
-      window.alert('Какое-то поле незаполнено!')
-      event.preventDefault()
-    }
-  }
   return (
     <div className='absolute w-full top-0px backdrop-blur-sm h-screen'>
       <div className='mt-100px'>
@@ -108,7 +75,8 @@ const AddPost = (props: IaddPost) => {
             className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'
             onSubmit={(e) =>
               addPostSubmit(e, {
-                name,
+                author: name,
+                name: user.name,
                 text: addPost.text,
                 category: addPost.category,
                 course: addPost.course,

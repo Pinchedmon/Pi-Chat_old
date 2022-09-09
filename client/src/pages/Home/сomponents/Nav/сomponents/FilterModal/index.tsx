@@ -1,6 +1,7 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import React from 'react'
 import { setSort, setCategory } from '../../../../../../state/navReducer'
+import { filterCategory } from './utils/filterCategory'
+import { filterSort } from './utils/filterSort'
 
 interface IFilterModal {
   sort: string | number
@@ -9,20 +10,6 @@ interface IFilterModal {
 }
 export default function FilterModal(props: IFilterModal) {
   const { category, sort, dispatch } = props
-  const filterCategory = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    dispatch: (arg0: any) => void,
-    setCategory: ActionCreatorWithPayload<string, string>,
-  ) => {
-    dispatch(setCategory(e.target.value))
-  }
-  const filterSort = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    dispatch: (arg0: any) => void,
-    setSort: ActionCreatorWithPayload<string | number, string>,
-  ) => {
-    dispatch(setSort(e.target.value))
-  }
   return (
     <div className='w-full flex-col '>
       <div className='flex justify-center'>

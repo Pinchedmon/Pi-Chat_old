@@ -1,17 +1,9 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import redaxios from 'redaxios'
+import { deleteDialog } from './utils/deleteDialog'
 function Options(props: { names: string; refetch: () => void }) {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
-
-  const deleteDialog = () => {
-    redaxios.delete(`http://localhost:6060/message/dialog?names=${props.names}`).then((res) => {
-      if (res.status === 200) {
-        props.refetch()
-      }
-    })
-  }
   return (
     <>
       <div
@@ -37,7 +29,7 @@ function Options(props: { names: string; refetch: () => void }) {
               className='pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white'
               onClick={() => {
                 setShowWarning(false)
-                deleteDialog()
+                deleteDialog({ names: props.names, refetch: props.refetch })
               }}
             >
               Да

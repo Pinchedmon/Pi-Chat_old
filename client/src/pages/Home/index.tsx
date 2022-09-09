@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../api/get'
 import { useQuery } from 'react-query'
-import FilterModal from './сomponents/Nav/Components/FilterModal'
+import FilterModal from './сomponents/Nav/сomponents/FilterModal'
 import { Route, Routes } from 'react-router-dom'
 import Post from './сomponents/Posts/Components/Post/Post'
-import AddPost from './сomponents/Nav/Components/AddPost'
+import AddPost from './сomponents/Nav/сomponents/AddPost'
 import { setAddPostStyle } from '../../state/navReducer'
 import UserProfile from './сomponents/UserProfile'
 import useAuth from '../../hooks/useAuth'
@@ -33,9 +33,7 @@ const Feed = () => {
   useEffect(() => {
     refetch()
   }, [category, refetch, sort])
-
   const style = useSelector((state: iState) => state.nav.addPostStyle)
-
   return (
     <div className='grid grid-cols-4 gap-0px'>
       {user !== undefined && (

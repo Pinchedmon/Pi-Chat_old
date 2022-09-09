@@ -1,7 +1,7 @@
 import { TrashIcon } from '@heroicons/react/outline'
 import React, { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
-import { getMessagesInfo } from '../../../../../../api/get'
+import { getMessagesInfo } from '../../../../../../../../api/get'
 import Message from './сomponents/Message'
 import redaxios from 'redaxios'
 interface iSelected {
@@ -20,7 +20,7 @@ const Messages = (props: { names: string }) => {
   }, [data])
   const deleteMessage = () => {
     redaxios.delete(`http://localhost:6060/message/messages?text=${selected.statements}`).then((res) => {
-      if (res.status) {
+      if (res.status === 200) {
         setSelected((selected: iSelected) => ({ ...selected, resetStatus: true }))
         refetch()
       }
@@ -28,18 +28,19 @@ const Messages = (props: { names: string }) => {
   }
   const checkSelect = (x: string, y: string) => {
     if (x === 'x') {
-      setSelected((selected: iSelected) => ({ ...selected, amount: 0 }))
-      setSelected((selected: iSelected) => ({ ...selected, statements: [] }))
-      setSelected((selected: iSelected) => ({ ...selected, resetStatus: false }))
+      setSelected((selected: iSelected) => ({ ...selected, amount: 0, statements: [], resetStatus: false }))
     }
     if (x === '+') {
-      setSelected((selected: iSelected) => ({ ...selected, amount: selected.amount + 1 }))
-      setSelected((selected: iSelected) => ({ ...selected, statements: [...selected.statements, y] }))
-    }
-    if (x === '-') {
-      setSelected((selected: iSelected) => ({ ...selected, amount: selected.amount - 1 }))
       setSelected((selected: iSelected) => ({
         ...selected,
+        amount: selected.amount + 1,
+        statements: [...selected.statements, y],
+      }))
+    }
+    if (x === '-') {
+      setSelected((selected: iSelected) => ({
+        ...selected,
+        amount: selected.amount - 1,
         statements: selected.statements.filter((item) => item !== y),
       }))
     }

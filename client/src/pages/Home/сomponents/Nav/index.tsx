@@ -1,10 +1,10 @@
-import { setAddPostStyle, setMessageStyle } from '../../../../state/navReducer'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../../../../hooks/useAuth'
+import { setAddPostStyle, setMessageStyle } from '../../../../state/navReducer'
 
 interface IState {
   nav: {
@@ -16,12 +16,10 @@ interface IState {
 const Nav = (props: { sort: string | number; category: string }) => {
   const { user, logout } = useAuth()
   const dispatch = useDispatch()
-
   const style = useSelector((state: IState) => state.nav.addPostStyle)
   const handlePopup = () => {
     dispatch(setAddPostStyle(!style))
   }
-  console.log(user)
   return (
     <div className=' h-full flex justify-center'>
       {user !== undefined && (
