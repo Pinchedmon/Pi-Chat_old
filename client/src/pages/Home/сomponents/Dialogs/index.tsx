@@ -1,13 +1,13 @@
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import Img from '../../../../components/ui/Img'
-import useAuth from '../../../../hooks/useAuth'
 import { setMessageStyle } from '../../../../state/navReducer'
 import { getMessages } from '../../../../api/get'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
+import { UserContext } from '../../../../App'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -18,7 +18,7 @@ interface iMessage {
   last: string
 }
 function Dialogs() {
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
   const [names, setNames] = useState<any>(false)
   const visible = useSelector((state: IState) => state.nav.messageStyle)

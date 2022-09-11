@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SendField from '../../../../../../components/ux/SendField'
-import useAuth from '../../../../../../hooks/useAuth'
 import Messages from './ components/Messages'
 import { postMessage } from '../../../../../../api/post'
 import { useQuery } from 'react-query'
 import { getMessagesInfo } from '../../../../../../api/get'
+import { UserContext } from '../../../../../../App'
 
 function Dialog(props: { names: string }) {
   const { refetch } = useQuery('message', () => getMessagesInfo(names))
   const { names } = props
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   return (
     <>
       <div className='overflow-y-scroll h-full'>

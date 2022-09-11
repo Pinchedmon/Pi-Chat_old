@@ -1,19 +1,18 @@
-import React from 'react'
-import useAuth from '../../../../hooks/useAuth'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FilesUploadComponent from './components/FilesUploadComponent'
 import { getMyPosts } from '../../../../api/get'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import EditName from './components/EditName'
-
 import EditInfo from './components/EditInfo'
 import { useQuery } from 'react-query'
 import PostData from '../Posts/components/Post/components/PostData'
 import EditBackground from './components/EditBackground'
+import { UserContext } from '../../../../App'
 
 const Profile = () => {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   let name = user.name
   const { refetch } = useQuery('myPosts')
   return (

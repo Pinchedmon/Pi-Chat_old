@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import useAuth from '../../../../../../../../hooks/useAuth'
 import UserImg from './UserImg'
 import ProfileInfo from './ProfileInfo'
 import Info from './Info'
 import Buttons from './Buttons'
+import { UserContext } from '../../../../../../../../App'
 
 type iPost = {
   userImg: string
@@ -20,7 +20,7 @@ type iPost = {
 function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
   const { getPost, naming, getObject } = props
   const [posts, setPosts] = useState([])
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const { data, refetch } = useQuery(naming, () => getPost(getObject), {})
   useEffect(() => {
     setPosts(data)

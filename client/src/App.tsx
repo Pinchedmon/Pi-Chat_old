@@ -5,13 +5,27 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import useAuth, { AuthProvider } from './hooks/useAuth'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import Feed from './pages/Home'
+import Home from './pages/Home'
 
+interface iUser {
+  id: number
+  email: string
+  pathImg: string
+  name: string
+  username: string
+  info: string
+  role: string
+  backImg: string
+}
+export const UserContext = React.createContext<iUser>(null)
 function AuthenticatedRoute(props: any) {
   const { user } = useAuth()
-
   if (!user && document.cookie === '0') return <Navigate to='/login' />
-  return <props.component />
+  return (
+    <UserContext.Provider value={user}>
+      <props.component />
+    </UserContext.Provider>
+  )
 }
 function App() {
   const queryClient = new QueryClient()
@@ -24,7 +38,7 @@ function App() {
               path='/*'
               element={
                 <AuthProvider>
-                  <AuthenticatedRoute component={() => <Feed />} />
+                  <AuthenticatedRoute component={() => <Home />} />
                 </AuthProvider>
               }
             />
@@ -44,22 +58,6 @@ function App() {
                 </AuthProvider>
               }
             />
-            {/* <Route
-              path='/post'
-              element={
-                <AuthProvider>
-                  <AuthenticatedRoute component={() => <Post />} />
-                </AuthProvider>
-              }
-            /> */}
-            {/* <Route
-              path='/profile'
-              element={
-                <AuthProvider>
-                  <AuthenticatedRoute component={() => <Profile />} />
-                </AuthProvider>
-              }
-            /> */}
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import { PencilIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../../../hooks/useAuth'
 import { getCurrentUser } from '../../../../../../api/auth'
 import { sendFile } from './utils/sendFile'
+import { UserContext } from '../../../../../../App'
 const FilesUploadComponent = (props: { fetchPosts: () => void }) => {
-  let { user, refetchUser } = useAuth()
+  const { refetchUser } = useAuth()
+  const user = useContext(UserContext)
   const { refetch } = useQuery('profile', () => getCurrentUser())
   return (
     <div>

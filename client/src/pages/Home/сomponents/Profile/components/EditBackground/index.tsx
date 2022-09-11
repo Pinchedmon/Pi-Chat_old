@@ -1,10 +1,10 @@
-import React from 'react'
-import useAuth from '../../../../../../hooks/useAuth'
+import React, { useContext } from 'react'
 import { getCurrentUser } from '../../../../../../api/auth'
 import { useQuery } from 'react-query'
 import { handleEditBackground } from './utils/handleEditBackground'
+import { UserContext } from '../../../../../../App'
 function EditBackground() {
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const { refetch } = useQuery('profile', () => getCurrentUser())
   return (
     <div className='relative'>

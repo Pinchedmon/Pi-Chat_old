@@ -1,5 +1,5 @@
 import Nav from './сomponents/Nav'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../api/get'
 import { useQuery } from 'react-query'
@@ -9,10 +9,10 @@ import Post from './сomponents/Posts/components/Post'
 import AddPost from './сomponents/Nav/сomponents/AddPost'
 import { setAddPostStyle } from '../../state/navReducer'
 import UserProfile from './сomponents/UserProfile'
-import useAuth from '../../hooks/useAuth'
 import Posts from './сomponents/Posts'
 import Profile from './сomponents/Profile'
 import Messages from './сomponents/Dialogs'
+import { UserContext } from '../../App'
 interface iState {
   nav: {
     sort: string | number
@@ -20,8 +20,8 @@ interface iState {
     addPostStyle: boolean
   }
 }
-const Feed = () => {
-  const { user } = useAuth()
+const Home = () => {
+  const user = useContext(UserContext)
   const sort = useSelector((state: iState) => state.nav.sort)
   const category = useSelector((state: iState) => state.nav.category)
   const { data, refetch } = useQuery('posts', () => getPosts({ sort, category }))
@@ -63,4 +63,4 @@ const Feed = () => {
     </div>
   )
 }
-export default Feed
+export default Home

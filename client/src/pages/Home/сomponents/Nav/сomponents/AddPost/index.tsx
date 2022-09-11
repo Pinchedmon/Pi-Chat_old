@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
-import useAuth from '../../../../../../hooks/useAuth'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getPosts } from '../../../../../../api/get'
 import { addPostSubmit } from './utils/addPostSubmit'
@@ -11,6 +10,7 @@ import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
 import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
+import { UserContext } from '../../../../../../App'
 
 interface IAddPost {
   handlePopup: () => void
@@ -34,7 +34,7 @@ const AddPost = (props: IAddPost) => {
   const sort = useSelector((state: IState) => state.nav.sort)
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const path = user.pathImg
   const name = user.name
   const { handlePopup } = props

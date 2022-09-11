@@ -1,10 +1,12 @@
+import React, { useContext, useState } from 'react'
 import { PencilIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import { UserContext } from '../../../../../../App'
 import useAuth from '../../../../../../hooks/useAuth'
 import { handleChange } from './utils/handleChange'
 import { handleSubmit } from './utils/handleSubmit'
 function EditText(props: { fetchPosts: () => void }) {
-  const { user, refetchUser } = useAuth()
+  const { refetchUser } = useAuth()
+  const user = useContext(UserContext)
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.name)
   return (

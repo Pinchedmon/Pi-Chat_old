@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import useAuth from '../../../../../../hooks/useAuth'
 import { getPost } from '../../../../../../api/get'
 import CComments from './components/CommentData'
 import { postComment } from '../../../../../../api/post'
 import PostData from './components/PostData'
 import SendField from '../../../../../../components/ui/SendField'
+import { UserContext } from '../../../../../../App'
 
 const Post = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user } = useAuth()
-
+  const user = useContext(UserContext)
   return (
     <>
       <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>

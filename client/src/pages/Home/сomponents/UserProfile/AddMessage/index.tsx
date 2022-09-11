@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
-import useAuth from '../../../../../hooks/useAuth'
+
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { addMessageSubmit } from './utils/addMessageSubmit'
 import { handleChangeFile } from './utils/handleChangeFile'
 import { handleTextChange } from './utils/handleTextChange'
+import { UserContext } from '../../../../../App'
 interface IAddMessage {
   name: string
   showMessage: () => void
@@ -18,7 +19,7 @@ interface IaddMessage {
   textError: string
 }
 const AddMessage = (props: IAddMessage) => {
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const path = user.pathImg
   const { showMessage, name } = props
   const [message, setMessage] = useState<IaddMessage>()

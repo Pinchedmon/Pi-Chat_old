@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
 import { postComment } from '../../api/post'
-import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { UserContext } from '../../App'
 interface iPostPage {
   file: File | null
   preview: string
@@ -15,7 +15,7 @@ interface iPostPage {
 function SendField(id: any, postFunc: () => void) {
   const { refetch } = useQuery('comments')
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const [path, setPath] = useState(null)
   const [postData, setPostData] = useState<iPostPage>({
     file: null,

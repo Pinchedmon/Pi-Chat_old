@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../../../../hooks/useAuth'
 import { setAddPostStyle, setMessageStyle } from '../../../../state/navReducer'
+import { UserContext } from '../../../../App'
 
 interface IState {
   nav: {
@@ -14,7 +15,8 @@ interface IState {
   }
 }
 const Nav = (props: { sort: string | number; category: string }) => {
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
+  const user = useContext(UserContext)
   const dispatch = useDispatch()
   const style = useSelector((state: IState) => state.nav.addPostStyle)
   const handlePopup = () => {

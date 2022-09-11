@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
-import useAuth from '../../../hooks/useAuth'
+import { UserContext } from '../../../App'
 interface iTextAreaPage {
   file: File | null
   preview: string
@@ -11,7 +11,7 @@ interface iTextAreaPage {
 }
 function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, areaImg: any) => void }) {
   const { postFuncProps, postFunc } = props
-  const { user } = useAuth()
+  const user = useContext(UserContext)
   const [path, setPath] = useState(null)
   const [areaData, setAreaData] = useState<iTextAreaPage>({
     file: null,
