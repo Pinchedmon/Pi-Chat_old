@@ -7,10 +7,11 @@ type IaddPost = {
   text: string
   textError: string
 }
-export const handleCategoryChange = (
-  e: React.ChangeEvent<HTMLSelectElement>,
+export const handleChangeFile = (
+  e: React.SyntheticEvent<HTMLInputElement, Event>,
   setAddPost: (addPost: IaddPost) => void,
   addPost: IaddPost,
 ) => {
-  setAddPost({ ...addPost, category: e.target.value })
+  const result = (e.target as HTMLInputElement).files
+  setAddPost({ ...addPost, file: result })
 }

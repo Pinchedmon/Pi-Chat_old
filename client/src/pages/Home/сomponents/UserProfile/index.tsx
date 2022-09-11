@@ -6,7 +6,7 @@ import { getUserData } from '../../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAddMessageStyle } from '../../../../state/navReducer'
 import AddMessage from './AddMessage'
-import PostData from '../../../../components/ui/PostData'
+import PostData from '../Posts/components/Post/components/PostData'
 
 interface IUser {
   backImg: string

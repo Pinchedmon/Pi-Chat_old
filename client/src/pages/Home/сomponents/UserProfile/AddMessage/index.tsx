@@ -6,21 +6,22 @@ import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { addMessageSubmit } from './utils/addMessageSubmit'
 import { handleChangeFile } from './utils/handleChangeFile'
 import { handleTextChange } from './utils/handleTextChange'
-interface IaddMessage {
+interface IAddMessage {
   name: string
   showMessage: () => void
 }
-const AddMessage = (props: IaddMessage) => {
+interface IaddMessage {
+  file: FileList
+  preview: string
+  validForm: boolean
+  text: string
+  textError: string
+}
+const AddMessage = (props: IAddMessage) => {
   const { user } = useAuth()
   const path = user.pathImg
   const { showMessage, name } = props
-  const [message, setMessage] = useState({
-    file: null,
-    preview: '',
-    validForm: false,
-    text: '',
-    textError: 'Пустое поле ввода',
-  })
+  const [message, setMessage] = useState<IaddMessage>()
   useEffect(() => {
     if (message.textError && message.file === null) {
       setMessage((addMessage) => ({ ...addMessage, validForm: false }))
@@ -35,7 +36,7 @@ const AddMessage = (props: IaddMessage) => {
       reader.onloadend = () => {
         setMessage((message) => ({ ...message, preview: reader.result as string }))
       }
-      reader.readAsDataURL(message.file)
+      reader.readAsDataURL(message.file[0])
     } else {
       setMessage((message) => ({ ...message, preview: null }))
     }
@@ -54,7 +55,7 @@ const AddMessage = (props: IaddMessage) => {
                 text: message.text,
                 path,
                 showMessage,
-                file: message.file,
+                file: message.file[0],
               })
             }
           >
@@ -69,7 +70,7 @@ const AddMessage = (props: IaddMessage) => {
             </div>
             <TextareaAutosize
               cacheMeasurements
-              onChange={(e) => handleTextChange(e, setMessage)}
+              onChange={(e) => handleTextChange(e, setMessage, message)}
               value={message.text}
               className='mb-10px mt-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
               placeholder='Текст поста'
@@ -80,7 +81,7 @@ const AddMessage = (props: IaddMessage) => {
                   type='file'
                   className='hidden'
                   accept='.png,.gif,.jpg,.jpeg'
-                  onChange={(e) => handleChangeFile(e, setMessage)}
+                  onChange={(e) => handleChangeFile(e, setMessage, message)}
                 />
                 <i className=''>
                   <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />

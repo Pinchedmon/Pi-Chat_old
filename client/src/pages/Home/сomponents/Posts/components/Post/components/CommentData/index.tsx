@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { getComments } from '../../../api/get'
+import { getComments } from '../../../../../../../../api/get'
 import { XIcon } from '@heroicons/react/solid'
 import redaxios from 'redaxios'
 

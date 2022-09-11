@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { blurHandler } from './utils/blurHandler'
@@ -16,15 +16,7 @@ interface iForm {
 }
 export default function Login() {
   const { logIn, error } = useAuth()
-  const [form, setForm] = useState<iForm>({
-    email: '',
-    password: '',
-    emailDirty: false,
-    passwordDirty: false,
-    emailError: 'Email не может быть пустым',
-    passwordError: 'Пароль не может быть пустым',
-    validForm: false,
-  })
+  const [form, setForm] = useState<iForm>()
   useEffect(() => {
     if (form.emailError || form.passwordError) {
       setForm((form: iForm) => ({ ...form, validForm: false }))
@@ -56,8 +48,8 @@ export default function Login() {
           placeholder='Email'
           type='email'
           value={form.email}
-          onBlur={(e) => blurHandler(e, setForm)}
-          onChange={(e) => handleChangeEmail(e, setForm)}
+          onBlur={(e) => blurHandler(e, setForm, form)}
+          onChange={(e) => handleChangeEmail(e, setForm, form)}
         />
         {form.passwordDirty && form.passwordError && <div className='text-red-600'>{form.passwordError}</div>}
         <input
@@ -66,8 +58,8 @@ export default function Login() {
           placeholder='Пароль'
           type='password'
           value={form.password}
-          onBlur={(e) => blurHandler(e, setForm)}
-          onChange={(e) => handleChangePassword(e, setForm)}
+          onBlur={(e) => blurHandler(e, setForm, form)}
+          onChange={(e) => handleChangePassword(e, setForm, form)}
         />
 
         <button

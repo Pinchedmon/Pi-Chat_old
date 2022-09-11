@@ -1,8 +1,0 @@
-import React from 'React'
-export const handleChangeFile = (
-  e: React.SyntheticEvent<HTMLInputElement, Event>,
-  setAddPost: (addPost: any) => void,
-) => {
-  const result = (e.target as HTMLInputElement).files
-  setAddPost((addPost: any) => ({ ...addPost, file: result }))
-}

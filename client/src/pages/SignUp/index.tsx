@@ -61,8 +61,8 @@ export default function SignUpPage() {
           name='name'
           placeholder='Имя'
           value={form.name}
-          onBlur={(e) => blurHandler(e, setForm)}
-          onChange={(e) => handleChangeName(e, setForm)}
+          onBlur={(e) => blurHandler(e, setForm, form)}
+          onChange={(e) => handleChangeName(e, setForm, form)}
         />
         {form.emailDirty && form.emailError && <div className='text-red-600 text-sm'>{form.emailError}</div>}
         <input
@@ -71,8 +71,8 @@ export default function SignUpPage() {
           placeholder='Email'
           type='email'
           value={form.email}
-          onBlur={(e) => blurHandler(e, setForm)}
-          onChange={(e) => handleChangeEmail(e, setForm)}
+          onBlur={(e) => blurHandler(e, setForm, form)}
+          onChange={(e) => handleChangeEmail(e, setForm, form)}
         />
         {form.passwordDirty && form.passwordError && <div className='text-red-600 text-sm'>{form.passwordError}</div>}
         <input
@@ -81,8 +81,8 @@ export default function SignUpPage() {
           placeholder='Пароль'
           type='password'
           value={form.password}
-          onBlur={(e) => blurHandler(e, setForm)}
-          onChange={(e) => handleChangePassword(e, setForm)}
+          onBlur={(e) => blurHandler(e, setForm, form)}
+          onChange={(e) => handleChangePassword(e, setForm, form)}
         />
 
         <button

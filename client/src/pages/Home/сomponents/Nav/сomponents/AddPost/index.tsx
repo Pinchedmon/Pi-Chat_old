@@ -10,8 +10,9 @@ import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
 import { handleTextChange } from './utils/handleTextChange'
-import { handleChangeFile } from '../../../UserProfile/AddMessage/utils/handleChangeFile'
-interface IaddPost {
+import { handleChangeFile } from './utils/handleChangeFIle'
+
+interface IAddPost {
   handlePopup: () => void
 }
 interface IState {
@@ -20,7 +21,16 @@ interface IState {
     category: string
   }
 }
-const AddPost = (props: IaddPost) => {
+type IaddPost = {
+  file: FileList | null
+  preview: string
+  validForm: boolean
+  category: string
+  course: string
+  text: string
+  textError: string
+}
+const AddPost = (props: IAddPost) => {
   const sort = useSelector((state: IState) => state.nav.sort)
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
@@ -28,15 +38,7 @@ const AddPost = (props: IaddPost) => {
   const path = user.pathImg
   const name = user.name
   const { handlePopup } = props
-  const [addPost, setAddPost] = useState({
-    file: null,
-    preview: '',
-    validForm: false,
-    category: 'Общее',
-    course: '1',
-    text: '',
-    textError: 'Пустое поле ввода',
-  })
+  const [addPost, setAddPost] = useState<IaddPost>()
   useEffect(() => {
     if (addPost.textError && addPost.file === null) {
       setAddPost((addPost) => ({ ...addPost, validForm: false }))
@@ -50,7 +52,7 @@ const AddPost = (props: IaddPost) => {
       reader.onloadend = () => {
         setAddPost((addPost) => ({ ...addPost, preview: reader.result as string }))
       }
-      reader.readAsDataURL(addPost.file)
+      reader.readAsDataURL(addPost.file[0])
     } else {
       setAddPost((addPost) => ({ ...addPost, preview: null }))
     }
@@ -90,7 +92,7 @@ const AddPost = (props: IaddPost) => {
                 <select
                   className='border-2 text-green-600 rounded-lg block '
                   value={addPost.category}
-                  onChange={(e) => handleCategoryChange(e, setAddPost)}
+                  onChange={(e) => handleCategoryChange(e, setAddPost, addPost)}
                 >
                   <option value='value1' disabled>
                     Категория
@@ -105,7 +107,7 @@ const AddPost = (props: IaddPost) => {
                 <select
                   className='border-2 text-green-600 rounded-lg w-54px '
                   value={addPost.course}
-                  onChange={(e) => handleCourseChange(e, setAddPost)}
+                  onChange={(e) => handleCourseChange(e, setAddPost, addPost)}
                 >
                   <option disabled>Курс</option>
                   <option value='1'>1</option>
@@ -117,7 +119,7 @@ const AddPost = (props: IaddPost) => {
             </div>
             <TextareaAutosize
               cacheMeasurements
-              onChange={(e) => handleTextChange(e, setAddPost)}
+              onChange={(e) => handleTextChange(e, setAddPost, addPost)}
               value={addPost.text}
               className='mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
               placeholder='Текст поста'
@@ -128,7 +130,7 @@ const AddPost = (props: IaddPost) => {
                   type='file'
                   className='hidden'
                   accept='.png,.gif,.jpg,.jpeg'
-                  onChange={(e) => handleChangeFile(e, setAddPost)}
+                  onChange={(e) => handleChangeFile(e, setAddPost, addPost)}
                 />
                 <i className=''>
                   <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />

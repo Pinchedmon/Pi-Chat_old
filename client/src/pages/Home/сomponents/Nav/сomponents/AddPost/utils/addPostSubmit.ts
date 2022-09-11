@@ -8,12 +8,12 @@ interface IAddPostSubmit {
   path: string
   category: string
   handlePopup: () => void
-  file: File
+  file: FileList
   refetch: () => void
 }
 export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
   let data = new FormData()
-  data.append('post', props.file)
+  data.append('post', props.file[0])
   if (props.text !== '' && props.category !== '' && props.course !== '') {
     redaxios
       .post(

@@ -1,14 +1,30 @@
-export const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>, setForm: (form: any) => void) => {
-  setForm((form: any) => ({ ...form, email: e.target.value }))
+interface iForm {
+  name: string
+  email: string
+  password: string
+  nameDirty: boolean
+  emailDirty: boolean
+  passwordDirty: boolean
+  nameError: string
+  emailError: string
+  passwordError: string
+  validForm: boolean
+}
+export const handleChangeEmail = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setForm: (form: iForm) => void,
+  form: iForm,
+) => {
+  setForm({ ...form, email: e.target.value })
   const re =
     // eslint-disable-next-line no-useless-escape
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
   if (!re.test(String(e.target.value).toLowerCase())) {
-    setForm((form: any) => ({ ...form, emailError: 'Некорректен email' }))
+    setForm({ ...form, emailError: 'Некорректен email' })
     if (!e.target.value) {
-      setForm((form: any) => ({ ...form, emailError: 'Email не может быть пустым' }))
+      setForm({ ...form, emailError: 'Email не может быть пустым' })
     }
   } else {
-    setForm((form: any) => ({ ...form, emailError: '' }))
+    setForm({ ...form, emailError: '' })
   }
 }

@@ -31,7 +31,7 @@ const Messages = (props: { names: string }) => {
             >
               Отменить
             </div>
-            <div className='flex' onClick={() => deleteMessage(refetch, setSelected, selected.statements)}>
+            <div className='flex' onClick={() => deleteMessage(refetch, setSelected, selected)}>
               <TrashIcon className='mr-4px w-24px' />
               Удалить
             </div>

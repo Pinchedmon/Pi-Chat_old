@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import useAuth from '../../../../../../hooks/useAuth'
 import { getPost } from '../../../../../../api/get'
-import CComments from '../../../../../../components/ui/CommentData'
+import CComments from './components/CommentData'
 import { postComment } from '../../../../../../api/post'
-import PostData from '../../../../../../components/ui/PostData'
+import PostData from './components/PostData'
 import SendField from '../../../../../../components/ui/SendField'
 
 const Post = () => {

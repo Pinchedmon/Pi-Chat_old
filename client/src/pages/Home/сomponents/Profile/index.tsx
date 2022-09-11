@@ -8,7 +8,7 @@ import EditName from './components/EditName'
 
 import EditInfo from './components/EditInfo'
 import { useQuery } from 'react-query'
-import PostData from '../../../../components/ui/PostData'
+import PostData from '../Posts/components/Post/components/PostData'
 import EditBackground from './components/EditBackground'
 
 const Profile = () => {

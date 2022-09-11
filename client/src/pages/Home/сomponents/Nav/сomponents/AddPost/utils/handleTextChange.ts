@@ -1,8 +1,21 @@
-export const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>, setAddPost: (addPost: any) => void) => {
-  setAddPost((addPost: any) => ({ ...addPost, text: e.target.value }))
+type IaddPost = {
+  file: FileList | null
+  preview: string
+  validForm: boolean
+  category: string
+  course: string
+  text: string
+  textError: string
+}
+export const handleTextChange = (
+  e: React.ChangeEvent<HTMLTextAreaElement>,
+  setAddPost: (addPost: IaddPost) => void,
+  addPost: IaddPost,
+) => {
+  setAddPost({ ...addPost, text: e.target.value })
   if (!e.target.value) {
-    setAddPost((addPost: any) => ({ ...addPost, textError: 'Имя не может быть пустым' }))
+    setAddPost({ ...addPost, textError: 'Имя не может быть пустым' })
   } else {
-    setAddPost((addPost: any) => ({ ...addPost, textError: '' }))
+    setAddPost({ ...addPost, textError: '' })
   }
 }
