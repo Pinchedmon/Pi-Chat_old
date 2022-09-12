@@ -16,7 +16,17 @@ interface iForm {
 }
 export default function Login() {
   const { logIn, error } = useAuth()
-  const [form, setForm] = useState<iForm>()
+  const [form, setForm] = useState<iForm>({
+    email: '',
+    password: '',
+    emailDirty: false,
+    passwordDirty: false,
+    emailError: 'Email не может быть пустым',
+    passwordError: 'Пароль не может быть пустым',
+    validForm: false,
+  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (form.emailError || form.passwordError) {
       setForm((form: iForm) => ({ ...form, validForm: false }))
@@ -24,7 +34,6 @@ export default function Login() {
       setForm((form: iForm) => ({ ...form, validForm: true }))
     }
   }, [form.emailError, form.passwordError])
-
   return (
     <div className='bg-green-600 w-full h-screen flex flex-col justify-center align-center'>
       <div className='ml-auto drop-shadow-md  mb-16px mr-auto w-260px h-100px rounded-3xl bg-white flex justify-center items-center'>

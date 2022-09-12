@@ -15,13 +15,12 @@ export const handleChangeName = (
   setForm: (form: iForm) => void,
   form: iForm,
 ) => {
-  setForm({ ...form, name: e.target.value })
   if (e.target.value.length < 3 || e.target.value.length > 16) {
-    setForm({ ...form, nameError: 'Имя должно быть от 3 до 16 символов' })
-    if (!e.target.value) {
-      setForm({ ...form, nameError: 'Имя не может быть пустым' })
+    setForm({ ...form, nameError: 'Имя должно быть от 3 до 16 символов', name: e.target.value })
+    if (e.target.value === '') {
+      setForm({ ...form, nameError: 'Имя не может быть пустым', name: e.target.value })
     }
   } else {
-    setForm({ ...form, nameError: '' })
+    setForm({ ...form, nameError: '', name: e.target.value })
   }
 }

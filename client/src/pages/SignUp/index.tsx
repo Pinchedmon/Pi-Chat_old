@@ -32,6 +32,7 @@ export default function SignUpPage() {
     passwordError: 'Пароль не может быть пустым',
     validForm: false,
   })
+
   useEffect(() => {
     if (form.nameError || form.emailError || form.passwordError) {
       setForm((form: iForm) => ({ ...form, validForm: false }))
