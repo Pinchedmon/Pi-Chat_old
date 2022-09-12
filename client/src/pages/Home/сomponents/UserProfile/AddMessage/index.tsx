@@ -12,7 +12,7 @@ interface IAddMessage {
   showMessage: () => void
 }
 interface IaddMessage {
-  file: FileList
+  file: File
   preview: string
   validForm: boolean
   text: string
@@ -22,7 +22,13 @@ const AddMessage = (props: IAddMessage) => {
   const user = useContext(UserContext)
   const path = user.pathImg
   const { showMessage, name } = props
-  const [message, setMessage] = useState<IaddMessage>()
+  const [message, setMessage] = useState<IaddMessage>({
+    file: null,
+    preview: '',
+    validForm: false,
+    text: '',
+    textError: 'поле не может быть пустым',
+  })
   useEffect(() => {
     if (message.textError && message.file === null) {
       setMessage((addMessage) => ({ ...addMessage, validForm: false }))
@@ -37,7 +43,7 @@ const AddMessage = (props: IAddMessage) => {
       reader.onloadend = () => {
         setMessage((message) => ({ ...message, preview: reader.result as string }))
       }
-      reader.readAsDataURL(message.file[0])
+      reader.readAsDataURL(message.file)
     } else {
       setMessage((message) => ({ ...message, preview: null }))
     }
@@ -56,7 +62,7 @@ const AddMessage = (props: IAddMessage) => {
                 text: message.text,
                 path,
                 showMessage,
-                file: message.file[0],
+                file: message.file !== null ? message.file : undefined,
               })
             }
           >

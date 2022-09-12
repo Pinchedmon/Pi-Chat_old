@@ -1,5 +1,5 @@
 interface iMessage {
-  file: FileList
+  file: File
   preview: string
   validForm: boolean
   text: string
@@ -10,10 +10,9 @@ export const handleTextChange = (
   setMessage: (message: iMessage) => void,
   message: iMessage,
 ) => {
-  setMessage({ ...message, text: e.target.value })
   if (!e.target.value) {
-    setMessage({ ...message, textError: 'Имя не может быть пустым' })
+    setMessage({ ...message, textError: 'Имя не может быть пустым', text: e.target.value })
   } else {
-    setMessage({ ...message, textError: '' })
+    setMessage({ ...message, textError: '', text: e.target.value })
   }
 }

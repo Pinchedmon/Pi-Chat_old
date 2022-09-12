@@ -12,10 +12,9 @@ export const handleTextChange = (
   setAddPost: (addPost: IaddPost) => void,
   addPost: IaddPost,
 ) => {
-  setAddPost({ ...addPost, text: e.target.value })
   if (!e.target.value) {
-    setAddPost({ ...addPost, textError: 'Имя не может быть пустым' })
+    setAddPost({ ...addPost, textError: 'Имя не может быть пустым', text: e.target.value })
   } else {
-    setAddPost({ ...addPost, textError: '' })
+    setAddPost({ ...addPost, textError: '', text: e.target.value })
   }
 }

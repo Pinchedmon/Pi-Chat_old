@@ -11,6 +11,7 @@ import { handleCategoryChange } from './utils/handleCategoryChange'
 import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
+import { useNavigate } from 'react-router-dom'
 
 interface IAddPost {
   handlePopup: () => void
@@ -37,13 +38,22 @@ const AddPost = (props: IAddPost) => {
   const user = useContext(UserContext)
   const path = user.pathImg
   const name = user.name
+  const navigate = useNavigate()
   const { handlePopup } = props
-  const [addPost, setAddPost] = useState<IaddPost>()
+  const [addPost, setAddPost] = useState<IaddPost>({
+    file: null,
+    preview: '',
+    validForm: false,
+    category: 'Общее',
+    course: '1',
+    text: '',
+    textError: 'поле не может быть пустым',
+  })
   useEffect(() => {
     if (addPost.textError && addPost.file === null) {
-      setAddPost((addPost) => ({ ...addPost, validForm: false }))
+      setAddPost({ ...addPost, validForm: false })
     } else {
-      setAddPost((addPost) => ({ ...addPost, validForm: true }))
+      setAddPost({ ...addPost, validForm: true })
     }
   }, [addPost.file, addPost.textError])
   useEffect(() => {
@@ -74,6 +84,7 @@ const AddPost = (props: IAddPost) => {
                 handlePopup,
                 file: addPost.file,
                 refetch,
+                navigate,
               })
             }
           >

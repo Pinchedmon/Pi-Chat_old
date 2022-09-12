@@ -1,4 +1,6 @@
 import { FormEvent } from 'react'
+import { NavigateFunction } from 'react-router-dom'
+
 import redaxios from 'redaxios'
 interface IAddPostSubmit {
   name: string
@@ -8,12 +10,13 @@ interface IAddPostSubmit {
   path: string
   category: string
   handlePopup: () => void
-  file: FileList
+  file: FileList | null
   refetch: () => void
+  navigate: NavigateFunction
 }
 export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
   let data = new FormData()
-  data.append('post', props.file[0])
+  data.append('post', props.file !== null ? props.file[0] : undefined)
   if (props.text !== '' && props.category !== '' && props.course !== '') {
     redaxios
       .post(
@@ -23,6 +26,7 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPost
       .then((response) => {
         if (response.status === 200) {
           props.refetch()
+          props.navigate('')
         }
       })
     props.handlePopup()

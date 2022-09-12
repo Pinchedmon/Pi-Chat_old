@@ -1,5 +1,5 @@
 interface IaddMessage {
-  file: FileList
+  file: File
   preview: string
   validForm: boolean
   text: string
@@ -11,5 +11,5 @@ export const handleChangeFile = (
   message: IaddMessage,
 ) => {
   const target = e.target as HTMLInputElement
-  setMessage({ ...message, file: target.files })
+  setMessage({ ...message, file: target.files[0] })
 }
