@@ -8,6 +8,7 @@ import { getMessages } from '../../../../api/get'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
 import { UserContext } from '../../../../App'
+import { resetOn } from '../../../../state/messageReducer'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -41,7 +42,7 @@ function Dialogs() {
                     dispatch(setMessageStyle(!visible))
                     setNames(item.names)
                   }}
-                  className='w-full flex mt-10px flex-row'
+                  className='w-full flex mt-10px flex-row pb-10px'
                 >
                   <Img
                     onClick={() => 1}
@@ -71,7 +72,10 @@ function Dialogs() {
         <div className='flex flex-col w-full h-full items-stretch'>
           <div className='w-full  border-b-2  border-green-600 p-10px '>
             <ArrowLeftIcon
-              onClick={() => dispatch(setMessageStyle(!visible))}
+              onClick={() => {
+                dispatch(setMessageStyle(!visible))
+                dispatch(resetOn())
+              }}
               className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white'
             />
             <p className='absolute left-1/2 -translate-x-1/2 text-2xl rounded-xl top-16px font-bold'>

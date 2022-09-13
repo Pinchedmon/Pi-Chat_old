@@ -63,11 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function refetchUser() {
-    window.alert(user)
     refetch()
-    // if (data !== undefined) {
-    //   setUser(data.data.data[0])
-    // }
   }
 
   function signUp(email: string, name: string, password: string) {

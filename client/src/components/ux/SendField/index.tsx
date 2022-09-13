@@ -3,21 +3,18 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { PaperClipIcon } from '@heroicons/react/solid'
 import { UserContext } from '../../../App'
 interface iTextAreaPage {
-  file: File | null
+  file: File
   preview: string
   textArea: string
-  textAreaError: string
   validForm: boolean
 }
 function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, areaImg: any) => void }) {
   const { postFuncProps, postFunc } = props
   const user = useContext(UserContext)
-  const [path, setPath] = useState(null)
   const [areaData, setAreaData] = useState<iTextAreaPage>({
     file: null,
     preview: '',
     textArea: '',
-    textAreaError: 'Сообщение не может быть пустым',
     validForm: false,
   })
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -37,17 +34,15 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const areaImg = new FormData()
     if (areaData.file !== null) {
-      areaImg.append('comment', areaData.file)
+      areaImg.append('message', areaData.file)
     }
     event.preventDefault()
     postFunc({ ...postFuncProps, text: areaData.textArea }, areaImg)
     setAreaData((areaData: iTextAreaPage) => ({ ...areaData, textArea: '' }))
-    setAreaData((areaData: iTextAreaPage) => ({ ...areaData, textAreaError: '' }))
     setAreaData((areaData: iTextAreaPage) => ({ ...areaData, file: null }))
     setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: true }))
   }
   useEffect(() => {
-    setPath(user.pathImg)
     if (areaData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
@@ -57,17 +52,14 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
     } else {
       setAreaData((areaData: iTextAreaPage) => ({ ...areaData, preview: null }))
     }
-  }, [areaData.file, user.name, areaData.textAreaError, user.pathImg])
+  }, [areaData.file, user.name])
   useEffect(() => {
-    if (areaData.textArea === '') {
-      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, textAreaError: 'Сообщение не может быть пустым' }))
-    }
-    if (areaData.textAreaError === '' && areaData.file === null) {
-      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: false }))
-    } else {
+    if (areaData.textArea !== '' || areaData.file !== null) {
       setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: true }))
+    } else {
+      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: false }))
     }
-  }, [areaData.file, areaData.textArea, areaData.textAreaError])
+  }, [areaData.file, areaData.textArea])
   return (
     <>
       <form className='w-full mb-6px' onSubmit={handleSubmit}>
@@ -81,7 +73,7 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
           />
         </div>
         <div className='flex ml-16px'>
-          <label className='flex  '>
+          <label className='flex'>
             <input type='file' className='hidden' accept='.png,.gif,.jpg,.jpeg' onChange={(e) => handleChangeFile(e)} />
             <i className=''>
               <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
@@ -91,7 +83,7 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
             )}
           </label>
           <button
-            disabled={areaData.validForm}
+            disabled={!areaData.validForm}
             className='ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
           >
             Отправить
