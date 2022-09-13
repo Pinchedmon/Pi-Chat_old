@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     if (data !== undefined) {
       setUser(data.data.data[0])
     }
-  }, [data, refetch])
+  }, [data])
 
   function logIn(email: string, password: string) {
     setError('')
@@ -63,7 +63,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }
 
   function refetchUser() {
+    window.alert(user)
     refetch()
+    // if (data !== undefined) {
+    //   setUser(data.data.data[0])
+    // }
   }
 
   function signUp(email: string, name: string, password: string) {
@@ -101,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
       logout,
       refetchUser,
     }),
-    [user, error, loading, refetchUser],
+    [user, error, loading],
   )
 
   return <AuthContext.Provider value={memoedValue}>{children}</AuthContext.Provider>

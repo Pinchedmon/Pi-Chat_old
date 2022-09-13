@@ -9,8 +9,9 @@ class profileController {
         db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
         db.all(`UPDATE posts SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
         db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
-        return res.status(200).json({
-            data: urlange + '/public/' + req.file.filename
+        return res.json({
+            data: urlange + '/public/' + req.file.filename,
+            status: 200
         })
     }
     async editBackground(req, res) {
@@ -18,7 +19,8 @@ class profileController {
         const urlange = req.protocol + '://' + req.get('host')
         db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename}" WHERE name = "${queryObject.name.toString()}"`, [])
         return res.status(200).json({
-            data: urlange + '/public/' + req.file.filename
+            data: urlange + '/public/' + req.file.filename,
+            status: 200
         })
     }
     async editUsername(req, res) {
@@ -26,17 +28,17 @@ class profileController {
         db.all(`UPDATE users SET username = "${queryObject.username}" WHERE name = "${queryObject.name.toString()}"`, [])
         db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
         db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
-        return res.status(200)
+        return res.json({ status: 200 })
     }
     async editInfo(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`UPDATE users SET info = "${queryObject.text}" WHERE name = "${queryObject.name.toString()}"`, [])
-        return res.status(200)
+        return res.json({ status: 200 })
     }
     async getUser(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-            return res.status(200).json({ "data": rows })
+            return res.json({ "data": rows, status: 200 })
         })
     }
 }
