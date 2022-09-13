@@ -1,17 +1,23 @@
 import { TrashIcon } from '@heroicons/react/outline'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
 import { getMessagesInfo } from '../../../../../../../../api/get'
 import Message from './сomponents/Message'
 import { deleteMessage } from './utils/deleteMessage'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetOn } from '../../../../../../../../state/messageReducer'
 interface iSelected {
   amount: number
   statements: string[]
   resetStatus: boolean
 }
+interface iState {
+  message: { selected: iSelected }
+}
 const Messages = (props: { names: string }) => {
+  const selected = useSelector((state: iState) => state.message.selected)
+  const dispatch = useDispatch()
   const bottomRef = useRef(null)
-  const [selected, setSelected] = useState<iSelected>({ amount: 0, statements: [], resetStatus: false })
   const { data, refetch } = useQuery('message', () => getMessagesInfo(props.names))
   useEffect(() => {
     if (data !== undefined) {
@@ -24,10 +30,10 @@ const Messages = (props: { names: string }) => {
         <div className='z-10 sticky top-0px  w-full p-10px bg-gray-100 font-bold  text-green-600 '>
           Выделено {selected.amount}
           <div className='flex float-right text-red-600 cursor-pointer'>
-            <div className='text-green-600 mr-16px' onClick={() => setSelected({ ...selected, resetStatus: true })}>
+            <div className='text-green-600 mr-16px' onClick={() => dispatch(resetOn())}>
               Отменить
             </div>
-            <div className='flex' onClick={() => deleteMessage(refetch, setSelected, selected)}>
+            <div className='flex' onClick={() => deleteMessage(refetch, dispatch, resetOn, selected.statements)}>
               <TrashIcon className='mr-4px w-24px' />
               Удалить
             </div>
@@ -42,6 +48,7 @@ const Messages = (props: { names: string }) => {
               username={item.username}
               messageImg={item.messageImg}
               text={item.text}
+              dispatch={dispatch}
               // checkSelect={() => checkSelect}
               reset={selected.resetStatus}
             />

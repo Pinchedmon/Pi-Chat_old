@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginReducer from './loginReducer'
+import messageReducer from './messageReducer'
 import navReducer from './navReducer'
 export const store = configureStore({
   reducer: {
+    message: messageReducer,
     nav: navReducer,
     login: loginReducer,
   },

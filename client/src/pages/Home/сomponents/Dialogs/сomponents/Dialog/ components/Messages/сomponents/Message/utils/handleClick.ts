@@ -1,17 +1,19 @@
 interface click {
   selectedMsg: string
-  checkSelect: (x: any, y: any) => any
+  addSelected: (text: string) => void
+  removeSelected: (text: string) => void
+  dispatch: (arg0: any) => void
   setSelectedMsg: (x: any) => void
   text: string
 }
 
 export const handleClick = (props: click) => {
-  const { selectedMsg, checkSelect, setSelectedMsg, text } = props
+  const { selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, text } = props
   if (selectedMsg === '') {
     setSelectedMsg('bg-gray-100')
-    checkSelect('+', text)
+    dispatch(addSelected(text))
   } else {
     setSelectedMsg('')
-    checkSelect('-', text)
+    dispatch(removeSelected(text))
   }
 }
