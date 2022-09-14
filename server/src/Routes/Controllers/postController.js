@@ -114,8 +114,7 @@ class postController {
   async likePost(req, res) {
     const queryObject = url.parse(req.url, true).query;
     db.all(
-      `SELECT * FROM likes WHERE name = "${
-        queryObject.profileName
+      `SELECT * FROM likes WHERE name = "${queryObject.profileName
       }" AND postId = "${Number(queryObject.postId)}"`,
       [],
       (err, rows) => {
@@ -175,6 +174,9 @@ class postController {
       if (err) return console.error(err.message);
     });
     db.run(`DELETE FROM comments WHERE ID = ${queryObject.id}`);
+    db.run(
+      `DELETE FROM likes WHERE postId = '${queryObject.id}'`
+    );
     return res.json({
       status: 200,
       succes: true,
