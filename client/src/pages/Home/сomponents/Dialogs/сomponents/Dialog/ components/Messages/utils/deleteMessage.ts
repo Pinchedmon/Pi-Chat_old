@@ -5,7 +5,7 @@ export const deleteMessage = (
   resetOn: () => void,
   statements: string[],
 ) => {
-  redaxios.delete(`http://localhost:6060/message/messages?text=${statements}`).then((res) => {
+  redaxios.delete(`http://localhost:6060/message/messages?text=${statements.join(' ')}`).then((res) => {
     if (res.status === 200) {
       dispatch(resetOn())
       refetch()

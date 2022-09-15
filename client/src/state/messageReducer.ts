@@ -15,6 +15,7 @@ const navSlice = createSlice({
       state.selected.amount = state.selected.amount + 1
       state.selected.resetStatus = false
       state.selected.statements = [...state.selected.statements, action.payload]
+      console.log(state.selected.statements)
     },
     removeSelected: (state: { selected: iSelected }, action: { payload: string }) => {
       state.selected.amount = state.selected.amount - 1
