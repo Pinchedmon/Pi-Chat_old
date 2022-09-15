@@ -69,7 +69,7 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
             onChange={(e) => handleChangeText(e)}
             value={areaData.textArea}
             className='rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%'
-            placeholder='Написать комментарий'
+            placeholder='Написать'
           />
         </div>
         <div className='flex ml-16px'>
