@@ -36,7 +36,6 @@ const AddPost = (props: IAddPost) => {
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const user = useContext(UserContext)
-  const path = user.pathImg
   const name = user.name
   const navigate = useNavigate()
   const { handlePopup } = props
@@ -75,12 +74,10 @@ const AddPost = (props: IAddPost) => {
             className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'
             onSubmit={(e) =>
               addPostSubmit(e, {
-                author: name,
                 name: user.name,
                 text: addPost.text,
                 category: addPost.category,
                 course: addPost.course,
-                path,
                 handlePopup,
                 file: addPost.file,
                 refetch,

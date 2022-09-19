@@ -21,16 +21,14 @@ class postController {
       postImg = "";
     }
     sql =
-      "INSERT INTO posts (author, username, text, course, category, userImg, postImg) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO posts (name, text, course, category, postImg) VALUES ( ?, ?, ?, ?, ?)";
     db.all(
       sql,
       [
-        queryObject.author,
         queryObject.name,
         queryObject.text,
         queryObject.course,
         queryObject.category,
-        queryObject.userImg,
         postImg,
       ],
       (err) => {
@@ -60,8 +58,7 @@ class postController {
         queryObject.name,
         queryObject.text,
         commentImg,
-      ],
-      (err) => {
+      ], (err) => {
         if (err) return res.json({ status: 300, success: false, error: err });
       }
     );
@@ -98,7 +95,7 @@ class postController {
   }
   async getMyPosts(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    sql = `SELECT * FROM posts WHERE author = "${queryObject.name}"`;
+    sql = `SELECT * FROM posts WHERE name = "${queryObject.name}"`;
     db.all(sql, [], (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
@@ -141,20 +138,11 @@ class postController {
     sql = `SELECT * FROM posts WHERE id = "${queryObject.id}"`;
     db.all(sql, [], (err, rows) => {
       let post = rows;
-      let image;
-      db.all(
-        `SELECT * from users WHERE name LIKE "${post[0].author}";`,
-        [],
-        (err, rows) => {
-          image = rows[0].pathImg;
-        }
-      );
       sql = `SELECT * FROM comments WHERE id = ${queryObject.id}`;
       db.all(sql, [], (err, rows) => {
         return res.status(200).json({
           post: post,
-          comments: rows,
-          image: image,
+          comments: rows
         });
       });
     });

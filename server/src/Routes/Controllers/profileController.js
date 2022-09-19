@@ -7,8 +7,6 @@ class profileController {
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
-        db.all(`UPDATE posts SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
-        db.all(`UPDATE comments SET userImg = "${urlange + '/public/' + req.file.filename}" WHERE author = ${queryObject.name}`, [])
         return res.json({
             data: urlange + '/public/' + req.file.filename,
             status: 200
@@ -26,8 +24,6 @@ class profileController {
     async editUsername(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`UPDATE users SET username = "${queryObject.username}" WHERE name = "${queryObject.name.toString()}"`, [])
-        db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
-
         return res.json({ status: 200 })
     }
     async editInfo(req, res) {

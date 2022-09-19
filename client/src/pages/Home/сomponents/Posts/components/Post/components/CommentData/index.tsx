@@ -3,7 +3,6 @@ import { useQuery } from 'react-query'
 import { getComments } from '../../../../../../../../api/get'
 import { XIcon } from '@heroicons/react/solid'
 import redaxios from 'redaxios'
-import { useNavigate } from 'react-router-dom'
 import Img from '../../../../../../../../components/ui/Img'
 import Username from '../../../../../../../../components/ui/Username'
 
@@ -16,7 +15,6 @@ type iComment = {
 }
 
 function CComments(props: { name: string; getObject: any; role: string }) {
-  const navigate = useNavigate()
   const { name, getObject, role } = props
   const { data, refetch } = useQuery('comments', () => getComments(getObject), {})
   const [comments, setComments] = useState<Array<iComment>>()
@@ -42,7 +40,7 @@ function CComments(props: { name: string; getObject: any; role: string }) {
                 <Img name={`${item.name}`} className={'ml-24px mr-16px h-54px rounded-xl w-54px'} onClick={undefined} />
                 <div className='flex-col '>
                   <div className='flex items-center align-center  -mt-4px'>
-                    <div className='text-lg md:text-xl  font-bold' onClick={() => navigate(`/${item.name}`)}>
+                    <div className='text-lg md:text-xl  font-bold'>
                       <Username name={item.name} />
                     </div>
                     <p className='ml-8px font-bold text-md text-gray-500'>@{item.name}</p>

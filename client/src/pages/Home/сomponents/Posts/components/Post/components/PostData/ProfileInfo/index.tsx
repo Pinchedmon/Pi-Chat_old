@@ -1,14 +1,13 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import Username from '../../../../../../../../../components/ui/Username'
 
-function ProfileInfo(props: { name: string; username: string }) {
-  const { name, username } = props
-  const navigate = useNavigate()
+function ProfileInfo(props: { name: string }) {
+  const { name } = props
   return (
     <div className='flex items-center align-center -mt-6px'>
-      <button onClick={() => navigate(`/${name}`)} className='text-lg md:text-xl hover:underline font-bold'>
-        {username}
-      </button>
+      <div className='text-lg md:text-xl  font-bold'>
+        <Username name={name} />
+      </div>
       <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
       <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
     </div>

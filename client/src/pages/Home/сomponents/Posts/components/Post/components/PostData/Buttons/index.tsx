@@ -6,14 +6,13 @@ import { useNavigate } from 'react-router-dom'
 function Buttons(props: {
   refetch: () => void
   name: string
-  author: string
   role: string
   ID: number
   likes: number | string
   comments: number | string
 }) {
   const navigate = useNavigate()
-  const { refetch, name, role, author, ID, likes, comments } = props
+  const { refetch, name, role, ID, likes, comments } = props
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
   }
@@ -44,13 +43,9 @@ function Buttons(props: {
         <span className='text-green-600 text-lg font-bold pb-4px p-4px'>{comments}</span>
       </button>
       {role !== 'ADMIN' ? (
-        name === author ? (
-          <button onClick={() => deleteButton(ID)} className=''>
-            <XIcon className='h-24px w-24px text-green-600' />
-          </button>
-        ) : (
-          ''
-        )
+        <button onClick={() => deleteButton(ID)} className=''>
+          <XIcon className='h-24px w-24px text-green-600' />
+        </button>
       ) : (
         ''
       )}
