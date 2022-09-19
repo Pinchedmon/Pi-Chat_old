@@ -8,7 +8,6 @@ export const getPosts = async (payload: { sort: string | number; category: strin
 export const getPost = async (payload: { search: string }) => {
   const { search } = payload
   const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
-  console.log(response)
   return response.data.post
 }
 export const getComments = async (payload: { search: string }) => {
@@ -46,5 +45,11 @@ export async function getMessagesInfo(names: string) {
   const response = await redaxios.get(`http://localhost:6060/message/info?names=${names}`)
   if (response !== undefined) {
     return response.data.data
+  }
+}
+export async function getMyUsername(name: string) {
+  const response = await redaxios.get(`http://localhost:6060/profile/getMyUsername?name=${name}`)
+  if (response !== undefined) {
+    return response
   }
 }

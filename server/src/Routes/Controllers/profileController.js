@@ -27,7 +27,7 @@ class profileController {
         const queryObject = url.parse(req.url, true).query;
         db.all(`UPDATE users SET username = "${queryObject.username}" WHERE name = "${queryObject.name.toString()}"`, [])
         db.all(`UPDATE posts SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
-        db.all(`UPDATE comments SET username = "${queryObject.username}" WHERE author = "${queryObject.name.toString()}"`, [])
+
         return res.json({ status: 200 })
     }
     async editInfo(req, res) {
@@ -38,6 +38,12 @@ class profileController {
     async getUser(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
+            return res.json({ "data": rows, status: 200 })
+        })
+    }
+    async getMyUsername(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(`SELECT username FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
             return res.json({ "data": rows, status: 200 })
         })
     }

@@ -4,14 +4,14 @@ import { getComments } from '../../../../../../../../api/get'
 import { XIcon } from '@heroicons/react/solid'
 import redaxios from 'redaxios'
 import { useNavigate } from 'react-router-dom'
+import Img from '../../../../../../../../components/ui/Img'
+import Username from '../../../../../../../../components/ui/Username'
 
 type iComment = {
   ID: number
-  author: string
-  username: string
+  name: string
   text: string
   likes: string
-  userImg: string
   commentImg: string
 }
 
@@ -39,13 +39,13 @@ function CComments(props: { name: string; getObject: any; role: string }) {
           {comments !== undefined &&
             comments.map((item: iComment) => (
               <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300'>
-                <img className='ml-24px mr-16px h-54px rounded-xl w-54px' src={item.userImg} alt=' ' />
+                <Img name={`${item.name}`} className={'ml-24px mr-16px h-54px rounded-xl w-54px'} onClick={undefined} />
                 <div className='flex-col '>
                   <div className='flex items-center align-center  -mt-4px'>
-                    <div className='text-lg md:text-xl  font-bold' onClick={() => navigate(`/${item.author}`)}>
-                      {item.username}
+                    <div className='text-lg md:text-xl  font-bold' onClick={() => navigate(`/${item.name}`)}>
+                      <Username name={item.name} />
                     </div>
-                    <p className='ml-8px font-bold text-md text-gray-500'>@{item.author}</p>
+                    <p className='ml-8px font-bold text-md text-gray-500'>@{item.name}</p>
                     <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
                   </div>
                   <div className='mt-4px mb-12px'>{item.text}</div>
@@ -57,7 +57,7 @@ function CComments(props: { name: string; getObject: any; role: string }) {
                       <XIcon className='h-32px w-32px  hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
                     </button>
                   )}
-                  {role !== 'ADMIN' && name === item.author && (
+                  {role !== 'ADMIN' && name === item.name && (
                     <button className='' onClick={() => handleDelete(item.text, item.ID)}>
                       <XIcon className='h-32px w-32px hover:text-red-600 hover:bg-gray-100 rounded-lg  text-green-600' />
                     </button>

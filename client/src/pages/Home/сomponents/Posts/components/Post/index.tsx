@@ -26,9 +26,7 @@ const Post = () => {
         <SendField
           postFuncProps={{
             id: location.search.replace(/[^0-9]/g, ''),
-            author: user.name,
-            name: user.username,
-            userImg: user.pathImg,
+            name: user.name,
             refetch: refetch,
           }}
           postFunc={postComment}

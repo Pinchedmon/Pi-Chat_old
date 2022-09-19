@@ -12,9 +12,9 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 // db.run(sql, ["pinchedmon", "temnikovalx@icloud.com", 12341234], (err) => {
 //         if (err) return console.error(err.message)
 // })
-// const sql = "DROP TAble messages";
+// const sql = "DROP TAble comments";
 // db.run(sql)
-// db.run('CREATE TABLE likes ( name, postId, commentId)')
+db.run('CREATE TABLE comments ( ID INTEGER PRIMARY KEY AUTOINCREMENT, name, text, comments default 0, likes default 0, commentImg)')
 
 // const sql = ` CREATE TABLE messages (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, last TEXT);`
 // db.run(sql)

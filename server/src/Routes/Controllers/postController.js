@@ -46,7 +46,7 @@ class postController {
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     sql =
-      "INSERT INTO comments (id, author, username, text, userImg, commentImg) VALUES (?, ?, ?, ?, ?, ?)";
+      "INSERT INTO comments (id, name, text, commentImg) VALUES ( ?, ?, ?, ?)";
     let commentImg;
     if (req.file) {
       commentImg = urlange + "/public/" + req.file.filename;
@@ -57,10 +57,8 @@ class postController {
       sql,
       [
         queryObject.id,
-        queryObject.author,
-        queryObject.username,
+        queryObject.name,
         queryObject.text,
-        queryObject.userImg,
         commentImg,
       ],
       (err) => {

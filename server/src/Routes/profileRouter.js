@@ -29,4 +29,5 @@ router.put('/backImg', upload.single('backImg'), controller.editBackground);
 router.put('/name', controller.editUsername);
 router.put('/info', controller.editInfo);
 router.get('/user', controller.getUser);
+router.get('/getMyUsername', controller.getMyUsername);
 module.exports = router;
