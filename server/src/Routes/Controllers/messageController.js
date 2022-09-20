@@ -49,9 +49,9 @@ class messageController {
     }
     async deleteMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        let text = queryObject.text.split(' ')
-        for (let i = 0; i < text.length; i++) {
-            db.all(`DELETE FROM messages_info WHERE text = "${text[i]}"`, [], (err, rows) => { console.log(rows) })
+        let id = queryObject.id.split(' ')
+        for (let i = 0; i < id.length; i++) {
+            db.all(`DELETE FROM messages_info WHERE id = "${id[i]}"`, [], (err, rows) => { console.log(rows) })
         }
         return res.json({ status: 200 })
     }

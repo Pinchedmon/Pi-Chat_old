@@ -11,16 +11,17 @@ const navSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    addSelected: (state: { selected: iSelected }, action: { payload: string }) => {
+    addSelected: (state: { selected: iSelected }, action: { payload: number }) => {
       state.selected.amount = state.selected.amount + 1
       state.selected.resetStatus = false
-      state.selected.statements = [...state.selected.statements, action.payload]
-      console.log(state.selected.statements)
+      state.selected.statements = [...state.selected.statements, action.payload.toString()]
+      console.log(state)
     },
-    removeSelected: (state: { selected: iSelected }, action: { payload: string }) => {
+    removeSelected: (state: { selected: iSelected }, action: { payload: number }) => {
       state.selected.amount = state.selected.amount - 1
       state.selected.resetStatus = false
-      state.selected.statements = state.selected.statements.filter((item: string) => item !== action.payload)
+      state.selected.statements = state.selected.statements.filter((item: string) => item !== action.payload.toString())
+      console.log(state)
     },
     resetSelected: (state: { selected: iSelected }) => {
       state.selected.amount = 0

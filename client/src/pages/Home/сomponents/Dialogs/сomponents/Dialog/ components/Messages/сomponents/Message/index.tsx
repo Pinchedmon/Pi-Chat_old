@@ -8,19 +8,21 @@ interface iMessage {
   username: string
   messageImg: string
   dispatch: (arg0: any) => void
+  id: number
   text: string
   reset: boolean
 }
 function Message(props: iMessage) {
-  const { username, messageImg, dispatch, text, reset } = props
+  const { username, messageImg, dispatch, text, reset, id } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   const navigate = useNavigate()
   useEffect(() => {
     if (reset) {
+      console.log()
       setSelectedMsg('')
       dispatch(resetSelected())
     }
-  }, [reset, text])
+  }, [reset, text, id])
   return (
     <div className={`flex items-center relative ${selectedMsg} mb-4px `}>
       <div className='w-full flex flex-row p-8px'>
@@ -45,7 +47,7 @@ function Message(props: iMessage) {
       </div>
       <div
         className='z-0 absolute w-full h-full flex justify-end'
-        onClick={() => handleClick({ selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, text })}
+        onClick={() => handleClick({ selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, id })}
       >
         <CheckCircleIcon className={'w-24px mr-10px ' + (selectedMsg === '' ? 'text-gray-300' : 'text-green-500')} />
       </div>
