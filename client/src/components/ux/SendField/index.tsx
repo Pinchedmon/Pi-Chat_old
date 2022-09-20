@@ -8,8 +8,12 @@ interface iTextAreaPage {
   textArea: string
   validForm: boolean
 }
-function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, areaImg: any) => void }) {
-  const { postFuncProps, postFunc } = props
+function SendField(props: {
+  postFuncProps: any
+  postFunc: (postFuncProps: any, areaImg: any) => void
+  object: string
+}) {
+  const { postFuncProps, postFunc, object } = props
   const user = useContext(UserContext)
   const [areaData, setAreaData] = useState<iTextAreaPage>({
     file: null,
@@ -34,7 +38,7 @@ function SendField(props: { postFuncProps: any; postFunc: (postFuncProps: any, a
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const areaImg = new FormData()
     if (areaData.file !== null) {
-      areaImg.append('message', areaData.file)
+      areaImg.append(object, areaData.file)
     }
     event.preventDefault()
     postFunc({ ...postFuncProps, text: areaData.textArea }, areaImg)

@@ -23,6 +23,7 @@ function Dialog(props: { names: string }) {
             refetch: refetch,
           }}
           postFunc={postMessage}
+          object='message'
         />
       </div>
     </>

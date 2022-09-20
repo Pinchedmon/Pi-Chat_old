@@ -30,6 +30,7 @@ const Post = () => {
             refetch: refetch,
           }}
           postFunc={postComment}
+          object='comment'
         />
       </div>
     </>

@@ -36,7 +36,6 @@ const AddPost = (props: IAddPost) => {
   const category = useSelector((state: IState) => state.nav.category)
   const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
   const user = useContext(UserContext)
-  const name = user.name
   const navigate = useNavigate()
   const { handlePopup } = props
   const [addPost, setAddPost] = useState<IaddPost>({
