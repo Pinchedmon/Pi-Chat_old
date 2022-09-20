@@ -21,7 +21,6 @@ const Messages = (props: { names: string }) => {
   const { data, refetch } = useQuery('message', () => getMessagesInfo(props.names))
   useEffect(() => {
     if (data !== undefined) {
-      console.log(data)
       bottomRef.current?.scrollIntoView({ behavior: 'auto' })
     }
   }, [data])
@@ -46,12 +45,11 @@ const Messages = (props: { names: string }) => {
         {data !== undefined &&
           data.map((item: any) => (
             <Message
-              username={item.username}
+              name={item.name}
               messageImg={item.messageImg}
               id={item.ID}
               text={item.text}
               dispatch={dispatch}
-              // checkSelect={() => checkSelect}
               reset={selected.resetStatus}
             />
           ))}

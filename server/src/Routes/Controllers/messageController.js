@@ -20,7 +20,7 @@ class messageController {
                 db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
             }
             db.run(`UPDATE messages SET last = '${queryObject.text}' WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`)
-            db.run('INSERT INTO messages_info (name,username, text, messageImg) VALUES  (?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg], () => {
+            db.run('INSERT INTO messages_info (names, name, text, messageImg) VALUES  (?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg], () => {
                 return res.json({ status: 200 })
             })
         })
@@ -34,7 +34,7 @@ class messageController {
     }
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT * FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
+        db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             return res.status(200).json({
                 data: rows,
                 answer: queryObject.names.split(' ').reverse().join(' ')
@@ -43,7 +43,7 @@ class messageController {
     }
     async deleteDialog(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.run(`DELETE FROM messages_info WHERE name = '${queryObject.names}' OR name = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
+        db.run(`DELETE FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
         db.run(`DELETE FROM messages WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [])
         return res.json({ status: 200 })
     }

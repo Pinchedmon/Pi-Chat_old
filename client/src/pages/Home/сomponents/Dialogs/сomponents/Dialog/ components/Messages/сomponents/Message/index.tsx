@@ -5,7 +5,7 @@ import Img from '../../../../../../../../../../components/ui/Img'
 import { handleClick } from './utils/handleClick'
 import { addSelected, removeSelected, resetSelected } from '../../../../../../../../../../state/messageReducer'
 interface iMessage {
-  username: string
+  name: string
   messageImg: string
   dispatch: (arg0: any) => void
   id: number
@@ -13,12 +13,11 @@ interface iMessage {
   reset: boolean
 }
 function Message(props: iMessage) {
-  const { username, messageImg, dispatch, text, reset, id } = props
+  const { name, messageImg, dispatch, text, reset, id } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   const navigate = useNavigate()
   useEffect(() => {
     if (reset) {
-      console.log()
       setSelectedMsg('')
       dispatch(resetSelected())
     }
@@ -27,17 +26,17 @@ function Message(props: iMessage) {
     <div className={`flex items-center relative ${selectedMsg} mb-4px `}>
       <div className='w-full flex flex-row p-8px'>
         <Img
-          name={username}
+          name={name}
           className='z-10 ml-24px mr-16px h-54px rounded-xl w-54px cursor-pointer'
-          onClick={() => navigate(`/${username}`)}
+          onClick={() => navigate(`/${name}`)}
         />
         <div className='flex-col'>
           <div className='flex items-center align-center'>
             <div
               className='z-10 text-lg md:text-xl font-bold cursor-pointer hover:underline'
-              onClick={() => navigate(`/${username}`)}
+              onClick={() => navigate(`/${name}`)}
             >
-              {username}
+              {name}
             </div>
             <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
           </div>
