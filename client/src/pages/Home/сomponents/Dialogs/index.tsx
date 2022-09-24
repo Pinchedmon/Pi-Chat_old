@@ -9,6 +9,7 @@ import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
 import { UserContext } from '../../../../App'
 import { resetOn } from '../../../../state/messageReducer'
+import Username from '../../../../components/ui/Username'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -79,7 +80,7 @@ function Dialogs() {
               className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white'
             />
             <p className='absolute left-1/2 -translate-x-1/2 text-2xl rounded-xl top-16px font-bold'>
-              {names.replace(user.name, '')}
+              <Username name={names.replace(user.name, '').toString().trim()} />
             </p>
           </div>
           <Dialog names={names} />

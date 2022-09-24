@@ -12,7 +12,7 @@ function Username(props: { name: string }) {
       }
     })
   }, [])
-  return <div onClick={() => navigate(`/${username}`)}>{username}</div>
+  return <div onClick={() => navigate(`/${props.name}`)}>{username}</div>
 }
 
 export default Username

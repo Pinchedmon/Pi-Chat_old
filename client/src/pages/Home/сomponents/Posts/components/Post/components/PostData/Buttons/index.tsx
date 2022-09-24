@@ -24,9 +24,9 @@ function Buttons(props: {
     })
   }
   return (
-    <div className='mt-8px mb-8px flex flex-row items-center'>
+    <div className=' mb-8px flex w-54px justify-start flex-col items-center'>
       <button
-        className='flex '
+        className='flex flex-col items-center mb-12px'
         onClick={() => {
           redaxios.put(`http://localhost:6060/posts/feed?postId=${ID}&profileName=${name}`).then((response) => {
             if (response.status === 200) {
@@ -36,13 +36,14 @@ function Buttons(props: {
         }}
       >
         <HeartIcon className='text-green-600 w-28px' />
-        <span className='text-green-600 text-lg font-bold ml-6px'>{likes}</span>
+        <p className='text-green-600 text-lg font-bold '>{likes}</p>
       </button>
-      <button className='flex items-center ml-16px' onClick={() => showComments(ID)}>
+      <button className='flex flex-col items-center  ' onClick={() => showComments(ID)}>
         <AnnotationIcon className='w-28px h-28x  text-green-600' />
-        <span className='text-green-600 text-lg font-bold pb-4px p-4px'>{comments}</span>
+        <p className='text-green-600 text-lg font-bold'>{comments}</p>
       </button>
-      {role !== 'ADMIN' ? (
+
+      {/* {role !== 'ADMIN' ? (
         <button onClick={() => deleteButton(ID)} className=''>
           <XIcon className='h-24px w-24px text-green-600' />
         </button>
@@ -53,7 +54,7 @@ function Buttons(props: {
         <button onClick={() => deleteButton(ID)} className=''>
           <XIcon className='h-32px w-32px text-green-600' />
         </button>
-      )}
+      )} */}
     </div>
   )
 }

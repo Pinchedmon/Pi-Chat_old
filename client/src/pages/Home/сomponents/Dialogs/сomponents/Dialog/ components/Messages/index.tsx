@@ -41,7 +41,7 @@ const Messages = (props: { names: string }) => {
         </div>
       )}
 
-      <div className='z-0 pt-4px relative overflow-y-hidden h-full '>
+      <div className='z-0 relative overflow-y-hidden h-full '>
         {data !== undefined &&
           data.map((item: any) => (
             <Message

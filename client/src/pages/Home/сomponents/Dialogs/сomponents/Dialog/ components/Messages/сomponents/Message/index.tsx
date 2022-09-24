@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
 import { CheckCircleIcon } from '@heroicons/react/outline'
-import Img from '../../../../../../../../../../components/ui/Img'
 import { handleClick } from './utils/handleClick'
 import { addSelected, removeSelected, resetSelected } from '../../../../../../../../../../state/messageReducer'
+import { UserContext } from '../../../../../../../../../../App'
 interface iMessage {
   name: string
   messageImg: string
@@ -13,9 +12,9 @@ interface iMessage {
   reset: boolean
 }
 function Message(props: iMessage) {
+  const user = useContext(UserContext)
   const { name, messageImg, dispatch, text, reset, id } = props
   const [selectedMsg, setSelectedMsg] = useState('')
-  const navigate = useNavigate()
   useEffect(() => {
     if (reset) {
       setSelectedMsg('')
@@ -23,29 +22,27 @@ function Message(props: iMessage) {
     }
   }, [reset, text, id])
   return (
-    <div className={`flex items-center relative ${selectedMsg} mb-4px `}>
-      <div className='w-full flex flex-row p-8px'>
-        <Img
-          name={name}
-          className='z-10 ml-24px mr-16px h-54px rounded-xl w-54px cursor-pointer'
-          onClick={() => navigate(`/${name}`)}
-        />
-        <div className='flex-col'>
-          <div className='flex items-center align-center'>
-            <div
-              className='z-10 text-lg md:text-xl font-bold cursor-pointer hover:underline'
-              onClick={() => navigate(`/${name}`)}
-            >
-              {name}
-            </div>
-            <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
+    <div className={`flex items-center relative ${selectedMsg}  `}>
+      <div
+        className={`w-full flex flex-row p-4px pl-8px pr-8px  ${
+          selectedMsg !== '' && name === user.name ? 'mr-32px' : ''
+        }  ${name === user.name ? 'justify-end' : ''} `}
+      >
+        {text !== '' ? (
+          <div
+            className={`flex-col max-w-xs rounded-xl ${
+              name === user.name ? 'bg-green-600 text-white' : 'bg-gray-200'
+            } `}
+          >
+            <div className={`bont-bold text-lg  pt-5px pb-5px pl-8px pr-8px`}>{text}</div>
+            <img src={messageImg} alt='' className='max-w-xs rounded-b-xl' />
           </div>
-          <img src={messageImg} alt='' />
-          <div className='mt-4px '>{text}</div>
-        </div>
+        ) : (
+          <img src={messageImg} alt='' className='max-w-xs rounded-b-xl' />
+        )}
       </div>
       <div
-        className='z-0 absolute w-full h-full flex justify-end'
+        className={`z-0 absolute w-full h-full flex ${name === user.name ? 'pl-8px justify-start' : 'justify-end'}`}
         onClick={() => handleClick({ selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, id })}
       >
         <CheckCircleIcon className={'w-24px mr-10px ' + (selectedMsg === '' ? 'text-gray-300' : 'text-green-500')} />
