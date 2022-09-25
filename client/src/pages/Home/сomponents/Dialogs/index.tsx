@@ -71,7 +71,7 @@ function Dialogs() {
 
       {visible === true && (
         <div className='flex flex-col w-full h-full items-stretch'>
-          <div className='w-full  border-b-2  border-green-600 p-10px '>
+          <div className='w-full border-b-2  border-green-600 p-10px '>
             <ArrowLeftIcon
               onClick={() => {
                 dispatch(setMessageStyle(!visible))
@@ -79,9 +79,14 @@ function Dialogs() {
               }}
               className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white'
             />
-            <p className='absolute left-1/2 -translate-x-1/2 text-2xl rounded-xl top-16px font-bold'>
+            <div className='absolute  items-center flex left-1/2 -translate-x-1/2 text-2xl rounded-xl top-10px font-bold'>
+              <Img
+                name={names.replace(user.name, '').toString().trim()}
+                className={'w-50px mr-16px rounded-xl'}
+                onClick={null}
+              />
               <Username name={names.replace(user.name, '').toString().trim()} />
-            </p>
+            </div>
           </div>
           <Dialog names={names} />
         </div>

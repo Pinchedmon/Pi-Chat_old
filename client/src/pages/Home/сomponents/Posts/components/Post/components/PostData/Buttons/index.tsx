@@ -24,9 +24,9 @@ function Buttons(props: {
     })
   }
   return (
-    <div className=' mb-8px flex w-54px justify-start flex-col items-center'>
+    <div className=' mb-8px flex w-54px align-center items-center'>
       <button
-        className='flex flex-col items-center mb-12px'
+        className='flex mr-16px'
         onClick={() => {
           redaxios.put(`http://localhost:6060/posts/feed?postId=${ID}&profileName=${name}`).then((response) => {
             if (response.status === 200) {
@@ -35,11 +35,11 @@ function Buttons(props: {
           })
         }}
       >
-        <HeartIcon className='text-green-600 w-28px' />
+        <HeartIcon className='text-green-600 mr-8px w-28px' />
         <p className='text-green-600 text-lg font-bold '>{likes}</p>
       </button>
-      <button className='flex flex-col items-center  ' onClick={() => showComments(ID)}>
-        <AnnotationIcon className='w-28px h-28x  text-green-600' />
+      <button className='flex ' onClick={() => showComments(ID)}>
+        <AnnotationIcon className='w-28px h-28x mr-8px   text-green-600' />
         <p className='text-green-600 text-lg font-bold'>{comments}</p>
       </button>
 
