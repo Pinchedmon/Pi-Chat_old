@@ -6,6 +6,7 @@ import Buttons from './Buttons'
 import { UserContext } from '../../../../../../../../App'
 import Img from '../../../../../../../../components/ui/Img'
 import { useNavigate } from 'react-router-dom'
+import Options from './Options'
 
 type iPost = {
   name: string
@@ -50,6 +51,7 @@ function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: st
                 role={user.role}
               />
             </div>
+            <Options id={item.ID} refetch={refetch} />
           </div>
         ))}
     </div>
