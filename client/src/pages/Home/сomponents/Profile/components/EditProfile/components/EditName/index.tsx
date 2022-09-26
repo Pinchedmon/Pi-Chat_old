@@ -1,31 +1,30 @@
-import { PencilIcon } from '@heroicons/react/solid'
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../../../../../../App'
-import useAuth from '../../../../../../hooks/useAuth'
+import { PencilIcon } from '@heroicons/react/solid'
+import { UserContext } from '../../../../../../../../App'
+import useAuth from '../../../../../../../../hooks/useAuth'
 import { handleChange } from './utils/handleChange'
 import { handleSubmit } from './utils/handleSubmit'
-function EditInfo() {
+function EditName(props: { fetchPosts: () => void }) {
   const { refetchUser } = useAuth()
   const user = useContext(UserContext)
   const [status, setStatus] = useState(false)
-  const [value, setValue] = useState(user.info)
+  const [value, setValue] = useState(user.name)
   return (
     <>
       {status === false && (
-        <div className='flex text-md  '>
-          {user.info}
+        <div className='flex text-lg md:text-2xl  font-bold'>
+          {user.username}
           <PencilIcon onClick={() => setStatus(!status)} className='ml-4px w-24px text-green-600' />
         </div>
       )}
       {status === true && (
         <input
-          className='w-220px'
           onMouseLeave={() => {
             setStatus(!status)
-            handleSubmit(value.toString(), user.name, refetchUser, user.info)
+            handleSubmit(value, user.name, user.username, refetchUser)
           }}
           value={value}
-          maxLength={42}
+          maxLength={14}
           onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e, setValue)}
         />
       )}
@@ -33,4 +32,4 @@ function EditInfo() {
   )
 }
 
-export default EditInfo
+export default EditName

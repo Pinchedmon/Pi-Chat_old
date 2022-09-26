@@ -1,6 +1,6 @@
 import React from 'react'
 import redaxios from 'redaxios'
-import { AnnotationIcon, HeartIcon, XIcon } from '@heroicons/react/solid'
+import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
 
 function Buttons(props: {
@@ -12,16 +12,9 @@ function Buttons(props: {
   comments: number | string
 }) {
   const navigate = useNavigate()
-  const { refetch, name, role, ID, likes, comments } = props
+  const { refetch, name, ID, likes, comments } = props
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
-  }
-  const deleteButton = (id: number) => {
-    redaxios.delete(`http://localhost:6060/posts/feed?id=${id}`).then((res) => {
-      if (res.status === 200) {
-        refetch()
-      }
-    })
   }
   return (
     <div className=' mb-8px flex w-54px align-center items-center'>
@@ -42,19 +35,6 @@ function Buttons(props: {
         <AnnotationIcon className='w-28px h-28x mr-8px   text-green-600' />
         <p className='text-green-600 text-lg font-bold'>{comments}</p>
       </button>
-
-      {/* {role !== 'ADMIN' ? (
-        <button onClick={() => deleteButton(ID)} className=''>
-          <XIcon className='h-24px w-24px text-green-600' />
-        </button>
-      ) : (
-        ''
-      )}
-      {role === 'ADMIN' && (
-        <button onClick={() => deleteButton(ID)} className=''>
-          <XIcon className='h-32px w-32px text-green-600' />
-        </button>
-      )} */}
     </div>
   )
 }

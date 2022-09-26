@@ -82,7 +82,7 @@ function Dialogs() {
             <div className='absolute  items-center flex left-1/2 -translate-x-1/2 text-2xl rounded-xl top-10px font-bold'>
               <Img
                 name={names.replace(user.name, '').toString().trim()}
-                className={'w-50px mr-16px rounded-xl'}
+                className={'w-50px h-50px mr-16px rounded-xl'}
                 onClick={null}
               />
               <Username name={names.replace(user.name, '').toString().trim()} />

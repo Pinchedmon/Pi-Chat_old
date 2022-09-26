@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { getCurrentUser } from '../../../../../../api/auth'
+import { getCurrentUser } from '../../../../../../../../api/auth'
 import { useQuery } from 'react-query'
 import { handleEditBackground } from './utils/handleEditBackground'
-import { UserContext } from '../../../../../../App'
+import { UserContext } from '../../../../../../../../App'
 function EditBackground() {
   const user = useContext(UserContext)
   const { refetch } = useQuery('profile', () => getCurrentUser())

@@ -46,7 +46,7 @@ const Nav = (props: { sort: string | number; category: string }) => {
               <ChatIcon className='w-32px h-32px' />
               <p className='ml-16px'> Сообщения</p>
             </NavLink>
-            <NavLink to='profile' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+            <NavLink to={user.name} className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
               <UserIcon className='w-32px h-32px' />
               <p className='ml-16px'>Профиль</p>
             </NavLink>

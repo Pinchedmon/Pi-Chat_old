@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import { PencilIcon } from '@heroicons/react/solid'
-import useAuth from '../../../../../../hooks/useAuth'
-import { getCurrentUser } from '../../../../../../api/auth'
+import useAuth from '../../../../../../../../hooks/useAuth'
+import { getCurrentUser } from '../../../../../../../../api/auth'
 import { sendFile } from './utils/sendFile'
-import { UserContext } from '../../../../../../App'
-const FilesUploadComponent = (props: { fetchPosts: () => void }) => {
+import { UserContext } from '../../../../../../../../App'
+const EditAvatar = (props: { fetchPosts: () => void }) => {
   const { refetchUser } = useAuth()
   const user = useContext(UserContext)
   const { refetch } = useQuery('profile', () => getCurrentUser())
@@ -26,4 +26,4 @@ const FilesUploadComponent = (props: { fetchPosts: () => void }) => {
     </div>
   )
 }
-export default FilesUploadComponent
+export default EditAvatar

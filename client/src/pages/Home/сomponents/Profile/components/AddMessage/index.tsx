@@ -6,7 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { addMessageSubmit } from './utils/addMessageSubmit'
 import { handleChangeFile } from './utils/handleChangeFile'
 import { handleTextChange } from './utils/handleTextChange'
-import { UserContext } from '../../../../../App'
+import { UserContext } from '../../../../../../App'
 interface IAddMessage {
   name: string
   showMessage: () => void

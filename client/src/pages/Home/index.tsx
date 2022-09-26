@@ -8,9 +8,8 @@ import { Route, Routes } from 'react-router-dom'
 import Post from './сomponents/Posts/components/Post'
 import AddPost from './сomponents/Nav/сomponents/AddPost'
 import { setAddPostStyle } from '../../state/navReducer'
-import UserProfile from './сomponents/UserProfile'
-import Posts from './сomponents/Posts'
 import Profile from './сomponents/Profile'
+import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
 interface iState {
@@ -45,8 +44,8 @@ const Home = () => {
             <Routes>
               <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
               <Route path='/post' element={<Post />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/*' element={<UserProfile />} />
+              {/* <Route path='/profile' element={<Profile />} /> */}
+              <Route path='/*' element={<Profile />} />
               <Route path='/messages' element={<Messages />} />
             </Routes>
             {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
