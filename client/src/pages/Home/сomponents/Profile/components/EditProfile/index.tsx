@@ -23,29 +23,13 @@ function EditProfile(props: any) {
                 Настройка профиля
               </h1>
             </div>
-            <div>
-              Фон
+            <div className='flex'>
               <EditBackground />
-            </div>
-            <div>
-              Аватарка
-              <EditAvatar
-                fetchPosts={function (): void {
-                  throw new Error('Function not implemented.')
-                }}
-              />
-            </div>
-            <div>
-              Публичное имя
-              <EditName
-                fetchPosts={function (): void {
-                  throw new Error('Function not implemented.')
-                }}
-              />
-            </div>
-            <div>
-              Инфо
-              <EditInfo />
+              <EditAvatar />
+              <div className='flex flex-col justify-around'>
+                <EditName />
+                <EditInfo />
+              </div>
             </div>
           </form>
         </div>

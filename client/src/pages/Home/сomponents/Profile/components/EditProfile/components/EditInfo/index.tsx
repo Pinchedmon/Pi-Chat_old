@@ -1,4 +1,3 @@
-import { PencilIcon } from '@heroicons/react/solid'
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../../../../../../../../App'
 import useAuth from '../../../../../../../../hooks/useAuth'
@@ -10,16 +9,11 @@ function EditInfo() {
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.info)
   return (
-    <>
-      {status === false && (
-        <div className='flex text-md  '>
-          {user.info}
-          <PencilIcon onClick={() => setStatus(!status)} className='ml-4px w-24px text-green-600' />
-        </div>
-      )}
+    <div className='border-2 '>
+      {status === false && <div className='text-md  '>{user.info}</div>}
       {status === true && (
         <input
-          className='w-220px'
+          className='border-2 border-red-600 p-2px text-center'
           onMouseLeave={() => {
             setStatus(!status)
             handleSubmit(value.toString(), user.name, refetchUser, user.info)
@@ -29,7 +23,10 @@ function EditInfo() {
           onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e, setValue)}
         />
       )}
-    </>
+      <div onClick={() => setStatus(true)} className='bg-green-600 text-white'>
+        Изменить описание
+      </div>
+    </div>
   )
 }
 

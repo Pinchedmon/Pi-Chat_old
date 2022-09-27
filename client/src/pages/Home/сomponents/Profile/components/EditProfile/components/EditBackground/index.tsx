@@ -7,12 +7,12 @@ function EditBackground() {
   const user = useContext(UserContext)
   const { refetch } = useQuery('profile', () => getCurrentUser())
   return (
-    <div className='relative'>
-      <img className=' h-200px w-full' src={user.backImg} alt='загружается...' />
-      <label className='absolute bg-green-600 text-sm text-white bottom-0px right-100px rounded-t-lg p-6px hover:bg-green-500'>
+    <div className='flex flex-col w-200px border-2 font-bold'>
+      <img className='w-200px' src={user.backImg} alt='загружается...' />
+      <label className='h-32px bg-green-600 text-sm text-white p-6px hover:bg-green-500 cursor-pointer'>
         <input
           type='file'
-          className='hidden'
+          className='hidden '
           accept='.png,.gif,.jpg,.jpeg'
           onChange={(e) => handleEditBackground(e, refetch, user.backImg, user.name)}
         />

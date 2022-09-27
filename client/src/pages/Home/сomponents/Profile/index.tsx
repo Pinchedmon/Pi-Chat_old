@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getMyPosts } from '../../../../api/get'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import AddMessage from './components/AddMessage'
 import PostData from '../Posts/components/Post/components/PostData'
 import Options from './components/Options'
 import EditProfile from './components/EditProfile'
+import { UserContext } from '../../../../App'
 
 interface IUser {
   backImg: string
@@ -26,10 +27,12 @@ interface IState {
 function Profile() {
   const navigate = useNavigate()
   let location = useLocation()
+  const user = useContext(UserContext)
   const dispatch = useDispatch()
   const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
   const [profile, setProfile] = useState<IUser>({ backImg: '', pathImg: '', name: '', username: '', info: '' })
+
   useEffect(() => {
     getUserData(location.pathname.slice(1).toString()).then((res: { data: { 0: IUser } }) => {
       if (res.data[0] !== undefined) {
@@ -61,7 +64,7 @@ function Profile() {
               {/* info */}
               <div>{profile.info}</div>
             </div>
-            <Options id={0} identity={true} />
+            <Options id={0} identity={profile.name === user.name} />
           </div>
           {/* posts */}
           <div className='mt-16px'>
