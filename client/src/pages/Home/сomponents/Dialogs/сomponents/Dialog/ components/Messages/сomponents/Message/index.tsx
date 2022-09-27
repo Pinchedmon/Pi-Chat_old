@@ -10,10 +10,11 @@ interface iMessage {
   id: number
   text: string
   reset: boolean
+  time: string
 }
 function Message(props: iMessage) {
   const user = useContext(UserContext)
-  const { name, messageImg, dispatch, text, reset, id } = props
+  const { name, messageImg, dispatch, text, reset, id, time } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   useEffect(() => {
     if (reset) {

@@ -15,7 +15,8 @@ type iPost = {
   likes: number | string
   ID: number
   comments: number | string
-  date: any
+  date: string
+  time: string
 }
 
 function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
@@ -40,7 +41,7 @@ function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: st
                   onClick={() => navigate(`/${item.name}`)}
                   className='mr-16px h-54px  rounded-xl w-54px cursor-pointer'
                 />
-                <ProfileInfo name={item.name} date={item.date} />
+                <ProfileInfo name={item.name} date={item.date} time={item.time} />
               </div>
               <Info text={item.text} img={item.postImg} />
               <Buttons

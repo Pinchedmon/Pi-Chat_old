@@ -51,6 +51,7 @@ const Messages = (props: { names: string }) => {
               text={item.text}
               dispatch={dispatch}
               reset={selected.resetStatus}
+              time={item.time}
             />
           ))}
         <div ref={bottomRef} />

@@ -21,7 +21,7 @@ class postController {
       postImg = "";
     }
     sql =
-      "INSERT INTO posts (name, text, course, category, postImg, date) VALUES ( ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO posts (name, text, course, category, postImg, date, time) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
     db.all(
       sql,
       [
@@ -30,7 +30,8 @@ class postController {
         queryObject.course,
         queryObject.category,
         postImg,
-        new Date().toLocaleDateString()
+        new Date().toLocaleDateString(),
+        new Date().toLocaleTimeString().slice(0, -3)
       ],
       (err) => {
         if (err) return res.json({ status: 300, success: false, error: err });
