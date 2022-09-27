@@ -11,7 +11,7 @@ function Username(props: { name: string }) {
         setUsername(res.data.data[0].username)
       }
     })
-  }, [])
+  }, [props.name])
   return <div onClick={() => navigate(`/${props.name}`)}>{username}</div>
 }
 

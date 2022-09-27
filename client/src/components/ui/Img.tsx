@@ -9,7 +9,7 @@ function Img(props: { name: string; className: string; onClick: Function }) {
         setImg(res.data.data)
       }
     })
-  }, [])
+  }, [props.name])
 
   return (
     <>
