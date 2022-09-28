@@ -9,7 +9,7 @@ function ProfileInfo(props: { name: string; date: string; time: string }) {
         <Username name={name} />
       </div>
       <p className='ml-8px font-bold text-md text-gray-500'>@{name}</p>
-      <p className='ml-8px font-bold text-sm text-gray-500'>{date && new Date().toLocaleDateString() ? time : date}</p>
+      <p className='ml-8px font-bold text-sm text-gray-500'>{date === new Date().toLocaleDateString() ? time : date}</p>
     </div>
   )
 }

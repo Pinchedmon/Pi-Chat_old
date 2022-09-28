@@ -41,18 +41,25 @@ const SendField = (props: {
     } else {
       setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: true }))
     }
-  }, [areaData.file, areaData.textArea])
+  }, [areaData.file, areaData.preview, areaData.textArea])
   return (
     <>
       <form
         className='w-full mb-6px'
-        onSubmit={(event) => handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)}
+        onSubmit={(event) => {
+          handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)
+          console.log(areaData)
+          setAreaData((areaData: iTextAreaPage) => ({ ...areaData, textArea: 'Text' }))
+          console.log(areaData)
+          setAreaData({ ...areaData, file: null })
+          setAreaData({ ...areaData, preview: null })
+        }}
       >
         <div className='flex justify-center mb-10px'>
           <TextareaAutosize
             cacheMeasurements
             onChange={(e) => handleChangeText(e, setAreaData, areaData)}
-            value={areaData.textArea}
+            value={areaData.textArea || ''}
             className='rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%'
             placeholder='Написать'
           />
@@ -69,7 +76,7 @@ const SendField = (props: {
               <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
             </i>
             {areaData.preview !== null && (
-              <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={areaData.preview} />
+              <img className='h-40px object-cover ml-40px rounded-md' alt='' src={areaData.preview} />
             )}
           </label>
           <button

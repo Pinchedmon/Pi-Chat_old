@@ -29,19 +29,29 @@ function Message(props: iMessage) {
           selectedMsg !== '' && name === user.name ? 'mr-32px' : ''
         }  ${name === user.name ? 'justify-end' : ''} `}
       >
+        <div className='flex items-center mr-6px text-gray-400'> {name === user.name ? time : null}</div>
+
         {text !== '' ? (
-          <div
-            className={`flex-col max-w-xs rounded-xl ${
-              name === user.name ? 'bg-green-600 text-white' : 'bg-gray-200'
-            } `}
-          >
-            <div className={`bont-bold text-lg  pt-5px pb-5px pl-8px pr-8px`}>{text}</div>
-            <img src={messageImg} alt='' className='max-w-xs rounded-b-xl' />
-          </div>
+          <>
+            <div
+              className={`flex-col max-w-xs rounded-xl ${
+                name === user.name ? 'bg-green-600 text-white' : 'bg-gray-200'
+              } `}
+            >
+              <div className={`bont-bold text-lg  pt-5px pb-5px pl-8px pr-8px`}>{text}</div>
+
+              <img src={messageImg} alt='' className='max-w-xs rounded-b-xl' />
+            </div>
+            <div className='flex items-center ml-6px text-gray-400'>{name !== user.name ? time : null}</div>
+          </>
         ) : (
-          <img src={messageImg} alt='' className='max-w-xs rounded-b-xl' />
+          <>
+            <img src={messageImg} alt='' className='max-w-xs rounded-xl' />
+            {name !== user.name ? time : null}
+          </>
         )}
       </div>
+
       <div
         className={`z-0 absolute w-full h-full flex ${name === user.name ? 'pl-8px justify-start' : 'justify-end'}`}
         onClick={() => handleClick({ selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, id })}

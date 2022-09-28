@@ -5,6 +5,11 @@ const url = require('url');
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class messageController {
     async postMessage(req, res) {
+        if (req.file) {
+            await sharp(req.file.path).resize().jpeg({
+                quality: 50
+            }).toFile('public/' + req.file.filename);
+        }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         let messageImg;

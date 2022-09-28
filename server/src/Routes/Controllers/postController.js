@@ -1,6 +1,7 @@
 const sqlite = require("sqlite3").verbose();
 const path = require("path");
 const url = require("url");
+const sharp = require('sharp');
 const db = new sqlite.Database(
   path.resolve(__dirname, "../../db/posts.db"),
   sqlite.OPEN_READWRITE,
@@ -12,9 +13,15 @@ let sql;
 
 class postController {
   async postUpload(req, res) {
+    if (req.file) {
+      await sharp(req.file.path).resize().jpeg({
+        quality: 50
+      }).toFile('public/' + req.file.filename);
+    }
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     let postImg;
+
     if (req.file) {
       postImg = urlange + "/public/" + req.file.filename;
     } else {
@@ -43,6 +50,11 @@ class postController {
     });
   }
   async commentUpload(req, res) {
+    if (req.file) {
+      await sharp(req.file.path).resize().jpeg({
+        quality: 50
+      }).toFile('public/' + req.file.filename);
+    }
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     sql =

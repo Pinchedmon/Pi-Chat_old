@@ -19,8 +19,5 @@ const handleSubmit = (
   event.preventDefault()
   postFunc({ ...postFuncProps, text: areaData.textArea }, areaImg)
   setAreaData({ ...areaData, textArea: '' })
-  setAreaData({ ...areaData, file: null })
-  setAreaData({ ...areaData, preview: '' })
-  setAreaData({ ...areaData, validForm: true })
 }
 export default handleSubmit

@@ -4,6 +4,11 @@ const url = require('url');
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class profileController {
     async setImg(req, res) {
+        if (req.file) {
+            await sharp(req.file.path).resize().jpeg({
+                quality: 50
+            }).toFile('public/' + req.file.filename);
+        }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
@@ -13,6 +18,11 @@ class profileController {
         })
     }
     async editBackground(req, res) {
+        if (req.file) {
+            await sharp(req.file.path).resize().jpeg({
+                quality: 50
+            }).toFile('public/' + req.file.filename);
+        }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename}" WHERE name = "${queryObject.name.toString()}"`, [])
