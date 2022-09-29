@@ -22,7 +22,6 @@ const Post = () => {
       <div className='flex flex-col mt-16px '>
         <PostData getPost={getPost} naming={'post'} getObject={{ search: location.search }} />
         <CComments name={user.name} getObject={{ search: location.search }} role={user.role} />
-        {/* <SendField id={location.search.replace(/[^0-9]/g, '')} postFunc={postComment} /> */}
         <SendField
           postFuncProps={{
             id: location.search.replace(/[^0-9]/g, ''),

@@ -1,5 +1,6 @@
 import React from 'react'
 import { getPosts } from '../../../../api/get'
+import AddPost from './components/AddPost'
 import Post from './components/Post/components/PostData'
 
 type iPost = {
@@ -22,7 +23,8 @@ const Posts = (props: IPosts) => {
   const { sort, category } = props
   return (
     <>
-      <div className='p-32px text-xl border-b-2 border-gray-300'>Сделать пост</div>
+      <AddPost />
+
       <div className='flex flex-col mt-16px '>
         <Post getPost={getPosts} getObject={{ sort, category }} naming='posts' />
       </div>

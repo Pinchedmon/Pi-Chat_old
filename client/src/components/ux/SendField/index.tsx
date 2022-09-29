@@ -48,11 +48,6 @@ const SendField = (props: {
         className='w-full mb-6px'
         onSubmit={(event) => {
           handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)
-          console.log(areaData)
-          setAreaData((areaData: iTextAreaPage) => ({ ...areaData, textArea: 'Text' }))
-          console.log(areaData)
-          setAreaData({ ...areaData, file: null })
-          setAreaData({ ...areaData, preview: null })
         }}
       >
         <div className='flex justify-center mb-10px'>

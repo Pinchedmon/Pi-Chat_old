@@ -18,6 +18,6 @@ const handleSubmit = (
   }
   event.preventDefault()
   postFunc({ ...postFuncProps, text: areaData.textArea }, areaImg)
-  setAreaData({ ...areaData, textArea: '' })
+  setAreaData({ textArea: '', file: null, preview: null, validForm: false })
 }
 export default handleSubmit

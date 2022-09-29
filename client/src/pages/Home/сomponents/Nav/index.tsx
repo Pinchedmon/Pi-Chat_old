@@ -59,7 +59,7 @@ const Nav = (props: { sort: string | number; category: string }) => {
             onClick={handlePopup}
             className='bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold'
           >
-            <button>Постить</button>
+            <button>За / π / ши</button>
           </div>
           <div className='flex justify-center'>
             <div className='absolute bottom-32px flex items-center'>
