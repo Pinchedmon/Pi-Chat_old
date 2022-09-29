@@ -71,7 +71,7 @@ const AddPost = (props: IAddPost) => {
         <div className='flex flex-col justify-center items-center'>
           <form
             className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'
-            onSubmit={(e) =>
+            onSubmit={(e) => {
               addPostSubmit(e, {
                 name: user.name,
                 text: addPost.text,
@@ -82,7 +82,8 @@ const AddPost = (props: IAddPost) => {
                 refetch,
                 navigate,
               })
-            }
+              setAddPost({ ...addPost, text: '' })
+            }}
           >
             <div className='flex h-54px items-center text-green-600 rounded-2xl '>
               <ArrowLeftIcon

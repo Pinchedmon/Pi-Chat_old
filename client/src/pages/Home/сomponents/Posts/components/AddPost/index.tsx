@@ -63,7 +63,7 @@ const AddPost = () => {
   return (
     <form
       className=' text-center flex flex-col bg-white p-16px border-b-2  border-gray-300   '
-      onSubmit={(e) =>
+      onSubmit={(e) => {
         addPostSubmit(e, {
           name: user.name,
           text: addPost.text,
@@ -73,7 +73,8 @@ const AddPost = () => {
           refetch,
           navigate,
         })
-      }
+        setAddPost({ ...addPost, text: '' })
+      }}
     >
       <div className='text-2xl font-bold text-left ml-4px mb-4px text-green-600'>За / π / ши</div>
 

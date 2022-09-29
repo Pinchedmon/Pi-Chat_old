@@ -15,7 +15,7 @@ interface apiParamMessages {
 
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await redaxios
-    .post(`http://localhost:6060/posts/comment?id=${props.id}&name=${props.name}&text=${props.text}`, formData)
+    .post(`http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${props.text}`, formData)
     .then((res) => {
       if (res.status === 200) {
         props.refetch()

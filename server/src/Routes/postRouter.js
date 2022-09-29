@@ -25,13 +25,10 @@ var upload = multer({
     }
 });
 router.post('/feed', upload.single('post'), controller.postUpload);
-router.post('/comment', upload.single('comment'), controller.commentUpload);
 router.get('/feed', controller.getFeed);
 router.get('/getMyPosts', controller.getMyPosts);
 router.get('/post', controller.getPost);
 router.put('/feed', controller.likePost);
-router.put('/comment', controller.likeComment)
 router.delete('/feed', controller.deletePost);
-router.delete('/comment', controller.deleteComment);
 
 module.exports = router;
