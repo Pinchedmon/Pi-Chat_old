@@ -2,12 +2,12 @@ import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import redaxios from 'redaxios'
-function Options(props: { id: number; text: string }) {
+function Options(props: { id: number; postId: number }) {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
   const { refetch } = useQuery('comments')
-  const handleDelete = (text: string, id: number) => {
-    redaxios.delete(`http://localhost:6060/comment?text=${text}&id=${id}`).then((response) => {
+  const handleDelete = (id: number, postId: number) => {
+    redaxios.delete(`http://localhost:6060/comment?postId=${postId}&id=${id}`).then((response) => {
       if (response.status === 200) {
         refetch()
       }
@@ -38,7 +38,7 @@ function Options(props: { id: number; text: string }) {
               className='pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white'
               onClick={() => {
                 setShowWarning(false)
-                handleDelete(props.text, props.id)
+                handleDelete(props.id, props.postId)
               }}
             >
               Да

@@ -1,13 +1,16 @@
-import { ChatAlt2Icon, DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
+import { ChatAlt2Icon, DotsVerticalIcon, PencilAltIcon, TrashIcon, UserAddIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { setAddMessageStyle, setEditProfileStyle } from '../../../../../../state/navReducer'
-
-function Options(props: { id: number; identity: boolean }) {
+import redaxios from 'redaxios'
+function Options(props: { id: number; userName: string; profileName: string }) {
   const dispatch = useDispatch()
-  const { id, identity } = props
+  const { id, userName, profileName } = props
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
+  const handleFollow = (name: string, object: string) => {
+    redaxios.post(`http://localhost:6060/follow/follow?name=${name}&object=${object}`)
+  }
   return (
     <>
       <div
@@ -18,7 +21,7 @@ function Options(props: { id: number; identity: boolean }) {
         <DotsVerticalIcon className='w-24px hover:text-green-600' />
         {showOptions && (
           <div className='absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center'>
-            {identity === true ? (
+            {userName === profileName ? (
               <>
                 <button className='flex font-bold  items-center' onClick={() => dispatch(setEditProfileStyle(true))}>
                   <PencilAltIcon className='w-18px' /> <p className='ml-16px center'>Редактировать</p>
@@ -35,6 +38,13 @@ function Options(props: { id: number; identity: boolean }) {
                 >
                   <ChatAlt2Icon className='w-24px mr-8px  ' />
                   <p className='ml-2px text-md'>Написать сообщение</p>
+                </button>
+                <button
+                  className='flex mb-6px items-center font-bold'
+                  onClick={() => handleFollow(userName, profileName)}
+                >
+                  <UserAddIcon className='w-24px mr-8px  ' />
+                  <p className='ml-2px text-md'>Подписаться</p>
                 </button>
               </>
             )}

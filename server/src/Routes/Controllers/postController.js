@@ -112,7 +112,7 @@ class postController {
     sql = `SELECT * FROM posts WHERE id = "${queryObject.id}"`;
     db.all(sql, [], (err, rows) => {
       let post = rows;
-      sql = `SELECT * FROM comments WHERE id = ${queryObject.id}`;
+      sql = `SELECT * FROM comments WHERE postId = ${queryObject.id}`;
       db.all(sql, [], (err, rows) => {
         return res.status(200).json({
           post: post,
@@ -128,7 +128,7 @@ class postController {
     db.run(sql, (err) => {
       if (err) return console.error(err.message);
     });
-    db.run(`DELETE FROM comments WHERE ID = ${queryObject.id}`);
+    db.run(`DELETE FROM comments WHERE postId = ${queryObject.id}`);
     db.run(
       `DELETE FROM likes WHERE postId = '${queryObject.id}'`
     );

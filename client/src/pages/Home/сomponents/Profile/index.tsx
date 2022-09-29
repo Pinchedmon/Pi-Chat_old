@@ -64,7 +64,7 @@ function Profile() {
               {/* info */}
               <div>{profile.info}</div>
             </div>
-            <Options id={0} identity={profile.name === user.name} />
+            <Options id={0} userName={user.name} profileName={profile.name} />
           </div>
           {/* posts */}
           <div className='mt-16px'>

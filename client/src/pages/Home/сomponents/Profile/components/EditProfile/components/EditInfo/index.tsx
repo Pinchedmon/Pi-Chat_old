@@ -19,7 +19,7 @@ function EditInfo() {
             handleSubmit(value.toString(), user.name, refetchUser, user.info)
           }}
           value={value}
-          maxLength={42}
+          maxLength={16}
           onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e, setValue)}
         />
       )}

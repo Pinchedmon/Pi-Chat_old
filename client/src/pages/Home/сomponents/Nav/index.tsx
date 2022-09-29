@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
-import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon } from '@heroicons/react/solid'
+import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, LogoutIcon, UserGroupIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../../../../hooks/useAuth'
@@ -30,14 +30,15 @@ const Nav = (props: { sort: string | number; category: string }) => {
             <Link to='/' className=' mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl'>
               / π - Чат /
             </Link>
+            <NavLink to={user.name} className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <UserIcon className='w-32px h-32px' />
+              <p className='ml-16px'>Профиль</p>
+            </NavLink>
             <NavLink to='' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
               <MenuAlt1Icon className='w-32px h-32px' />
               <p className='ml-16px'>Посты</p>
             </NavLink>
-            <NavLink to='notifs' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-              <BellIcon className='w-32px h-32px' />
-              <p className='ml-16px'> Уведомления</p>
-            </NavLink>
+
             <NavLink
               onClick={() => dispatch(setMessageStyle(false))}
               to='messages'
@@ -46,10 +47,15 @@ const Nav = (props: { sort: string | number; category: string }) => {
               <ChatIcon className='w-32px h-32px' />
               <p className='ml-16px'> Сообщения</p>
             </NavLink>
-            <NavLink to={user.name} className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
-              <UserIcon className='w-32px h-32px' />
-              <p className='ml-16px'>Профиль</p>
+            <NavLink to='followers' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <UserGroupIcon className='w-32px h-32px' />
+              <p className='ml-16px text-md'>Подписки</p>
             </NavLink>
+            <NavLink to='notifs' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
+              <BellIcon className='w-32px h-32px' />
+              <p className='ml-16px'>Уведомления</p>
+            </NavLink>
+
             <NavLink to='settings' className={({ isActive }) => (isActive ? 'activeNavMenu' : 'navMenu')}>
               <CogIcon className='w-32px h-32px' />
               <p className='ml-16px'>Настройки</p>

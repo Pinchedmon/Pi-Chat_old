@@ -8,8 +8,9 @@ const express = require('express'),
   authRouter = require('./src/Routes/authRouter'),
   postRouter = require('./src/Routes/postRouter'),
   profileRouter = require('./src/Routes/profileRouter'),
-  messageRouter = require('./src/Routes/messageRouter');
-commentRouter = require('./src/Routes/commentRouter');
+  messageRouter = require('./src/Routes/messageRouter'),
+  commentRouter = require('./src/Routes/commentRouter'),
+  followRouter = require('./src/Routes/followRouter');
 const db = new sqlite.Database(path.resolve(__dirname, 'src/db/posts.db'));
 const port = 6060;
 
@@ -22,6 +23,7 @@ app.use('/posts', postRouter)
 app.use('/profile', profileRouter)
 app.use('/message', messageRouter)
 app.use('/comment', commentRouter)
+app.use('/follow', followRouter)
 app.get('/public/*', function (req, res) {
   return res.sendFile(path.resolve(__dirname, `server/..${req.url}`))
 })

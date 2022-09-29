@@ -12,6 +12,7 @@ import Profile from './сomponents/Profile'
 import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
+import Followers from './сomponents/Followers'
 interface iState {
   nav: {
     sort: string | number
@@ -47,6 +48,7 @@ const Home = () => {
               {/* <Route path='/profile' element={<Profile />} /> */}
               <Route path='/*' element={<Profile />} />
               <Route path='/messages' element={<Messages />} />
+              <Route path='/followers' element={<Followers />} />
             </Routes>
             {style === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!style))} />}
           </div>

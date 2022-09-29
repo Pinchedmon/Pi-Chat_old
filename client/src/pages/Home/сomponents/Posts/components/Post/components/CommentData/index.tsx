@@ -7,9 +7,9 @@ import Options from './Options'
 
 type iComment = {
   ID: number
+  postId: number
   name: string
   text: string
-  likes: string
   commentImg: string
   date: string
   time: string
@@ -48,7 +48,7 @@ function CComments(props: { getObject: any; role: string }) {
                     </p>
                   </div>
                   <div className='mt-4px mb-12px'>{item.text}</div>
-                  <Options id={item.ID} text={item.text} />
+                  <Options id={item.ID} postId={item.postId} />
                   {item.commentImg !== '' && (
                     <div className='mb-12px'>
                       <img className='w-1/2 rounded-xl' src={item.commentImg} alt='загружается...' />
