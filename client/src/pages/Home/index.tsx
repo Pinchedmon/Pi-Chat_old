@@ -12,7 +12,7 @@ import Profile from './сomponents/Profile'
 import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
-import Followers from './сomponents/Followers'
+import Followers from './сomponents/Subscribes'
 interface iState {
   nav: {
     sort: string | number

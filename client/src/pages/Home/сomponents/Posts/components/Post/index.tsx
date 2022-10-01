@@ -14,6 +14,7 @@ const Post = () => {
   const location = useLocation()
   const user = useContext(UserContext)
   const { refetch } = useQuery('comments')
+
   return (
     <div className='flex flex-col w-full h-screen items-stretch'>
       <div className='border-b-2 border-gray-300 p-16px' onClick={() => navigate('/')}>

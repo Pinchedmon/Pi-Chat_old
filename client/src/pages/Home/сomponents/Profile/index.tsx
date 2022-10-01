@@ -45,10 +45,6 @@ function Profile() {
     <>
       {profile.name !== '' && (
         <div>
-          {/* exit */}
-          <div className='border-b-2 border-gray-300 p-16px ' onClick={() => navigate('/')}>
-            <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
-          </div>
           {/* profile */}
           {/* background photo */}
           <img className=' h-200px w-full' src={profile.backImg} alt='загружается...' />

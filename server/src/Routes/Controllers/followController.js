@@ -30,7 +30,7 @@ class followController {
     }
     async getFollowers(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        sql = `SELECT * FROM follows WHERE object = ${queryObject.object} `;
+        sql = `SELECT * FROM follows WHERE object = "${queryObject.object}" `;
         db.all(sql, [], (err, rows) => {
             if (err) return console.error(err.message);
             return res.json({ status: 200, data: rows })
