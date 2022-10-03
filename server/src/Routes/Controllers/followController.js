@@ -40,7 +40,8 @@ class followController {
 
     async deleteFollow(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        sql = `DELETE FROM follows WHERE id = ${queryObject.id}`;
+        console.log(queryObject)
+        sql = `DELETE FROM follows WHERE id = '${queryObject.id}'`;
         db.run(sql, (err) => {
             if (err) return console.error(err.message);
         });

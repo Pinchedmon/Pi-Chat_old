@@ -1,3 +1,4 @@
+import { XIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +8,11 @@ import Img from '../../../../../../components/ui/Img'
 const Follows = (props: { name: string }) => {
   const getFollows = async (name: string) => {
     const response = await redaxios.get(`http://localhost:6060/follow/follows?name=${name}`)
+    return response.data.data
+  }
+  const unFollow = async (id: number) => {
+    const response = await redaxios.delete(`http://localhost:6060/follow/unfollow?id=${id}`)
+    refetch()
     return response.data.data
   }
   const navigate = useNavigate()
@@ -28,6 +34,7 @@ const Follows = (props: { name: string }) => {
                   {items.object}
                 </p>
               </div>
+              <XIcon className='w-32px' onClick={() => unFollow(items.ID)} />
             </div>
           ))}
         </div>

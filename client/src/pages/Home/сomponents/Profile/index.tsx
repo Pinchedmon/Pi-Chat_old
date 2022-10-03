@@ -10,7 +10,8 @@ import PostData from '../Posts/components/Post/components/PostData'
 import Options from './components/Options'
 import EditProfile from './components/EditProfile'
 import { UserContext } from '../../../../App'
-
+import { UserAddIcon } from '@heroicons/react/outline'
+import redaxios from 'redaxios'
 interface IUser {
   backImg: string
   pathImg: string
@@ -32,7 +33,9 @@ function Profile() {
   const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
   const [profile, setProfile] = useState<IUser>({ backImg: '', pathImg: '', name: '', username: '', info: '' })
-
+  const handleFollow = (name: string, object: string) => {
+    redaxios.post(`http://localhost:6060/follow/follow?name=${name}&object=${object}`)
+  }
   useEffect(() => {
     getUserData(location.pathname.slice(1).toString()).then((res: { data: { 0: IUser } }) => {
       if (res.data[0] !== undefined) {
@@ -47,7 +50,7 @@ function Profile() {
         <div>
           {/* profile */}
           {/* background photo */}
-          <img className=' h-200px w-full' src={profile.backImg} alt='загружается...' />
+          <img className=' h-200px w-full border-b-2 border-gray-300' src={profile.backImg} alt='загружается...' />
           {/* icon */}
           <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
             <img className=' rounded-xl w-100px h-100px ml-16px mr-16px' src={profile.pathImg} alt='загружается...' />
@@ -58,7 +61,16 @@ function Profile() {
                 <p className='ml-8px font-bold text-md text-gray-500'>@{profile.name}</p>
               </div>
               {/* info */}
-              <div>{profile.info}</div>
+              <div>
+                {profile.info}
+                <button
+                  className='border-2  p-6px flex mb-6px items-center font-bold'
+                  onClick={() => handleFollow(user.name, profile.name)}
+                >
+                  <UserAddIcon className='w-24px mr-8px  ' />
+                  <p className='ml-2px text-md'>Подписаться</p>
+                </button>
+              </div>
             </div>
             <Options id={0} userName={user.name} profileName={profile.name} />
           </div>
