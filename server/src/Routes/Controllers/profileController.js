@@ -44,8 +44,12 @@ class profileController {
     }
     async getUser(req, res) {
         const queryObject = url.parse(req.url, true).query;
+        let followed;
+        db.all(`SELECT * FROM follows WHERE name = "${queryObject.username}" AND object = "${queryObject.name}"`, [], (err, rows) => {
+            followed = rows.length
+        })
         db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-            return res.json({ "data": rows, status: 200 })
+            return res.json({ "data": rows, status: 200, "follow": followed === 1 ? true : false })
         })
     }
     async getMyUsername(req, res) {

@@ -10,8 +10,8 @@ const Follows = (props: { name: string }) => {
     const response = await redaxios.get(`http://localhost:6060/follow/follows?name=${name}`)
     return response.data.data
   }
-  const unFollow = async (id: number) => {
-    const response = await redaxios.delete(`http://localhost:6060/follow/unfollow?id=${id}`)
+  const unFollow = async (name: string, username: string) => {
+    const response = await redaxios.delete(`http://localhost:6060/follow/unfollow?name=${name}&object=${username}`)
     refetch()
     return response.data.data
   }
@@ -34,7 +34,7 @@ const Follows = (props: { name: string }) => {
                   {items.object}
                 </p>
               </div>
-              <XIcon className='w-32px' onClick={() => unFollow(items.ID)} />
+              <XIcon className='w-32px' onClick={() => unFollow(items.name, items.object)} />
             </div>
           ))}
         </div>

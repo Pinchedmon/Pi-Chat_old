@@ -20,5 +20,5 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 // db.run(sql)
 // const sql = ` CREATE TABLE messages_info (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, name, text, messageImg, time);`
 // db.run(sql)
-const sql = ` CREATE TABLE follows (ID INTEGER PRIMARY KEY AUTOINCREMENT, name, object);`
-db.run(sql)
+// const sql = ` CREATE TABLE follows (ID INTEGER PRIMARY KEY AUTOINCREMENT, name, object);`
+// db.run(sql)

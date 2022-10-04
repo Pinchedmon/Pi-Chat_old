@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ChatAlt2Icon, DotsVerticalIcon, PencilAltIcon, TrashIcon, UserAddIcon } from '@heroicons/react/solid'
+import { ChatAlt2Icon, DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { setAddMessageStyle, setEditProfileStyle } from '../../../../../../state/navReducer'
 function Options(props: { id: number; userName: string; profileName: string }) {

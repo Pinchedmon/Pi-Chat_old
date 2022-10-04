@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getMyPosts } from '../../../../api/get'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { getUserData } from '../../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAddMessageStyle, setEditProfileStyle } from '../../../../state/navReducer'
@@ -18,6 +17,7 @@ interface IUser {
   name: string
   username: string
   info: string
+  followed: boolean
 }
 interface IState {
   nav: {
@@ -26,18 +26,28 @@ interface IState {
   }
 }
 function Profile() {
-  const navigate = useNavigate()
   let location = useLocation()
   const user = useContext(UserContext)
   const dispatch = useDispatch()
   const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
-  const [profile, setProfile] = useState<IUser>({ backImg: '', pathImg: '', name: '', username: '', info: '' })
+  const [profile, setProfile] = useState<IUser>({
+    backImg: '',
+    pathImg: '',
+    name: '',
+    username: '',
+    info: '',
+    followed: false,
+  })
   const handleFollow = (name: string, object: string) => {
     redaxios.post(`http://localhost:6060/follow/follow?name=${name}&object=${object}`)
   }
+  const unFollow = async (name: string, object: string) => {
+    const response = await redaxios.delete(`http://localhost:6060/follow/unfollow?name=${name}&object=${object}`)
+    return response.data.data
+  }
   useEffect(() => {
-    getUserData(location.pathname.slice(1).toString()).then((res: { data: { 0: IUser } }) => {
+    getUserData(location.pathname.slice(1).toString(), user.name).then((res: { data: { 0: IUser } }) => {
       if (res.data[0] !== undefined) {
         setProfile(res.data[0])
       }
@@ -63,13 +73,24 @@ function Profile() {
               {/* info */}
               <div>
                 {profile.info}
-                <button
-                  className='border-2  p-6px flex mb-6px items-center font-bold'
-                  onClick={() => handleFollow(user.name, profile.name)}
-                >
-                  <UserAddIcon className='w-24px mr-8px  ' />
-                  <p className='ml-2px text-md'>Подписаться</p>
-                </button>
+                {profile.name !== user.name && (
+                  <button
+                    className='border-2  p-6px flex mb-6px items-center font-bold'
+                    onClick={() => {
+                      profile.followed === true
+                        ? unFollow(user.name, profile.name)
+                        : handleFollow(user.name, profile.name)
+                    }}
+                  >
+                    <UserAddIcon className='w-24px mr-8px  ' />
+
+                    {profile.followed === true ? (
+                      <p className='ml-2px text-md '>Отписаться</p>
+                    ) : (
+                      <p className='ml-2px text-md'>Подписаться</p>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
             <Options id={0} userName={user.name} profileName={profile.name} />
