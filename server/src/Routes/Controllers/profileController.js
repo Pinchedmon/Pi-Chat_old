@@ -2,6 +2,7 @@ const sqlite = require('sqlite3').verbose();
 const path = require('path');
 const url = require('url');
 const sharp = require('sharp');
+const e = require('express');
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class profileController {
     async setImg(req, res) {
@@ -46,10 +47,15 @@ class profileController {
         const queryObject = url.parse(req.url, true).query;
         let followed;
         db.all(`SELECT * FROM follows WHERE name = "${queryObject.username}" AND object = "${queryObject.name}"`, [], (err, rows) => {
-            followed = rows.length
+
+            if (rows.length === 1) {
+                followed = true
+            } else {
+                followed = false
+            }
         })
         db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-            return res.json({ "data": rows, status: 200, "follow": followed === 1 ? true : false })
+            return res.json({ "data": { ...rows, followed }, status: 200 })
         })
     }
     async getMyUsername(req, res) {

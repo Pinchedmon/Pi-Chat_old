@@ -10,6 +10,8 @@ export const handleEditBackground = async (
   data.append('backImg', target.files[0])
   await redaxios.put(`http://localhost:6060/profile/backImg?name=${name}`, data).then((res) => {
     backImg = res.data.data
-    refetch()
+    if (res.status === 200) {
+      refetch()
+    }
   })
 }

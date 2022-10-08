@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
-import { getCurrentUser } from '../../../../../../../../api/auth'
-import { useQuery } from 'react-query'
 import { handleEditBackground } from './utils/handleEditBackground'
 import { UserContext } from '../../../../../../../../App'
-function EditBackground() {
+import useAuth from '../../../../../../../../hooks/useAuth'
+function EditBackground(props: { refetch: () => void }) {
   const user = useContext(UserContext)
-  const { refetch } = useQuery('profile', () => getCurrentUser())
+  const { refetchUser } = useAuth()
   return (
     <div className='flex flex-col w-200px border-2 font-bold'>
       <img className='w-200px' src={user.backImg} alt='загружается...' />
@@ -14,7 +13,17 @@ function EditBackground() {
           type='file'
           className='hidden '
           accept='.png,.gif,.jpg,.jpeg'
-          onChange={(e) => handleEditBackground(e, refetch, user.backImg, user.name)}
+          onChange={(e) =>
+            handleEditBackground(
+              e,
+              () => {
+                refetchUser()
+                props.refetch()
+              },
+              user.backImg,
+              user.name,
+            )
+          }
         />
         Изменить фон
       </label>

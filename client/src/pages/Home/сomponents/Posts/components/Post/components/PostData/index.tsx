@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
 import ProfileInfo from './ProfileInfo'
 import Info from './Info'
@@ -21,18 +21,23 @@ type iPost = {
 
 function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
   const { getPost, naming, getObject } = props
-  const [posts, setPosts] = useState([])
   const navigate = useNavigate()
   const user = useContext(UserContext)
-  const { data, refetch } = useQuery(naming, () => getPost(getObject), {})
-  useEffect(() => {
-    setPosts(data)
-  }, [data])
+  const { data, refetch } = useQuery(
+    naming,
+    () =>
+      getPost(getObject).then((res: any) => {
+        if (res !== undefined) {
+          return res
+        }
+      }),
+    {},
+  )
   return (
     <div>
-      {posts !== undefined &&
-        posts.length > 0 &&
-        posts.map((item: iPost, index: string | number) => (
+      {data !== undefined &&
+        data.length > 0 &&
+        data.map((item: iPost, index: string | number) => (
           <div key={index} className='w-full flex flex-row self-center mb-16px border-b-2 border-gray-300'>
             <div className='flex flex-col ml-24px '>
               <div className='flex'>

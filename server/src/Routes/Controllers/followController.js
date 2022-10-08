@@ -14,15 +14,19 @@ class followController {
     async follow(req, res) {
         const queryObject = url.parse(req.url, true).query;
         sql = `INSERT INTO follows (name, object) VALUES ( ?,? )`;
-        db.all(`SELECT * FROM follows WHERE name = "${queryObject.name} and object = "${queryObject.object}"`, [], (rows) => {
-            if (rows === 1) {
+        db.all(`SELECT * FROM follows WHERE name = '${queryObject.name}' and object = '${queryObject.object}' `, [], (err, rows) => {
+            console.log(rows)
+            if (rows.length >= 1) {
+
                 return res.json({ status: 201 })
+            } else {
+                db.run(sql, [queryObject.name, queryObject.object], (err) => {
+                    if (err) return console.error(err.message);
+                });
+                return res.json({ status: 200 })
             }
         })
-        db.run(sql, [queryObject.name, queryObject.object], (err) => {
-            if (err) return console.error(err.message);
-        });
-        return res.json({ status: 200 })
+
     }
     async getFollows(req, res) {
         const queryObject = url.parse(req.url, true).query;

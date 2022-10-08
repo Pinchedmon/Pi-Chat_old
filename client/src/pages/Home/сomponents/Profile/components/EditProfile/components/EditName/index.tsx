@@ -1,15 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { useQuery } from 'react-query'
 import { UserContext } from '../../../../../../../../App'
 import useAuth from '../../../../../../../../hooks/useAuth'
 import { handleChange } from './utils/handleChange'
 import { handleSubmit } from './utils/handleSubmit'
-function EditName() {
+function EditName(props: { refetch: () => void }) {
   const { refetchUser } = useAuth()
   const user = useContext(UserContext)
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.username)
-  const { refetch } = useQuery('profile')
   return (
     <div className='border-2 w-200px'>
       {status === false && <div className='flex flex-col text-lg   font-bold '>{user.username}</div>}
@@ -17,8 +15,12 @@ function EditName() {
         <input
           onMouseLeave={() => {
             setStatus(false)
-            handleSubmit(value, user.name, user.username, refetchUser)
-            refetch()
+            handleSubmit(value, user.name, user.username, () => {
+              refetchUser()
+              props.refetch()
+            })
+            refetchUser()
+            props.refetch()
           }}
           value={value}
           maxLength={14}

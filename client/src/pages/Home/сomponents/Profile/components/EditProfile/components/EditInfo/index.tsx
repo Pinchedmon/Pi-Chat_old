@@ -3,7 +3,7 @@ import { UserContext } from '../../../../../../../../App'
 import useAuth from '../../../../../../../../hooks/useAuth'
 import { handleChange } from './utils/handleChange'
 import { handleSubmit } from './utils/handleSubmit'
-function EditInfo() {
+const EditInfo = (props: { refetch: () => void }) => {
   const { refetchUser } = useAuth()
   const user = useContext(UserContext)
   const [status, setStatus] = useState(false)
@@ -16,7 +16,15 @@ function EditInfo() {
           className='border-2 border-red-600 p-2px text-center'
           onMouseLeave={() => {
             setStatus(!status)
-            handleSubmit(value.toString(), user.name, refetchUser, user.info)
+            handleSubmit(
+              value.toString(),
+              user.name,
+              () => {
+                refetchUser()
+                props.refetch()
+              },
+              user.info,
+            )
           }}
           value={value}
           maxLength={16}

@@ -24,11 +24,11 @@ function EditProfile(props: any) {
               </h1>
             </div>
             <div className='flex'>
-              <EditBackground />
-              <EditAvatar />
+              <EditBackground refetch={props.refetch()} />
+              <EditAvatar refetch={props.refetch()} />
               <div className='flex flex-col justify-around'>
-                <EditName />
-                <EditInfo />
+                <EditName refetch={props.refetch()} />
+                <EditInfo refetch={props.refetch()} />
               </div>
             </div>
           </form>

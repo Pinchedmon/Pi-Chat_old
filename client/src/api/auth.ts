@@ -16,6 +16,7 @@ export async function getCurrentUser(): Promise<any> {
 }
 export async function getUserData(name: string, username: string): Promise<any> {
   const response = await redaxios.get(`http://localhost:6060/profile/user?name=${name}&username=${username}`)
+  console.log(response)
   return response.data
 }
 
