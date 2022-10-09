@@ -1,19 +1,19 @@
 import React, { useContext } from 'react'
-import { getMyPosts } from '../../../../api/get'
 import { useLocation } from 'react-router-dom'
 import { getUserData } from '../../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAddMessageStyle, setEditProfileStyle } from '../../../../state/navReducer'
 import AddMessage from './components/AddMessage'
-import PostData from '../Posts/components/Post/components/PostData'
 import Options from './components/Options'
 import EditProfile from './components/EditProfile'
 import { UserContext } from '../../../../App'
 import { UserAddIcon } from '@heroicons/react/outline'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
+import PostData from './components/PostData'
 interface IUser {
   followed: boolean
+  posts: Array<any>
   0: { backImg: string; pathImg: string; name: string; username: string; info: string }
 }
 interface IState {
@@ -50,6 +50,7 @@ function Profile() {
       }
     }),
   )
+  console.log(data)
   return (
     <>
       {data !== undefined && (
@@ -90,7 +91,7 @@ function Profile() {
           </div>
           {/* posts */}
           <div className='mt-16px'>
-            <PostData getPost={getMyPosts} naming='myPosts' getObject={data[0].name} />
+            <PostData data={data.posts} />
           </div>
           {addMessageStatus === true && (
             <AddMessage name={data[0].name} showMessage={() => dispatch(setAddMessageStyle(!addMessageStatus))} />
