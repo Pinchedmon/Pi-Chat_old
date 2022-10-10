@@ -52,19 +52,22 @@ class postController {
 
   async getFeed(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    if (queryObject.sort !== "Late") {
-      sql = `SELECT * FROM posts WHERE category = "${queryObject.category}" and course = "${queryObject.sort}" `;
-    } else {
-      sql = `SELECT * FROM posts WHERE category = "${queryObject.category}"`;
-    }
-    db.all(sql, [], (err, rows) => {
+    db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort !== "Late" ? `'and course = "${queryObject.sort}'` : ''}`, [], (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
-      return res.json({
-        message: "success",
-        data: rows.reverse(),
-      });
+      for (let i = 0; i < rows.length; i++) {
+        db.all(`SELECT * FROM users WHERE name = "${rows[i].name}"`, [], (err, user) => {
+          rows[i]["username"] = user[0].username
+          rows[i]["backImg"] = user[0].pathImg
+          if (i === rows.length - 1) {
+            return res.json({
+              message: "success",
+              data: rows
+            });
+          }
+        })
+      }
     });
   }
   async getMyPosts(req, res) {

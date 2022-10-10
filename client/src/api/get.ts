@@ -15,22 +15,10 @@ export const getComments = async (payload: { search: string }) => {
   const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
   return response.data.comments
 }
-
 export async function getPath(name: string | object | any) {
-  let response
-  if (name.name === undefined) {
-    await redaxios.get(`http://localhost:6060/path?name="${name}"`).then((res) => {
-      if (res.status === 200) {
-        response = res
-      }
-    })
-  } else {
-    await redaxios.get(`http://localhost:6060/path?name="${name.name}";`).then((res) => {
-      if (res.status === 200) {
-        response = res
-      }
-    })
-  }
+  let response = await redaxios
+    .get(`http://localhost:6060/path?name="${name.name === undefined ? name : name.name}"`)
+    .then((res) => {})
   return response
 }
 export async function getMyPosts(name: string) {

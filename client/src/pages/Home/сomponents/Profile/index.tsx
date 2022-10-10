@@ -11,11 +11,6 @@ import { UserAddIcon } from '@heroicons/react/outline'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
 import PostData from './components/PostData'
-interface IUser {
-  followed: boolean
-  posts: Array<any>
-  0: { backImg: string; pathImg: string; name: string; username: string; info: string }
-}
 interface IState {
   nav: {
     addMessageStyle: boolean

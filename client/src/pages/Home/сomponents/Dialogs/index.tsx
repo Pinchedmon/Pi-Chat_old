@@ -23,6 +23,7 @@ function Dialogs() {
   const user = useContext(UserContext)
   const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
   const [names, setNames] = useState<any>(false)
+  console.log(data)
   const visible = useSelector((state: IState) => state.nav.messageStyle)
   const dispatch = useDispatch()
   useEffect(() => {

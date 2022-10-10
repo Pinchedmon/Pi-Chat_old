@@ -40,16 +40,9 @@ function PostData(props: any) {
                 <ProfileInfo username={item.username} name={item.name} date={item.date} time={item.time} />
               </div>
               <Info text={item.text} img={item.postImg} />
-              {/* <Buttons
-                refetch={refetch}
-                name={user.name}
-                ID={item.ID}
-                comments={item.comments}
-                likes={item.likes}
-                role={user.role}
-              /> */}
+              <Buttons name={user.name} ID={item.ID} comments={item.comments} likes={item.likes} role={user.role} />
             </div>
-            {/* <Options id={item.ID} refetch={refetch} /> */}
+            <Options id={item.ID} />
           </div>
         ))}
     </div>

@@ -22,13 +22,12 @@ interface IPosts {
 const Posts = (props: IPosts) => {
   const { sort, category } = props
   return (
-    <>
+    <div>
       <AddPost />
-
       <div className='flex flex-col mt-16px '>
         <Post getPost={getPosts} getObject={{ sort, category }} naming='posts' />
       </div>
-    </>
+    </div>
   )
 }
 export default Posts

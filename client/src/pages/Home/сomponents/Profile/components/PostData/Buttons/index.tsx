@@ -2,20 +2,15 @@ import React from 'react'
 import redaxios from 'redaxios'
 import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
 
-function Buttons(props: {
-  refetch: () => void
-  name: string
-  role: string
-  ID: number
-  likes: number | string
-  comments: number | string
-}) {
+function Buttons(props: { name: string; role: string; ID: number; likes: number | string; comments: number | string }) {
   const navigate = useNavigate()
-  const { refetch, name, ID, likes, comments } = props
+  const { name, ID, likes, comments } = props
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
   }
+  const { refetch } = useQuery('userData')
   return (
     <div className=' mb-8px flex w-54px align-center items-center'>
       <button
