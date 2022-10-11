@@ -29,21 +29,34 @@ class messageController {
                 return res.json({ status: 200 })
             })
         })
-
     }
     async getLinks(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages WHERE names LIKE '%${queryObject.name}%'`, [], (err, rows) => {
-            return res.status(200).json({ data: rows })
+            for (let i = 0; i < rows.length; i++) {
+                db.all(`SELECT * FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
+                    rows[i]["backImg"] = user[0].pathImg
+                    if (i === rows.length - 1) {
+                        return res.status(200).json({ data: rows })
+                    }
+                })
+
+            }
+
         })
     }
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-            return res.status(200).json({
-                data: rows,
-                answer: queryObject.names.split(' ').reverse().join(' ')
+            db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
+                let profile = { name: user[0].username, backImg: user[0].backImg }
+                return res.status(200).json({
+                    data: rows,
+                    username: user[0].username,
+                    pathImg: user[0].pathImg
+                })
             })
+
         })
     }
     async deleteDialog(req, res) {

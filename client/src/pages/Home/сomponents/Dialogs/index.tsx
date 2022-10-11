@@ -1,15 +1,11 @@
-import { ArrowLeftIcon } from '@heroicons/react/solid'
 import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import Img from '../../../../components/ui/Img'
 import { setMessageStyle } from '../../../../state/navReducer'
 import { getMessages } from '../../../../api/get'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
 import { UserContext } from '../../../../App'
-import { resetOn } from '../../../../state/messageReducer'
-import Username from '../../../../components/ui/Username'
 interface IState {
   nav: {
     messageStyle: boolean
@@ -18,12 +14,12 @@ interface IState {
 interface iMessage {
   names: string
   last: string
+  backImg: string
 }
 function Dialogs() {
   const user = useContext(UserContext)
   const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
-  const [names, setNames] = useState<any>(false)
-  console.log(data)
+  const [names, setNames] = useState<string>('')
   const visible = useSelector((state: IState) => state.nav.messageStyle)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -46,10 +42,12 @@ function Dialogs() {
                   }}
                   className='w-full flex mt-10px flex-row pb-10px'
                 >
-                  <Img
+                  <img
                     onClick={() => 1}
+                    alt=''
                     className='ml-24px mr-16px h-54px rounded-xl w-54px'
-                    name={item.names.replace(user.name, '').trim()}
+                    // name={item.names.replace(user.name, '').trim()}
+                    src={item.backImg}
                   />
                   <div className='flex-col '>
                     <div className='flex items-center align-center  -mt-4px'>
@@ -72,24 +70,7 @@ function Dialogs() {
 
       {visible === true && (
         <div className='flex flex-col w-full h-full items-stretch'>
-          <div className='w-full border-b-2  border-green-600 p-10px '>
-            <ArrowLeftIcon
-              onClick={() => {
-                dispatch(setMessageStyle(!visible))
-                dispatch(resetOn())
-              }}
-              className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white'
-            />
-            <div className='absolute  items-center flex left-1/2 -translate-x-1/2 text-2xl rounded-xl top-10px font-bold'>
-              <Img
-                name={names.replace(user.name, '').toString().trim()}
-                className={'w-50px h-50px mr-16px rounded-xl'}
-                onClick={null}
-              />
-              <Username name={names.replace(user.name, '').toString().trim()} />
-            </div>
-          </div>
-          <Dialog names={names} />
+          <Dialog names={names} visible={visible} dispatch={dispatch} />
         </div>
       )}
     </div>

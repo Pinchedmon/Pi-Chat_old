@@ -15,12 +15,7 @@ function EditName(props: { refetch: () => void }) {
         <input
           onMouseLeave={() => {
             setStatus(false)
-            handleSubmit(value, user.name, user.username, () => {
-              refetchUser()
-              props.refetch()
-            })
-            refetchUser()
-            props.refetch()
+            handleSubmit(value, user.name, user.username, props.refetch, refetchUser)
           }}
           value={value}
           maxLength={14}

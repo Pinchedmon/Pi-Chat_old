@@ -1,16 +1,10 @@
 import React from 'react'
-import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import redaxios from 'redaxios'
 import Img from '../../../../../../components/ui/Img'
 
-const Followers = (props: { name: string }) => {
-  const getFollowers = async (name: string) => {
-    const response = await redaxios.get(`http://localhost:6060/follow/followers?object=${name}`)
-    return response.data.data
-  }
+const Followers = (props: { name: string; data: any }) => {
+  const { data } = props
   const navigate = useNavigate()
-  const { data, refetch } = useQuery('followers', () => getFollowers(props.name))
   return (
     <div className='w-1/2 h-screen'>
       {data !== undefined && (
@@ -19,8 +13,9 @@ const Followers = (props: { name: string }) => {
           {data.map((items: any) => (
             <div className='flex  mt-12px justify-center'>
               <div className='w-180px flex items-center'>
-                <Img
-                  name={items.name}
+                <img
+                  alt=''
+                  src={items.img}
                   className={'rounded-xl mr-16px border-2 w-48px h-48px'}
                   onClick={() => navigate(`/../${items.name}`)}
                 />

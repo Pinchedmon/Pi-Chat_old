@@ -45,7 +45,7 @@ function Profile() {
       }
     }),
   )
-  console.log(data)
+
   return (
     <>
       {data !== undefined && (

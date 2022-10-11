@@ -2,6 +2,7 @@ import redaxios from 'redaxios'
 export const handleEditBackground = async (
   e: React.SyntheticEvent<HTMLInputElement, Event>,
   refetch: () => void,
+  refetchUser: () => void,
   backImg: string,
   name: string,
 ) => {
@@ -12,6 +13,7 @@ export const handleEditBackground = async (
     backImg = res.data.data
     if (res.status === 200) {
       refetch()
+      refetchUser()
     }
   })
 }

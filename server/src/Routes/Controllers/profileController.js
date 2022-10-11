@@ -53,14 +53,13 @@ class profileController {
             for (let i = 0; i < posts.length; i++) {
                 db.all(`SELECT * FROM users WHERE name = "${posts[i].name}"`, [], (err, user) => {
                     posts[i]["username"] = user[0].username
-                    posts[i]["backImg"] = user[0].pathImg
+                    posts[i]["pathImg"] = user[0].pathImg
                 })
             }
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
                 return res.json({ "data": { ...rows, followed, posts }, status: 200 })
             })
         })
-
     }
     async getMyUsername(req, res) {
         const queryObject = url.parse(req.url, true).query;

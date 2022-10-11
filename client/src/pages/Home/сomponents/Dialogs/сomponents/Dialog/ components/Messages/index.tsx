@@ -14,11 +14,12 @@ interface iSelected {
 interface iState {
   message: { selected: iSelected }
 }
-const Messages = (props: { names: string }) => {
+const Messages = (props: { data: any; refetch: any }) => {
+  const { data, refetch } = props
   const selected = useSelector((state: iState) => state.message.selected)
   const dispatch = useDispatch()
   const bottomRef = useRef(null)
-  const { data, refetch } = useQuery('message', () => getMessagesInfo(props.names))
+  // const { refetch } = useQuery('dialog')
   useEffect(() => {
     if (data !== undefined) {
       bottomRef.current?.scrollIntoView({ behavior: 'auto' })

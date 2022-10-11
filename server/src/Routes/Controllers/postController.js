@@ -59,7 +59,7 @@ class postController {
       for (let i = 0; i < rows.length; i++) {
         db.all(`SELECT * FROM users WHERE name = "${rows[i].name}"`, [], (err, user) => {
           rows[i]["username"] = user[0].username
-          rows[i]["backImg"] = user[0].pathImg
+          rows[i]["pathImg"] = user[0].pathImg
           if (i === rows.length - 1) {
             return res.json({
               message: "success",

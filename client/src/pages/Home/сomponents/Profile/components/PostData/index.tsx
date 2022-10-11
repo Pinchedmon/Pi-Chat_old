@@ -16,7 +16,7 @@ type iPost = {
   comments: number | string
   date: string
   time: string
-  backImg: string
+  pathImg: string
 }
 
 function PostData(props: any) {
@@ -35,7 +35,7 @@ function PostData(props: any) {
                   onClick={() => navigate(`/${item.name}`)}
                   className='mr-16px h-54px  rounded-xl w-54px cursor-pointer'
                   alt=''
-                  src={item.backImg}
+                  src={item.pathImg}
                 />
                 <ProfileInfo username={item.username} name={item.name} date={item.date} time={item.time} />
               </div>

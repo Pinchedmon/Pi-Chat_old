@@ -18,7 +18,7 @@ type iPost = {
   comments: number | string
   date: string
   time: string
-  backImg: string
+  pathImg: string
   username: string
 }
 
@@ -45,7 +45,7 @@ function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: st
             <div className='flex flex-col ml-24px '>
               <div className='flex'>
                 <img
-                  src={item.backImg}
+                  src={item.pathImg}
                   alt=''
                   onClick={() => navigate(`/${item.name}`)}
                   className='mr-16px h-54px  rounded-xl w-54px cursor-pointer'

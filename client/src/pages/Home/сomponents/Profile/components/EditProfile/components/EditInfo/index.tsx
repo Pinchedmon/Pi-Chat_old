@@ -16,15 +16,7 @@ const EditInfo = (props: { refetch: () => void }) => {
           className='border-2 border-red-600 p-2px text-center'
           onMouseLeave={() => {
             setStatus(!status)
-            handleSubmit(
-              value.toString(),
-              user.name,
-              () => {
-                refetchUser()
-                props.refetch()
-              },
-              user.info,
-            )
+            handleSubmit(value.toString(), user.name, props.refetch, refetchUser, user.info)
           }}
           value={value}
           maxLength={16}

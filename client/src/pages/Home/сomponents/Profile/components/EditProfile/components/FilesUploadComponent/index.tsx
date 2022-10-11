@@ -14,18 +14,7 @@ const EditAvatar = (props: { refetch: () => void }) => {
           type='file'
           className='hidden'
           accept='.png,.gif,.jpg,.jpeg'
-          onChange={(e) =>
-            sendFile(
-              e,
-              () => {
-                refetchUser()
-                props.refetch()
-              },
-              refetchUser,
-              user.pathImg,
-              user.name,
-            )
-          }
+          onChange={(e) => sendFile(e, props.refetch, refetchUser, user.pathImg, user.name)}
         />
         Изменить аву
       </label>

@@ -13,17 +13,7 @@ function EditBackground(props: { refetch: () => void }) {
           type='file'
           className='hidden '
           accept='.png,.gif,.jpg,.jpeg'
-          onChange={(e) =>
-            handleEditBackground(
-              e,
-              () => {
-                refetchUser()
-                props.refetch()
-              },
-              user.backImg,
-              user.name,
-            )
-          }
+          onChange={(e) => handleEditBackground(e, props.refetch, refetchUser, user.backImg, user.name)}
         />
         Изменить фон
       </label>

@@ -18,8 +18,11 @@ export const getComments = async (payload: { search: string }) => {
 export async function getPath(name: string | object | any) {
   let response = await redaxios
     .get(`http://localhost:6060/path?name="${name.name === undefined ? name : name.name}"`)
-    .then((res) => {})
-  return response
+    .then((res) => {
+      if (res.status === 200) {
+        return res.data
+      }
+    })
 }
 export async function getMyPosts(name: string) {
   const response = await redaxios.get(`http://localhost:6060/posts/getMyPosts?name=${name}`)
@@ -29,10 +32,10 @@ export async function getMessages(name: string) {
   const response = await redaxios.get(`http://localhost:6060/message/links?name=${name}`)
   return response.data
 }
-export async function getMessagesInfo(names: string) {
-  const response = await redaxios.get(`http://localhost:6060/message/info?names=${names}`)
+export async function getMessagesInfo(names: string, name: string) {
+  const response = await redaxios.get(`http://localhost:6060/message/info?names=${names}&name=${name}`)
   if (response !== undefined) {
-    return response.data.data
+    return response.data
   }
 }
 export async function getMyUsername(name: string) {
