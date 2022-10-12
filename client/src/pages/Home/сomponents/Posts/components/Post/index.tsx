@@ -13,28 +13,37 @@ const Post = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const user = useContext(UserContext)
-  const { refetch } = useQuery('comments')
-
+  const { data, refetch } = useQuery('post', () =>
+    getPost({ search: location.search }).then((res: any) => {
+      if (res.status === 200) {
+        return res.data
+      }
+    }),
+  )
   return (
     <div className='flex flex-col w-full h-screen items-stretch'>
-      <div className='border-b-2 border-gray-300 p-16px' onClick={() => navigate('/')}>
-        <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
-      </div>
-      <div className='overflow-y-scroll h-full'>
-        <div className='mt-16px'>
-          <PostData getPost={getPost} naming={'post'} getObject={{ search: location.search }} />
-          <CComments getObject={{ search: location.search }} role={user.role} />
-        </div>
-      </div>
-      <SendField
-        postFuncProps={{
-          id: location.search.replace(/[^0-9]/g, ''),
-          name: user.name,
-          refetch: refetch,
-        }}
-        postFunc={postComment}
-        object='comment'
-      />
+      {data !== undefined && (
+        <>
+          <div className='border-b-2 border-gray-300 p-16px' onClick={() => navigate('/')}>
+            <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
+          </div>
+          <div className='overflow-y-scroll h-full'>
+            <div className='mt-16px'>
+              <PostData data={data.post} refetch={refetch} />
+              <CComments data={data.comments} refetch={refetch} />
+            </div>
+          </div>
+          <SendField
+            postFuncProps={{
+              id: location.search.replace(/[^0-9]/g, ''),
+              name: user.name,
+              refetch: refetch,
+            }}
+            postFunc={postComment}
+            object='comment'
+          />
+        </>
+      )}
     </div>
   )
 }

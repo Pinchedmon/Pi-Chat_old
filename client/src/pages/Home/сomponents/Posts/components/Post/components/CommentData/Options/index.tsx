@@ -1,15 +1,14 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import { useQuery } from 'react-query'
 import redaxios from 'redaxios'
-function Options(props: { id: number; postId: number }) {
+function Options(props: { id: number; postId: number; refetch: () => void }) {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
-  const { refetch } = useQuery('comments')
+
   const handleDelete = (id: number, postId: number) => {
     redaxios.delete(`http://localhost:6060/comment?postId=${postId}&id=${id}`).then((response) => {
       if (response.status === 200) {
-        refetch()
+        props.refetch()
       }
     })
   }

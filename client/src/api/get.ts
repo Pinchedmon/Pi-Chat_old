@@ -3,18 +3,18 @@ import redaxios from 'redaxios'
 export const getPosts = async (payload: { sort: string | number; category: string }) => {
   const { sort, category } = payload
   const response = await redaxios.get(`http://localhost:6060/posts/feed?sort=${sort}&category=${category}`)
-  return response.data.data
+  return response.data
 }
 export const getPost = async (payload: { search: string }) => {
   const { search } = payload
   const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
-  return response.data.post
+  return response.data
 }
-export const getComments = async (payload: { search: string }) => {
-  const { search } = payload
-  const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
-  return response.data.comments
-}
+// export const getComments = async (payload: { search: string }) => {
+//   const { search } = payload
+//   const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
+//   return response.data.comments
+// }
 export async function getPath(name: string | object | any) {
   let response = await redaxios
     .get(`http://localhost:6060/path?name="${name.name === undefined ? name : name.name}"`)

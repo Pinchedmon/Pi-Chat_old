@@ -62,7 +62,7 @@ class postController {
           rows[i]["pathImg"] = user[0].pathImg
           if (i === rows.length - 1) {
             return res.json({
-              message: "success",
+              status: 200,
               data: rows
             });
           }
@@ -112,19 +112,35 @@ class postController {
   }
   async getPost(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    sql = `SELECT * FROM posts WHERE id = "${queryObject.id}"`;
-    db.all(sql, [], (err, rows) => {
-      let post = rows;
-      sql = `SELECT * FROM comments WHERE postId = ${queryObject.id}`;
-      db.all(sql, [], (err, rows) => {
-        return res.status(200).json({
-          post: post,
-          comments: rows
-        });
+    db.all(`SELECT * FROM posts WHERE id = "${queryObject.id}"`, [], (err, post) => {
+      db.all(`SELECT * FROM users WHERE name = "${post[0].name}"`, [], (err, user) => {
+        post[0]["username"] = user[0].username;
+        post[0]["pathImg"] = user[0].pathImg;
+      })
+      db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id}`, [], (err, comments) => {
+        console.log(comments)
+        if (comments.length > 0) {
+          for (let i = 0; i < comments.length; i++) {
+            db.all(`SELECT * FROM users WHERE name = "${comments[i].name}"`, [], (err, user) => {
+              comments[i]['username'] = user[0].username;
+              comments[i]['img'] = user[0].pathImg;
+              if (i === comments.length - 1) {
+                return res.json({
+                  data: { post, comments },
+                  status: 200
+                });
+              }
+            })
+          }
+        } else {
+          return res.json({
+            data: { post, comments: 0 },
+            status: 200
+          });
+        }
       });
     });
   }
-
   async deletePost(req, res) {
     const queryObject = url.parse(req.url, true).query;
     sql = `DELETE FROM posts WHERE ID = ${queryObject.id}`;

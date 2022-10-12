@@ -1,13 +1,10 @@
 import React, { useContext } from 'react'
-import { useQuery } from 'react-query'
 import ProfileInfo from './ProfileInfo'
 import Info from './Info'
 import Buttons from './Buttons'
 import { UserContext } from '../../../../../../../../App'
-import Img from '../../../../../../../../components/ui/Img'
 import { useNavigate } from 'react-router-dom'
 import Options from './Options'
-import { isTemplateMiddle } from 'typescript'
 
 type iPost = {
   name: string
@@ -22,20 +19,10 @@ type iPost = {
   username: string
 }
 
-function PostData(props: { getPost: (getObject: any) => Promise<any>; naming: string; getObject: any }) {
-  const { getPost, naming, getObject } = props
+function PostData(props: { data: any; refetch: () => void }) {
+  const { data, refetch } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
-  const { data, refetch } = useQuery(
-    naming,
-    () =>
-      getPost(getObject).then((res: any) => {
-        if (res !== undefined) {
-          return res
-        }
-      }),
-    {},
-  )
   return (
     <div>
       {data !== undefined &&
