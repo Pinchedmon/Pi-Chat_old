@@ -34,9 +34,8 @@ export async function getMessages(name: string) {
 }
 export async function getMessagesInfo(names: string, name: string) {
   const response = await redaxios.get(`http://localhost:6060/message/info?names=${names}&name=${name}`)
-  if (response !== undefined) {
-    return response.data
-  }
+  console.log(response)
+  return response.data
 }
 export async function getMyUsername(name: string) {
   const response = await redaxios.get(`http://localhost:6060/profile/getMyUsername?name=${name}`)

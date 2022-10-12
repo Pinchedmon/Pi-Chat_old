@@ -37,7 +37,7 @@ class messageController {
                 db.all(`SELECT * FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
                     rows[i]["backImg"] = user[0].pathImg
                     if (i === rows.length - 1) {
-                        return res.status(200).json({ data: rows })
+                        return res.json({ data: rows, status: 200 })
                     }
                 })
 
@@ -49,8 +49,9 @@ class messageController {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
-                let profile = { name: user[0].username, backImg: user[0].backImg }
-                return res.status(200).json({
+                console.log(user)
+                return res.json({
+                    status: 200,
                     data: rows,
                     username: user[0].username,
                     pathImg: user[0].pathImg
