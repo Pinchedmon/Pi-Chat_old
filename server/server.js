@@ -30,7 +30,10 @@ app.get('/public/*', function (req, res) {
 app.get('/path', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   db.all(`SELECT * from users WHERE name = ${queryObject.name};`, [], (err, rows) => {
-    return res.json({ data: rows[0].pathImg }).status(200)
+    return res.json({
+      data: rows[0].pathImg,
+      status: 200
+    })
   })
 })
 app.listen(port)

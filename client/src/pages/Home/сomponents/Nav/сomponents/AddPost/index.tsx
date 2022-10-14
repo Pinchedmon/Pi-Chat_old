@@ -34,7 +34,7 @@ type IaddPost = {
 const AddPost = (props: IAddPost) => {
   const sort = useSelector((state: IState) => state.nav.sort)
   const category = useSelector((state: IState) => state.nav.category)
-  const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
+  const { refetch } = useQuery('posts', () => getPosts({ sort, category, page: 0 }))
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const { handlePopup } = props

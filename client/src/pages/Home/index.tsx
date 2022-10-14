@@ -24,15 +24,8 @@ const Home = () => {
   const user = useContext(UserContext)
   const sort = useSelector((state: iState) => state.nav.sort)
   const category = useSelector((state: iState) => state.nav.category)
-  const { data, refetch } = useQuery('posts', () => getPosts({ sort, category }))
-  const [posts, setPosts] = useState()
   const dispatch = useDispatch()
-  useEffect(() => {
-    setPosts(data)
-  }, [data])
-  useEffect(() => {
-    refetch()
-  }, [category, refetch, sort])
+
   const style = useSelector((state: iState) => state.nav.addPostStyle)
   return (
     <div className='grid grid-cols-4 gap-0px'>
@@ -43,7 +36,7 @@ const Home = () => {
           </div>
           <div className='relative col-span-2 border-l-2 border-r-2 max-w-full border-gray-300'>
             <Routes>
-              <Route path='/' element={posts !== undefined && <Posts sort={sort} category={category} data={posts} />} />
+              <Route path='/' element={<Posts sort={sort} category={category} />} />
               <Route path='/post' element={<Post />} />
               {/* <Route path='/profile' element={<Profile />} /> */}
               <Route path='/*' element={<Profile />} />

@@ -30,7 +30,13 @@ type IaddPost = {
 const AddPost = () => {
   const sort = useSelector((state: IState) => state.nav.sort)
   const category = useSelector((state: IState) => state.nav.category)
-  const { refetch } = useQuery('posts', () => getPosts({ sort, category }))
+  const { refetch } = useQuery('myPosts', () =>
+    getPosts({ sort, category, page: 0 }).then((res: any) => {
+      if (res.status === 200) {
+        return res.data
+      }
+    }),
+  )
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const [addPost, setAddPost] = useState<IaddPost>({

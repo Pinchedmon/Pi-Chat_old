@@ -1,8 +1,8 @@
 import redaxios from 'redaxios'
 
-export const getPosts = async (payload: { sort: string | number; category: string }) => {
-  const { sort, category } = payload
-  const response = await redaxios.get(`http://localhost:6060/posts/feed?sort=${sort}&category=${category}`)
+export const getPosts = async (payload: { sort: string | number; category: string; page: number }) => {
+  const { sort, category, page } = payload
+  const response = await redaxios.get(`http://localhost:6060/posts/feed?sort=${sort}&category=${category}&page=${page}`)
   return response.data
 }
 export const getPost = async (payload: { search: string }) => {

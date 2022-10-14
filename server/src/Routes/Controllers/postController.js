@@ -2,6 +2,7 @@ const sqlite = require("sqlite3").verbose();
 const path = require("path");
 const url = require("url");
 const sharp = require('sharp');
+const paginate = require("jw-paginate");
 const db = new sqlite.Database(
   path.resolve(__dirname, "../../db/posts.db"),
   sqlite.OPEN_READWRITE,
@@ -52,10 +53,26 @@ class postController {
 
   async getFeed(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort !== "Late" ? `'and course = "${queryObject.sort}'` : ''}`, [], (err, rows) => {
+    const last_id = queryObject.last_id || 0;
+    if (last_id < 1) {
+
+    }
+    db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort !== "Late" ? `'and course = "${queryObject.sort}'` : ''} ORDER BY id DESC`, [], (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
+      // const items = [...rows.keys()].map(i => ({ id: (i + 1), name: 'Item ' + (i + 1) }));
+
+      const page = parseInt(queryObject.page) || 1;
+
+      // get pager object for specified page
+      const pager = paginate(rows.length, page);
+
+      // get page of items from items array
+      const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+
+      // return pager object and current page of items
+      return res.json({ pager, data: pageOfItems, status: 200 });
       for (let i = 0; i < rows.length; i++) {
         db.all(`SELECT * FROM users WHERE name = "${rows[i].name}"`, [], (err, user) => {
           rows[i]["username"] = user[0].username
@@ -79,7 +96,7 @@ class postController {
       }
       return res.json({
         status: 200,
-        data: rows,
+        data: rows
       });
     });
   }
