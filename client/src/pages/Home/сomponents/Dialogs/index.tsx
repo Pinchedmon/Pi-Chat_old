@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMessageStyle } from '../../../../state/navReducer'
-import { getMessages } from '../../../../api/get'
+import { getDialogs } from '../../../../api/get'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
 import { UserContext } from '../../../../App'
@@ -18,12 +18,13 @@ interface iMessage {
 }
 function Dialogs() {
   const user = useContext(UserContext)
-  const { data, refetch } = useQuery('messages', () => getMessages(user.name), {})
+  const { data, refetch } = useQuery('messages', () => getDialogs(user.name), {})
   const [names, setNames] = useState<string>('')
   const visible = useSelector((state: IState) => state.nav.messageStyle)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setMessageStyle(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className='w-full h-screen'>

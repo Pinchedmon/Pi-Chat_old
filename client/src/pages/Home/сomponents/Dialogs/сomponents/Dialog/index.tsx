@@ -3,7 +3,7 @@ import SendField from '../../../../../../components/ux/SendField'
 import Messages from './ components/Messages'
 import { postMessage } from '../../../../../../api/post'
 import { useQuery } from 'react-query'
-import { getMessagesInfo } from '../../../../../../api/get'
+import { getMessages } from '../../../../../../api/get'
 import { UserContext } from '../../../../../../App'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { setMessageStyle } from '../../../../../../state/navReducer'
@@ -12,7 +12,7 @@ import { resetOn } from '../../../../../../state/messageReducer'
 function Dialog(props: { names: string; dispatch: (arg0: any) => void; visible: boolean }) {
   const { dispatch, visible, names } = props
   const { data, refetch } = useQuery('dialog', () =>
-    getMessagesInfo(props.names, names.replace(user.name, '').toString().trim()).then((res: any) => {
+    getMessages(props.names, names.replace(user.name, '').toString().trim()).then((res: any) => {
       if (res.status === 200) {
         console.log(res)
         return res

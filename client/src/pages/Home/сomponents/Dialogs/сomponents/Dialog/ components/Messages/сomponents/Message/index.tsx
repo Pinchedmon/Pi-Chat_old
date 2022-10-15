@@ -21,6 +21,7 @@ function Message(props: iMessage) {
       setSelectedMsg('')
       dispatch(resetSelected())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, text, id])
   return (
     <div className={`flex items-center relative ${selectedMsg}  `}>

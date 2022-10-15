@@ -1,7 +1,5 @@
 import { TrashIcon } from '@heroicons/react/outline'
 import React, { useEffect, useRef } from 'react'
-import { useQuery } from 'react-query'
-import { getMessagesInfo } from '../../../../../../../../api/get'
 import Message from './сomponents/Message'
 import { deleteMessage } from './utils/deleteMessage'
 import { useDispatch, useSelector } from 'react-redux'
