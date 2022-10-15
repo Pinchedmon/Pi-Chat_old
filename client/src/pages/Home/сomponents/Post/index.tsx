@@ -1,15 +1,16 @@
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import { getPost } from '../../../../../../api/get'
+import { getPost } from '../../../../api/get'
 import CComments from './components/CommentData'
-import { postComment } from '../../../../../../api/post'
-import PostData from './components/PostData'
-import { UserContext } from '../../../../../../App'
-import SendField from '../../../../../../components/ux/SendField'
-import { useQuery } from 'react-query'
+import { postComment } from '../../../../api/post'
 
-const Post = () => {
+import { UserContext } from '../../../../App'
+import SendField from '../../../../components/ux/SendField'
+import { useQuery } from 'react-query'
+import Post from '../../../../components/ui/Post'
+
+const PostData = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const user = useContext(UserContext)
@@ -29,7 +30,7 @@ const Post = () => {
           </div>
           <div className='overflow-y-scroll h-full'>
             <div className='mt-16px'>
-              <PostData data={data.post} refetch={refetch} />
+              <Post data={data.post} refetch={refetch} />
               <CComments data={data.comments} refetch={refetch} />
             </div>
           </div>
@@ -48,4 +49,4 @@ const Post = () => {
   )
 }
 
-export default Post
+export default PostData

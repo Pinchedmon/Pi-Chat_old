@@ -12,7 +12,7 @@ interface apiParamMessages {
   text: string
   refetch: () => void
 }
-
+// Post comment
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await redaxios
     .post(`http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${props.text}`, formData)
@@ -23,6 +23,7 @@ export async function postComment(props: apiParamComments, formData: any): Promi
       }
     })
 }
+// Post message
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {
   await redaxios
     .post(

@@ -10,7 +10,8 @@ import { UserContext } from '../../../../App'
 import { UserAddIcon } from '@heroicons/react/outline'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
-import PostData from './components/PostData'
+import Post from '../../../../components/ui/Post'
+
 interface IState {
   nav: {
     addMessageStyle: boolean
@@ -86,7 +87,7 @@ function Profile() {
           </div>
           {/* posts */}
           <div className='mt-16px'>
-            <PostData data={data.posts} />
+            <Post data={data.posts} refetch={refetch} />
           </div>
           {addMessageStatus === true && (
             <AddMessage name={data[0].name} showMessage={() => dispatch(setAddMessageStyle(!addMessageStatus))} />

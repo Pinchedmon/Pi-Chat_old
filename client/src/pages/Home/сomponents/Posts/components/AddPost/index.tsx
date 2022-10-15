@@ -128,7 +128,6 @@ const AddPost = () => {
             </select>
           </div>
         </div>
-        {/* Send button */}
         <button
           disabled={!addPost.validForm}
           className='ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'
