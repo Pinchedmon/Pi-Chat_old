@@ -30,12 +30,17 @@ function Dialogs() {
     <div className='w-full h-screen'>
       {!visible && (
         <>
+          {/* Dialogs */}
           <div className='w-full  border-b-2 border-green-600 p-10px '>
+            {/* Title naming */}
             <p className='text-2xl rounded-xl text-center  top-16px font-bold'>Диалоги</p>
           </div>
           {data !== undefined && data.data.length > 0 ? (
-            data.data.map((item: iMessage) => (
-              <div className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'>
+            data.data.map((item: iMessage, index: number) => (
+              <div
+                key={index}
+                className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'
+              >
                 <div
                   onClick={() => {
                     dispatch(setMessageStyle(!visible))
@@ -47,7 +52,6 @@ function Dialogs() {
                     onClick={() => 1}
                     alt=''
                     className='ml-24px mr-16px h-54px rounded-xl w-54px'
-                    // name={item.names.replace(user.name, '').trim()}
                     src={item.backImg}
                   />
                   <div className='flex-col '>
@@ -68,7 +72,7 @@ function Dialogs() {
           )}
         </>
       )}
-
+      {/* Dialog with messages */}
       {visible === true && (
         <div className='flex flex-col w-full h-full items-stretch'>
           <Dialog names={names} visible={visible} dispatch={dispatch} />
