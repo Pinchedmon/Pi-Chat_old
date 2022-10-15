@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
-import { useSelector } from 'react-redux'
-import { getPosts } from '../../../../../../api/get'
 import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
@@ -12,12 +10,6 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 
-interface IState {
-  nav: {
-    sort: string | number
-    category: string
-  }
-}
 type IaddPost = {
   file: FileList | null
   preview: string
@@ -28,15 +20,7 @@ type IaddPost = {
   textError: string
 }
 const AddPost = () => {
-  const sort = useSelector((state: IState) => state.nav.sort)
-  const category = useSelector((state: IState) => state.nav.category)
-  const { refetch } = useQuery('myPosts', () =>
-    getPosts({ sort, category, page: 0 }).then((res: any) => {
-      if (res.status === 200) {
-        return res.data
-      }
-    }),
-  )
+  const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const [addPost, setAddPost] = useState<IaddPost>({
@@ -54,6 +38,7 @@ const AddPost = () => {
     } else {
       setAddPost({ ...addPost, validForm: true })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addPost.file, addPost.textError])
   useEffect(() => {
     if (addPost.file) {
@@ -82,8 +67,9 @@ const AddPost = () => {
         setAddPost({ ...addPost, text: '' })
       }}
     >
+      {/* Title naming */}
       <div className='text-2xl font-bold text-left ml-4px mb-4px text-green-600'>За / π / ши</div>
-
+      {/* Text Area */}
       <TextareaAutosize
         cacheMeasurements
         onChange={(e) => handleTextChange(e, setAddPost, addPost)}
@@ -92,6 +78,7 @@ const AddPost = () => {
         placeholder='Текст поста'
       />
       <div className='flex'>
+        {/* Add file button */}
         <label className='flex '>
           <input
             type='file'
@@ -99,14 +86,17 @@ const AddPost = () => {
             accept='.png,.gif,.jpg,.jpeg'
             onChange={(e) => handleChangeFile(e, setAddPost, addPost)}
           />
+          {/* icon */}
           <i className=''>
             <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
           </i>
+          {/* Img that u want to send */}
           {addPost.file !== null && (
             <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={addPost.preview} />
           )}
         </label>
         <div className='flex w-full justify-around items-center '>
+          {/* Category */}
           <div className='w-100px text-lg  flex  font-bold '>
             <h4 className='mr-4px'> Категория</h4>
             <select
@@ -122,6 +112,7 @@ const AddPost = () => {
               <option value='Вопросы'>Вопросы</option>
             </select>
           </div>
+          {/* Course | Sort */}
           <div className='w-100px text-lg  flex  font-bold '>
             <h4 className='mr-4px'> Курс</h4>
             <select
@@ -137,6 +128,7 @@ const AddPost = () => {
             </select>
           </div>
         </div>
+        {/* Send button */}
         <button
           disabled={!addPost.validForm}
           className='ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'

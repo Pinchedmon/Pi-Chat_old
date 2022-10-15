@@ -61,30 +61,19 @@ class postController {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
-      // const items = [...rows.keys()].map(i => ({ id: (i + 1), name: 'Item ' + (i + 1) }));
-
-      const page = parseInt(queryObject.page) || 1;
-
-      // get pager object for specified page
-      const pager = paginate(rows.length, page);
-
-      // get page of items from items array
-      const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
-
-      // return pager object and current page of items
-      return res.json({ pager, data: pageOfItems, status: 200 });
       for (let i = 0; i < rows.length; i++) {
         db.all(`SELECT * FROM users WHERE name = "${rows[i].name}"`, [], (err, user) => {
           rows[i]["username"] = user[0].username
           rows[i]["pathImg"] = user[0].pathImg
           if (i === rows.length - 1) {
-            return res.json({
-              status: 200,
-              data: rows
-            });
+            const page = parseInt(queryObject.page) || 1;
+            const pager = paginate(rows.length, page);
+            const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+            return res.json({ pager, data: pageOfItems, status: 200 });
           }
         })
       }
+
     });
   }
   async getMyPosts(req, res) {
@@ -135,7 +124,6 @@ class postController {
         post[0]["pathImg"] = user[0].pathImg;
       })
       db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id}`, [], (err, comments) => {
-        console.log(comments)
         if (comments.length > 0) {
           for (let i = 0; i < comments.length; i++) {
             db.all(`SELECT * FROM users WHERE name = "${comments[i].name}"`, [], (err, user) => {

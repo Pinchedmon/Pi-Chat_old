@@ -14,18 +14,20 @@ type iPost = {
   ID: number
   comments: number | string
 }
-
-interface IPosts {
+interface IParams {
   sort: string | number
   category: string
 }
-
-const Posts = (props: IPosts) => {
-  const [posts, setPosts] = useState<any>()
+interface iResolve {
+  status: number
+  data: Array<iPost>
+}
+const Posts = (props: IParams) => {
+  const [posts, setPosts] = useState<Array<iPost>>()
   const { sort, category } = props
   let page = 1
   const { refetch } = useQuery('myPosts', () =>
-    getPosts({ sort, category, page }).then((res: any) => {
+    getPosts({ sort, category, page }).then((res: iResolve) => {
       if (page < 2) {
         if (res.status === 200) {
           setPosts(res.data)
@@ -35,10 +37,12 @@ const Posts = (props: IPosts) => {
           let x = false
           for (var i = 0; i < posts.length; i++) {
             if (posts[i] === res.data[i]) {
-              return true
+              x = true
             }
           }
-          x && setPosts([...posts, res.data])
+          if (x === true) {
+            setPosts([...posts, ...res.data])
+          }
         }
       }
     }),
@@ -56,7 +60,7 @@ const Posts = (props: IPosts) => {
               }}
               hasMore={true}
               loader={'424232'}
-              dataLength={posts}
+              dataLength={posts.length}
             >
               <Post data={posts} refetch={refetch} />
             </InfiniteScroll>

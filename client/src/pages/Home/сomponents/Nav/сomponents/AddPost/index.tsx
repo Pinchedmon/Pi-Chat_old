@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
-import { useSelector } from 'react-redux'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import { getPosts } from '../../../../../../api/get'
 import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
@@ -12,15 +10,8 @@ import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
-
 interface IAddPost {
   handlePopup: () => void
-}
-interface IState {
-  nav: {
-    sort: string | number
-    category: string
-  }
 }
 type IaddPost = {
   file: FileList | null
@@ -32,9 +23,7 @@ type IaddPost = {
   textError: string
 }
 const AddPost = (props: IAddPost) => {
-  const sort = useSelector((state: IState) => state.nav.sort)
-  const category = useSelector((state: IState) => state.nav.category)
-  const { refetch } = useQuery('posts', () => getPosts({ sort, category, page: 0 }))
+  const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const { handlePopup } = props
@@ -85,16 +74,21 @@ const AddPost = (props: IAddPost) => {
               setAddPost({ ...addPost, text: '' })
             }}
           >
+            {/* Title */}
             <div className='flex h-54px items-center text-green-600 rounded-2xl '>
+              {/* Close button */}
               <ArrowLeftIcon
                 onClick={handlePopup}
                 className='w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700'
               />
+              {/* Naming */}
               <h1 className='absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold  '>
                 Создание поста
               </h1>
             </div>
+            {/* Main part */}
             <div className='flex justify-evenly items-center mt-12px mb-16px'>
+              {/* Category*/}
               <div className='w-100px text-lg  flex  font-bold '>
                 <h4 className='mr-4px'> Категория</h4>
                 <select
@@ -110,6 +104,7 @@ const AddPost = (props: IAddPost) => {
                   <option value='Вопросы'>Вопросы</option>
                 </select>
               </div>
+              {/* Course | Sort */}
               <div className='ml-10px text-lg text-left flex  font-bold '>
                 <h4 className='mr-4px'> Курс</h4>
                 <select
@@ -125,6 +120,7 @@ const AddPost = (props: IAddPost) => {
                 </select>
               </div>
             </div>
+            {/* TextArea */}
             <TextareaAutosize
               cacheMeasurements
               onChange={(e) => handleTextChange(e, setAddPost, addPost)}
@@ -133,6 +129,7 @@ const AddPost = (props: IAddPost) => {
               placeholder='Текст поста'
             />
             <div className='flex'>
+              {/* Add file */}
               <label className='flex '>
                 <input
                   type='file'
@@ -147,6 +144,7 @@ const AddPost = (props: IAddPost) => {
                   <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={addPost.preview} />
                 )}
               </label>
+              {/* Send button */}
               <button
                 disabled={!addPost.validForm}
                 className='ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl'
