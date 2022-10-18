@@ -34,15 +34,13 @@ const Posts = (props: IParams) => {
         }
       } else {
         if (res.status === 200) {
-          let x = false
-          for (var i = 0; i < posts.length; i++) {
-            if (posts[i] === res.data[i]) {
-              x = true
-            }
-          }
-          if (x === true) {
-            setPosts([...posts, ...res.data])
-          }
+          // let x = false
+          // for (var i = 0; i < posts.length; i++) {
+          //   if (posts[i] === res.data[i]) {
+          //     x = true
+          //   }
+          // }
+          setPosts([...posts, ...res.data])
         }
       }
     }),

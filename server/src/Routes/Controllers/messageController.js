@@ -20,7 +20,7 @@ class messageController {
         }
         let names = `${queryObject.secondName} ${queryObject.name}`
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-            console.log(rows)
+
             if (rows.length < 1) {
                 db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
             }
@@ -49,7 +49,7 @@ class messageController {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
-                console.log(user)
+
                 return res.json({
                     status: 200,
                     data: rows,
@@ -70,7 +70,7 @@ class messageController {
         const queryObject = url.parse(req.url, true).query;
         let id = queryObject.id.split(' ')
         for (let i = 0; i < id.length; i++) {
-            db.all(`DELETE FROM messages_info WHERE id = "${id[i]}"`, [], (err, rows) => { console.log(rows) })
+            db.all(`DELETE FROM messages_info WHERE id = "${id[i]}"`, [], (err, rows) => { })
         }
         return res.json({ status: 200 })
     }

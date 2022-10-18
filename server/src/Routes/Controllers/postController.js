@@ -1,4 +1,4 @@
-const sqlite = require("sqlite3").verbose();
+const sqlite = require("sqlite3")
 const path = require("path");
 const url = require("url");
 const sharp = require('sharp');
@@ -57,22 +57,26 @@ class postController {
     if (last_id < 1) {
 
     }
-    db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort !== "Late" ? `'and course = "${queryObject.sort}'` : ''} ORDER BY id DESC`, [], (err, rows) => {
+    db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort !== "Late" ? `'and course = "${queryObject.sort}'` : ''} ORDER BY id DESC`, [], async (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
-      for (let i = 0; i < rows.length; i++) {
-        db.all(`SELECT * FROM users WHERE name = "${rows[i].name}"`, [], (err, user) => {
-          rows[i]["username"] = user[0].username
-          rows[i]["pathImg"] = user[0].pathImg
-          if (i === rows.length - 1) {
-            const page = parseInt(queryObject.page) || 1;
-            const pager = paginate(rows.length, page);
-            const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+      const page = parseInt(queryObject.page) || 1;
+      const pager = paginate(rows.length, page);
+      const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+      let x = 0;
+      for (let i = 0; i < pageOfItems.length; i++) {
+        await db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
+          pageOfItems[i]['username'] = user[0].username
+          pageOfItems[i]['pathImg'] = user[0].pathImg
+          x++;
+          if (x === pageOfItems.length) {
             return res.json({ pager, data: pageOfItems, status: 200 });
           }
         })
       }
+
+
 
     });
   }
