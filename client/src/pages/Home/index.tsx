@@ -23,7 +23,6 @@ const Home = () => {
   const sort = useSelector((state: iState) => state.nav.sort)
   const category = useSelector((state: iState) => state.nav.category)
   const dispatch = useDispatch()
-
   const style = useSelector((state: iState) => state.nav.addPostStyle)
   return (
     <div className='grid grid-cols-4 gap-0px'>
