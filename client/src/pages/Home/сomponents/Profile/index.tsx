@@ -11,6 +11,8 @@ import { UserAddIcon } from '@heroicons/react/outline'
 import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
 import Post from '../../../../components/ui/Post'
+import { unFollow } from './utils/unfollow'
+import { follow } from './utils/follow'
 
 interface IState {
   nav: {
@@ -24,21 +26,6 @@ function Profile() {
   const dispatch = useDispatch()
   const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
-
-  const handleFollow = (name: string, object: string) => {
-    redaxios.post(`http://localhost:6060/follow/follow?name=${name}&object=${object}`).then((res: any) => {
-      if (res.status === 200) {
-        refetch()
-      }
-    })
-  }
-  const unFollow = async (name: string, object: string) => {
-    redaxios.delete(`http://localhost:6060/follow/unfollow?name=${name}&object=${object}`).then((res: any) => {
-      if (res.status === 200) {
-        refetch()
-      }
-    })
-  }
   const { data, refetch } = useQuery('userData', () =>
     getUserData(location.pathname.slice(1).toString(), user.name).then((res: any) => {
       if (res !== undefined) {
@@ -70,7 +57,9 @@ function Profile() {
                   <button
                     className='border-2  p-6px flex mb-6px items-center font-bold'
                     onClick={() =>
-                      data.followed === true ? unFollow(user.name, data[0].name) : handleFollow(user.name, data[0].name)
+                      data.followed === true
+                        ? unFollow(user.name, data[0].name, refetch)
+                        : follow(user.name, data[0].name, refetch)
                     }
                   >
                     <UserAddIcon className='w-24px mr-8px  ' />

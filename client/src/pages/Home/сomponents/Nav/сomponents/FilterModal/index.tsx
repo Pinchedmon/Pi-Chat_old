@@ -1,4 +1,6 @@
 import React from 'react'
+import { useQuery } from 'react-query'
+import { getPosts } from '../../../../../../api/get'
 import { setSort, setCategory } from '../../../../../../state/navReducer'
 import { filterCategory } from './utils/filterCategory'
 import { filterSort } from './utils/filterSort'
@@ -10,6 +12,7 @@ interface IFilterModal {
 }
 export default function FilterModal(props: IFilterModal) {
   const { category, sort, dispatch } = props
+  const { refetch } = useQuery('myPosts')
   return (
     <div className='w-full flex-col '>
       <div className='flex justify-center'>
@@ -18,7 +21,10 @@ export default function FilterModal(props: IFilterModal) {
       <div className='flex p-16px justify-center'>
         <select
           defaultValue={sort}
-          onChange={(e) => filterSort(e, dispatch, setSort)}
+          onChange={(e) => {
+            filterSort(e, dispatch, setSort)
+            refetch()
+          }}
           className=' text-md  font-bold md:text-lg text-green-600'
         >
           <option value='value1' disabled>
@@ -32,7 +38,10 @@ export default function FilterModal(props: IFilterModal) {
         </select>
         <select
           defaultValue={category}
-          onChange={(e) => filterCategory(e, dispatch, setCategory)}
+          onChange={(e) => {
+            filterCategory(e, dispatch, setCategory)
+            refetch()
+          }}
           className='text-md ml-32px font-bold md:text-lg text-green-600  '
         >
           <option value='value1' disabled>
