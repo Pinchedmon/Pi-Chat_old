@@ -53,7 +53,6 @@ class postController {
 
   async getFeed(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    const last_id = queryObject.last_id || 0;
     db.all(`SELECT * FROM posts WHERE category = "${queryObject.category}" ${queryObject.sort === 'Late' ? ' ' : `and course = "${queryObject.sort}"`} ORDER BY id DESC`, [], async (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
@@ -72,9 +71,6 @@ class postController {
           }
         })
       }
-
-
-
     });
   }
   async getMyPosts(req, res) {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { getUserData } from '../../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,12 +8,12 @@ import Options from './components/Options'
 import EditProfile from './components/EditProfile'
 import { UserContext } from '../../../../App'
 import { UserAddIcon } from '@heroicons/react/outline'
-import redaxios from 'redaxios'
 import { useQuery } from 'react-query'
-import Post from '../../../../components/ui/Post'
 import { unFollow } from './utils/unfollow'
 import { follow } from './utils/follow'
-
+// import ProfilePosts from './components/ProfilePosts'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Post from '../../../../components/ui/Post'
 interface IState {
   nav: {
     addMessageStyle: boolean
@@ -22,13 +22,20 @@ interface IState {
 }
 function Profile() {
   let location = useLocation()
+  let page = 1
   const user = useContext(UserContext)
   const dispatch = useDispatch()
   const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
+  const [posts, setPosts] = useState<Array<any>>([{}])
   const { data, refetch } = useQuery('userData', () =>
-    getUserData(location.pathname.slice(1).toString(), user.name).then((res: any) => {
-      if (res !== undefined) {
+    getUserData(location.pathname.slice(1).toString(), user.name, page).then((res: any) => {
+      if (res.status === 200) {
+        if (page < 2) {
+          setPosts(res.data.posts)
+        } else {
+          setPosts([...posts, ...res.data.posts])
+        }
         return res.data
       }
     }),
@@ -76,8 +83,20 @@ function Profile() {
           </div>
           {/* posts */}
           <div className='mt-16px'>
-            <Post data={data.posts} refetch={refetch} />
+            <InfiniteScroll
+              next={() => {
+                page++
+                refetch()
+              }}
+              hasMore={true}
+              loader={'loading'}
+              dataLength={posts.length}
+            >
+              <Post data={posts} refetch={refetch} />
+            </InfiniteScroll>
           </div>
+          {/* <ProfilePosts page={page} posts={posts} refetch={refetch} /> */}
+
           {addMessageStatus === true && (
             <AddMessage name={data[0].name} showMessage={() => dispatch(setAddMessageStyle(!addMessageStatus))} />
           )}

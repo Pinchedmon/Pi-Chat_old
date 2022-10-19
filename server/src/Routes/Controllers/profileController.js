@@ -2,7 +2,7 @@ const sqlite = require('sqlite3').verbose();
 const path = require('path');
 const url = require('url');
 const sharp = require('sharp');
-const e = require('express');
+const paginate = require("jw-paginate");
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class profileController {
     async setImg(req, res) {
@@ -50,15 +50,23 @@ class profileController {
             rows.length === 1 ? followed = true : followed = false
         })
         db.all(`SELECT * FROM posts WHERE name = "${queryObject.name}"`, [], (err, posts) => {
-            for (let i = 0; i < posts.length; i++) {
-                db.all(`SELECT * FROM users WHERE name = "${posts[i].name}"`, [], (err, user) => {
-                    posts[i]["username"] = user[0].username
-                    posts[i]["pathImg"] = user[0].pathImg
+            const page = parseInt(queryObject.page) || 1;
+            const pager = paginate(posts.length, page);
+            const pageOfItems = posts.slice(pager.startIndex, pager.endIndex + 1);
+            let x = 0;
+            for (let i = 0; i < pageOfItems.length; i++) {
+                db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
+                    pageOfItems[i]['username'] = user[0].username
+                    pageOfItems[i]['pathImg'] = user[0].pathImg
+                    x++;
+                    if (x === pageOfItems.length) {
+                        db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
+                            return res.json({ "data": { ...rows, followed, posts: pageOfItems }, status: 200 })
+                        })
+                    }
                 })
             }
-            db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-                return res.json({ "data": { ...rows, followed, posts }, status: 200 })
-            })
+
         })
     }
     async getMyUsername(req, res) {

@@ -28,18 +28,10 @@ const Posts = (props: IParams) => {
   let page = 1
   const { refetch } = useQuery('myPosts', () =>
     getPosts({ sort, category, page }).then((res: iResolve) => {
-      if (page < 2) {
-        if (res.status === 200) {
+      if (res.status === 200) {
+        if (page < 2) {
           setPosts(res.data)
-        }
-      } else {
-        if (res.status === 200) {
-          // let x = false
-          // for (var i = 0; i < posts.length; i++) {
-          //   if (posts[i] === res.data[i]) {
-          //     x = true
-          //   }
-          // }
+        } else {
           setPosts([...posts, ...res.data])
         }
       }
