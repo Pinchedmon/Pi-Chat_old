@@ -120,25 +120,24 @@ class postController {
         post[0]["username"] = user[0].username;
         post[0]["pathImg"] = user[0].pathImg;
       })
+
+      let x = 0;
       db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id}`, [], (err, comments) => {
-        if (comments.length > 0) {
-          for (let i = 0; i < comments.length; i++) {
-            db.all(`SELECT * FROM users WHERE name = "${comments[i].name}"`, [], (err, user) => {
-              comments[i]['username'] = user[0].username;
-              comments[i]['img'] = user[0].pathImg;
-              if (i === comments.length - 1) {
-                return res.json({
-                  data: { post, comments },
-                  status: 200
-                });
-              }
-            })
-          }
-        } else {
-          return res.json({
-            data: { post, comments: 0 },
-            status: 200
-          });
+        const page = parseInt(queryObject.page) || 1;
+        const pager = paginate(comments.length, page);
+        const pageOfItems = comments.slice(pager.startIndex, pager.endIndex + 1);
+        for (let i = 0; i < pageOfItems.length; i++) {
+          db.all(`SELECT * FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
+            pageOfItems[i]['username'] = user[0].username;
+            pageOfItems[i]['img'] = user[0].pathImg;
+            x++;
+            if (x === pageOfItems.length) {
+              return res.json({
+                data: { post, comments: pageOfItems },
+                status: 200
+              });
+            }
+          })
         }
       });
     });

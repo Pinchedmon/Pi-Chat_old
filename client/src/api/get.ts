@@ -6,9 +6,9 @@ export const getPosts = async (payload: { sort: string | number; category: strin
   return response.data
 }
 // Getting only one picked post with his comments
-export const getPost = async (payload: { search: string }) => {
-  const { search } = payload
-  const response = await redaxios.get(`http://localhost:6060/posts/post${search}`)
+export const getPost = async (payload: { search: string; page: number }) => {
+  const { search, page } = payload
+  const response = await redaxios.get(`http://localhost:6060/posts/post${search}&page=${page}`)
   return response.data
 }
 // Getting path of image
