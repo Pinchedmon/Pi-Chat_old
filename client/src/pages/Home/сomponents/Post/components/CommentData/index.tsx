@@ -22,8 +22,8 @@ function CComments(props: { data: any; refetch: () => void }) {
       ) : (
         <div>
           {data !== undefined &&
-            data.map((item: iComment) => (
-              <div className='w-full flex flex-row mb-16px border-b-2 border-gray-300 relative '>
+            data.map((item: iComment, index: number) => (
+              <div key={index} className='w-full flex flex-row mb-16px border-b-2 border-gray-300 relative '>
                 <img
                   src={item.img}
                   className={'ml-24px mr-16px h-54px rounded-3xl w-54px'}

@@ -20,7 +20,6 @@ const PostData = () => {
     getPost({ search: location.search, page }).then((res: any) => {
       if (res.status === 200) {
         if (page < 2) {
-          page++
           setComments(res.data.comments)
         } else {
           setComments([...comments, ...res.data.comments])
@@ -30,27 +29,26 @@ const PostData = () => {
     }),
   )
   return (
-    <div className='flex flex-col w-full h-screen items-stretch'>
+    <div className='flex flex-col w-full  items-stretch'>
       {data !== undefined && (
         <>
           <div className='border-b-2 border-gray-300 p-16px' onClick={() => navigate('/')}>
             <ArrowLeftIcon className='w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white' />
           </div>
 
-          <div className='overflow-y-scroll h-full'>
+          <div className='mt-16px'>
+            <Post data={data.post} refetch={refetch} />
             <InfiniteScroll
               next={() => {
                 console.log(page)
+                page++
                 refetch()
               }}
               hasMore={true}
               loader={'424232'}
               dataLength={comments.length}
             >
-              <div className='mt-16px'>
-                <Post data={data.post} refetch={refetch} />
-                <CComments data={comments} refetch={refetch} />
-              </div>
+              <CComments data={comments} refetch={refetch} />
             </InfiniteScroll>
           </div>
 
