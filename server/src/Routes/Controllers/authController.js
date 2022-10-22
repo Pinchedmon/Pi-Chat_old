@@ -31,7 +31,6 @@ class authController {
                 })
             } else return res.json({
                 status: 400,
-                success: false,
                 message: "Такой пользователь уже существует"
             })
         });

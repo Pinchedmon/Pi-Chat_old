@@ -3,3 +3,7 @@ export interface IsignupProps {
   email: string
   password: string
 }
+export interface Isignup {
+  status: number
+  message: string
+}

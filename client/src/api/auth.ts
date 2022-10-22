@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { IgetCurrentUser } from '../types/getCurrentUser.interface'
-import { IgetUserData, IgetUserDataProps } from '../types/getUserData.interface'
-import { Ilogin, IloginProps } from '../types/login.interface'
-import { IsignupProps } from '../types/singup.interface'
+import { IgetCurrentUser } from './types/getCurrentUser.interface'
+import { IgetUserData, IgetUserDataProps } from './types/getUserData.interface'
+import { Ilogin, IloginProps } from './types/login.interface'
+import { Isignup, IsignupProps } from './types/singup.interface'
 
 export async function getCurrentUser(): Promise<IgetCurrentUser> {
   const response = await axios
@@ -25,7 +25,7 @@ export const getUserData = async (props: IgetUserDataProps): Promise<IgetUserDat
   return response.data
 }
 
-export async function signup(props: IsignupProps): Promise<string> {
+export async function signup(props: IsignupProps): Promise<Isignup> {
   const response = await axios.post('http://localhost:6060/auth/registration', { user: props })
   return response.data
 }

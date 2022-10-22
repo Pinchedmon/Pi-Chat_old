@@ -5,8 +5,8 @@ import { UserContext } from '../../../App'
 import handleChangeText from './utils/handleChangeText'
 import handleChangeFile from './utils/handleChangeFile'
 import handleSubmit from './utils/handleSubmit'
-import { Isendfield } from '../../../types/sendfield.interface'
-import { Itextarea } from '../../../types/textarea.interface'
+import { Isendfield } from '../../../api/types/sendfield.interface'
+import { Itextarea } from '../../../api/types/textarea.interface'
 
 const SendField = (props: Isendfield) => {
   const { postFuncProps, postFunc, object } = props

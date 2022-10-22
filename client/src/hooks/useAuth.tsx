@@ -2,42 +2,28 @@ import React, { createContext, ReactNode, useContext, useEffect, useMemo, useSta
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { getCurrentUser, login, signup } from '../api/auth'
-interface iUser {
-  id: number
-  email: string
-  pathImg: string
-  name: string
-  username: string
-  info: string
-  role: string
-  backImg: string
-}
-interface AuthContextType {
-  user?: iUser
-  loading?: boolean
-  error?: any
-  logIn: (email: string, password: string) => void
-  signUp: (email: string, name: string, password: string) => void
-  logout: () => void
-  refetchUser: () => void
-}
+import { Iuser } from '../types/user.interface'
+import { IauthContextType } from './types/authContextType.interface'
+import { IsignUpProps } from './types/signUpProps.interface'
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType)
+const AuthContext = createContext<IauthContextType>({} as IauthContextType)
 
 export function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
-  const [user, setUser] = useState<iUser | any>()
-  const [error, setError] = useState<any>('')
+  const [user, setUser] = useState<Iuser>()
+  const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
   const { data, refetch } = useQuery('main', () => getCurrentUser(), {})
 
   useEffect(() => {
     if (error) setError(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     if (user !== undefined) {
       setLoading(false)
     }
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     if (data !== undefined) {
@@ -66,11 +52,12 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     refetch()
   }
 
-  function signUp(email: string, name: string, password: string) {
+  function signUp(props: IsignUpProps) {
+    const { email, name, password } = props
     setError('')
     // setLoading(true)
-    signup({ email, name, password }).then((user: any) => {
-      if (user.status === 200) {
+    signup({ email, name, password }).then((data) => {
+      if (data.status === 200) {
         login({ email, password }).then((user) => {
           if (user !== undefined) {
             setUser(user.user)
@@ -79,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
           navigate('/')
         })
       } else {
-        setError(user.message)
+        setError(data.message)
         setTimeout(() => setError(''), 2000)
       }
     })
