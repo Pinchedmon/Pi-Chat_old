@@ -1,4 +1,4 @@
-import redaxios from 'redaxios'
+import axios from 'axios'
 
 export const sendFile = async (
   e: React.SyntheticEvent<HTMLInputElement, Event>,
@@ -10,7 +10,7 @@ export const sendFile = async (
   const target = e.target as HTMLInputElement
   const fdata = new FormData()
   fdata.append('avatar', target.files[0])
-  await redaxios.put(`http://localhost:6060/profile/img?name="${name}"`, fdata).then((response) => {
+  await axios.put(`http://localhost:6060/profile/img?name="${name}"`, fdata).then((response) => {
     if (response.status === 200) {
       pathImg = response.data.data
       refetch()

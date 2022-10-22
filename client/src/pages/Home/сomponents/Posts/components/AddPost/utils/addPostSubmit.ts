@@ -1,7 +1,7 @@
 import { FormEvent } from 'react'
 import { NavigateFunction } from 'react-router-dom'
 
-import redaxios from 'redaxios'
+import axios from 'axios'
 interface IAddPostSubmit {
   name: string
   text: string
@@ -15,7 +15,7 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPost
   let data = new FormData()
   data.append('post', props.file !== null ? props.file[0] : undefined)
   if (props.text !== '' && props.category !== '' && props.course !== '') {
-    redaxios
+    axios
       .post(
         `http://localhost:6060/posts/feed?name=${props.name}&text=${props.text}&course=${props.course}&category=${props.category}`,
         data,

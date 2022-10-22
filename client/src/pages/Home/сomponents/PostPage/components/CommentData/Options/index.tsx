@@ -1,12 +1,12 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import redaxios from 'redaxios'
+import axios from 'axios'
 function Options(props: { id: number; postId: number; refetch: () => void }) {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
 
   const handleDelete = (id: number, postId: number) => {
-    redaxios.delete(`http://localhost:6060/comment?postId=${postId}&id=${id}`).then((response) => {
+    axios.delete(`http://localhost:6060/comment?postId=${postId}&id=${id}`).then((response) => {
       if (response.status === 200) {
         props.refetch()
       }

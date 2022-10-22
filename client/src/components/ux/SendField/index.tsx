@@ -5,20 +5,13 @@ import { UserContext } from '../../../App'
 import handleChangeText from './utils/handleChangeText'
 import handleChangeFile from './utils/handleChangeFile'
 import handleSubmit from './utils/handleSubmit'
-interface iTextAreaPage {
-  file: File
-  preview: string
-  textArea: string
-  validForm: boolean
-}
-const SendField = (props: {
-  postFuncProps: any
-  postFunc: (postFuncProps: any, areaImg: any) => void
-  object: string
-}) => {
+import { Isendfield } from '../../../types/sendfield.interface'
+import { Itextarea } from '../../../types/textarea.interface'
+
+const SendField = (props: Isendfield) => {
   const { postFuncProps, postFunc, object } = props
   const user = useContext(UserContext)
-  const [areaData, setAreaData] = useState<iTextAreaPage>({
+  const [areaData, setAreaData] = useState<Itextarea>({
     file: null,
     preview: '',
     textArea: '',
@@ -28,18 +21,18 @@ const SendField = (props: {
     if (areaData.file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setAreaData((areaData: iTextAreaPage) => ({ ...areaData, preview: reader.result as string }))
+        setAreaData((areaData: Itextarea) => ({ ...areaData, preview: reader.result as string }))
       }
       reader.readAsDataURL(areaData.file)
     } else {
-      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, preview: null }))
+      setAreaData((areaData: Itextarea) => ({ ...areaData, preview: null }))
     }
   }, [areaData.file, user.name])
   useEffect(() => {
     if (areaData.textArea === '' && areaData.preview === null) {
-      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: false }))
+      setAreaData((areaData: Itextarea) => ({ ...areaData, validForm: false }))
     } else {
-      setAreaData((areaData: iTextAreaPage) => ({ ...areaData, validForm: true }))
+      setAreaData((areaData: Itextarea) => ({ ...areaData, validForm: true }))
     }
   }, [areaData.file, areaData.preview, areaData.textArea])
   return (

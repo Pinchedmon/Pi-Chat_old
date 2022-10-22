@@ -1,5 +1,5 @@
 import { FormEvent } from 'react'
-import redaxios from 'redaxios'
+import axios from 'axios'
 interface IAddMessageSubmit {
   firstName: string
   secondName: string
@@ -16,7 +16,7 @@ export function addMessageSubmit(event: FormEvent<HTMLFormElement>, props: IAddM
     let data = new FormData()
     data.append('message', file)
     if (props.text !== '') {
-      redaxios.post(
+      axios.post(
         `http://localhost:6060/message/post?name=${firstName}&secondName=${secondName}&text=${text}&userImg=${path}`,
         data,
       )

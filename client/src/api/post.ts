@@ -1,4 +1,4 @@
-import redaxios from 'redaxios'
+import axios from 'axios'
 
 interface apiParamComments {
   id: number
@@ -14,7 +14,7 @@ interface apiParamMessages {
 }
 // Post comment
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
-  await redaxios
+  await axios
     .post(`http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${props.text}`, formData)
     .then((res) => {
       if (res.status === 200) {
@@ -25,7 +25,7 @@ export async function postComment(props: apiParamComments, formData: any): Promi
 }
 // Post message
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {
-  await redaxios
+  await axios
     .post(
       `http://localhost:6060/message/post?name=${props.firstName}&secondName=${props.secondName}&text=${props.text}`,
       messageImg,

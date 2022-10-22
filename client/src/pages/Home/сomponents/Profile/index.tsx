@@ -9,8 +9,8 @@ import { UserContext } from '../../../../App'
 import { useQuery } from 'react-query'
 // import ProfilePosts from './components/ProfilePosts'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Post from '../../../../components/ui/Post'
 import ProfileInfo from './components/ProfileInfo'
+import Post from '../Posts/components/Post'
 interface IState {
   nav: {
     addMessageStyle: boolean
@@ -26,7 +26,7 @@ function Profile() {
   const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
   const [posts, setPosts] = useState<Array<any>>([{}])
   const { data, refetch } = useQuery('userData', () =>
-    getUserData(location.pathname.slice(1).toString(), user.name, page).then((res: any) => {
+    getUserData({ name: location.pathname.slice(1).toString(), username: user.name, page: page }).then((res: any) => {
       if (res.status === 200) {
         if (page < 2) {
           setPosts(res.data.posts)
@@ -37,17 +37,12 @@ function Profile() {
       }
     }),
   )
-
   return (
     <>
       {data !== undefined && (
         <div>
-          {/* profile */}
-          {/* background photo */}
           <img className=' h-200px w-full border-b-2 border-gray-300' src={data[0].backImg} alt='загружается...' />
-          {/* profile info */}
           <ProfileInfo profile={data[0]} refetch={refetch} name={user.name} followed={data.followed} />
-          {/* posts */}
           <div className='mt-16px'>
             <InfiniteScroll
               next={() => {

@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   }, [])
   useEffect(() => {
     if (data !== undefined) {
-      setUser(data.data.data[0])
+      setUser(data.data[0])
     }
   }, [data])
 

@@ -7,8 +7,9 @@ import { postComment } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import SendField from '../../../../components/ux/SendField'
 import { useQuery } from 'react-query'
-import Post from '../../../../components/ui/Post'
+
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Post from '../Posts/components/Post'
 
 const PostData = () => {
   const navigate = useNavigate()

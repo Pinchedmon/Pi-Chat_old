@@ -1,8 +1,11 @@
-import redaxios from 'redaxios'
+import axios from 'axios'
+import { IgetCurrentUser } from '../types/getCurrentUser.interface'
+import { IgetUserData, IgetUserDataProps } from '../types/getUserData.interface'
+import { Ilogin, IloginProps } from '../types/login.interface'
+import { IsignupProps } from '../types/singup.interface'
 
-// Getting and checking user's token and his info
-export async function getCurrentUser(): Promise<any> {
-  const response = await redaxios
+export async function getCurrentUser(): Promise<IgetCurrentUser> {
+  const response = await axios
     .get('http://localhost:6060/auth/user', {
       headers: { Authorization: 'Bearer ' + document.cookie },
     })
@@ -12,23 +15,22 @@ export async function getCurrentUser(): Promise<any> {
       }
     })
   if (response !== undefined) {
-    return response
+    return response.data
   }
 }
-// Getting only userData fo future using
-export async function getUserData(name: string, username: string, page: number): Promise<any> {
-  const response = await redaxios.get(
-    `http://localhost:6060/profile/user?name=${name}&username=${username}&page=${page}`,
-  )
+
+export const getUserData = async (props: IgetUserDataProps): Promise<IgetUserData> => {
+  const { name, username, page } = props
+  const response = await axios.get(`http://localhost:6060/profile/user?name=${name}&username=${username}&page=${page}`)
   return response.data
 }
-// Sign up momemt
-export async function signup(params: { name: string; email: string; password: string }): Promise<number | string> {
-  const response = await redaxios.post('http://localhost:6060/auth/registration', { user: params })
+
+export async function signup(props: IsignupProps): Promise<string> {
+  const response = await axios.post('http://localhost:6060/auth/registration', { user: props })
   return response.data
 }
-// Log in moment
-export async function login(props: { email: string; password: string }): Promise<any> {
-  const response = await redaxios.post('http://localhost:6060/auth/login', { session: props })
+
+export async function login(props: IloginProps): Promise<Ilogin> {
+  const response = await axios.post('http://localhost:6060/auth/login', { session: props })
   return response.data
 }

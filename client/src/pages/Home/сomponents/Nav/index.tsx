@@ -14,7 +14,7 @@ interface IState {
     addPostStyle: boolean
   }
 }
-const Nav = (props: { sort: string | number; category: string }) => {
+const Nav = () => {
   const { logout } = useAuth()
   const user = useContext(UserContext)
   const dispatch = useDispatch()

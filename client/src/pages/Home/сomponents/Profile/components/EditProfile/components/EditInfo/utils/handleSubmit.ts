@@ -1,4 +1,4 @@
-import redaxios from 'redaxios'
+import axios from 'axios'
 export const handleSubmit = (
   text: string,
   name: string,
@@ -6,7 +6,7 @@ export const handleSubmit = (
   refetchUser: () => void,
   info: string,
 ) => {
-  redaxios.put(`http://localhost:6060/profile/info?text=${text}&name=${name}`).then((res) => {
+  axios.put(`http://localhost:6060/profile/info?text=${text}&name=${name}`).then((res) => {
     if (res.status === 200) {
       refetch()
       refetchUser()

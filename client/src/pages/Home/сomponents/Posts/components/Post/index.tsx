@@ -4,7 +4,7 @@ import Info from './Info'
 import Buttons from './Buttons'
 import { useNavigate } from 'react-router-dom'
 import Options from './Options'
-import { UserContext } from '../../../App'
+import { UserContext } from '../../../../../../App'
 
 type iPost = {
   name: string

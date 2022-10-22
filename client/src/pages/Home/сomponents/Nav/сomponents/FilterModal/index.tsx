@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { getPosts } from '../../../../../../api/get'
 import { setSort, setCategory } from '../../../../../../state/navReducer'
 import { filterCategory } from './utils/filterCategory'
 import { filterSort } from './utils/filterSort'

@@ -1,12 +1,12 @@
 import { XIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import redaxios from 'redaxios'
+import axios from 'axios'
 
 const Follows = (props: { name: string; data: any; refetch: () => void }) => {
   const { data, refetch } = props
   const unFollow = async (name: string, username: string) => {
-    await redaxios
+    await axios
       .delete(`http://localhost:6060/follow/unfollow?name=${name}&object=${username}`)
       .then((res: any) => res.status === 200 && refetch())
     refetch()

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Img from '../../../../../../components/ui/Img'
 
 const Followers = (props: { name: string; data: any }) => {
   const { data } = props

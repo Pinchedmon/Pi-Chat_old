@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
-import redaxios from 'redaxios'
+import axios from 'axios'
 import { UserContext } from '../../../../App'
 import Followers from './components/Followers'
 import Follows from './components/Follows'
 
 function Subscribes(props: any) {
   const getSubscribes = async (name: string) => {
-    const response = await redaxios.get(`http://localhost:6060/follow/mySubs?name=${name}`)
+    const response = await axios.get(`http://localhost:6060/follow/mySubs?name=${name}`)
     return response.data
   }
   const user = useContext(UserContext)

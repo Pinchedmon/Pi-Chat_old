@@ -1,5 +1,5 @@
 import React from 'react'
-import redaxios from 'redaxios'
+import axios from 'axios'
 import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ function Buttons(props: {
       <button
         className='flex mr-16px'
         onClick={() => {
-          redaxios.put(`http://localhost:6060/posts/feed?postId=${ID}&profileName=${name}`).then((response) => {
+          axios.put(`http://localhost:6060/posts/feed?postId=${ID}&profileName=${name}`).then((response) => {
             if (response.status === 200) {
               refetch()
             }

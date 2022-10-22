@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useQuery } from 'react-query'
 import { getPosts } from '../../../../api/get'
-import Post from '../../../../components/ui/Post'
 import AddPost from './components/AddPost'
+import Post from './components/Post'
 
 type iPost = {
   userImg: string

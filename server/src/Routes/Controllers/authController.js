@@ -19,7 +19,7 @@ class authController {
         const hashPassword = bcrypt.hashSync(`${user.password}`, 1)
         db.all(`SELECT * FROM users WHERE name = "${user.name}" OR email = "${user.email}";`, [], (err, rows) => {
             if (rows.length === 0) {
-                db.all("INSERT INTO users (name, username, info, email, password) VALUES (?, ?, ?, ?, ?)", [user.name, user.name, "Пользователь Pi-Chat",user.email, hashPassword], (err) => {
+                db.all("INSERT INTO users (name, username, info, email, password) VALUES (?, ?, ?, ?, ?)", [user.name, user.name, "Пользователь Pi-Chat", user.email, hashPassword], (err) => {
                     if (err) return res.json({
                         status: 400,
                         succes: false
@@ -31,15 +31,16 @@ class authController {
                 })
             } else return res.json({
                 status: 400,
-                succes: false,
+                success: false,
                 message: "Такой пользователь уже существует"
             })
         });
     }
     async login(req, res) {
         const { session } = req.body;
-        db.all(`SELECT * FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
-            if (rows.length === 0) {
+        db.all(`SELECT ID, username, name, email, roles, pathImg, backImg, info  FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
+            console.log(rows)
+            if (rows === undefined) {
                 return res.json({
                     status: 400,
                     message: `Пользователь с таким ${session.email} не найден`
@@ -55,7 +56,7 @@ class authController {
                 })
             }
             const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: { id: rows[0].ID, email: rows[0].email, name: rows[0].name, username: rows[0].username,info: rows[0].info, pathImg: rows[0].pathImg, role: rows[0].roles, backImg: rows[0].backImg }, authToken: token })
+            return res.json({ status: 200, user: [...rows], authToken: token })
         });
     }
     async getUsers(req, res) {
