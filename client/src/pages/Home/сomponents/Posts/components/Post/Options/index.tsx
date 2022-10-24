@@ -1,7 +1,9 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
+import { Ioptions } from '../../../types/post.interface'
 import { deletePost } from './utils/deletePost'
-function Options(props: { id: number; refetch: () => void }) {
+
+const Options = (props: Ioptions) => {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
   return (

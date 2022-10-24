@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { IuserImg } from '../../../types/post.interface'
 
-function UserImg(props: { name: string; userImg: string }) {
+const UserImg = (props: IuserImg) => {
   const { name, userImg } = props
   const navigate = useNavigate()
   return (

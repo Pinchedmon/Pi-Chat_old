@@ -1,17 +1,8 @@
 import { FormEvent } from 'react'
-import { NavigateFunction } from 'react-router-dom'
-
 import axios from 'axios'
-interface IAddPostSubmit {
-  name: string
-  text: string
-  course: string
-  category: string
-  file: FileList | null
-  refetch: () => void
-  navigate: NavigateFunction
-}
-export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
+import { IaddPostSubmit } from '../../../types/addPostSubmit.interface'
+
+export const addPostSubmit = (event: FormEvent<HTMLFormElement>, props: IaddPostSubmit) => {
   let data = new FormData()
   data.append('post', props.file !== null ? props.file[0] : undefined)
   if (props.text !== '' && props.category !== '' && props.course !== '') {
@@ -26,7 +17,6 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPost
           props.navigate('')
         }
       })
-
     event.preventDefault()
   } else {
     window.alert('Какое-то поле незаполнено!')

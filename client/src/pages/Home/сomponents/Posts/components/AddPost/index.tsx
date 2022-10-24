@@ -9,16 +9,8 @@ import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
+import { IaddPost } from '../../../Nav/types/addPost.interface'
 
-type IaddPost = {
-  file: FileList | null
-  preview: string
-  validForm: boolean
-  category: string
-  course: string
-  text: string
-  textError: string
-}
 const AddPost = () => {
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)

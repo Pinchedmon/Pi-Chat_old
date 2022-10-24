@@ -2,15 +2,9 @@ import React from 'react'
 import axios from 'axios'
 import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
+import { Ibuttons } from '../../../types/post.interface'
 
-function Buttons(props: {
-  refetch: () => void
-  name: string
-  role: string
-  ID: number
-  likes: number | string
-  comments: number | string
-}) {
+function Buttons(props: Ibuttons) {
   const navigate = useNavigate()
   const { refetch, name, ID, likes, comments } = props
   const showComments = async (id: number) => {

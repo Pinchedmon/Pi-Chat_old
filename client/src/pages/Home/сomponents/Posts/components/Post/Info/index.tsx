@@ -1,6 +1,7 @@
 import React from 'react'
+import { Iinfo } from '../../../types/post.interface'
 
-function Info(props: { img: string; text: string }) {
+const Info = (props: Iinfo) => {
   const { img, text } = props
   return (
     <div className='flex flex-col'>

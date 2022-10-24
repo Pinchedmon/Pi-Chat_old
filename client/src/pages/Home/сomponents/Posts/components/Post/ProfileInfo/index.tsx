@@ -1,6 +1,6 @@
 import React from 'react'
-
-function ProfileInfo(props: { username: string; name: string; date: string; time: string }) {
+import { IprofileInfo } from '../../../types/post.interface'
+export const ProfileInfo = (props: IprofileInfo) => {
   const { username, name, date, time } = props
   return (
     <div className='flex items-center mb-2px align-center -mt-6px'>

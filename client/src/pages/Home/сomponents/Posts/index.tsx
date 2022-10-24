@@ -4,30 +4,14 @@ import { useQuery } from 'react-query'
 import { getPosts } from '../../../../api/get'
 import AddPost from './components/AddPost'
 import Post from './components/Post'
+import { Iparams, Ipost } from './types/posts.interface'
 
-type iPost = {
-  userImg: string
-  author: string
-  text: string
-  postImg: string
-  likes: number | string
-  ID: number
-  comments: number | string
-}
-interface IParams {
-  sort: string | number
-  category: string
-}
-interface iResolve {
-  status: number
-  data: Array<iPost>
-}
-const Posts = (props: IParams) => {
-  const [posts, setPosts] = useState<Array<iPost>>()
+const Posts = (props: Iparams) => {
+  const [posts, setPosts] = useState<Array<Ipost>>()
   const { sort, category } = props
   let page = 1
   const { refetch } = useQuery('myPosts', () =>
-    getPosts({ sort, category, page }).then((res: iResolve) => {
+    getPosts({ sort, category, page }).then((res) => {
       if (res.status === 200) {
         if (page < 2) {
           setPosts(res.data)
