@@ -10,18 +10,8 @@ import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
-interface IAddPost {
-  handlePopup: () => void
-}
-type IaddPost = {
-  file: FileList | null
-  preview: string
-  validForm: boolean
-  category: string
-  course: string
-  text: string
-  textError: string
-}
+import { IaddPost, IAddPost } from '../../types/addPost.interface'
+
 const AddPost = (props: IAddPost) => {
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)

@@ -6,19 +6,13 @@ import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../../../../hooks/useAuth'
 import { setAddPostStyle, setMessageStyle } from '../../../../state/navReducer'
 import { UserContext } from '../../../../App'
+import { Istore } from '../../../../types/store.interface'
 
-interface IState {
-  nav: {
-    sort: string | number
-    category: string
-    addPostStyle: boolean
-  }
-}
 const Nav = () => {
   const { logout } = useAuth()
   const user = useContext(UserContext)
   const dispatch = useDispatch()
-  const style = useSelector((state: IState) => state.nav.addPostStyle)
+  const style = useSelector((state: Istore) => state.nav.addPostStyle)
   const handlePopup = () => {
     dispatch(setAddPostStyle(!style))
   }

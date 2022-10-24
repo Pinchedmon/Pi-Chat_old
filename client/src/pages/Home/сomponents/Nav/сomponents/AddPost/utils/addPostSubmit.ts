@@ -1,18 +1,9 @@
 import { FormEvent } from 'react'
-import { NavigateFunction } from 'react-router-dom'
 
 import axios from 'axios'
-interface IAddPostSubmit {
-  name: string
-  text: string
-  course: string
-  category: string
-  handlePopup: () => void
-  file: FileList | null
-  refetch: () => void
-  navigate: NavigateFunction
-}
-export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IAddPostSubmit) {
+import { IaddPostSubmit } from '../../../types/addPostUtils.interface'
+
+export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IaddPostSubmit) {
   let data = new FormData()
   data.append('post', props.file !== null ? props.file[0] : undefined)
   if (props.text !== '' && props.category !== '' && props.course !== '') {

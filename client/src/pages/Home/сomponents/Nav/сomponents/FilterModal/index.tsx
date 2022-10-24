@@ -1,15 +1,11 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { setSort, setCategory } from '../../../../../../state/navReducer'
+import { IfilterModal } from '../../types/filterModal.interface'
 import { filterCategory } from './utils/filterCategory'
 import { filterSort } from './utils/filterSort'
 
-interface IFilterModal {
-  sort: string | number
-  category: string
-  dispatch: (arg0: any) => void
-}
-export default function FilterModal(props: IFilterModal) {
+export default function FilterModal(props: IfilterModal) {
   const { category, sort, dispatch } = props
   const { refetch } = useQuery('myPosts')
   return (

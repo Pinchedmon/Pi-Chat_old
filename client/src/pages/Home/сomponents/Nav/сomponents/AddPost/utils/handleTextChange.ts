@@ -1,12 +1,5 @@
-type IaddPost = {
-  file: FileList | null
-  preview: string
-  validForm: boolean
-  category: string
-  course: string
-  text: string
-  textError: string
-}
+import { IaddPost } from '../../../types/addPost.interface'
+
 export const handleTextChange = (
   e: React.ChangeEvent<HTMLTextAreaElement>,
   setAddPost: (addPost: IaddPost) => void,
