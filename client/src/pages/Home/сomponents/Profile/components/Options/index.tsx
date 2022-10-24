@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import { ChatAlt2Icon, DotsVerticalIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux'
 import { setAddMessageStyle, setEditProfileStyle } from '../../../../../../state/navReducer'
-function Options(props: { id: number; userName: string; profileName: string }) {
+export interface Ioptions {
+  userName: string
+  profileName: string
+}
+function Options(props: Ioptions) {
   const dispatch = useDispatch()
-  const { id, userName, profileName } = props
+  const { userName, profileName } = props
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
 

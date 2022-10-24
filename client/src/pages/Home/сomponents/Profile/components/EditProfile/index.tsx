@@ -7,7 +7,7 @@ import EditInfo from './components/EditInfo'
 import EditName from './components/EditName'
 import EditAvatar from './components/FilesUploadComponent'
 
-function EditProfile(props: any) {
+const EditProfile = (props: { refetch: () => void }) => {
   const dispatch = useDispatch()
   return (
     <div className='absolute w-full top-0px backdrop-blur-md h-screen'>

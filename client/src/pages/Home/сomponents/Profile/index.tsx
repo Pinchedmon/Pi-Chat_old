@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { getUserData } from '../../../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAddMessageStyle, setEditProfileStyle } from '../../../../state/navReducer'
+import { setAddMessageStyle } from '../../../../state/navReducer'
 import AddMessage from './components/AddMessage'
 import EditProfile from './components/EditProfile'
 import { UserContext } from '../../../../App'
@@ -11,20 +11,16 @@ import { useQuery } from 'react-query'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ProfileInfo from './components/ProfileInfo'
 import Post from '../Posts/components/Post'
-interface IState {
-  nav: {
-    addMessageStyle: boolean
-    editProfileStyle: boolean
-  }
-}
+import { Istore } from '../../../../types/store.interface'
+import { Ipost } from '../PostPage/types/post.interface'
+
 function Profile() {
-  let location = useLocation()
   let page = 1
+  let location = useLocation()
   const user = useContext(UserContext)
   const dispatch = useDispatch()
-  const addMessageStatus = useSelector((state: IState) => state.nav.addMessageStyle)
-  const editProfileStatus = useSelector((state: IState) => state.nav.editProfileStyle)
-  const [posts, setPosts] = useState<Array<any>>([{}])
+  const nav = useSelector((state: Istore) => state.nav)
+  const [posts, setPosts] = useState<Array<Ipost>>()
   const { data, refetch } = useQuery('userData', () =>
     getUserData({ name: location.pathname.slice(1).toString(), username: user.name, page: page }).then((res: any) => {
       if (res.status === 200) {
@@ -56,16 +52,10 @@ function Profile() {
               <Post data={posts} refetch={refetch} />
             </InfiniteScroll>
           </div>
-          {addMessageStatus === true && (
-            <AddMessage name={data[0].name} showMessage={() => dispatch(setAddMessageStyle(!addMessageStatus))} />
+          {nav.addMessageStyle === true && (
+            <AddMessage name={data[0].name} showMessage={() => dispatch(setAddMessageStyle(!nav.addMessageStyle))} />
           )}
-          {editProfileStatus === true && (
-            <EditProfile
-              refetch={refetch}
-              name={data[0].name}
-              showMessage={() => dispatch(setEditProfileStyle(!editProfileStatus))}
-            />
-          )}
+          {nav.editProfileStyle === true && <EditProfile refetch={refetch} />}
         </div>
       )}
     </>

@@ -1,14 +1,9 @@
-interface iMessage {
-  file: File
-  preview: string
-  validForm: boolean
-  text: string
-  textError: string
-}
+import { Imessage } from '../../../types/addMessage.inteface'
+
 export const handleTextChange = (
   e: React.ChangeEvent<HTMLTextAreaElement>,
-  setMessage: (message: iMessage) => void,
-  message: iMessage,
+  setMessage: (message: Imessage) => void,
+  message: Imessage,
 ) => {
   if (!e.target.value) {
     setMessage({ ...message, textError: 'Имя не может быть пустым', text: e.target.value })

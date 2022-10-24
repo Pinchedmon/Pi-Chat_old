@@ -7,22 +7,13 @@ import { addMessageSubmit } from './utils/addMessageSubmit'
 import { handleChangeFile } from './utils/handleChangeFile'
 import { handleTextChange } from './utils/handleTextChange'
 import { UserContext } from '../../../../../../App'
-interface IAddMessage {
-  name: string
-  showMessage: () => void
-}
-interface IaddMessage {
-  file: File
-  preview: string
-  validForm: boolean
-  text: string
-  textError: string
-}
-const AddMessage = (props: IAddMessage) => {
+import { IaddMessage, Imessage } from '../../types/addMessage.inteface'
+
+const AddMessage = (props: IaddMessage) => {
   const user = useContext(UserContext)
   const path = user.pathImg
   const { showMessage, name } = props
-  const [message, setMessage] = useState<IaddMessage>({
+  const [message, setMessage] = useState<Imessage>({
     file: null,
     preview: '',
     validForm: false,

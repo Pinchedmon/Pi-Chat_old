@@ -1,14 +1,8 @@
 import { FormEvent } from 'react'
 import axios from 'axios'
-interface IAddMessageSubmit {
-  firstName: string
-  secondName: string
-  text: string
-  path: string
-  showMessage: () => void
-  file: File
-}
-export function addMessageSubmit(event: FormEvent<HTMLFormElement>, props: IAddMessageSubmit) {
+import { IaddMessageSubmit } from '../../../types/addMessage.inteface'
+
+export function addMessageSubmit(event: FormEvent<HTMLFormElement>, props: IaddMessageSubmit) {
   const { firstName, secondName, text, path, showMessage, file } = props
   if (firstName == secondName) {
     window.alert('Вы не можете отправлять себе сообщения')

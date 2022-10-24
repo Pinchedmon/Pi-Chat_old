@@ -4,5 +4,7 @@ export interface Istore {
     category: string
     addPostStyle: boolean
     messageStyle: boolean
+    addMessageStyle: boolean
+    editProfileStyle: boolean
   }
 }

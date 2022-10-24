@@ -1,10 +1,11 @@
 import { UserAddIcon } from '@heroicons/react/solid'
 import React from 'react'
+import { IprofileInfo } from '../../types/profile.interface'
 import { follow } from '../../utils/follow'
 import { unFollow } from '../../utils/unfollow'
 import Options from '../Options'
 
-function ProfileInfo(props: { profile: any; refetch: () => void; name: string; followed: boolean }) {
+function ProfileInfo(props: IprofileInfo) {
   const { profile, refetch, name, followed } = props
   return (
     <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
@@ -35,7 +36,7 @@ function ProfileInfo(props: { profile: any; refetch: () => void; name: string; f
           )}
         </div>
       </div>
-      <Options id={0} userName={name} profileName={profile.name} />
+      <Options userName={name} profileName={profile.name} />
     </div>
   )
 }

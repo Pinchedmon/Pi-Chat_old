@@ -1,14 +1,9 @@
-interface IaddMessage {
-  file: File
-  preview: string
-  validForm: boolean
-  text: string
-  textError: string
-}
+import { Imessage } from '../../../types/addMessage.inteface'
+
 export const handleChangeFile = (
   e: React.SyntheticEvent<EventTarget>,
-  setMessage: (message: IaddMessage) => void,
-  message: IaddMessage,
+  setMessage: (message: Imessage) => void,
+  message: Imessage,
 ) => {
   const target = e.target as HTMLInputElement
   setMessage({ ...message, file: target.files[0] })
