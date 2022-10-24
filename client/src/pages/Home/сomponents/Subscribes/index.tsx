@@ -5,16 +5,15 @@ import { UserContext } from '../../../../App'
 import Followers from './components/Followers'
 import Follows from './components/Follows'
 
-function Subscribes(props: any) {
+function Subscribes() {
   const getSubscribes = async (name: string) => {
     const response = await axios.get(`http://localhost:6060/follow/mySubs?name=${name}`)
     return response.data
   }
   const user = useContext(UserContext)
   const { data, refetch } = useQuery('subscribes', () =>
-    getSubscribes(user.name).then((res: any) => {
+    getSubscribes(user.name).then((res) => {
       if (res.status === 200) {
-        console.log(res)
         return res.data
       }
     }),

@@ -10,8 +10,8 @@ import Profile from './сomponents/Profile'
 import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
-import Followers from './сomponents/Subscribes'
 import { Istore } from '../../types/store.interface'
+import Subscribes from './сomponents/Subscribes'
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -31,7 +31,7 @@ const Home = () => {
               {/* <Route path='/profile' element={<Profile />} /> */}
               <Route path='/*' element={<Profile />} />
               <Route path='/messages' element={<Messages />} />
-              <Route path='/followers' element={<Followers />} />
+              <Route path='/followers' element={<Subscribes />} />
             </Routes>
             {nav.addPostStyle === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!nav.addPostStyle))} />}
           </div>
