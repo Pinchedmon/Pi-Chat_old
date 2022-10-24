@@ -11,16 +11,11 @@ import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
 import Followers from './сomponents/Subscribes'
-interface iState {
-  nav: {
-    sort: string | number
-    category: string
-    addPostStyle: boolean
-  }
-}
+import { Istore } from '../../types/store.interface'
+
 const Home = () => {
   const user = useContext(UserContext)
-  const nav = useSelector((state: iState) => state.nav)
+  const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
   return (
     <div className='grid grid-cols-4 gap-0px'>

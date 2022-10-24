@@ -5,19 +5,7 @@ import Buttons from './Buttons'
 import { useNavigate } from 'react-router-dom'
 import Options from './Options'
 import { UserContext } from '../../../../../../App'
-
-type iPost = {
-  name: string
-  text: string
-  postImg: string
-  likes: number | string
-  ID: number
-  comments: number | string
-  date: string
-  time: string
-  pathImg: string
-  username: string
-}
+import { Ipost } from '../../../PostPage/types/post.interface'
 
 function Post(props: { data: any; refetch: () => void }) {
   const { data, refetch } = props
@@ -27,7 +15,7 @@ function Post(props: { data: any; refetch: () => void }) {
     <div>
       {data !== undefined &&
         data.length > 0 &&
-        data.map((item: iPost, index: string | number) => (
+        data.map((item: Ipost, index: string | number) => (
           <div key={index} className='w-full flex flex-row self-center mb-16px border-b-2 border-gray-300'>
             <div className='flex flex-col ml-24px '>
               <div className='flex'>

@@ -1,17 +1,11 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import axios from 'axios'
-function Options(props: { id: number; postId: number; refetch: () => void }) {
+import { Ioptions } from '../../../types/options.interface'
+import { handleDelete } from './utils/handleDelete'
+
+const Options = (props: Ioptions) => {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
-
-  const handleDelete = (id: number, postId: number) => {
-    axios.delete(`http://localhost:6060/comment?postId=${postId}&id=${id}`).then((response) => {
-      if (response.status === 200) {
-        props.refetch()
-      }
-    })
-  }
   return (
     <>
       <div
@@ -37,7 +31,7 @@ function Options(props: { id: number; postId: number; refetch: () => void }) {
               className='pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white'
               onClick={() => {
                 setShowWarning(false)
-                handleDelete(props.id, props.postId)
+                handleDelete(props.id, props.postId, props.refetch)
               }}
             >
               Да

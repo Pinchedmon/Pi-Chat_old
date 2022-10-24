@@ -1,28 +1,17 @@
 import React from 'react'
+import { Icomment } from '../../types/comment.interface'
 import Options from './Options'
 
-type iComment = {
-  ID: number
-  postId: number
-  name: string
-  text: string
-  commentImg: string
-  date: string
-  time: string
-  username: string
-  img: string
-}
-
-function CComments(props: { data: any; refetch: () => void }) {
+function CComments(props: { data: Array<Icomment>; refetch: () => void }) {
   const { data, refetch } = props
   return (
     <>
-      {data === 0 ? (
+      {data === undefined ? (
         <div className='p-12px text-center text-gray-400'>Нет комментариев</div>
       ) : (
         <div>
           {data !== undefined &&
-            data.map((item: iComment, index: number) => (
+            data.map((item: Icomment, index: number) => (
               <div key={index} className='w-full flex flex-row mb-16px border-b-2 border-gray-300 relative '>
                 <img
                   src={item.img}
@@ -33,7 +22,6 @@ function CComments(props: { data: any; refetch: () => void }) {
                 <div className='flex-col '>
                   <div className='flex items-center align-center  -mt-4px'>
                     <div className='text-lg md:text-xl  font-bold'>{item.username}</div>
-
                     <p className='ml-8px font-bold text-md text-gray-500'>
                       {item.date === new Date().toLocaleDateString() ? item.time : item.date}
                     </p>
