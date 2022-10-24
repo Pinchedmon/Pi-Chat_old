@@ -8,13 +8,13 @@ import { UserContext } from '../../../../../../App'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { setMessageStyle } from '../../../../../../state/navReducer'
 import { resetOn } from '../../../../../../state/messageReducer'
+import { IdialogProps } from '../../types/dialogProps.interface'
 
-function Dialog(props: { names: string; dispatch: (arg0: any) => void; visible: boolean }) {
+function Dialog(props: IdialogProps) {
   const { dispatch, visible, names } = props
   const { data, refetch } = useQuery('dialog', () =>
     getMessages(props.names, names.replace(user.name, '').toString().trim()).then((res: any) => {
       if (res.status === 200) {
-        console.log(res)
         return res
       }
     }),
@@ -24,7 +24,6 @@ function Dialog(props: { names: string; dispatch: (arg0: any) => void; visible: 
     <>
       {data !== undefined && (
         <>
-          {' '}
           <div className='w-full border-b-2  border-green-600 p-10px '>
             <ArrowLeftIcon
               onClick={() => {

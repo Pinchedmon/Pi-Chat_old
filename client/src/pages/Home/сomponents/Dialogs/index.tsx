@@ -3,24 +3,17 @@ import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMessageStyle } from '../../../../state/navReducer'
 import { getDialogs } from '../../../../api/get'
+import { UserContext } from '../../../../App'
+import { Istore } from '../../../../types/store.interface'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
-import { UserContext } from '../../../../App'
-interface IState {
-  nav: {
-    messageStyle: boolean
-  }
-}
-interface iMessage {
-  names: string
-  last: string
-  backImg: string
-}
-function Dialogs() {
+import { Idialogs } from './types/dialogs.interface'
+
+const Dialogs = () => {
   const user = useContext(UserContext)
   const { data, refetch } = useQuery('messages', () => getDialogs(user.name), {})
   const [names, setNames] = useState<string>('')
-  const visible = useSelector((state: IState) => state.nav.messageStyle)
+  const visible = useSelector((state: Istore) => state.nav.messageStyle)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setMessageStyle(false))
@@ -36,7 +29,7 @@ function Dialogs() {
             <p className='text-2xl rounded-xl text-center  top-16px font-bold'>Диалоги</p>
           </div>
           {data !== undefined && data.data.length > 0 ? (
-            data.data.map((item: iMessage, index: number) => (
+            data.data.map((item: Idialogs, index: number) => (
               <div
                 key={index}
                 className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'
@@ -64,6 +57,7 @@ function Dialogs() {
                     <div className='mt-4px mb-12px'>{item.last}</div>
                   </div>
                 </div>
+
                 <Options names={item.names} refetch={refetch} />
               </div>
             ))

@@ -1,7 +1,9 @@
-import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
+import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import { deleteDialog } from './utils/deleteDialog'
-function Options(props: { names: string; refetch: () => void }) {
+import { Ioptions } from '../../types/options.interface'
+
+const Options = (props: Ioptions) => {
   const [showOptions, setShowOptions] = useState(false)
   const [showWarning, setShowWarning] = useState(false)
   return (

@@ -1,19 +1,12 @@
-interface click {
-  selectedMsg: string
-  addSelected: (text: number) => void
-  removeSelected: (text: number) => void
-  dispatch: (arg0: any) => void
-  setSelectedMsg: (x: any) => void
-  id: number
-}
+import { IhandleClick } from '../../../../../../../types/handleClick.interface'
 
-export const handleClick = (props: click) => {
-  const { selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, id } = props
+export const handleClick = (props: IhandleClick) => {
+  const { selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, ID } = props
   if (selectedMsg === '') {
     setSelectedMsg('bg-gray-100')
-    dispatch(addSelected(id))
+    dispatch(addSelected(ID))
   } else {
     setSelectedMsg('')
-    dispatch(removeSelected(id))
+    dispatch(removeSelected(ID))
   }
 }

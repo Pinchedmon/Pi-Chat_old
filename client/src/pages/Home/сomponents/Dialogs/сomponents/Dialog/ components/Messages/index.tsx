@@ -4,6 +4,7 @@ import Message from './сomponents/Message'
 import { deleteMessage } from './utils/deleteMessage'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetOn } from '../../../../../../../../state/messageReducer'
+import { Imessage } from '../../../../types/message.interface'
 interface iSelected {
   amount: number
   statements: string[]
@@ -42,11 +43,11 @@ const Messages = (props: { data: any; refetch: any }) => {
 
       <div className='z-0 relative overflow-y-hidden h-full '>
         {data !== undefined &&
-          data.map((item: any) => (
+          data.map((item: Imessage) => (
             <Message
               name={item.name}
               messageImg={item.messageImg}
-              id={item.ID}
+              ID={item.ID}
               text={item.text}
               dispatch={dispatch}
               reset={selected.resetStatus}

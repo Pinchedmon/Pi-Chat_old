@@ -1,10 +1,6 @@
-interface iSelected {
-  amount: number
-  statements: string[]
-  resetStatus: boolean
-}
+import { Iselected } from '../../../../../types/handleSelected.interface'
 
-export const addSelected = (y: string, selected: iSelected, setSelected: (selected: iSelected) => void) => {
+export const addSelected = (y: string, selected: Iselected, setSelected: (selected: Iselected) => void) => {
   setSelected({
     ...selected,
     amount: selected.amount + 1,
