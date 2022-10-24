@@ -1,16 +1,4 @@
-interface iForm {
-  name: string
-  email: string
-  password: string
-  nameDirty: boolean
-  emailDirty: boolean
-  passwordDirty: boolean
-  nameError: string
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
-export const blurHandler = (e: React.FocusEvent<HTMLInputElement>, setForm: (form: iForm) => void, form: iForm) => {
+export const blurHandler = (e: React.FocusEvent<HTMLInputElement>, setForm: (form: Iform) => void, form: Iform) => {
   switch (e.target.name) {
     case 'name': {
       setForm({ ...form, nameDirty: true })

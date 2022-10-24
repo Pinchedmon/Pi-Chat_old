@@ -1,13 +1,6 @@
-interface iForm {
-  email: string
-  password: string
-  emailDirty: boolean
-  passwordDirty: boolean
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
-export const blurHandler = (e: React.FocusEvent<HTMLInputElement>, setForm: (form: iForm) => void, form: iForm) => {
+import { Iform } from '../types/login.interface'
+
+export const blurHandler = (e: React.FocusEvent<HTMLInputElement>, setForm: (form: Iform) => void, form: Iform) => {
   switch (e.target.name) {
     case 'email': {
       setForm({ ...form, emailDirty: true })

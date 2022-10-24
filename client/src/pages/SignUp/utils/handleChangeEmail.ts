@@ -1,19 +1,9 @@
-interface iForm {
-  name: string
-  email: string
-  password: string
-  nameDirty: boolean
-  emailDirty: boolean
-  passwordDirty: boolean
-  nameError: string
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
+import { Iform } from '../types/signup.interface'
+
 export const handleChangeEmail = (
   e: React.ChangeEvent<HTMLInputElement>,
-  setForm: (form: iForm) => void,
-  form: iForm,
+  setForm: (form: Iform) => void,
+  form: Iform,
 ) => {
   const re =
     // eslint-disable-next-line no-useless-escape

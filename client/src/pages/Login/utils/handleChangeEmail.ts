@@ -1,16 +1,9 @@
-interface iForm {
-  email: string
-  password: string
-  emailDirty: boolean
-  passwordDirty: boolean
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
+import { Iform } from '../types/login.interface'
+
 export const handleChangeEmail = async (
   e: React.ChangeEvent<HTMLInputElement>,
-  setForm: (form: iForm) => void,
-  form: iForm,
+  setForm: (form: Iform) => void,
+  form: Iform,
 ) => {
   const re =
     // eslint-disable-next-line no-useless-escape

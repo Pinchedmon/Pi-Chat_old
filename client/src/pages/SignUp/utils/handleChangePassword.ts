@@ -1,19 +1,9 @@
-interface iForm {
-  name: string
-  email: string
-  password: string
-  nameDirty: boolean
-  emailDirty: boolean
-  passwordDirty: boolean
-  nameError: string
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
+import { Iform } from '../types/signup.interface'
+
 export const handleChangePassword = (
   e: React.ChangeEvent<HTMLInputElement>,
-  setForm: (form: iForm) => void,
-  form: iForm,
+  setForm: (form: Iform) => void,
+  form: Iform,
 ) => {
   if (e.target.value.length < 3 || e.target.value.length > 12) {
     setForm({ ...form, passwordError: 'пароль должен быть от 3 до 12 символов', password: e.target.value })

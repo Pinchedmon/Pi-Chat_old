@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import { Iform } from './types/login.interface'
 import { blurHandler } from './utils/blurHandler'
 import { handleChangeEmail } from './utils/handleChangeEmail'
 import { handleChangePassword } from './utils/handleChangePassword'
 import { handleSubmit } from './utils/handleSubmit'
-interface iForm {
-  email: string
-  password: string
-  emailDirty: boolean
-  passwordDirty: boolean
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
+
 export default function Login() {
   const { logIn, error } = useAuth()
-  const [form, setForm] = useState<iForm>({
+  const [form, setForm] = useState<Iform>({
     email: '',
     password: '',
     emailDirty: false,
@@ -29,9 +22,9 @@ export default function Login() {
 
   useEffect(() => {
     if (form.emailError || form.passwordError) {
-      setForm((form: iForm) => ({ ...form, validForm: false }))
+      setForm({ ...form, validForm: false })
     } else {
-      setForm((form: iForm) => ({ ...form, validForm: true }))
+      setForm({ ...form, validForm: true })
     }
   }, [form.emailError, form.passwordError])
   return (

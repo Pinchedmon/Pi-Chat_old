@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import { Iform } from './types/signup.interface'
 import { blurHandler } from './utils/blurHandler'
 import { handleChangeEmail } from './utils/handleChangeEmail'
 import { handleChangeName } from './utils/handleChangeName'
 import { handleChangePassword } from './utils/handleChangePassword'
 import { handleSubmit } from './utils/handleSubmit'
-interface iForm {
-  name: string
-  email: string
-  password: string
-  nameDirty: boolean
-  emailDirty: boolean
-  passwordDirty: boolean
-  nameError: string
-  emailError: string
-  passwordError: string
-  validForm: boolean
-}
+
 export default function SignUpPage() {
   const { signUp, error } = useAuth()
-  const [form, setForm] = useState<iForm>({
+  const [form, setForm] = useState<Iform>({
     name: '',
     email: '',
     password: '',
@@ -35,9 +25,9 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (form.nameError || form.emailError || form.passwordError) {
-      setForm((form: iForm) => ({ ...form, validForm: false }))
+      setForm({ ...form, validForm: false })
     } else {
-      setForm((form: iForm) => ({ ...form, validForm: true }))
+      setForm({ ...form, validForm: true })
     }
   }, [form.nameError, form.emailError, form.passwordError])
   return (
