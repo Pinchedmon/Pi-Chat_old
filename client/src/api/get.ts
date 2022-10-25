@@ -25,7 +25,7 @@ export async function getPath(name: string | object | any) {
 
 export async function getMyPosts(name: string) {
   const response = await axios.get(`http://localhost:6060/posts/getMyPosts?name=${name}`)
-  return response.data.data
+  return response.data
 }
 
 export async function getDialogs(name: string) {

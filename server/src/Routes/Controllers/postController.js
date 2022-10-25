@@ -80,10 +80,20 @@ class postController {
       if (err) {
         return res.status(400).json({ error: err.message });
       }
-      return res.json({
-        status: 200,
-        data: rows
-      });
+      const page = parseInt(queryObject.page) || 1;
+      const pager = paginate(rows.length, page);
+      const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+      let x = 0;
+      for (let i = 0; i < pageOfItems.length; i++) {
+        db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
+          pageOfItems[i]['username'] = user[0].username
+          pageOfItems[i]['pathImg'] = user[0].pathImg
+          x++;
+          if (x === pageOfItems.length) {
+            return res.json({ pager, data: pageOfItems, status: 200 });
+          }
+        })
+      }
     });
   }
   async likePost(req, res) {
