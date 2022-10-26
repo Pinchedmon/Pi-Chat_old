@@ -45,7 +45,7 @@ const AddPost = () => {
   }, [addPost.file])
   return (
     <form
-      className=' text-center flex flex-col bg-white p-16px border-b-2  border-gray-300   '
+      className='addPost'
       onSubmit={(e) => {
         addPostSubmit(e, {
           name: user.name,
@@ -59,18 +59,16 @@ const AddPost = () => {
         setAddPost({ ...addPost, text: '' })
       }}
     >
-      {/* Title naming */}
-      <div className='text-2xl font-bold text-left ml-4px mb-4px text-green-600'>За / π / ши</div>
-      {/* Text Area */}
+      <div className='addPost__title'>За / π / ши</div>
+
       <TextareaAutosize
         cacheMeasurements
         onChange={(e) => handleTextChange(e, setAddPost, addPost)}
         value={addPost.text}
-        className='mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px'
+        className='addPost__textarea'
         placeholder='Текст поста'
       />
       <div className='flex'>
-        {/* Add file button */}
         <label className='flex '>
           <input
             type='file'
@@ -78,21 +76,16 @@ const AddPost = () => {
             accept='.png,.gif,.jpg,.jpeg'
             onChange={(e) => handleChangeFile(e, setAddPost, addPost)}
           />
-          {/* icon */}
           <i className=''>
-            <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
+            <PaperClipIcon className='addPost__file__icon' />
           </i>
-          {/* Img that u want to send */}
-          {addPost.file !== null && (
-            <img className='h-40px object-cover ml-40px rounded-md' alt='загружается' src={addPost.preview} />
-          )}
+          {addPost.file !== null && <img className='addPost__file__img' alt='загружается' src={addPost.preview} />}
         </label>
-        <div className='flex w-full justify-around items-center '>
-          {/* Category */}
-          <div className='w-100px text-lg  flex  font-bold '>
-            <h4 className='mr-4px'> Категория</h4>
+        <div className='addPost__filter-area '>
+          <div className='addPost-filter'>
+            <p className='addPost-filter__naming'> Категория</p>
             <select
-              className='border-2 text-green-600 rounded-lg block '
+              className='addPost-filter__select'
               value={addPost.category}
               onChange={(e) => handleCategoryChange(e, setAddPost, addPost)}
             >
@@ -104,11 +97,10 @@ const AddPost = () => {
               <option value='Вопросы'>Вопросы</option>
             </select>
           </div>
-          {/* Course | Sort */}
-          <div className='w-100px text-lg  flex  font-bold '>
-            <h4 className='mr-4px'> Курс</h4>
+          <div className='addPost-filter'>
+            <p className='addPost-filter__naming'> Курс</p>
             <select
-              className='border-2 text-green-600 rounded-lg w-54px '
+              className='addPost-filter__select '
               value={addPost.course}
               onChange={(e) => handleCourseChange(e, setAddPost, addPost)}
             >

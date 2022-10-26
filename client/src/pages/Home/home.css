@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .home {
+    @apply grid grid-cols-4 gap-0px;
+  }
+}

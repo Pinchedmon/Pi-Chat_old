@@ -18,7 +18,7 @@ const Home = () => {
   const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
   return (
-    <div className='grid grid-cols-4 gap-0px'>
+    <div className='home'>
       {user !== undefined && (
         <>
           <div className='h-screen'>
