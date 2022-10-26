@@ -7,24 +7,18 @@ import Options from './Options'
 import { UserContext } from '../../../../../../App'
 import { Ipost } from '../../../PostPage/types/post.interface'
 
-function Post(props: { data: any; refetch: () => void }) {
+const Post = (props: { data: any; refetch: () => void }) => {
   const { data, refetch } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
   return (
     <div>
-      {data !== undefined &&
-        data.length > 0 &&
-        data.map((item: Ipost, index: string | number) => (
-          <div key={index} className='w-full flex flex-row self-center mb-16px border-b-2 border-gray-300'>
-            <div className='flex flex-col ml-24px '>
+      {data &&
+        data.map((item: Ipost, index: number) => (
+          <div key={index} className='posts'>
+            <div className='post'>
               <div className='flex'>
-                <img
-                  src={item.pathImg}
-                  alt=''
-                  onClick={() => navigate(`/${item.name}`)}
-                  className='mr-16px h-54px  rounded-xl w-54px cursor-pointer'
-                />
+                <img src={item.pathImg} alt='' onClick={() => navigate(`/${item.name}`)} className='post__img' />
                 <ProfileInfo username={item.username} name={item.name} date={item.date} time={item.time} />
               </div>
               <Info text={item.text} img={item.postImg} />

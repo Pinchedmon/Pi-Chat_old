@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .posts {
+    @apply w-full flex flex-row self-center mb-16px border-b-2 border-gray-300;
+  }
+  .post {
+    @apply flex flex-col ml-24px;
+  }
+  .post__img {
+    @apply mr-16px h-54px  rounded-xl w-54px cursor-pointer;
+  }
+  .post__profile-info {
+    @apply flex font-bold items-center mb-2px  -mt-6px;
+  }
+  .post__profile-username {
+    @apply text-2xl;
+  }
+  .post__profile-name {
+    @apply ml-8px text-base text-gray-500;
+  }
+  .post__profile-date {
+    @apply ml-8px text-sm text-gray-500;
+  }
+  .post__info {
+    @apply flex flex-col;
+  }
+  .post__info-text {
+    @apply break-all text-base pt-4px pb-6px;
+  }
+  .post__info-img {
+    @apply w-1/2 rounded-xl mb-16px;
+  }
+  .post__buttons {
+    @apply mb-8px flex w-54px items-center;
+  }
+  .post__buttons__heart-icon {
+    @apply text-green-600 mr-8px w-28px;
+  }
+  .post__buttons__button {
+    @apply flex;
+  }
+  .post__buttons__comment-icon {
+    @apply w-28px h-28px mr-8px   text-green-600;
+  }
+  .post__buttons__text {
+    @apply text-green-600 text-lg font-bold;
+  }
+  .post__option {
+    @apply self-start right-16px absolute justify-end p-8px;
+  }
+  .post__option-icon {
+    @apply w-24px hover:text-green-600;
+  }
+  .post__option-area {
+    @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px text-center;
+  }
+  .post__warning-background {
+    @apply backdrop-blur-sm w-full h-full absolute top-0px;
+  }
+  .post__warning {
+    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600;
+  }
+  .post__warning-title {
+    @apply mb-16px;
+  }
+  .post__warning__button-yes {
+    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;
+  }
+  .post__warning__button-no {
+    @apply ml-5px pl-10px pr-10px pt-4px pb-4px  bg-gray-600 text-white rounded-lg float-right;
+  }
+}

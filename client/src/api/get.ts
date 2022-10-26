@@ -44,3 +44,7 @@ export async function getMyUsername(name: string) {
     return response
   }
 }
+export const getSubscribes = async (name: string) => {
+  const response = await axios.get(`http://localhost:6060/follow/mySubs?name=${name}`)
+  return response.data
+}

@@ -1,15 +1,11 @@
 import React, { useContext } from 'react'
 import { useQuery } from 'react-query'
-import axios from 'axios'
 import { UserContext } from '../../../../App'
 import Followers from './components/Followers'
 import Follows from './components/Follows'
+import { getSubscribes } from '../../../../api/get'
 
-function Subscribes() {
-  const getSubscribes = async (name: string) => {
-    const response = await axios.get(`http://localhost:6060/follow/mySubs?name=${name}`)
-    return response.data
-  }
+const Subscribes = () => {
   const user = useContext(UserContext)
   const { data, refetch } = useQuery('subscribes', () =>
     getSubscribes(user.name).then((res) => {
@@ -27,8 +23,6 @@ function Subscribes() {
           <Followers name={user.name} data={data.followers} />
         </>
       )}
-
-      {/*  */}
     </div>
   )
 }

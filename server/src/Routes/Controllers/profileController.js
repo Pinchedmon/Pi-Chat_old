@@ -48,26 +48,11 @@ class profileController {
         let followed;
         db.all(`SELECT * FROM follows WHERE name = "${queryObject.username}" AND object = "${queryObject.name}"`, [], (err, rows) => {
             rows.length === 1 ? followed = true : followed = false
+            db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
+                return res.json({ "data": { ...rows, followed }, status: 200 })
+            })
         })
-        db.all(`SELECT * FROM posts WHERE name = "${queryObject.name}"`, [], (err, posts) => {
-            const page = parseInt(queryObject.page) || 1;
-            const pager = paginate(posts.length, page);
-            const pageOfItems = posts.slice(pager.startIndex, pager.endIndex + 1);
-            let x = 0;
-            for (let i = 0; i < pageOfItems.length; i++) {
-                db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
-                    pageOfItems[i]['username'] = user[0].username
-                    pageOfItems[i]['pathImg'] = user[0].pathImg
-                    x++;
-                    if (x === pageOfItems.length) {
-                        db.all(`SELECT * FROM users WHERE name = "${queryObject.name}" `, [], (err, rows) => {
-                            return res.json({ "data": { ...rows, followed, posts: pageOfItems }, status: 200 })
-                        })
-                    }
-                })
-            }
 
-        })
     }
     async getMyUsername(req, res) {
         const queryObject = url.parse(req.url, true).query;

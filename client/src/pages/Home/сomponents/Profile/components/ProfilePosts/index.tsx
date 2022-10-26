@@ -10,7 +10,6 @@ const ProfilePosts = (props: { name: string }) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { refetch } = useQuery('myPosts', () => {
     getMyPosts(props.name).then((res) => {
-      console.log(res)
       if (res.status === 200) {
         if (page < 2) {
           setPosts(res.data)

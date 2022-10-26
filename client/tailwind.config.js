@@ -45,7 +45,9 @@ module.exports = {
       '10%': '10%',
       '20%': '20%',
       '90%': '90%',
-      'full': '100%'
+      'full': '100%',
+      '12.5rem': "12.5rem",
+      '2rem': '2rem'
     },
     borderWidth: {
       DEFAULT: '1px',

@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
 import { Ibuttons } from '../../../types/post.interface'
+import { handleLike } from './utils/handleLike'
 
 function Buttons(props: Ibuttons) {
   const navigate = useNavigate()
@@ -10,24 +10,21 @@ function Buttons(props: Ibuttons) {
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
   }
+
   return (
-    <div className=' mb-8px flex w-54px align-center items-center'>
+    <div className='post__buttons'>
       <button
-        className='flex mr-16px'
+        className='post__buttons__button mr-16px'
         onClick={() => {
-          axios.put(`http://localhost:6060/posts/feed?postId=${ID}&profileName=${name}`).then((response) => {
-            if (response.status === 200) {
-              refetch()
-            }
-          })
+          handleLike(ID, name, refetch)
         }}
       >
-        <HeartIcon className='text-green-600 mr-8px w-28px' />
-        <p className='text-green-600 text-lg font-bold '>{likes}</p>
+        <HeartIcon className='post__buttons__heart-icon' />
+        <p className='post__buttons__text '>{likes}</p>
       </button>
-      <button className='flex ' onClick={() => showComments(ID)}>
-        <AnnotationIcon className='w-28px h-28x mr-8px   text-green-600' />
-        <p className='text-green-600 text-lg font-bold'>{comments}</p>
+      <button className='post__buttons__button' onClick={() => showComments(ID)}>
+        <AnnotationIcon className='post__buttons__comment-icon' />
+        <p className='post__buttons__text'>{comments}</p>
       </button>
     </div>
   )

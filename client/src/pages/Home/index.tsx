@@ -21,7 +21,7 @@ const Home = () => {
     <div className='home'>
       {user !== undefined && (
         <>
-          <div className='h-screen'>
+          <div className='h-screen border'>
             <Nav />
           </div>
           <div className='relative col-span-2 border-l-2 border-r-2 max-w-full border-gray-300'>
