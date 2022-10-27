@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .wrapper__nav {
+    @apply h-full flex justify-center;
+  }
+  .nav-area {
+    @apply fixed h-screen;
+  }
+  .nav {
+    @apply flex flex-col items-center text-2xl font-bold;
+  }
+  .nav-menu__active {
+    @apply w-12.5rem flex mb-2rem text-green-600;
+  }
+  .nav-menu {
+    @apply w-12.5rem flex mb-2rem;
+  }
+  .nav-logo {
+    @apply mt-54px rounded-xl mb-54px  text-green-600 font-bold text-4xl;
+  }
+  .nav-icon {
+    @apply w-32px h-32px mr-16px;
+  }
+
+  .nav-send__button {
+    @apply bg-green-600 text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold;
+  }
+}

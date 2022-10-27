@@ -9,18 +9,16 @@ export default function FilterModal(props: IfilterModal) {
   const { category, sort, dispatch } = props
   const { refetch } = useQuery('myPosts')
   return (
-    <div className='w-full flex-col '>
-      <div className='flex justify-center'>
-        <p className='text-2xl text-green-600 font-bold mt-12px'>Сортировка</p>
-      </div>
-      <div className='flex p-16px justify-center'>
+    <div className='filterModal'>
+      <p className='filterModal__title'>Сортировка</p>
+      <div className='filterModal__filters'>
         <select
           defaultValue={sort}
           onChange={(e) => {
             filterSort(e, dispatch, setSort)
             refetch()
           }}
-          className=' text-md  font-bold md:text-lg text-green-600'
+          className='filterModal__filter'
         >
           <option value='value1' disabled>
             Сортировать по
@@ -37,7 +35,7 @@ export default function FilterModal(props: IfilterModal) {
             filterCategory(e, dispatch, setCategory)
             refetch()
           }}
-          className='text-md ml-32px font-bold md:text-lg text-green-600  '
+          className='filterModal__filter'
         >
           <option value='value1' disabled>
             Категория

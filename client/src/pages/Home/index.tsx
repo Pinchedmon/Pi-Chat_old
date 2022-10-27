@@ -19,29 +19,25 @@ const Home = () => {
   const dispatch = useDispatch()
   return (
     <div className='home'>
-      {user !== undefined && (
+      {user && (
         <>
-          <div className='h-screen border'>
-            <Nav />
-          </div>
-          <div className='relative col-span-2 border-l-2 border-r-2 max-w-full border-gray-300'>
+          <Nav />
+          <div className='content-area'>
             <Routes>
               <Route path='/' element={<Posts sort={nav.sort} category={nav.category} />} />
               <Route path='/post' element={<Post />} />
-              {/* <Route path='/profile' element={<Profile />} /> */}
               <Route path='/*' element={<Profile />} />
               <Route path='/messages' element={<Messages />} />
               <Route path='/followers' element={<Subscribes />} />
             </Routes>
             {nav.addPostStyle === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!nav.addPostStyle))} />}
           </div>
-          <div className=''>
-            <Routes>
-              <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
-              {/* <Route path='/post' element={<Post />} />
+
+          <Routes>
+            <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
+            {/* <Route path='/post' element={<Post />} />
           <Route path='/profile' element={<Profile />} /> */}
-            </Routes>
-          </div>
+          </Routes>
         </>
       )}
     </div>

@@ -3,18 +3,15 @@
 @tailwind utilities;
 
 @layer components {
-  .activeNavMenu {
-    @apply w-12.5rem flex mb-2rem text-green-600;
-  }
-
-  .navMenu {
-    @apply w-12.5rem flex mb-2rem;
-  }
-
   @import './pages/Home/home.css';
   @import './pages/Home/сomponents/Posts/components/AddPost/addPost.css';
   @import './pages/Home/сomponents/Posts/components/Post/post.css';
+  @import './pages/Home/сomponents/Nav/nav.css';
+  @import './pages/Home/сomponents/Nav/сomponents/PersonData/personData.css';
+  @import './pages/Home/сomponents/Nav/сomponents/AddPost/addPost.css';
+  @import './pages/Home/сomponents/Nav/сomponents/FilterModal/filterModal.css';
 }
+
 @layer base {
   @import '../node_modules/modern-normalize/modern-normalize.css';
 }

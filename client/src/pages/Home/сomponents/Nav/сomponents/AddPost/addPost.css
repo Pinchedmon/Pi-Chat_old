@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav__addPost-area {
+    @apply absolute w-full top-0px backdrop-blur-sm h-screen mt-100px flex flex-col justify-center items-center;
+  }
+  .nav__addPost {
+    @apply text-center flex flex-col bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
+  }
+  .nav__addPost-title {
+    @apply flex h-54px items-center text-green-600 rounded-2xl;
+  }
+  .nav__addPost-title-icon {
+    @apply w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700;
+  }
+  .nav__addPost-title-text {
+    @apply absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold;
+  }
+  .nav__addPost-filters {
+    @apply flex justify-evenly items-center mt-12px mb-16px;
+  }
+  .nav__addPost-filter {
+    @apply w-100px text-lg  flex  font-bold;
+  }
+  .nav__addPost__select {
+    @apply ml-4px border-2 text-green-600 rounded-lg block;
+  }
+  .nav__addPost__textarea {
+    @apply mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px;
+  }
+  .nav__addPost__file {
+    @apply w-40px text-white bg-green-600 p-6px rounded-xl;
+  }
+  .nav__addPost__img {
+    @apply h-40px object-cover ml-40px rounded-md;
+  }
+  .nav__addPost__button {
+    @apply ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl;
+  }
+}

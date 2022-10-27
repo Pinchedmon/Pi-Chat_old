@@ -24,7 +24,7 @@ const Dialogs = () => {
       {!visible && (
         <>
           {/* Dialogs */}
-          <div className='w-full  border-b-2 border-green-600 p-10px '>
+          <div className='w-full  border-b-2 border-green-600 p-10px'>
             {/* Title naming */}
             <p className='text-2xl rounded-xl text-center  top-16px font-bold'>Диалоги</p>
           </div>

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .filterModal {
+    @apply w-full flex-col;
+  }
+  .filterModal__title {
+    @apply text-2xl text-green-600 text-center font-bold mt-12px;
+  }
+  .filterModal__filters {
+    @apply flex font-bold md:text-lg text-green-600;
+  }
+  .filterModal__filter {
+    @apply flex p-16px justify-center;
+  }
+}

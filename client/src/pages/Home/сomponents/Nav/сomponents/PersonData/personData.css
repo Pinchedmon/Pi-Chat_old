@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.person-data {
+  @apply absolute bottom-32px flex items-center;
+}
+.person-data__img {
+  @apply rounded-2xl w-54px h-54px mr-16px;
+}
+.person-data__info {
+  @apply flex-col mr-32px;
+}
+.person-data__info__username {
+  @apply text-xl font-bold;
+}
+.person-data__info__name {
+  @apply text-green-700;
+}
+.person-data__button {
+  @apply w-32px h-32px text-green-600 cursor-pointer;
+}
