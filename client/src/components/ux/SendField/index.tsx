@@ -38,39 +38,36 @@ const SendField = (props: Isendfield) => {
   return (
     <>
       <form
-        className='w-full mb-6px'
+        className='postPage-sendField'
         onSubmit={(event) => {
           handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)
         }}
       >
-        <div className='flex justify-center mb-10px'>
+        <div className='postPage-sendField-textArea '>
           <TextareaAutosize
             cacheMeasurements
             onChange={(e) => handleChangeText(e, setAreaData, areaData)}
             value={areaData.textArea || ''}
-            className='rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%'
+            className='postPage-sendField__textArea'
             placeholder='Написать'
           />
         </div>
-        <div className='flex ml-16px'>
-          <label className='flex'>
+        <div className='postPage-sendField-buttons'>
+          <label className='postPage-sendField-buttons__label'>
             <input
               type='file'
               className='hidden'
               accept='.png,.gif,.jpg,.jpeg'
               onChange={(e) => handleChangeFile(e, setAreaData, areaData)}
             />
-            <i className=''>
-              <PaperClipIcon className='w-40px text-white bg-green-600 p-6px rounded-xl' />
+            <i>
+              <PaperClipIcon className='postPage-sendField-buttons-icon' />
             </i>
             {areaData.preview !== null && (
-              <img className='h-40px object-cover ml-40px rounded-md' alt='' src={areaData.preview} />
+              <img className='postPage-sendField-buttons-previewImg ' alt='' src={areaData.preview} />
             )}
           </label>
-          <button
-            disabled={!areaData.validForm}
-            className='ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl'
-          >
+          <button disabled={!areaData.validForm} className='postPage-sendField-buttons__button'>
             Отправить
           </button>
         </div>

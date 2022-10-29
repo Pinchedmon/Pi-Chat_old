@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .postPage-exit {
+    @apply border-b-2 border-gray-300 p-16px;
+  }
+  .postPage-exit__icon {
+    @apply w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 hover:text-white;
+  }
+  .postPage-options {
+    @apply right-16px top-0px absolute p-8px;
+  }
+  .postPage-options-icon {
+    @apply w-24px hover:text-green-600;
+  }
+  .postPage-show-options {
+    @apply absolute bg-white rounded-lg border-green-600  border-2 -right-5px  mt-4px p-5px text-center;
+  }
+  .postPage-show-options__button {
+    @apply flex text-red-600 font-bold;
+  }
+  .postPage-show-options__img {
+    @apply w-24px;
+  }
+  .postPage-show-options__p {
+    @apply ml-5px mr-5px;
+  }
+  .postPage-warning-back {
+    @apply w-full h-full absolute top-0px;
+  }
+  .postPage-warning {
+    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600;
+  }
+  .postPage-warning {
+    @apply w-full h-full absolute top-0px;
+  }
+  .postPage-warning {
+    @apply w-full h-full absolute top-0px;
+  }
+  .postPage-warning {
+    @apply w-full h-full absolute top-0px;
+  }
+  .postPage-warning-ask {
+    @apply mb-16px;
+  }
+  .postPage-warning__button {
+    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;
+  }
+  .postPage-sendField {
+    @apply w-full mb-6px;
+  }
+  .postPage-sendField-textArea {
+    @apply flex justify-center mb-10px;
+  }
+  .postPage-sendField__textArea {
+    @apply rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%;
+  }
+  .postPage-sendField-buttons {
+    @apply flex ml-16px;
+  }
+  .postPage-sendField-buttons__label {
+    @apply flex;
+  }
+  .postPage-sendField-buttons-icon {
+    @apply w-40px text-white bg-green-600 p-6px rounded-xl;
+  }
+  .postPage-sendField-buttons-previewImg {
+    @apply h-40px object-cover ml-40px rounded-md;
+  }
+  .postPage-sendField-buttons__button {
+    @apply ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl;
+  }
+}

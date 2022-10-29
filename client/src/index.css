@@ -10,6 +10,8 @@
   @import './pages/Home/сomponents/Nav/сomponents/PersonData/personData.css';
   @import './pages/Home/сomponents/Nav/сomponents/AddPost/addPost.css';
   @import './pages/Home/сomponents/Nav/сomponents/FilterModal/filterModal.css';
+  @import './pages/Home/сomponents/PostPage/postPage.css';
+  @import './pages/Home/сomponents/PostPage/components/Comment/comment.css';
 }
 
 @layer base {
