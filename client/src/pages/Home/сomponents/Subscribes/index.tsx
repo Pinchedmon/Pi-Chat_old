@@ -16,14 +16,14 @@ const Subscribes = () => {
   )
 
   return (
-    <div className='flex w-full justify-around'>
-      {data !== undefined && (
-        <>
+    <>
+      {data && (
+        <div className='subscribes'>
           <Follows name={user.name} data={data.follows} refetch={refetch} />
           <Followers name={user.name} data={data.followers} />
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

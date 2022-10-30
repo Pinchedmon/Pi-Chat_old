@@ -12,6 +12,7 @@
   @import './pages/Home/сomponents/Nav/сomponents/FilterModal/filterModal.css';
   @import './pages/Home/сomponents/PostPage/postPage.css';
   @import './pages/Home/сomponents/PostPage/components/Comment/comment.css';
+  @import './pages/Home/сomponents/Subscribes/subscribes.css';
 }
 
 @layer base {

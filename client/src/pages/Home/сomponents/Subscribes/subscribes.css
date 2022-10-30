@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .subscribes {
+    @apply flex w-full justify-around;
+  }
+  .follows {
+    @apply w-1/2  border-gray-300 h-screen;
+  }
+  .follows-title {
+    @apply text-center p-16px text-xl border-b-2 border-gray-300 font-extrabold;
+  }
+  .follow {
+    @apply flex mt-12px justify-center;
+  }
+  .follow-info {
+    @apply w-180px flex items-center;
+  }
+  .follow-info__img {
+    @apply rounded-xl mr-16px border-2 w-48px h-48px;
+  }
+  .follow-info__p {
+    @apply text-xl font-medium;
+  }
+  .follow-close-icon {
+    @apply w-32px;
+  }
+}
