@@ -28,24 +28,19 @@ export default function Login() {
     }
   }, [form.emailError, form.passwordError])
   return (
-    <div className='bg-green-600 w-full h-screen flex flex-col justify-center align-center'>
-      <div className='ml-auto drop-shadow-md  mb-16px mr-auto w-260px h-100px rounded-3xl bg-white flex justify-center items-center'>
+    <div className='login'>
+      <div className='login-title'>
         {error !== '' ? (
-          <div className='text-center font-bold text-red-600'>{error}</div>
+          <div className='login-title-error'>{error}</div>
         ) : (
-          <h1 className='text-3xl text-center rounded-2xl shadow-lg pt-12px pb-12px pl-32px pr-32px  font-bold text-black border-3 border-green-600'>
-            / π - Чат /
-          </h1>
+          <h1 className='login-title__h1'>/ π - Чат /</h1>
         )}
       </div>
-      <form
-        onSubmit={(e) => handleSubmit(e, form.email, form.password, logIn)}
-        className='w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white text-center flex-col self-center'
-      >
-        <h1 className='text-3xl font-bold mt-32px mb-24px drop-shadow-md'>ВХОД</h1>
-        {form.emailDirty && form.emailError && <div className='text-red-600'>{form.emailError}</div>}
+      <form onSubmit={(e) => handleSubmit(e, form.email, form.password, logIn)} className='login__form'>
+        <h1 className='login-form__h1'>ВХОД</h1>
+        {form.emailDirty && form.emailError && <div className=''>{form.emailError}</div>}
         <input
-          className='w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600'
+          className='login-form__input'
           name='email'
           placeholder='Email'
           type='email'
@@ -53,9 +48,9 @@ export default function Login() {
           onBlur={(e) => blurHandler(e, setForm, form)}
           onChange={(e) => handleChangeEmail(e, setForm, form)}
         />
-        {form.passwordDirty && form.passwordError && <div className='text-red-600'>{form.passwordError}</div>}
+        {form.passwordDirty && form.passwordError && <div className='login-form-error'>{form.passwordError}</div>}
         <input
-          className='w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600'
+          className='login-form__input'
           name='password'
           placeholder='Пароль'
           type='password'
@@ -64,14 +59,11 @@ export default function Login() {
           onChange={(e) => handleChangePassword(e, setForm, form)}
         />
 
-        <button
-          disabled={!form.validForm}
-          className='w-200px rounded-xl ml-auto mr-auto font-bold p-3px mb-32px text-center border-3 border-green-600'
-        >
+        <button disabled={!form.validForm} className='login-form__button'>
           Вход
         </button>
 
-        <Link className='text-sm text-green-600 underline  mb-8px' to='/signup'>
+        <Link className='login-link' to='/signup'>
           Регистрация
         </Link>
       </form>

@@ -8,9 +8,11 @@ import { Istore } from '../../../../types/store.interface'
 import Options from './сomponents/Options'
 import Dialog from './сomponents/Dialog'
 import { Idialogs } from './types/dialogs.interface'
+import { useNavigate } from 'react-router-dom'
 
 const Dialogs = () => {
   const user = useContext(UserContext)
+  const navigate = useNavigate()
   const { data, refetch } = useQuery('messages', () => getDialogs(user.name), {})
   const [names, setNames] = useState<string>('')
   const visible = useSelector((state: Istore) => state.nav.messageStyle)
@@ -23,46 +25,35 @@ const Dialogs = () => {
     <div className='w-full h-screen'>
       {!visible && (
         <>
-          {/* Dialogs */}
-          <div className='w-full  border-b-2 border-green-600 p-10px'>
-            {/* Title naming */}
-            <p className='text-2xl rounded-xl text-center  top-16px font-bold'>Диалоги</p>
+          <div className='dialogs'>
+            <p className='dialogs-title'>Диалоги</p>
           </div>
-          {data !== undefined && data.data.length > 0 ? (
+          {data && data.data.length > 0 ? (
             data.data.map((item: Idialogs, index: number) => (
-              <div
-                key={index}
-                className='w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100'
-              >
+              <div key={index} className='dialog'>
                 <div
                   onClick={() => {
                     dispatch(setMessageStyle(!visible))
                     setNames(item.names)
                   }}
-                  className='w-full flex mt-10px flex-row pb-10px'
+                  className='dialog-info'
                 >
-                  <img
-                    onClick={() => 1}
-                    alt=''
-                    className='ml-24px mr-16px h-54px rounded-xl w-54px'
-                    src={item.backImg}
-                  />
+                  <img onClick={() => navigate('')} alt='' className='dialog-info__img' src={item.backImg} />
                   <div className='flex-col '>
                     <div className='flex items-center align-center  -mt-4px'>
-                      <div onClick={() => 1} className='text-lg md:text-xl font-bold'>
+                      <div onClick={() => navigate('')} className='dialog-info-name'>
                         {item.names.replace(user.name, '').trim()}
                       </div>
-                      <p className='ml-8px font-bold text-md text-gray-500'>24ч</p>
+                      <p className='dialog-info-time'>24ч</p>
                     </div>
-                    <div className='mt-4px mb-12px'>{item.last}</div>
+                    <div className='dialog-info-last'>{item.last}</div>
                   </div>
                 </div>
-
                 <Options names={item.names} refetch={refetch} />
               </div>
             ))
           ) : (
-            <div className='p-12px text-center text-gray-400'>Нет сообщений</div>
+            <div className='no-dialog'>Нет сообщений</div>
           )}
         </>
       )}

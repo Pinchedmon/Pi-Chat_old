@@ -13,6 +13,9 @@
   @import './pages/Home/сomponents/PostPage/postPage.css';
   @import './pages/Home/сomponents/PostPage/components/Comment/comment.css';
   @import './pages/Home/сomponents/Subscribes/subscribes.css';
+  @import './pages/Home/сomponents/Dialogs/diagos.css';
+  @import './pages/Login/login.css';
+  @import './pages/SignUp/signup.css';
 }
 
 @layer base {

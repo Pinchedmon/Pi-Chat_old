@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dialogs {
+    @apply w-full  border-b-2 border-green-600 p-10px;
+  }
+  .dialogs-title {
+    @apply text-2xl rounded-xl text-center  top-16px font-bold;
+  }
+  .dialog {
+    @apply w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100;
+  }
+  .dialog-info {
+    @apply w-full flex mt-10px flex-row pb-10px;
+  }
+  .dialog-info__img {
+    @apply ml-24px mr-16px h-54px rounded-xl w-54px;
+  }
+  .dialog-info-name {
+    @apply text-lg md:text-xl font-bold;
+  }
+  .dialog-info-time {
+    @apply ml-8px font-bold text-gray-500;
+  }
+  .dialog-info-last {
+    @apply mt-4px mb-12px;
+  }
+  .no-dialogs {
+    @apply p-12px text-center text-gray-400;
+  }
+}

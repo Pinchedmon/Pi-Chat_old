@@ -22,8 +22,8 @@ function Dialog(props: IdialogProps) {
   const user = useContext(UserContext)
   return (
     <>
-      {data !== undefined && (
-        <>
+      {data && (
+        <div className=''>
           <div className='w-full border-b-2  border-green-600 p-10px '>
             <ArrowLeftIcon
               onClick={() => {
@@ -51,7 +51,7 @@ function Dialog(props: IdialogProps) {
               object='message'
             />
           </div>
-        </>
+        </div>
       )}
     </>
   )
