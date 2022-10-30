@@ -3,16 +3,34 @@
 @tailwind utilities;
 
 @layer components {
-  /* .signup{
-
-    }
-    .signup{
-        
-    }
-    .signup{
-        
-    }
-    .signup{
-        
-    } */
+  .signup {
+    @apply bg-green-600 w-full h-screen flex flex-col justify-center;
+  }
+  .signup-title {
+    @apply ml-auto drop-shadow-md  mb-16px mr-auto w-260px h-100px rounded-3xl bg-white flex justify-center items-center;
+  }
+  .signup-title-error {
+    @apply text-center font-bold text-red-600;
+  }
+  .signup-title__h1 {
+    @apply text-3xl text-center rounded-2xl shadow-lg pt-12px pb-12px pl-32px pr-32px  font-bold text-black border-3 border-green-600;
+  }
+  .signup__form {
+    @apply w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white text-center flex-col self-center;
+  }
+  .signup__form-title {
+    @apply text-3xl font-bold mt-32px mb-24px drop-shadow-md;
+  }
+  .signup__form-error {
+    @apply text-red-600 text-sm;
+  }
+  .signup__form__input {
+    @apply w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600;
+  }
+  .signup__form__button {
+    @apply w-200px rounded-xl ml-auto mr-auto font-bold p-3px mb-32px text-center border-3 border-green-600;
+  }
+  .signup-link {
+    @apply text-sm text-green-600 underline mb-8px;
+  }
 }

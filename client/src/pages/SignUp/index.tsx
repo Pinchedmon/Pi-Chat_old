@@ -31,33 +31,28 @@ export default function SignUpPage() {
     }
   }, [form.nameError, form.emailError, form.passwordError])
   return (
-    <div className='bg-green-600 w-full h-screen flex flex-col justify-center align-center'>
-      <div className='ml-auto drop-shadow-md  mb-16px mr-auto w-260px h-100px rounded-3xl bg-white flex justify-center items-center'>
+    <div className='signup'>
+      <div className='signup-title'>
         {error !== '' ? (
-          <div className='text-center font-bold text-red-600'>{error}</div>
+          <div className='signup-title-error'>{error}</div>
         ) : (
-          <h1 className='text-3xl text-center rounded-2xl shadow-lg pt-12px pb-12px pl-32px pr-32px  font-bold text-black border-3 border-green-600'>
-            / π - Чат /
-          </h1>
+          <h1 className='signup-title__h1'>/ π - Чат /</h1>
         )}
       </div>
-      <form
-        onSubmit={(e) => handleSubmit(e, form.name, form.email, form.password, signUp)}
-        className='w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white text-center flex-col self-center'
-      >
-        <h1 className='text-3xl font-bold mt-32px mb-24px drop-shadow-md'>РЕГИСТРАЦИЯ</h1>
-        {form.nameDirty && form.nameError && <div className='text-red-600 text-sm'>{form.nameError}</div>}
+      <form onSubmit={(e) => handleSubmit(e, form.name, form.email, form.password, signUp)} className='signup__form'>
+        <h1 className='signup__form-title'>РЕГИСТРАЦИЯ</h1>
+        {form.nameDirty && form.nameError && <div className='signup__form-error'>{form.nameError}</div>}
         <input
-          className='w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600'
+          className='signup__form__input'
           name='name'
           placeholder='Имя'
           value={form.name}
           onBlur={(e) => blurHandler(e, setForm, form)}
           onChange={(e) => handleChangeName(e, setForm, form)}
         />
-        {form.emailDirty && form.emailError && <div className='text-red-600 text-sm'>{form.emailError}</div>}
+        {form.emailDirty && form.emailError && <div className='signup__form-error'>{form.emailError}</div>}
         <input
-          className='w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600'
+          className='signup__form__input'
           name='email'
           placeholder='Email'
           type='email'
@@ -65,9 +60,9 @@ export default function SignUpPage() {
           onBlur={(e) => blurHandler(e, setForm, form)}
           onChange={(e) => handleChangeEmail(e, setForm, form)}
         />
-        {form.passwordDirty && form.passwordError && <div className='text-red-600 text-sm'>{form.passwordError}</div>}
+        {form.passwordDirty && form.passwordError && <div className='signup__form-error'>{form.passwordError}</div>}
         <input
-          className='w-220px rounded-xl ml-auto mr-auto font-bold p-3px mb-16px text-center border-3 border-green-600'
+          className='signup__form__input'
           name='password'
           placeholder='Пароль'
           type='password'
@@ -76,14 +71,11 @@ export default function SignUpPage() {
           onChange={(e) => handleChangePassword(e, setForm, form)}
         />
 
-        <button
-          disabled={!form.validForm}
-          className='w-200px rounded-xl ml-auto mr-auto font-bold p-3px mb-32px text-center border-3 border-green-600'
-        >
+        <button disabled={!form.validForm} className='signup__form__button'>
           Зарегистрироваться
         </button>
 
-        <Link className='text-sm text-green-600 underline mb-8px ' to='/login'>
+        <Link className='signup-link' to='/login'>
           Уже есть аккаунт?
         </Link>
       </form>

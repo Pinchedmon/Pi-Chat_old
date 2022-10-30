@@ -38,7 +38,7 @@ export default function Login() {
       </div>
       <form onSubmit={(e) => handleSubmit(e, form.email, form.password, logIn)} className='login__form'>
         <h1 className='login-form__h1'>ВХОД</h1>
-        {form.emailDirty && form.emailError && <div className=''>{form.emailError}</div>}
+        {form.emailDirty && form.emailError && <div className='login-form-error'>{form.emailError}</div>}
         <input
           className='login-form__input'
           name='email'
