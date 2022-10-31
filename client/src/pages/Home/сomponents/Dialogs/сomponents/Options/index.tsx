@@ -9,26 +9,26 @@ const Options = (props: Ioptions) => {
   return (
     <>
       <div
-        className='self-center right-16px absolute justify-end'
+        className='dialogs-options'
         onMouseEnter={() => setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
       >
-        <DotsVerticalIcon className='w-24px hover:text-green-600' />
+        <DotsVerticalIcon className='dialogs-options-icon hover:text-green-600' />
         {showOptions && (
-          <div className='absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center'>
-            <button className='flex text-red-600 font-bold' onClick={() => setShowWarning(true)}>
-              <TrashIcon className='w-24px' /> <p className='ml-5px'>Удалить диалог</p>
+          <div className='dialogs-options-show'>
+            <button className='' onClick={() => setShowWarning(true)}>
+              <TrashIcon className='dialogs-options-icon' /> <p className='ml-5px'>Удалить диалог</p>
             </button>
           </div>
         )}
       </div>
       {showWarning && (
         <>
-          <div className='backdrop-blur-sm w-full h-full absolute top-0px'></div>
-          <div className='absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600 '>
+          <div className='dialogs-show-warning-back'></div>
+          <div className='dialogs-show-warning'>
             <div className='mb-16px'>Вы действительно уверены, что хотите удалить диалог?</div>
             <button
-              className='pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white'
+              className='dialogs-show-warning-yes'
               onClick={() => {
                 setShowWarning(false)
                 deleteDialog({ names: props.names, refetch: props.refetch })
@@ -36,10 +36,7 @@ const Options = (props: Ioptions) => {
             >
               Да
             </button>
-            <button
-              className='pl-10px pr-10px pt-4px pb-4px ml-5px bg-gray-600 text-white rounded-lg float-right'
-              onClick={() => setShowWarning(false)}
-            >
+            <button className='dialogs-show-warning-no' onClick={() => setShowWarning(false)}>
               Нет
             </button>
           </div>

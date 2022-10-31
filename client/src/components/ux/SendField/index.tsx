@@ -36,7 +36,7 @@ const SendField = (props: Isendfield) => {
     }
   }, [areaData.file, areaData.preview, areaData.textArea])
   return (
-    <>
+    <div className='absolute bottom-0px w-full'>
       <form
         className='postPage-sendField'
         onSubmit={(event) => {
@@ -72,7 +72,7 @@ const SendField = (props: Isendfield) => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 

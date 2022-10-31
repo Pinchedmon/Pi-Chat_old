@@ -30,23 +30,23 @@ const Dialogs = () => {
           </div>
           {data && data.data.length > 0 ? (
             data.data.map((item: Idialogs, index: number) => (
-              <div key={index} className='dialog'>
+              <div key={index} className='dialogs-dialog'>
                 <div
                   onClick={() => {
                     dispatch(setMessageStyle(!visible))
                     setNames(item.names)
                   }}
-                  className='dialog-info'
+                  className='dialogs-dialog-info'
                 >
-                  <img onClick={() => navigate('')} alt='' className='dialog-info__img' src={item.backImg} />
+                  <img onClick={() => navigate('')} alt='' className='dialogs-dialog-info__img' src={item.backImg} />
                   <div className='flex-col '>
                     <div className='flex items-center align-center  -mt-4px'>
-                      <div onClick={() => navigate('')} className='dialog-info-name'>
+                      <div onClick={() => navigate('')} className='dialogs-dialog-info-name'>
                         {item.names.replace(user.name, '').trim()}
                       </div>
-                      <p className='dialog-info-time'>24ч</p>
+                      <p className='dialogs-dialog-info-time'>24ч</p>
                     </div>
-                    <div className='dialog-info-last'>{item.last}</div>
+                    <div className='dialogs-dialog-info-last'>{item.last}</div>
                   </div>
                 </div>
                 <Options names={item.names} refetch={refetch} />
@@ -57,9 +57,8 @@ const Dialogs = () => {
           )}
         </>
       )}
-      {/* Dialog with messages */}
-      {visible === true && (
-        <div className='flex flex-col w-full h-full items-stretch'>
+      {visible && (
+        <div className='dialogs-info'>
           <Dialog names={names} visible={visible} dispatch={dispatch} />
         </div>
       )}

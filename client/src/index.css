@@ -13,9 +13,12 @@
   @import './pages/Home/сomponents/PostPage/postPage.css';
   @import './pages/Home/сomponents/PostPage/components/Comment/comment.css';
   @import './pages/Home/сomponents/Subscribes/subscribes.css';
-  @import './pages/Home/сomponents/Dialogs/diagos.css';
+  @import './pages/Home/сomponents/Dialogs/dialogs.css';
   @import './pages/Login/login.css';
   @import './pages/SignUp/signup.css';
+  @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/dialog.css';
+  @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/сomponents/Message/message.css';
+  @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/messages.css';
 }
 
 @layer base {

@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dialogs {
+    @apply w-full  border-b-2 border-green-600 p-10px;
+  }
+  .dialogs-title {
+    @apply text-2xl rounded-xl text-center  top-16px font-bold;
+  }
+  .dialogs-dialog {
+    @apply w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100;
+  }
+  .dialogs-dialog-info {
+    @apply w-full flex mt-10px flex-row pb-10px;
+  }
+  .dialogs-dialog-info__img {
+    @apply ml-24px mr-16px h-54px rounded-xl w-54px;
+  }
+  .dialogs-dialog-info-name {
+    @apply text-lg md:text-xl font-bold;
+  }
+  .dialogs-dialog-info-time {
+    @apply ml-8px font-bold text-gray-500;
+  }
+  .dialogs-dialog-info-last {
+    @apply mt-4px mb-12px;
+  }
+  .no-dialogs {
+    @apply p-12px text-center text-gray-400;
+  }
+  .dialogs-info {
+    @apply flex flex-col w-full h-full items-stretch;
+  }
+  .dialogs-options {
+    @apply self-center right-16px absolute justify-end;
+  }
+  .dialogs-options-show {
+    @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center;
+  }
+  .dialogs-options-icon {
+    @apply w-24px;
+  }
+  .dialogs-options-delete__button {
+    @apply flex text-red-600 font-bold;
+  }
+  .dialogs-show-warning-back {
+    @apply backdrop-blur-sm w-full h-full absolute top-0px;
+  }
+  .dialogs-show-warning {
+    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600;
+  }
+  .dialogs-show-warning-yes {
+    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;
+  }
+  .dialogs-show-warning-no {
+    @apply pl-10px pr-10px pt-4px pb-4px ml-5px bg-gray-600 text-white rounded-lg float-right;
+  }
+}

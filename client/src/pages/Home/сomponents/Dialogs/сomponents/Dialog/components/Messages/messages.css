@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .messages {
+    @apply overflow-y-scroll h-full;
+  }
+  .messages-selection {
+    @apply z-10 sticky top-0px  w-full p-10px bg-gray-100 font-bold  text-green-600;
+  }
+  .messages-selection-buttons {
+    @apply flex float-right text-red-600 cursor-pointer;
+  }
+  .messages-selection-cancel {
+    @apply text-green-600 mr-16px;
+  }
+  .messages-selection-delete {
+    @apply flex;
+  }
+  .messages-selection-delete-icon {
+    @apply mr-4px w-24px;
+  }
+  .messages-info {
+    @apply z-0 relative overflow-y-hidden h-full;
+  }
+}
