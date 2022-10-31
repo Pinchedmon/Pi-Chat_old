@@ -5,17 +5,11 @@ import { deleteMessage } from './utils/deleteMessage'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetOn } from '../../../../../../../../state/messageReducer'
 import { Imessage } from '../../../../types/message.interface'
-interface iSelected {
-  amount: number
-  statements: string[]
-  resetStatus: boolean
-}
-interface iState {
-  message: { selected: iSelected }
-}
+import { Istore } from '../../../../../../../../types/store.interface'
+
 const Messages = (props: { data: any; refetch: any }) => {
   const { data, refetch } = props
-  const selected = useSelector((state: iState) => state.message.selected)
+  const selected = useSelector((state: Istore) => state.message.selected)
   const dispatch = useDispatch()
   const bottomRef = useRef(null)
   useEffect(() => {

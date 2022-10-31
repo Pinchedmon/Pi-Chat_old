@@ -1,3 +1,5 @@
+import { Iselected } from '../pages/Home/сomponents/Dialogs/types/handleSelected.interface'
+
 export interface Istore {
   nav: {
     sort: string | number
@@ -7,4 +9,5 @@ export interface Istore {
     addMessageStyle: boolean
     editProfileStyle: boolean
   }
+  message: { selected: Iselected }
 }
