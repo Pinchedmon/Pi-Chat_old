@@ -19,7 +19,7 @@ const Post = (props: { data: any; refetch: () => void }) => {
             <div className='post'>
               <div className='flex'>
                 <img src={item.pathImg} alt='' onClick={() => navigate(`/${item.name}`)} className='post__img' />
-                <ProfileInfo username={item.username} name={item.name} date={item.date} time={item.time} />
+                <ProfileInfo username={item.username} name={item.name} date={item.date} />
               </div>
               <Info text={item.text} img={item.postImg} />
               <Buttons

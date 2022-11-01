@@ -25,7 +25,7 @@ class messageController {
                 db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
             }
             db.run(`UPDATE messages SET last = '${queryObject.text}' WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`)
-            db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, new Date().toLocaleTimeString().slice(0, -3)], () => {
+            db.run('INSERT INTO messages_info (names, name, text, messageImg, date) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, new Date()], () => {
                 return res.json({ status: 200 })
             })
         })

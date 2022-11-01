@@ -18,7 +18,6 @@ export interface IprofileInfo {
   username: string
   name: string
   date: string
-  time: string
 }
 export interface IuserImg {
   name: string

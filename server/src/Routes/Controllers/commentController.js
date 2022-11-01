@@ -21,7 +21,7 @@ class commentController {
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + "://" + req.get("host");
         sql =
-            "INSERT INTO comments (postId, name, text, commentImg, date, time) VALUES ( ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO comments (postId, name, text, commentImg, date) VALUES ( ?, ?, ?, ?, ?)";
         let commentImg;
         if (req.file) {
             commentImg = urlange + "/public/" + req.file.filename;
@@ -35,8 +35,7 @@ class commentController {
                 queryObject.name,
                 queryObject.text,
                 commentImg,
-                new Date().toLocaleDateString(),
-                new Date().toLocaleTimeString().slice(0, -3)
+                new Date(),
             ], (err) => {
                 if (err) return res.json({ status: 300, success: false, error: err });
             }
