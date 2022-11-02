@@ -1,8 +1,11 @@
+import moment from 'moment'
 import React from 'react'
+// import { useNavigate } from 'react-router-dom'
 import { Icomment } from '../../types/comment.interface'
 import Options from './Options'
 
 const Comments = (props: { data: Array<Icomment>; refetch: () => void }) => {
+  // const navigate = useNavigate()
   const { data, refetch } = props
   return (
     <>
@@ -17,9 +20,7 @@ const Comments = (props: { data: Array<Icomment>; refetch: () => void }) => {
                 <div>
                   <div className='comment-info'>
                     <div className='comment-info-username'>{item.username}</div>
-                    <p className='comment-info-time'>
-                      {item.date === new Date().toLocaleDateString() ? item.time : item.date}
-                    </p>
+                    <p className='comment-info-time'>{moment(item.date).format('LT')}</p>
                   </div>
                   <div className='comment-info-text'>{item.text}</div>
                   <Options id={item.ID} postId={item.postId} refetch={refetch} />

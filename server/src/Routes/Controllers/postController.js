@@ -22,7 +22,6 @@ class postController {
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     let postImg;
-
     if (req.file) {
       postImg = urlange + "/public/" + req.file.filename;
     } else {
@@ -38,7 +37,7 @@ class postController {
         queryObject.course,
         queryObject.category,
         postImg,
-        new Date()
+        queryObject.time
       ],
       (err) => {
         if (err) return res.json({ status: 300, success: false, error: err });
@@ -132,6 +131,12 @@ class postController {
 
       let x = 0;
       db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id}`, [], (err, comments) => {
+        if (comments.length === 0) {
+          return res.json({
+            data: { post, comments: [] },
+            status: 200
+          });
+        }
         const page = parseInt(queryObject.page) || 1;
         const pager = paginate(comments.length, page);
         const pageOfItems = comments.slice(pager.startIndex, pager.endIndex + 1);

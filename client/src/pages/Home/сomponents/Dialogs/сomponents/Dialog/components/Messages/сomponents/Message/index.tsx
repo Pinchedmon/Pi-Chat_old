@@ -4,6 +4,7 @@ import { handleClick } from './utils/handleClick'
 import { addSelected, removeSelected, resetSelected } from '../../../../../../../../../../state/messageReducer'
 import { UserContext } from '../../../../../../../../../../App'
 import { Imessage } from '../../../../../../types/message.interface'
+import moment from 'moment'
 
 const Message = (props: Imessage) => {
   const user = useContext(UserContext)
@@ -23,14 +24,14 @@ const Message = (props: Imessage) => {
           name === user.name ? 'justify-end' : ''
         } `}
       >
-        <div className='message-info'> {name === user.name ? time : null}</div>
+        <div className='message-info'> {name === user.name ? moment(time).format('LT') : null}</div>
         {text !== '' ? (
           <>
             <div className={`message-data ${name === user.name ? 'bg-green-600 text-white' : 'bg-gray-200'} `}>
               <div className='message-text'>{text}</div>
               <img src={messageImg} alt='' className='message-img rounded-b-xl' />
             </div>
-            <div className='message-date'>{name !== user.name ? time : null}</div>
+            <div className='message-date'>{name !== user.name ? moment(time).format('LT') : null}</div>
           </>
         ) : (
           <>

@@ -5,7 +5,6 @@ export type Icomment = {
   text: string
   commentImg: string
   date: string
-  time: string
   username: string
   img: string
 }

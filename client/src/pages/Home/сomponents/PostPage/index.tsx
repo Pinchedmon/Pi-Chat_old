@@ -37,10 +37,9 @@ const PostData = () => {
             <ArrowLeftIcon className='postPage-exit__icon' />
           </div>
           <div className='mt-16px'>
-            <Post data={data.post} refetch={refetch} />
+            <Post data={data && data.post} refetch={refetch} />
             <InfiniteScroll
               next={() => {
-                console.log(page)
                 page++
                 refetch()
               }}

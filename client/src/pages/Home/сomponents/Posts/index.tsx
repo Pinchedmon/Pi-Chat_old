@@ -27,7 +27,7 @@ const Posts = (props: Iparams) => {
         <>
           <AddPost />
           <div className='flex flex-col mt-16px '>
-            {/* <InfiniteScroll
+            <InfiniteScroll
               next={() => {
                 page++
                 refetch()
@@ -35,9 +35,9 @@ const Posts = (props: Iparams) => {
               hasMore={true}
               loader={'424232'}
               dataLength={posts.length}
-            > */}
-            <Post data={posts} refetch={refetch} />
-            {/* </InfiniteScroll> */}
+            >
+              <Post data={posts} refetch={refetch} />
+            </InfiniteScroll>
           </div>
         </>
       )}

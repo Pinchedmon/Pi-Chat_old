@@ -15,7 +15,12 @@ interface apiParamMessages {
 // Post comment
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await axios
-    .post(`http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${props.text}`, formData)
+    .post(
+      `http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${
+        props.text
+      }&date=${new Date().toUTCString()}`,
+      formData,
+    )
     .then((res) => {
       if (res.status === 200) {
         props.refetch()
@@ -27,7 +32,9 @@ export async function postComment(props: apiParamComments, formData: any): Promi
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {
   await axios
     .post(
-      `http://localhost:6060/message/post?name=${props.firstName}&secondName=${props.secondName}&text=${props.text}`,
+      `http://localhost:6060/message/post?name=${props.firstName}&secondName=${props.secondName}&text=${
+        props.text
+      }&time=${new Date().toUTCString()}`,
       messageImg,
     )
     .then((res) => {

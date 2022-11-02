@@ -35,9 +35,9 @@ class commentController {
                 queryObject.name,
                 queryObject.text,
                 commentImg,
-                new Date(),
+                queryObject.date,
             ], (err) => {
-                if (err) return res.json({ status: 300, success: false, error: err });
+                if (err) return res.json({ status: 404, success: false, error: err });
             }
         );
         db.all(

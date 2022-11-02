@@ -1,5 +1,4 @@
 import { FormEvent } from 'react'
-
 import axios from 'axios'
 import { IaddPostSubmit } from '../../../types/addPostUtils.interface'
 
@@ -9,7 +8,9 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IaddPost
   if (props.text !== '' && props.category !== '' && props.course !== '') {
     axios
       .post(
-        `http://localhost:6060/posts/feed?name=${props.name}&text=${props.text}&course=${props.course}&category=${props.category}`,
+        `http://localhost:6060/posts/feed?name=${props.name}&text=${props.text}&course=${props.course}&category=${
+          props.category
+        }&time=${new Date().toUTCString()}`,
         data,
       )
       .then((response) => {

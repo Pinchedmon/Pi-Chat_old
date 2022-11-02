@@ -20,12 +20,10 @@ class messageController {
         }
         let names = `${queryObject.secondName} ${queryObject.name}`
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-
             if (rows.length < 1) {
-                db.run('INSERT INTO messages (names, last) VALUES  (?,?)', [names, `${queryObject.text}`])
+                db.run('INSERT INTO messages (names) VALUES  (?)', [names])
             }
-            db.run(`UPDATE messages SET last = '${queryObject.text}' WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`)
-            db.run('INSERT INTO messages_info (names, name, text, messageImg, date) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, new Date()], () => {
+            db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
                 return res.json({ status: 200 })
             })
         })

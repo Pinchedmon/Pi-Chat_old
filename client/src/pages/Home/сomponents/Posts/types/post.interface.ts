@@ -17,7 +17,7 @@ export interface Ioptions {
 export interface IprofileInfo {
   username: string
   name: string
-  date: string
+  date: any
 }
 export interface IuserImg {
   name: string
