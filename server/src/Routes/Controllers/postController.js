@@ -73,7 +73,7 @@ class postController {
   }
   async getMyPosts(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    sql = `SELECT * FROM posts WHERE name = "${queryObject.name}"`;
+    sql = `SELECT * FROM posts WHERE name = "${queryObject.name}" ORDER BY date DESC`;
     db.all(sql, [], (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });
@@ -130,7 +130,7 @@ class postController {
       })
 
       let x = 0;
-      db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id}`, [], (err, comments) => {
+      db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id} ORDER BY id DESC`, [], (err, comments) => {
         if (comments.length === 0) {
           return res.json({
             data: { post, comments: [] },

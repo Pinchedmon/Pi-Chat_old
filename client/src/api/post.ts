@@ -12,7 +12,6 @@ interface apiParamMessages {
   text: string
   refetch: () => void
 }
-// Post comment
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await axios
     .post(
@@ -28,7 +27,7 @@ export async function postComment(props: apiParamComments, formData: any): Promi
       }
     })
 }
-// Post message
+
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {
   await axios
     .post(
