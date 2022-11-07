@@ -12,7 +12,6 @@ const generateAccessToken = (ID, role) => {
     }
     return jwt.sign(payload, secret)
 }
-
 class authController {
     async registration(req, res) {
         const { user } = req.body
@@ -38,14 +37,13 @@ class authController {
     async login(req, res) {
         const { session } = req.body;
         db.all(`SELECT ID, username, name, email, roles, pathImg, backImg, info  FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
-            console.log(rows)
             if (rows === undefined) {
                 return res.json({
                     status: 400,
                     message: `Пользователь с таким ${session.email} не найден`
                 })
             }
-            const validPassword = bcrypt.compareSync(session.password, `${rows[0].password}`)
+            // const validPassword = bcrypt.compareSync(session.password, `${rows[0].password}`)
             // if (!validPassword) {
             //     return res.json({
             //         password: session.password,
@@ -55,7 +53,7 @@ class authController {
             //     })
             // }
             const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: [...rows], authToken: token })
+            return res.json({ status: 200, user: rows[0], authToken: token })
         });
     }
     async getUsers(req, res) {
@@ -86,7 +84,7 @@ class authController {
                 }
                 return res.json({
                     status: 200,
-                    "data": rows
+                    "data": rows[0]
                 })
 
             })

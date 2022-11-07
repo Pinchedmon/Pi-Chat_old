@@ -13,7 +13,18 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
-  const { data, refetch } = useQuery('main', () => getCurrentUser(), {})
+  const { data, refetch } = useQuery(
+    'main',
+    () =>
+      getCurrentUser().then((res: any) => {
+        if (res.status === 200) {
+          console.log(res)
+          setUser(res.data)
+          return res.data
+        }
+      }),
+    {},
+  )
 
   useEffect(() => {
     if (error) setError(null)
@@ -25,11 +36,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     }
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [])
-  useEffect(() => {
-    if (data !== undefined) {
-      setUser(data.data[0])
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (data !== undefined) {
+  //     setUser(data.data[0])
+  //   }
+  // }, [data])
 
   function logIn(email: string, password: string) {
     setError('')

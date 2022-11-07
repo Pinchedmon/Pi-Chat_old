@@ -35,8 +35,8 @@ const Home = () => {
 
           <Routes>
             <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
-            {/* <Route path='/post' element={<Post />} />
-          <Route path='/profile' element={<Profile />} /> */}
+            <Route path='/post' element={<Post />} />
+            {/* <Route path='/profile' element={<Profile />} /> */}
           </Routes>
         </>
       )}

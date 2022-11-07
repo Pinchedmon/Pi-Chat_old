@@ -19,13 +19,18 @@ interface iUser {
 }
 export const UserContext = React.createContext<iUser>(null)
 function AuthenticatedRoute(props: any) {
-  const { user } = useAuth()
-  if (!user && document.cookie === '0') return <Navigate to='/login' />
-  return (
-    <UserContext.Provider value={user}>
-      <props.component />
-    </UserContext.Provider>
-  )
+  const { user, refetchUser } = useAuth()
+
+  // refetchUser()
+  console.log(user)
+  if (document.cookie === '0') return <Navigate to='/login' />
+  if (user !== undefined) {
+    return (
+      <UserContext.Provider value={user}>
+        <props.component />
+      </UserContext.Provider>
+    )
+  }
 }
 function App() {
   const queryClient = new QueryClient()

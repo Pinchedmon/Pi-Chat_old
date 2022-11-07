@@ -14,12 +14,11 @@ module.exports = function (roles) {
             }
             const { roles: userRoles } = jwt.verify(token, secret)
             if (userRoles !== 'admin') {
-                return res.status(403).json({ message: "У вас нет доступа" })
+                return res.status(200).json({ message: "У вас нет доступа" })
             }
             next()
         } catch (error) {
-            console.log(error)
-            return res.status(403).json({ message: "Пользователь не авторизован" })
+            return res.status().json({ message: "Пользователь не авторизован" })
         }
     }
 } 

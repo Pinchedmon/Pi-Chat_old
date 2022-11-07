@@ -5,18 +5,10 @@ import { Ilogin, IloginProps } from './types/login.interface'
 import { Isignup, IsignupProps } from './types/singup.interface'
 
 export async function getCurrentUser(): Promise<IgetCurrentUser> {
-  const response = await axios
-    .get('http://localhost:6060/auth/user', {
-      headers: { Authorization: 'Bearer ' + document.cookie },
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        return res
-      }
-    })
-  if (response !== undefined) {
-    return response.data
-  }
+  const response = await axios.get('http://localhost:6060/auth/user', {
+    headers: { Authorization: 'Bearer ' + document.cookie },
+  })
+  return response.data
 }
 
 export const getUserData = async (props: IgetUserDataProps): Promise<IgetUserData> => {
