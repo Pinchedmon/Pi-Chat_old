@@ -7,6 +7,7 @@ let initialState = {
   messageStyle: false,
   editProfileStyle: false,
 }
+
 const navSlice = createSlice({
   name: 'nav',
   initialState,

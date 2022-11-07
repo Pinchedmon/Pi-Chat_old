@@ -11,7 +11,6 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 import { IaddPost, IAddPost } from '../../types/addPost.interface'
-
 const AddPost = (props: IAddPost) => {
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
@@ -82,6 +81,7 @@ const AddPost = (props: IAddPost) => {
               <option value='Вопросы'>Вопросы</option>
             </select>
           </div>
+
           <div className='ml-10px nav__addPost-filter '>
             <h4> Курс</h4>
             <select

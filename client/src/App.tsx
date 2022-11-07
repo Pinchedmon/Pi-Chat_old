@@ -19,10 +19,7 @@ interface iUser {
 }
 export const UserContext = React.createContext<iUser>(null)
 function AuthenticatedRoute(props: any) {
-  const { user, refetchUser } = useAuth()
-
-  // refetchUser()
-  console.log(user)
+  const { user } = useAuth()
   if (document.cookie === '0') return <Navigate to='/login' />
   if (user !== undefined) {
     return (

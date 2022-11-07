@@ -1,9 +1,11 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
-export const filterSort = (
+export const filterSort = async (
   e: React.ChangeEvent<HTMLSelectElement>,
   dispatch: (arg0: any) => void,
   setSort: ActionCreatorWithPayload<string | number, string>,
+  refetch: () => void,
 ) => {
-  dispatch(setSort(e.target.value))
+  await dispatch(setSort(e.target.value))
+  refetch()
 }

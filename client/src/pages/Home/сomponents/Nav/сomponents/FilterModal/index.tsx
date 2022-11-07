@@ -15,8 +15,7 @@ export default function FilterModal(props: IfilterModal) {
         <select
           defaultValue={sort}
           onChange={(e) => {
-            filterSort(e, dispatch, setSort)
-            refetch()
+            filterSort(e, dispatch, setSort, refetch)
           }}
           className='filterModal__filter'
         >
@@ -32,8 +31,7 @@ export default function FilterModal(props: IfilterModal) {
         <select
           defaultValue={category}
           onChange={(e) => {
-            filterCategory(e, dispatch, setCategory)
-            refetch()
+            filterCategory(e, dispatch, setCategory, refetch)
           }}
           className='filterModal__filter'
         >
