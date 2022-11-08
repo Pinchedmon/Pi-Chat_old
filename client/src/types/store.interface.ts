@@ -10,4 +10,5 @@ export interface Istore {
     editProfileStyle: boolean
   }
   message: { selected: Iselected }
+  modal: { isOpen: boolean }
 }

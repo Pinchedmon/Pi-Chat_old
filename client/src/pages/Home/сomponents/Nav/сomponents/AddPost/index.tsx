@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { PaperClipIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
 import { addPostSubmit } from './utils/addPostSubmit'
@@ -10,11 +10,13 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 import { IaddPost } from '../../types/addPost.interface'
+import { useDispatch } from 'react-redux'
+import { setIsOpen } from '../../../../../../state/modalReducer'
 const AddPost = () => {
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   const [addPost, setAddPost] = useState<IaddPost>({
     file: null,
     preview: '',
@@ -57,10 +59,11 @@ const AddPost = () => {
             navigate,
           })
           setAddPost({ ...addPost, text: '' })
+          dispatch(setIsOpen(false))
         }}
       >
         <div className='nav__addPost-title'>
-          {/* <ArrowLeftIcon onClick={handlePopup} className='nav__addPost-title-icon' /> */}
+          <ArrowLeftIcon onClick={() => dispatch(setIsOpen(false))} className='nav__addPost-title-icon' />
           <h1 className='nav__addPost-title-text'>Создание поста</h1>
         </div>
         <div className='nav__addPost-filters'>

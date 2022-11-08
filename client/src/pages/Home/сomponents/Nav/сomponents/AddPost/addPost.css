@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-  .nav__addPost-area {
-    @apply absolute w-full top-0px backdrop-blur-sm h-screen mt-100px flex flex-col justify-center items-center;
-  }
   .nav__addPost {
     @apply text-center flex flex-col bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
   }

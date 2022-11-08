@@ -1,17 +1,19 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, UserGroupIcon } from '@heroicons/react/solid'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { setMessageStyle } from '../../../../state/navReducer'
 import { UserContext } from '../../../../App'
 import PersonData from './сomponents/PersonData'
 import Modal from '../../../../components/ux/Modal'
 import AddPost from './сomponents/AddPost'
+import { Istore } from '../../../../types/store.interface'
+import { setIsOpen } from '../../../../state/modalReducer'
 
 const Nav = () => {
   const user = useContext(UserContext)
   const dispatch = useDispatch()
-  const [isOpen, setIsOpen] = useState(false)
+  const isOpen = useSelector((state: Istore) => state.modal.isOpen)
   return (
     <div className='wrapper__nav'>
       <div className='nav-area'>
@@ -48,10 +50,10 @@ const Nav = () => {
             <p>Настройки</p>
           </NavLink>
         </div>
-        <div onClick={() => setIsOpen(true)} className='nav-send__button'>
+        <div onClick={() => dispatch(setIsOpen(true))} className='nav-send__button'>
           <button>За / π / ши</button>
         </div>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal open={isOpen} onClose={() => dispatch(setIsOpen(false))}>
           <AddPost />
         </Modal>
         <PersonData name={user.name} username={user.username} pathImg={user.pathImg} />
