@@ -3,7 +3,6 @@ export interface IaddMessageSubmit {
   secondName: string
   text: string
   path: string
-  showMessage: () => void
   file: File
 }
 
@@ -16,5 +15,5 @@ export interface Imessage {
 }
 export interface IaddMessage {
   name: string
-  showMessage: () => void
+  setIsOpen: () => void
 }

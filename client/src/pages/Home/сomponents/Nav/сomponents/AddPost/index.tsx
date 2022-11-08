@@ -10,13 +10,12 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 import { IaddPost } from '../../types/addPost.interface'
-import { useDispatch } from 'react-redux'
-import { setIsOpen } from '../../../../../../state/modalReducer'
-const AddPost = () => {
+
+const AddPost = (props: { setIsOpen: (item: boolean) => void }) => {
+  const { setIsOpen } = props
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [addPost, setAddPost] = useState<IaddPost>({
     file: null,
     preview: '',
@@ -59,11 +58,11 @@ const AddPost = () => {
             navigate,
           })
           setAddPost({ ...addPost, text: '' })
-          dispatch(setIsOpen(false))
+          setIsOpen(false)
         }}
       >
         <div className='nav__addPost-title'>
-          <ArrowLeftIcon onClick={() => dispatch(setIsOpen(false))} className='nav__addPost-title-icon' />
+          <ArrowLeftIcon onClick={() => setIsOpen(false)} className='nav__addPost-title-icon' />
           <h1 className='nav__addPost-title-text'>Создание поста</h1>
         </div>
         <div className='nav__addPost-filters'>

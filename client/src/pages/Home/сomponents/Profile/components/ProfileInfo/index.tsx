@@ -11,12 +11,10 @@ function ProfileInfo(props: IprofileInfo) {
     <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
       <img className=' rounded-xl w-100px h-100px ml-16px mr-16px' src={profile.pathImg} alt='загружается...' />
       <div className='flex w-full flex-col'>
-        {/* naming */}
         <div className='flex items-center align-center w-full  -mt-6px'>
           <div className='font-bold text-2xl'>{profile.username}</div>
           <p className='ml-8px font-bold text-md text-gray-500'>@{profile.name}</p>
         </div>
-        {/* info */}
         <div>
           {profile.info}
           {profile.name !== name && (
@@ -36,7 +34,7 @@ function ProfileInfo(props: IprofileInfo) {
           )}
         </div>
       </div>
-      <Options userName={name} profileName={profile.name} />
+      <Options userName={name} profileName={profile.name} refetch={refetch} />
     </div>
   )
 }
