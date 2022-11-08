@@ -19,7 +19,7 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IaddPost
           props.navigate('')
         }
       })
-    props.handlePopup()
+
     event.preventDefault()
   } else {
     window.alert('Какое-то поле незаполнено!')

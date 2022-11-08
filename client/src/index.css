@@ -19,6 +19,7 @@
   @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/dialog.css';
   @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/сomponents/Message/message.css';
   @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/messages.css';
+  @import './components/ux/Modal/modal.css';
 }
 
 @layer base {

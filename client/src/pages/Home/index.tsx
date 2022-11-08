@@ -4,8 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import Nav from './сomponents/Nav'
 import FilterModal from './сomponents/Nav/сomponents/FilterModal'
 import Post from './сomponents/PostPage'
-import AddPost from './сomponents/Nav/сomponents/AddPost'
-import { setAddPostStyle } from '../../state/navReducer'
 import Profile from './сomponents/Profile'
 import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
@@ -30,7 +28,7 @@ const Home = () => {
               <Route path='/messages' element={<Messages />} />
               <Route path='/followers' element={<Subscribes />} />
             </Routes>
-            {nav.addPostStyle === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!nav.addPostStyle))} />}
+            {/* {nav.addPostStyle === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!nav.addPostStyle))} />} */}
           </div>
 
           <Routes>

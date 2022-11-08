@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useQuery } from 'react-query'
-import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
@@ -10,12 +9,12 @@ import { handleTextChange } from './utils/handleTextChange'
 import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
-import { IaddPost, IAddPost } from '../../types/addPost.interface'
-const AddPost = (props: IAddPost) => {
+import { IaddPost } from '../../types/addPost.interface'
+const AddPost = () => {
   const { refetch } = useQuery('myPosts')
   const user = useContext(UserContext)
   const navigate = useNavigate()
-  const { handlePopup } = props
+
   const [addPost, setAddPost] = useState<IaddPost>({
     file: null,
     preview: '',
@@ -44,7 +43,7 @@ const AddPost = (props: IAddPost) => {
     }
   }, [addPost.file])
   return (
-    <div className='nav__addPost-area'>
+    <>
       <form
         className='nav__addPost'
         onSubmit={(e) => {
@@ -53,7 +52,6 @@ const AddPost = (props: IAddPost) => {
             text: addPost.text,
             category: addPost.category,
             course: addPost.course,
-            handlePopup,
             file: addPost.file,
             refetch,
             navigate,
@@ -62,7 +60,7 @@ const AddPost = (props: IAddPost) => {
         }}
       >
         <div className='nav__addPost-title'>
-          <ArrowLeftIcon onClick={handlePopup} className='nav__addPost-title-icon' />
+          {/* <ArrowLeftIcon onClick={handlePopup} className='nav__addPost-title-icon' /> */}
           <h1 className='nav__addPost-title-text'>Создание поста</h1>
         </div>
         <div className='nav__addPost-filters'>
@@ -122,7 +120,7 @@ const AddPost = (props: IAddPost) => {
           </button>
         </div>
       </form>
-    </div>
+    </>
   )
 }
 export default AddPost

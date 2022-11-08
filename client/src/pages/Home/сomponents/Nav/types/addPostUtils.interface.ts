@@ -5,7 +5,6 @@ export interface IaddPostSubmit {
   text: string
   course: string
   category: string
-  handlePopup: () => void
   file: FileList | null
   refetch: () => void
   navigate: NavigateFunction
