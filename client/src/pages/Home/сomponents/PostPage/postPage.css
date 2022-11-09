@@ -26,20 +26,8 @@
   .postPage-show-options__p {
     @apply ml-5px mr-5px;
   }
-  .postPage-warning-back {
-    @apply w-full h-full absolute top-0px;
-  }
   .postPage-warning {
-    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600;
-  }
-  .postPage-warning {
-    @apply w-full h-full absolute top-0px;
-  }
-  .postPage-warning {
-    @apply w-full h-full absolute top-0px;
-  }
-  .postPage-warning {
-    @apply w-full h-full absolute top-0px;
+    @apply text-xl rounded-xl p-10px font-bold h-full bg-white border-3 border-green-600;
   }
   .postPage-warning-ask {
     @apply mb-16px;

@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .profile-backImg {
+    @apply h-200px w-full border-b-2 border-gray-300;
+  }
+  .profile {
+    @apply w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px;
+  }
+  .profile-avatar {
+    @apply rounded-xl w-100px h-100px ml-16px mr-16px;
+  }
+  .profile-info {
+    @apply flex w-full flex-col;
+  }
+  .profile-info-naming {
+    @apply flex items-center w-full -mt-6px;
+  }
+  .profile-info-naming-username {
+    @apply font-bold text-2xl;
+  }
+  .profile-info-naming-name {
+    @apply ml-8px font-bold text-gray-500;
+  }
+  .profile-follow {
+    @apply border-2  p-6px flex mb-6px items-center font-bold;
+  }
+  .profile-follow-icon {
+    @apply w-24px mr-8px;
+  }
+  .profile-follow_p {
+    @apply ml-2px;
+  }
+  .profile-options {
+    @apply self-start right-16px absolute justify-end p-8px;
+  }
+  .profile-options-icon {
+    @apply w-24px hover:text-green-600;
+  }
+  .profile-options-area {
+    @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
+  }
+  .addMessage {
+    @apply text-center flex flex-col bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
+  }
+  .addMessage-title {
+    @apply flex h-54px items-center text-green-600 rounded-2xl;
+  }
+  .addMessage-title-icon {
+    @apply w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700;
+  }
+  .addMessage-title-name {
+    @apply absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold;
+  }
+  .addMessage-textArea {
+    @apply mb-10px mt-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px;
+  }
+  .addMessage-sending-icon {
+    @apply w-40px text-white bg-green-600 p-6px rounded-xl;
+  }
+  .addMessage-sending__img {
+    @apply h-40px object-cover ml-40px rounded-md;
+  }
+  .addMessage-sending__button {
+    @apply ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl;
+  }
+}

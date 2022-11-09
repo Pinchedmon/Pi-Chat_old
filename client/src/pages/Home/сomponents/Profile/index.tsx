@@ -7,7 +7,7 @@ import ProfilePosts from './components/ProfilePosts'
 import ProfileInfo from './components/ProfileInfo'
 import { Ipost } from '../PostPage/types/post.interface'
 
-function Profile() {
+const Profile = () => {
   let page = 1
   let location = useLocation()
   const user = useContext(UserContext)
@@ -27,11 +27,11 @@ function Profile() {
   return (
     <>
       {data && (
-        <div>
-          <img className=' h-200px w-full border-b-2 border-gray-300' src={data[0].backImg} alt='загружается...' />
+        <>
+          <img className='profile-backImg' src={data[0].backImg} alt='загружается...' />
           <ProfileInfo profile={data[0]} refetch={refetch} name={user.name} followed={data.followed} />
           <ProfilePosts name={user.name} />
-        </div>
+        </>
       )}
     </>
   )

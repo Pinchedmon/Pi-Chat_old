@@ -3,3 +3,7 @@ export interface Ioptions {
   postId: number
   refetch: () => void
 }
+export interface Ioption {
+  showWarning: boolean
+  showOptions: boolean
+}

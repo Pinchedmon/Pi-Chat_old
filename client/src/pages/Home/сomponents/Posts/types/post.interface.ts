@@ -14,6 +14,7 @@ export interface Ioptions {
   id: number
   refetch: () => void
 }
+
 export interface IprofileInfo {
   username: string
   name: string
@@ -22,4 +23,9 @@ export interface IprofileInfo {
 export interface IuserImg {
   name: string
   userImg: string
+}
+
+export interface Ioption {
+  showOptions: boolean
+  showWarning: boolean
 }

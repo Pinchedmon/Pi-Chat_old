@@ -8,28 +8,22 @@ import Options from '../Options'
 function ProfileInfo(props: IprofileInfo) {
   const { profile, refetch, name, followed } = props
   return (
-    <div className='w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px'>
-      <img className=' rounded-xl w-100px h-100px ml-16px mr-16px' src={profile.pathImg} alt='загружается...' />
-      <div className='flex w-full flex-col'>
-        <div className='flex items-center align-center w-full  -mt-6px'>
-          <div className='font-bold text-2xl'>{profile.username}</div>
-          <p className='ml-8px font-bold text-md text-gray-500'>@{profile.name}</p>
+    <div className='profile'>
+      <img className='profile-avatar' src={profile.pathImg} alt='загружается...' />
+      <div className='profile-info'>
+        <div className='profile-info-naming'>
+          <div className='profile-info-naming-username'>{profile.username}</div>
+          <p className='profile-info-naming-name'>@{profile.name}</p>
         </div>
         <div>
           {profile.info}
           {profile.name !== name && (
             <button
-              className='border-2  p-6px flex mb-6px items-center font-bold'
-              onClick={() =>
-                followed === true ? unFollow(name, profile.name, refetch) : follow(name, profile.name, refetch)
-              }
+              className='profile-follow'
+              onClick={() => (followed ? unFollow(name, profile.name, refetch) : follow(name, profile.name, refetch))}
             >
-              <UserAddIcon className='w-24px mr-8px  ' />
-              {followed === true ? (
-                <p className='ml-2px text-md '>Отписаться</p>
-              ) : (
-                <p className='ml-2px text-md'>Подписаться</p>
-              )}
+              <UserAddIcon className='profile-follow-icon' />
+              <p className='profile-follow_p'>{followed ? 'Отписаться' : 'Подписаться'}</p>
             </button>
           )}
         </div>

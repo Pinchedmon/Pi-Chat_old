@@ -1,50 +1,37 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
-import { Ioptions } from '../../../types/options.interface'
-import { handleDelete } from './utils/handleDelete'
-
+import Modal from '../../../../../../../components/ux/Modal'
+import { Ioption, Ioptions } from '../../../types/options.interface'
+import Warning from './components/Warning'
 const Options = (props: Ioptions) => {
-  const [showOptions, setShowOptions] = useState(false)
-  const [showWarning, setShowWarning] = useState(false)
+  const [option, setOption] = useState<Ioption>({ showOptions: false, showWarning: false })
   return (
     <>
+      <Modal open={option.showWarning} isClose={() => setOption({ ...option, showWarning: false })}>
+        <Warning
+          id={props.id}
+          postId={props.postId}
+          refetch={props.refetch}
+          setIsOpen={() => setOption({ ...option, showWarning: false })}
+        />
+      </Modal>
       <div
         className='postPage-options'
-        onMouseEnter={() => setShowOptions(true)}
-        onMouseLeave={() => setShowOptions(false)}
+        onMouseEnter={() => setOption({ ...option, showOptions: true })}
+        onMouseLeave={() => setOption({ ...option, showOptions: false })}
       >
         <DotsVerticalIcon className='postPage-options-icon' />
-        {showOptions && (
+        {option.showOptions && (
           <div className='postPage-show-options'>
-            <button className='postPage-show-options__button' onClick={() => setShowWarning(true)}>
+            <button
+              className='postPage-show-options__button'
+              onClick={() => setOption({ ...option, showWarning: true })}
+            >
               <TrashIcon className='postPage-show-options__img' /> <p className='postPage-show-options__p'>Удалить</p>
             </button>
           </div>
         )}
       </div>
-      {showWarning && (
-        <>
-          <div className='postPage-warning-back'></div>
-          <div className='postPage-warning'>
-            <div className='postPage-warning-ask'>Вы действительно уверены, что хотите удалить комментарий?</div>
-            <button
-              className='postPage-warning__button'
-              onClick={() => {
-                setShowWarning(false)
-                handleDelete(props.id, props.postId, props.refetch)
-              }}
-            >
-              Да
-            </button>
-            <button
-              className='postPage-warning__button ml-5px bg-gray-600 float-right '
-              onClick={() => setShowWarning(false)}
-            >
-              Нет
-            </button>
-          </div>
-        </>
-      )}
     </>
   )
 }
