@@ -27,11 +27,11 @@ const Profile = () => {
   return (
     <>
       {data && (
-        <>
+        <div className='h-full'>
           <img className='profile-backImg' src={data[0].backImg} alt='загружается...' />
           <ProfileInfo profile={data[0]} refetch={refetch} name={user.name} followed={data.followed} />
-          <ProfilePosts name={user.name} />
-        </>
+          <ProfilePosts name={data[0].name} />
+        </div>
       )}
     </>
   )
