@@ -28,7 +28,6 @@ const Home = () => {
               <Route path='/messages' element={<Messages />} />
               <Route path='/followers' element={<Subscribes />} />
             </Routes>
-            {/* {nav.addPostStyle === true && <AddPost handlePopup={() => dispatch(setAddPostStyle(!nav.addPostStyle))} />} */}
           </div>
 
           <Routes>

@@ -2,14 +2,22 @@ import React, { useState } from 'react'
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import { Ioption, Ioptions } from '../../../types/post.interface'
 import Modal from '../../../../../../../components/ux/Modal'
-import Warning from './components/warning'
+import Warning from '../../../../../../../components/ux/Warning'
+import { deletePost } from './utils/deletePost'
 
 const Options = (props: Ioptions) => {
   const [option, setOption] = useState<Ioption>({ showOptions: false, showWarning: false })
   return (
     <>
       <Modal open={option.showWarning} onClose={() => setOption({ ...option, showWarning: false })}>
-        <Warning id={props.id} refetch={props.refetch} setIsOpen={() => setOption({ ...option, showWarning: false })} />
+        <Warning
+          setIsOpen={() => {
+            setOption({ ...option, showWarning: false })
+            deletePost({ id: props.id, refetch: props.refetch })
+          }}
+          propsFunc={props.refetch}
+          title={'Вы действительно хотите удалить пост?'}
+        />
       </Modal>
       <div
         className='post__option'

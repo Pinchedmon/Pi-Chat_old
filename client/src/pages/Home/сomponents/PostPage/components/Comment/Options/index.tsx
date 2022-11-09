@@ -1,18 +1,18 @@
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import React, { useState } from 'react'
 import Modal from '../../../../../../../components/ux/Modal'
+import Warning from '../../../../../../../components/ux/Warning'
 import { Ioption, Ioptions } from '../../../types/options.interface'
-import Warning from './components/Warning'
+import { handleDelete } from './utils/handleDelete'
 const Options = (props: Ioptions) => {
   const [option, setOption] = useState<Ioption>({ showOptions: false, showWarning: false })
   return (
     <>
       <Modal open={option.showWarning} isClose={() => setOption({ ...option, showWarning: false })}>
         <Warning
-          id={props.id}
-          postId={props.postId}
-          refetch={props.refetch}
+          propsFunc={() => handleDelete(props.id, props.postId, props.refetch)}
           setIsOpen={() => setOption({ ...option, showWarning: false })}
+          title={'Вы действительно хотите удалить комментарий?'}
         />
       </Modal>
       <div
