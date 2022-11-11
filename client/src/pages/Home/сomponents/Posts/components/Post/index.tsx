@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Options from './Options'
 import { UserContext } from '../../../../../../App'
 import { Ipost } from '../../../PostPage/types/post.interface'
+import ImageRenderer from '../../../../../../components/ui/ImageRenderer'
 
 const Post = (props: { data: any; refetch: () => void }) => {
   const { data, refetch } = props
@@ -18,7 +19,8 @@ const Post = (props: { data: any; refetch: () => void }) => {
           <div key={index} className='posts'>
             <div className='post'>
               <div className='flex'>
-                <img src={item.pathImg} alt='' onClick={() => navigate(`/${item.name}`)} className='post__img' />
+                <ImageRenderer url={item.pathImg} onClick={() => navigate(`/${item.name}`)} classname='post__img' />
+
                 <ProfileInfo username={item.username} name={item.name} date={item.date} />
               </div>
               <Info text={item.text} img={item.postImg} />

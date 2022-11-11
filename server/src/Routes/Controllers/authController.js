@@ -23,8 +23,10 @@ class authController {
                         status: 400,
                         succes: false
                     })
+                    const token = generateAccessToken(rows[0].ID, rows[0].roles);
                     return res.json({
                         status: 200,
+                        authToken: token,
                         success: true
                     })
                 })

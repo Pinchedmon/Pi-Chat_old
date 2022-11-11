@@ -32,23 +32,25 @@ const PostData = () => {
   return (
     <>
       {comments && (
-        <div className='h-screen'>
+        <div className='h-full'>
           <div className='postPage-exit' onClick={() => navigate('/')}>
             <ArrowLeftIcon className='postPage-exit__icon' />
           </div>
-          <div className='mt-16px'>
+          <div className='mt-16px flex flex-col'>
             <Post data={data && data.post} refetch={refetch} />
-            <InfiniteScroll
-              next={() => {
-                page++
-                refetch()
-              }}
-              hasMore={true}
-              loader={'424232'}
-              dataLength={comments.length}
-            >
-              <Comments data={comments} refetch={refetch} />
-            </InfiniteScroll>
+            <div className='overflow-auto h-100px '>
+              <InfiniteScroll
+                next={() => {
+                  page++
+                  refetch()
+                }}
+                hasMore={true}
+                loader={'424232'}
+                dataLength={comments.length}
+              >
+                <Comments data={comments} refetch={refetch} />
+              </InfiniteScroll>
+            </div>
           </div>
 
           <SendField

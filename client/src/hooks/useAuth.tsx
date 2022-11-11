@@ -35,11 +35,6 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     }
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [])
-  // useEffect(() => {
-  //   if (data !== undefined) {
-  //     setUser(data.data[0])
-  //   }
-  // }, [data])
 
   function logIn(email: string, password: string) {
     setError('')

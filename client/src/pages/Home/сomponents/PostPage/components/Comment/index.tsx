@@ -12,7 +12,7 @@ const Comments = (props: { data: Array<Icomment>; refetch: () => void }) => {
       {!data ? (
         <div className='no-comments'>Нет комментариев</div>
       ) : (
-        <div>
+        <>
           {data &&
             data.map((item: Icomment, index: number) => (
               <div key={index} className='comment'>
@@ -30,7 +30,7 @@ const Comments = (props: { data: Array<Icomment>; refetch: () => void }) => {
                 </div>
               </div>
             ))}
-        </div>
+        </>
       )}
     </>
   )
