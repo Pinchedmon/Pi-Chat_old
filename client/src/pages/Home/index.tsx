@@ -29,12 +29,11 @@ const Home = () => {
               <Route path='/followers' element={<Subscribes />} />
             </Routes>
           </div>
-
-          <Routes>
-            <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
-            <Route path='/post' element={<Post />} />
-            {/* <Route path='/profile' element={<Profile />} /> */}
-          </Routes>
+          <div className='border-l-2'>
+            <Routes>
+              <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
+            </Routes>
+          </div>
         </>
       )}
     </div>

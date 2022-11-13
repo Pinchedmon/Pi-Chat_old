@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useIntersection } from '../../../hooks/useIntersectionObserver'
 
-const ImageRenderer = ({ url, classname }: any) => {
+const ImageRenderer = ({ url, classname, onclick }: any) => {
   const [isInView, setIsInView] = useState(false)
   const imgRef = useRef()
   useIntersection(imgRef, () => {
@@ -9,7 +9,7 @@ const ImageRenderer = ({ url, classname }: any) => {
   })
 
   return (
-    <div className='classname' ref={imgRef}>
+    <div className='classname' ref={imgRef} onClick={() => onclick()}>
       {isInView && <img className={classname} src={url} alt='' />}
     </div>
   )

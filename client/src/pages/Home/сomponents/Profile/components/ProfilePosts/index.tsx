@@ -20,7 +20,7 @@ const ProfilePosts = (props: { name: string }) => {
     })
   })
   return (
-    <div className='mt-16px'>
+    <>
       <InfiniteScroll
         next={() => {
           page++
@@ -32,7 +32,7 @@ const ProfilePosts = (props: { name: string }) => {
       >
         <Post data={posts} refetch={refetch} />
       </InfiniteScroll>
-    </div>
+    </>
   )
 }
 

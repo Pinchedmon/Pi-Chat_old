@@ -4,7 +4,7 @@
 
 @layer components {
   .wrapper__nav {
-    @apply h-full flex justify-center;
+    @apply h-full flex justify-center border-r-2;
   }
   .nav-area {
     @apply fixed h-screen;

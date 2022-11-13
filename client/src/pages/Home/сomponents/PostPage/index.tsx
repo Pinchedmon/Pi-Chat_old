@@ -32,14 +32,14 @@ const PostData = () => {
   return (
     <>
       {comments && (
-        <div className='h-full'>
+        <>
           <div className='postPage-exit' onClick={() => navigate('/')}>
             <ArrowLeftIcon className='postPage-exit__icon' />
           </div>
-          <div className='mt-16px flex flex-col'>
+          <div className='flex flex-col'>
             <Post data={data && data.post} refetch={refetch} />
-            <div className='overflow-auto h-100px '>
-              <InfiniteScroll
+            <div className='overflow-y-auto h-auto flex-initial grow '>
+              {/* <InfiniteScroll
                 next={() => {
                   page++
                   refetch()
@@ -47,9 +47,9 @@ const PostData = () => {
                 hasMore={true}
                 loader={'424232'}
                 dataLength={comments.length}
-              >
-                <Comments data={comments} refetch={refetch} />
-              </InfiniteScroll>
+              > */}
+              <Comments data={comments} refetch={refetch} />
+              {/* </InfiniteScroll> */}
             </div>
           </div>
 
@@ -62,7 +62,7 @@ const PostData = () => {
             postFunc={postComment}
             object='comment'
           />
-        </div>
+        </>
       )}
     </>
   )

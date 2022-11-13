@@ -4,7 +4,7 @@
 
 @layer components {
   .posts {
-    @apply w-full flex flex-row self-center mb-16px border-b-2 border-gray-300;
+    @apply w-full flex flex-row self-center mt-16px border-b-2 border-gray-300;
   }
   .post {
     @apply flex flex-col ml-24px;

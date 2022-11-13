@@ -10,23 +10,25 @@ const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>()
   const { sort, category } = props
   let page = 1
-  const { refetch } = useQuery('myPosts', () =>
-    getPosts({ sort, category, page }).then((res) => {
-      if (res.status === 200) {
-        if (page < 2) {
-          setPosts(res.data)
-        } else {
-          setPosts([...posts, ...res.data])
+  const { refetch } = useQuery(
+    'myPosts',
+    async () =>
+      await getPosts({ sort, category, page }).then((res) => {
+        if (res.status === 200) {
+          if (page < 2) {
+            setPosts(res.data)
+          } else {
+            setPosts([...posts, ...res.data])
+          }
         }
-      }
-    }),
+      }),
   )
   return (
     <div>
-      {posts && (
+      {posts ? (
         <>
           <AddPost />
-          <div className='flex flex-col mt-16px '>
+          <div className='flex flex-col '>
             <InfiniteScroll
               next={() => {
                 page++
@@ -40,6 +42,8 @@ const Posts = (props: Iparams) => {
             </InfiniteScroll>
           </div>
         </>
+      ) : (
+        'loading...'
       )}
     </div>
   )

@@ -23,12 +23,16 @@ class authController {
                         status: 400,
                         succes: false
                     })
-                    const token = generateAccessToken(rows[0].ID, rows[0].roles);
-                    return res.json({
-                        status: 200,
-                        authToken: token,
-                        success: true
+                    db.all(`SELECT * FROM users WHERE name = "${user.name}"`, [], (err, rows) => {
+                        const token = generateAccessToken(rows[0].ID, rows[0].roles);
+                        console.log(rows)
+                        return res.json({
+                            status: 200,
+                            // authToken: token,
+                            success: true
+                        })
                     })
+
                 })
             } else return res.json({
                 status: 400,

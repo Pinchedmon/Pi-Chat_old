@@ -13,13 +13,13 @@ const Post = (props: { data: any; refetch: () => void }) => {
   const navigate = useNavigate()
   const user = useContext(UserContext)
   return (
-    <div>
+    <>
       {data &&
         data.map((item: Ipost, index: number) => (
           <div key={index} className='posts'>
             <div className='post'>
               <div className='flex'>
-                <ImageRenderer url={item.pathImg} onClick={() => navigate(`/${item.name}`)} classname='post__img' />
+                <ImageRenderer url={item.pathImg} onclick={() => navigate(`/${item.name}`)} classname='post__img' />
 
                 <ProfileInfo username={item.username} name={item.name} date={item.date} />
               </div>
@@ -36,7 +36,7 @@ const Post = (props: { data: any; refetch: () => void }) => {
             <Options id={item.ID} refetch={refetch} />
           </div>
         ))}
-    </div>
+    </>
   )
 }
 

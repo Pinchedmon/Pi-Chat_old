@@ -36,7 +36,7 @@
     @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;
   }
   .postPage-sendField {
-    @apply w-full mb-6px;
+    @apply w-full mb-6px mt-6px;
   }
   .postPage-sendField-textArea {
     @apply flex justify-center mb-10px;
