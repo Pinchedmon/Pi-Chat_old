@@ -27,7 +27,11 @@ const Message = (props: Imessage) => {
         <div className='message-info'> {name === user.name ? moment(time).format('LT') : null}</div>
         {text !== '' ? (
           <>
-            <div className={`message-data ${name === user.name ? 'bg-green-600 text-white' : 'bg-gray-200'} `}>
+            <div
+              className={`message-data ${
+                name === user.name ? 'bg-green-600 text-white ' : 'bg-gray-200   dark:text-black'
+              } `}
+            >
               <div className='message-text'>{text}</div>
               <img src={messageImg} alt='' className='message-img rounded-b-xl' />
             </div>

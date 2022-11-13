@@ -28,7 +28,7 @@ class authController {
                         console.log(rows)
                         return res.json({
                             status: 200,
-                            // authToken: token,
+                            authToken: token,
                             success: true
                         })
                     })

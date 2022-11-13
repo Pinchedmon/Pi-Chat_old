@@ -32,7 +32,7 @@ const PostData = () => {
   return (
     <>
       {comments && (
-        <>
+        <div className='h-screen'>
           <div className='postPage-exit' onClick={() => navigate('/')}>
             <ArrowLeftIcon className='postPage-exit__icon' />
           </div>
@@ -62,7 +62,7 @@ const PostData = () => {
             postFunc={postComment}
             object='comment'
           />
-        </>
+        </div>
       )}
     </>
   )

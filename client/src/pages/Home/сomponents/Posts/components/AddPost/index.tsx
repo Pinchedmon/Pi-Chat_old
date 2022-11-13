@@ -68,6 +68,7 @@ const AddPost = () => {
           value={addPost.text}
           className='addPost__textarea'
           placeholder='Текст поста'
+          style={{}}
         />
         <div className='flex'>
           <label className='flex '>

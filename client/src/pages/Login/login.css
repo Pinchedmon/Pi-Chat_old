@@ -16,7 +16,7 @@
     @apply text-3xl text-center rounded-2xl shadow-lg pt-12px pb-12px pl-32px pr-32px  font-bold text-black border-3 border-green-600;
   }
   .login__form {
-    @apply w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white text-center flex-col self-center;
+    @apply w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white  text-center flex-col self-center;
   }
   .login-form__h1 {
     @apply text-3xl font-bold mt-32px mb-24px drop-shadow-md;

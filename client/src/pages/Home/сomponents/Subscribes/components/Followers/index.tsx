@@ -9,7 +9,7 @@ const Followers = (props: Ifollowers) => {
     <div className='follows '>
       {data && (
         <>
-          <div className=' follows-title'>Подписчики</div>
+          <div className=' follows-title border-r-2 rounded-r-xl'>Подписчики</div>
           {data.map((items: Ifollow, index: number) => (
             <div key={index} className='follow'>
               <div className='follow-info'>

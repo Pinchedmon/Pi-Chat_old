@@ -4,22 +4,22 @@
 
 @layer components {
   .dialogs {
-    @apply w-full  border-b-2 border-green-600 p-10px;
+    @apply w-full  border-b-2 border-l-2 border-r-2 rounded-2xl dark:text-white border-green-600 p-10px;
   }
   .dialogs-title {
     @apply text-2xl rounded-xl text-center  top-16px font-bold;
   }
   .dialogs-dialog {
-    @apply w-full  flex border-b-2 border-gray-300 hover:border-green-600 hover:bg-gray-100;
+    @apply w-full mt-8px flex border-2 rounded-xl border-gray-300 hover:border-green-600;
   }
   .dialogs-dialog-info {
     @apply w-full flex mt-10px flex-row pb-10px;
   }
   .dialogs-dialog-info__img {
-    @apply ml-24px mr-16px h-54px rounded-xl w-54px;
+    @apply border-2 ml-24px mr-16px h-54px rounded-xl w-54px;
   }
   .dialogs-dialog-info-name {
-    @apply text-lg md:text-xl font-bold;
+    @apply dark:text-white text-lg md:text-xl font-bold;
   }
   .dialogs-dialog-info-time {
     @apply ml-8px font-bold text-gray-500;
@@ -34,7 +34,7 @@
     @apply flex flex-col w-full h-full items-stretch;
   }
   .dialogs-options {
-    @apply self-center right-16px absolute justify-end;
+    @apply self-center dark:text-white right-16px absolute justify-end;
   }
   .dialogs-options-show {
     @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center;

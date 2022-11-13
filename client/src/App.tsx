@@ -2,10 +2,10 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import useAuth, { AuthProvider } from './hooks/useAuth'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Home from './pages/Home'
+import useAuth, { AuthProvider } from './hooks/useAuth'
 
 interface iUser {
   id: number

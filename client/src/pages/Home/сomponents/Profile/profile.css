@@ -7,7 +7,7 @@
     @apply h-200px w-full border-b-2 border-gray-300;
   }
   .profile {
-    @apply w-full flex mt-16px self-center border-b-2 border-gray-300 pb-16px;
+    @apply w-full dark:text-white flex p-16px self-center border-b-2 border-l-2 border-r-2 rounded-b-xl border-gray-300 pb-16px;
   }
   .profile-avatar {
     @apply rounded-xl w-100px h-100px ml-16px mr-16px;
@@ -40,7 +40,7 @@
     @apply w-24px hover:text-green-600;
   }
   .profile-options-area {
-    @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
+    @apply absolute   rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
   }
   .addMessage {
     @apply text-center flex flex-col bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;

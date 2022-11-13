@@ -6,13 +6,13 @@
     @apply p-12px text-center text-gray-400;
   }
   .comment {
-    @apply w-full flex flex-row mb-8px mt-8px border-b-2 border-gray-300 relative;
+    @apply w-full flex flex-row mb-8px mt-8px border-2 rounded-xl pt-8px border-gray-300 relative;
   }
   .comment__img {
-    @apply ml-24px mr-16px h-54px rounded-3xl w-54px;
+    @apply ml-24px border-2 border-green-500 mr-16px h-54px rounded-3xl w-54px;
   }
   .comment-info {
-    @apply flex items-center -mt-4px;
+    @apply flex items-center -mt-4px dark:text-white;
   }
   .comment-info-username {
     @apply text-lg md:text-xl  font-bold;
@@ -21,7 +21,7 @@
     @apply ml-8px font-bold  text-gray-500;
   }
   .comment-info-text {
-    @apply mt-4px mb-12px;
+    @apply mt-4px mb-12px dark:text-white;
   }
   .comment-info-img {
     @apply mb-12px w-1/2 rounded-xl;

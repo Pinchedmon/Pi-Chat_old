@@ -10,6 +10,7 @@ import Messages from './сomponents/Dialogs'
 import { UserContext } from '../../App'
 import { Istore } from '../../types/store.interface'
 import Subscribes from './сomponents/Subscribes'
+import Setting from './сomponents/Settings'
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -27,9 +28,10 @@ const Home = () => {
               <Route path='/*' element={<Profile />} />
               <Route path='/messages' element={<Messages />} />
               <Route path='/followers' element={<Subscribes />} />
+              <Route path='/settings' element={<Setting />} />
             </Routes>
           </div>
-          <div className='border-l-2'>
+          <div className=''>
             <Routes>
               <Route path='/' element={<FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />} />
             </Routes>

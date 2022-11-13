@@ -1,15 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer components {
   .subscribes {
-    @apply flex w-full justify-around;
+    @apply flex w-full mr-2px dark:text-white justify-around;
   }
   .follows {
-    @apply w-1/2  border-gray-300 h-screen;
+    @apply w-1/2  h-screen;
   }
   .follows-title {
-    @apply text-center p-16px text-xl border-b-2 border-gray-300 font-extrabold;
+    @apply text-center p-16px text-xl  border-b-2 border-gray-300 font-extrabold;
   }
   .follow {
     @apply flex mt-12px justify-center;

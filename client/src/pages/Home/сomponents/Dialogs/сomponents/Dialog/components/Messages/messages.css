@@ -7,7 +7,7 @@
     @apply overflow-y-scroll h-full;
   }
   .messages-selection {
-    @apply z-10 sticky top-0px  w-full p-10px bg-gray-100 font-bold  text-green-600;
+    @apply z-10 sticky top-0px  w-full p-10px bg-gray-100 dark:bg-gray-900 rounded-xl font-bold  text-green-600;
   }
   .messages-selection-buttons {
     @apply flex float-right text-red-600 cursor-pointer;

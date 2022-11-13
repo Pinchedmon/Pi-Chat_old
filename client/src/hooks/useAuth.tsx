@@ -61,15 +61,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     const { email, name, password } = props
     setError('')
     // setLoading(true)
-    signup({ email, name, password }).then((data) => {
+    signup({ email, name, password }).then((data: any) => {
       if (data.status === 200) {
-        login({ email, password }).then((user) => {
-          if (user !== undefined) {
-            setUser(user.user)
-          }
-          document.cookie = user.authToken
-          navigate('/')
-        })
+        setUser(data.user)
+        document.cookie = data.authToken
+        navigate('/')
       } else {
         setError(data.message)
         setTimeout(() => setError(''), 2000)

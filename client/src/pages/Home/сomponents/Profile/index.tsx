@@ -27,7 +27,7 @@ const Profile = () => {
   return (
     <>
       {data && (
-        <div className='h-full'>
+        <div className='h-screen'>
           <img className='profile-backImg' src={data[0].backImg} loading='lazy' alt='загружается...' />
           <ProfileInfo profile={data[0]} refetch={refetch} name={user.name} followed={data.followed} />
           <ProfilePosts name={data[0].name} />

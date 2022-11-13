@@ -4,13 +4,13 @@
 
 @layer components {
   .addPost {
-    @apply text-center flex flex-col bg-white p-16px border-b-2  border-gray-300;
+    @apply text-center flex flex-col p-16px border-2 rounded-b-2xl border-gray-300;
   }
   .addPost__title {
-    @apply text-2xl font-bold text-left ml-4px mb-4px text-green-600;
+    @apply text-2xl font-bold text-left ml-4px mb-8px text-green-600;
   }
   .addPost__textarea {
-    @apply mb-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px;
+    @apply mb-10px text-green-700  border-3 rounded-2xl resize-none outline-none p-10px;
   }
   .addPost__file__icon {
     @apply w-40px text-white bg-green-600 p-6px rounded-xl;
@@ -28,6 +28,6 @@
     @apply mr-4px;
   }
   .addPost-filter__select {
-    @apply border-2 text-green-600 rounded-lg;
+    @apply border-2 text-green-600 dark:text-white dark:bg-black rounded-lg;
   }
 }

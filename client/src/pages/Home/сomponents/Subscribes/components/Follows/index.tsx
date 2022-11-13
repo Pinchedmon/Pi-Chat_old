@@ -10,8 +10,8 @@ const Follows = (props: Ifollowers) => {
   return (
     <>
       {data && (
-        <div className='follows border-r-2'>
-          <div className='follows-title'>Подписки</div>
+        <div className=' follows'>
+          <div className='border-l-2 rounded-l-xl follows-title'>Подписки</div>
           {data.map((items: Ifollow, index: number) => (
             <div key={index} className='follow'>
               <div className='follow-info'>
