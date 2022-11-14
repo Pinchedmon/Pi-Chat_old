@@ -11,9 +11,11 @@ import { UserContext } from '../../App'
 import { Istore } from '../../types/store.interface'
 import Subscribes from './сomponents/Subscribes'
 import Setting from './сomponents/Settings'
+import useDarkMode from '../../hooks/useDarkMode'
 
 const Home = () => {
   const user = useContext(UserContext)
+  const [colorTheme, setTheme]: any = useDarkMode()
   const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
   return (

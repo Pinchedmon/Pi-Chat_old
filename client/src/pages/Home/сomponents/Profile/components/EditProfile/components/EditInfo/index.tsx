@@ -9,11 +9,11 @@ const EditInfo = (props: { refetch: () => void }) => {
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.info)
   return (
-    <div className='border-2 '>
+    <div className='border-2 dark:bg-white'>
       {status === false && <div className='text-md  '>{user.info}</div>}
       {status === true && (
         <input
-          className='border-2 border-red-600 p-2px text-center'
+          className='border-2  border-red-600 p-2px text-center'
           onMouseLeave={() => {
             setStatus(!status)
             handleSubmit(value.toString(), user.name, props.refetch, refetchUser, user.info)
@@ -23,7 +23,7 @@ const EditInfo = (props: { refetch: () => void }) => {
           onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e, setValue)}
         />
       )}
-      <div onClick={() => setStatus(true)} className='bg-green-600 text-white'>
+      <div onClick={() => setStatus(true)} className='bg-green-600  text-white'>
         Изменить описание
       </div>
     </div>

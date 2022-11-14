@@ -10,13 +10,13 @@ const EditProfile = (props: { refetch: () => void; setIsOpen: () => void }) => {
   return (
     <>
       <div className='flex flex-col justify-center items-center'>
-        <form className=' text-center flex flex-col bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'>
+        <form className=' text-center flex flex-col dark:bg-black bg-white p-16px w-90% border-1 rounded-3xl border-2   shadow-2xl'>
           <div className='flex h-54px items-center text-green-600 rounded-2xl '>
             <ArrowLeftIcon
               onClick={() => setIsOpen()}
-              className='w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700'
+              className='w-48px  rounded-md bg-gray-100 dark:bg-black p-6px  hover:text-red-700'
             />
-            <h1 className='absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold  '>
+            <h1 className='absolute left-1/2 dark:text-white -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold  '>
               Настройка профиля
             </h1>
           </div>
