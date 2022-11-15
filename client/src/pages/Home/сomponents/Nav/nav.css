@@ -24,7 +24,6 @@
   .nav-icon {
     @apply w-32px h-32px mr-16px;
   }
-
   .nav-send__button {
     @apply bg-[#20A740] text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold;
   }

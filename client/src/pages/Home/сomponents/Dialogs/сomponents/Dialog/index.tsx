@@ -23,7 +23,7 @@ const Dialog = (props: IdialogProps) => {
   return (
     <>
       {data && (
-        <div>
+        <>
           <div className='dialog'>
             <ArrowLeftIcon
               onClick={() => {
@@ -47,7 +47,7 @@ const Dialog = (props: IdialogProps) => {
             postFunc={postMessage}
             object='message'
           />
-        </div>
+        </>
       )}
     </>
   )

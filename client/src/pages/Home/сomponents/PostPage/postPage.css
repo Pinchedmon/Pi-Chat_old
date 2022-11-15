@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer components {
   .postPage-exit {
-    @apply border-l-2 border-b-2 border-r-2 rounded-xl border-gray-300 p-16px;
+    @apply border-l-2 border-b-2 border-r-2 rounded-xl border-gray-300 p-8px;
   }
   .postPage-exit__icon {
     @apply w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 dark:bg-black  dark:hover:text-red-400 hover:text-white;

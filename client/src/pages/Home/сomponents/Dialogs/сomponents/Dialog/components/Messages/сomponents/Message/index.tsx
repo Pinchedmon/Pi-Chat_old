@@ -8,7 +8,7 @@ import moment from 'moment'
 
 const Message = (props: Imessage) => {
   const user = useContext(UserContext)
-  const { name, messageImg, dispatch, text, reset, ID, time } = props
+  const { index, name, messageImg, dispatch, text, reset, ID, time } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   useEffect(() => {
     if (reset) {
@@ -18,7 +18,7 @@ const Message = (props: Imessage) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, text, ID])
   return (
-    <div className={`message ${selectedMsg}  `}>
+    <div key={index} className={`message ${selectedMsg}  `}>
       <div
         className={`message-position ${selectedMsg !== '' && name === user.name ? 'mr-32px' : ''}  ${
           name === user.name ? 'justify-end' : ''

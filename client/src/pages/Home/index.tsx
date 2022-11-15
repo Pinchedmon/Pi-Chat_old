@@ -15,7 +15,7 @@ import useDarkMode from '../../hooks/useDarkMode'
 
 const Home = () => {
   const user = useContext(UserContext)
-  const [colorTheme, setTheme]: any = useDarkMode()
+  const [] = useDarkMode()
   const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
   return (
@@ -23,7 +23,7 @@ const Home = () => {
       {user && (
         <>
           <Nav />
-          <div className='content-area'>
+          <div className='content-area '>
             <Routes>
               <Route path='/' element={<Posts sort={nav.sort} category={nav.category} />} />
               <Route path='/post' element={<Post />} />

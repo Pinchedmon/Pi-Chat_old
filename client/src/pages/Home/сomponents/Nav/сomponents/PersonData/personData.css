@@ -12,7 +12,7 @@
   @apply flex-col mr-32px;
 }
 .person-data__info__username {
-  @apply text-xl font-bold;
+  @apply text-xl font-bold dark:text-white;
 }
 .person-data__info__name {
   @apply dark:text-gray-300;

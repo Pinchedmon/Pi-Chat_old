@@ -4,9 +4,9 @@
 
 @layer components {
   .home {
-    @apply grid grid-cols-4 gap-0px dark:bg-black dark:text-[#20A740];
+    @apply grid grid-cols-4 gap-0px  dark:bg-black dark:text-[#20A740];
   }
   .content-area {
-    @apply relative h-full col-span-2  max-w-full border-gray-300;
+    @apply relative col-span-2 max-w-full  border-gray-300;
   }
 }

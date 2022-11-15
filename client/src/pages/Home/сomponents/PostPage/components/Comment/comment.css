@@ -5,6 +5,9 @@
   .no-comments {
     @apply p-12px text-center text-gray-400;
   }
+  /* .comments {
+    @apply pt-8px;
+  } */
   .comment {
     @apply w-full flex flex-row mb-8px mt-8px border-2 rounded-xl pt-8px border-gray-300 relative;
   }

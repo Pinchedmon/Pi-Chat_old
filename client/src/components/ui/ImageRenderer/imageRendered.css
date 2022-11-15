@@ -1,4 +1,4 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -9,11 +9,26 @@
     position: relative;
     max-width: 800px;
     margin: 20px auto;
-    .image {
+  }
+  .image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    &.thumb {
+      opacity: 1;
+      filter: blur(10px);
+      transition: opacity 1s ease-in-out;
       position: absolute;
-      width: 100%;
-      height: 100%;
+      &.isLoaded {
+        opacity: 0;
+      }
+    }
+
+    &.isLoaded {
+      transition: opacity 1s ease-in-out;
       opacity: 1;
     }
   }
-} */
+}

@@ -39,8 +39,9 @@ const Messages = (props: { data: any; refetch: any }) => {
 
       <div className='messages-info'>
         {data &&
-          data.map((item: Imessage) => (
+          data.map((item: Imessage, index: number) => (
             <Message
+              index={index}
               name={item.name}
               messageImg={item.messageImg}
               ID={item.ID}

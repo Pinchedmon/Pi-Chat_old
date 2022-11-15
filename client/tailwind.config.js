@@ -46,6 +46,8 @@ module.exports = {
       '10%': '10%',
       '20%': '20%',
       '90%': '90%',
+      'max': 'max-content',
+      'min': 'min-content',
       'full': '100%',
       '12.5rem': "12.5rem",
       '2rem': '2rem'
