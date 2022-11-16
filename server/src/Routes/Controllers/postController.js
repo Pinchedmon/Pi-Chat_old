@@ -152,8 +152,10 @@ class postController {
             pageOfItems[i]['img'] = user[0].pathImg;
             x++;
             if (x === pageOfItems.length) {
+
               return res.json({
                 data: { post, comments: pageOfItems },
+                continue: pager.currentPage < pager.totalPages,
                 status: 200
               });
             }

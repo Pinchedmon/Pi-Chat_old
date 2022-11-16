@@ -7,7 +7,6 @@ import { postComment } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import SendField from '../../../../components/ux/SendField'
 import { useQuery } from 'react-query'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import Post from '../Posts/components/Post'
 import { Icomment } from './types/comment.interface'
 
@@ -25,7 +24,7 @@ const PostData = () => {
         } else {
           setComments([...comments, ...res.data.comments])
         }
-        return res.data
+        return res.continue
       }
     }),
   )
@@ -51,7 +50,16 @@ const PostData = () => {
               dataLength={comments.length}
             > */}
             <Comments data={comments} refetch={refetch} />
-            {/* </InfiniteScroll> */}
+            {data && (
+              <div
+                onClick={() => {
+                  page++
+                  refetch()
+                }}
+              >
+                показать ещё
+              </div>
+            )}
           </div>
 
           <SendField

@@ -24,7 +24,7 @@ const Posts = (props: Iparams) => {
       }),
   )
   return (
-    <div>
+    <div className=''>
       {posts ? (
         <>
           <AddPost />
