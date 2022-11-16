@@ -1,6 +1,6 @@
 const sqlite = require('sqlite3').verbose();
 const path = require('path');
-const { Database } = require('sqlite3');
+const paginate = require("jw-paginate");
 const url = require('url');
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class messageController {
@@ -45,12 +45,14 @@ class messageController {
     }
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
+        db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}' ORDER BY time `, [], (err, rows) => {
+            const page = parseInt(queryObject.page) || 1;
+            const pager = paginate(rows.length, page);
+            const pageOfItems = rows.reverse().slice(pager.startIndex, pager.endIndex + 1);
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
-
                 return res.json({
                     status: 200,
-                    data: rows,
+                    data: pageOfItems,
                     username: user[0].username,
                     pathImg: user[0].pathImg
                 })

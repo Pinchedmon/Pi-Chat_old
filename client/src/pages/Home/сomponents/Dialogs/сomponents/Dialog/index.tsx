@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import SendField from '../../../../../../components/ux/SendField'
 import Messages from './components/Messages'
 import { postMessage } from '../../../../../../api/post'
@@ -9,16 +9,29 @@ import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { setMessageStyle } from '../../../../../../state/navReducer'
 import { resetOn } from '../../../../../../state/messageReducer'
 import { IdialogProps } from '../../types/dialogProps.interface'
+import { Imessage } from '../../types/message.interface'
 
 const Dialog = (props: IdialogProps) => {
   const { dispatch, visible, names } = props
+  const [msgs, setMsgs] = useState<Array<Imessage>>([])
+  let page = 1
   const { data, refetch } = useQuery('dialog', () =>
-    getMessages(props.names, names.replace(user.name, '').toString().trim()).then((res: any) => {
+    getMessages(props.names, names.replace(user.name, '').toString().trim(), page).then((res: any) => {
       if (res.status === 200) {
+        if (msgs.length > 0) {
+          setMsgs([...msgs, ...res.data])
+        } else {
+          setMsgs(res.data)
+        }
+
         return res
       }
     }),
   )
+  const showMoreMsg = () => {
+    page++
+    refetch()
+  }
   const user = useContext(UserContext)
   return (
     <>
@@ -37,7 +50,8 @@ const Dialog = (props: IdialogProps) => {
               {data.username}
             </div>
           </div>
-          <Messages data={data.data} refetch={refetch} />
+          <Messages showMoreMsg={showMoreMsg} data={msgs} refetch={refetch} />
+
           <SendField
             postFuncProps={{
               firstName: user.name.trim(),
