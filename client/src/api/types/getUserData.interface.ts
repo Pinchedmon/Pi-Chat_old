@@ -6,5 +6,4 @@ export interface IgetUserData {
 export interface IgetUserDataProps {
   name: string
   username: string
-  page: number
 }

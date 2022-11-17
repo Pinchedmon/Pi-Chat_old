@@ -1,3 +1,4 @@
+import { Iuser } from '../../types/user.interface'
 export interface IsignupProps {
   name: string
   email: string
@@ -5,5 +6,7 @@ export interface IsignupProps {
 }
 export interface Isignup {
   status: number
-  message: string
+  authToken?: string
+  message?: string
+  user: Iuser
 }

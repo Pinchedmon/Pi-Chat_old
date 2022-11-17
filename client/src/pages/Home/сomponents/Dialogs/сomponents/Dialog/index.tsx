@@ -51,7 +51,6 @@ const Dialog = (props: IdialogProps) => {
             </div>
           </div>
           <Messages showMoreMsg={showMoreMsg} data={msgs} refetch={refetch} />
-
           <SendField
             postFuncProps={{
               firstName: user.name.trim(),

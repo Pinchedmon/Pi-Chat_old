@@ -12,6 +12,7 @@ const Nav = () => {
   const user = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch()
+
   return (
     <div className='wrapper__nav'>
       <div className='nav-area'>

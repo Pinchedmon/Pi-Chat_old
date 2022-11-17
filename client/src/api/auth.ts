@@ -12,8 +12,8 @@ export async function getCurrentUser(): Promise<IgetCurrentUser> {
 }
 
 export const getUserData = async (props: IgetUserDataProps): Promise<IgetUserData> => {
-  const { name, username, page } = props
-  const response = await axios.get(`http://localhost:6060/profile/user?name=${name}&username=${username}&page=${page}`)
+  const { name, username } = props
+  const response = await axios.get(`http://localhost:6060/profile/user?name=${name}&username=${username}`)
   return response.data
 }
 

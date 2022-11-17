@@ -1,9 +1,10 @@
 import { Iuser } from '../../types/user.interface'
 
 export interface Ilogin {
-  status: string
+  status: number
   authToken: string
   user: Iuser
+  message?: string
 }
 
 export interface IloginProps {

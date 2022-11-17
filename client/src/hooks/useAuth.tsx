@@ -2,6 +2,8 @@ import React, { createContext, ReactNode, useContext, useEffect, useMemo, useSta
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { getCurrentUser, login, signup } from '../api/auth'
+import { Ilogin } from '../api/types/login.interface'
+import { Isignup } from '../api/types/singup.interface'
 import { Iuser } from '../types/user.interface'
 import { IauthContextType } from './types/authContextType.interface'
 import { IsignUpProps } from './types/signUpProps.interface'
@@ -39,15 +41,15 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   function logIn(email: string, password: string) {
     setError('')
     setLoading(true)
-    login({ email, password }).then((user: any) => {
-      if (user.status === 200) {
-        if (user !== undefined) {
-          setUser(user.user)
-        }
-        document.cookie = user.authToken
+    //  { status: number; user: Iuser; authToken: string; message?: string }
+
+    login({ email, password }).then((data: Ilogin) => {
+      if (data.status === 200) {
+        setUser(data.user)
+        document.cookie = data.authToken
         navigate('/')
       } else {
-        setError(user.message)
+        setError(data.message)
         setTimeout(() => setError(''), 2000)
       }
     })
@@ -61,7 +63,8 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     const { email, name, password } = props
     setError('')
     // setLoading(true)
-    signup({ email, name, password }).then((data: any) => {
+
+    signup({ email, name, password }).then((data: Isignup) => {
       if (data.status === 200) {
         setUser(data.user)
         document.cookie = data.authToken
@@ -75,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
 
   function logout() {
     setUser(null)
-    document.cookie = '0'
+    document.cookie = ''
     navigate('/login')
   }
 

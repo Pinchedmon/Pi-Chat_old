@@ -25,11 +25,11 @@ class authController {
                     })
                     db.all(`SELECT * FROM users WHERE name = "${user.name}"`, [], (err, rows) => {
                         const token = generateAccessToken(rows[0].ID, rows[0].roles);
-                        console.log(rows)
                         return res.json({
                             status: 200,
                             authToken: token,
-                            success: true
+                            success: true,
+                            user: rows[0]
                         })
                     })
 

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useQuery } from 'react-query'
 import { getMyPosts } from '../../../../../../api/get'
 import { Ipost } from '../../../PostPage/types/post.interface'
 import Post from '../../../Posts/components/Post'
 
-const ProfilePosts = (props: { name: string }) => {
+const ProfilePosts = (props: { pathname: string; name: string }) => {
   let page = 1
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { refetch } = useQuery('myPosts', () => {
@@ -19,6 +19,10 @@ const ProfilePosts = (props: { name: string }) => {
       }
     })
   })
+  useEffect(() => {
+    page = 1
+    refetch()
+  }, [props.name])
   return (
     <>
       <InfiniteScroll
