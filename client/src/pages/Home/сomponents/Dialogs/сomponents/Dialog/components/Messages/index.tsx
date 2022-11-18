@@ -1,5 +1,5 @@
-import { TrashIcon } from '@heroicons/react/outline'
 import React from 'react'
+import { TrashIcon } from '@heroicons/react/outline'
 import Message from './сomponents/Message'
 import { deleteMessage } from './utils/deleteMessage'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,7 @@ const Messages = (props: { data: Array<Imessage>; refetch: () => void; showMoreM
       <div
         id='scrollableDiv'
         style={{
-          height: 300,
+          height: 600,
           overflow: 'auto',
           display: 'flex',
           flexDirection: 'column-reverse',

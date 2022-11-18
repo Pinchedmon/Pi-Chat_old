@@ -24,7 +24,7 @@ const Posts = (props: Iparams) => {
       }),
   )
   return (
-    <div className=''>
+    <>
       {posts ? (
         <>
           <AddPost />
@@ -45,7 +45,7 @@ const Posts = (props: Iparams) => {
       ) : (
         'loading...'
       )}
-    </div>
+    </>
   )
 }
 export default Posts

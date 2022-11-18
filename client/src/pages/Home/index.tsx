@@ -12,6 +12,7 @@ import { Istore } from '../../types/store.interface'
 import Subscribes from './сomponents/Subscribes'
 import Setting from './сomponents/Settings'
 import useDarkMode from '../../hooks/useDarkMode'
+import Notifications from './сomponents/Notifications'
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -28,6 +29,7 @@ const Home = () => {
               <Route path='/' element={<Posts sort={nav.sort} category={nav.category} />} />
               <Route path='/post' element={<Post />} />
               <Route path='/*' element={<Profile />} />
+              <Route path='/notifs' element={<Notifications />} />
               <Route path='/messages' element={<Messages />} />
               <Route path='/followers' element={<Subscribes />} />
               <Route path='/settings' element={<Setting />} />

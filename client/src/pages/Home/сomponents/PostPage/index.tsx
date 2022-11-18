@@ -24,7 +24,7 @@ const PostData = () => {
         } else {
           setComments([...comments, ...res.data.comments])
         }
-        return res.continue
+        return res
       }
     }),
   )
@@ -37,7 +37,7 @@ const PostData = () => {
           </div>
 
           <div className='mb-7px '>
-            <Post data={data && data.post} refetch={refetch} />
+            <Post data={data.data.post} refetch={refetch} />
           </div>
           <div className='overflow-y-scroll '>
             {/* <InfiniteScroll
@@ -50,7 +50,7 @@ const PostData = () => {
               dataLength={comments.length}
             > */}
             <Comments data={comments} refetch={refetch} />
-            {data && (
+            {data.continue && (
               <div
                 onClick={() => {
                   page++

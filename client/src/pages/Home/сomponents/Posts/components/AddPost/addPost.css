@@ -4,7 +4,7 @@
 
 @layer components {
   .addPost {
-    @apply text-center flex flex-col p-16px border-2 rounded-b-2xl border-gray-300;
+    @apply text-center flex flex-col p-16px border-b-2 border-l-2 border-r-2 rounded-b-2xl border-gray-300;
   }
   .addPost__title {
     @apply text-2xl font-bold text-left ml-4px mb-8px text-green-600;

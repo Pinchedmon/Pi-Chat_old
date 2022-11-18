@@ -15,11 +15,12 @@ const Dialog = (props: IdialogProps) => {
   const { dispatch, visible, names } = props
   const [msgs, setMsgs] = useState<Array<Imessage>>([])
   let page = 1
+  let count = 20
   const { data, refetch } = useQuery('dialog', () =>
-    getMessages(props.names, names.replace(user.name, '').toString().trim(), page).then((res: any) => {
+    getMessages(props.names, names.replace(user.name, '').toString().trim(), page, count).then((res: any) => {
       if (res.status === 200) {
         if (msgs.length > 0) {
-          setMsgs([...msgs, ...res.data])
+          setMsgs([...res.data, ...msgs])
         } else {
           setMsgs(res.data)
         }

@@ -47,7 +47,7 @@ class messageController {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}' ORDER BY time `, [], (err, rows) => {
             const page = parseInt(queryObject.page) || 1;
-            const pager = paginate(rows.length, page);
+            const pager = paginate(rows.length, page, queryObject.count);
             const pageOfItems = rows.reverse().slice(pager.startIndex, pager.endIndex + 1);
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
                 return res.json({
