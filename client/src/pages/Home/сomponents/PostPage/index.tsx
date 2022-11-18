@@ -39,7 +39,7 @@ const PostData = () => {
           <div className='mb-7px '>
             <Post data={data.data.post} refetch={refetch} />
           </div>
-          <div className='overflow-y-scroll '>
+          <div className='overflow-y-scroll grow '>
             {/* <InfiniteScroll
               next={() => {
                 page++

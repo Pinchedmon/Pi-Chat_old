@@ -35,7 +35,7 @@ const Messages = (props: { data: Array<Imessage>; refetch: () => void; showMoreM
       <div
         id='scrollableDiv'
         style={{
-          height: 600,
+          width: '100%',
           overflow: 'auto',
           display: 'flex',
           flexDirection: 'column-reverse',
