@@ -144,7 +144,7 @@ class postController {
           });
         }
         const page = parseInt(queryObject.page) || 1;
-        const pager = paginate(comments.length, page);
+        const pager = paginate(comments.length, page, queryObject.count);
         const pageOfItems = comments.slice(pager.startIndex, pager.endIndex + 1);
         for (let i = 0; i < pageOfItems.length; i++) {
           db.all(`SELECT * FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {

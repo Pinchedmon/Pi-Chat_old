@@ -16,8 +16,9 @@ const PostData = () => {
   const location = useLocation()
   const [comments, setComments] = useState<Array<Icomment>>()
   const user = useContext(UserContext)
+
   const { data, refetch } = useQuery('post', () =>
-    getPost({ search: location.search, page }).then((res) => {
+    getPost({ search: location.search, page, count: Math.round(window.innerHeight / 100) }).then((res) => {
       if (res.status === 200) {
         if (page < 2) {
           setComments(res.data.comments)
@@ -40,15 +41,6 @@ const PostData = () => {
             <Post data={data.data.post} refetch={refetch} />
           </div>
           <div className='overflow-y-scroll grow '>
-            {/* <InfiniteScroll
-              next={() => {
-                page++
-                refetch()
-              }}
-              hasMore={true}
-              loader={'424232'}
-              dataLength={comments.length}
-            > */}
             <Comments data={comments} refetch={refetch} />
             {data.continue && (
               <div

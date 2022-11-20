@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { tokenToString } from 'typescript'
 
 export const getPosts = async (payload: { sort: string | number; category: string; page: number }) => {
   const { sort, category, page } = payload
@@ -7,9 +6,9 @@ export const getPosts = async (payload: { sort: string | number; category: strin
   return response.data
 }
 
-export const getPost = async (payload: { search: string; page: number }) => {
-  const { search, page } = payload
-  const response = await axios.get(`http://localhost:6060/posts/post${search}&page=${page}`)
+export const getPost = async (payload: { search: string; page: number; count: number }) => {
+  const { search, page, count } = payload
+  const response = await axios.get(`http://localhost:6060/posts/post${search}&page=${page}&count=${count}`)
   return response.data
 }
 

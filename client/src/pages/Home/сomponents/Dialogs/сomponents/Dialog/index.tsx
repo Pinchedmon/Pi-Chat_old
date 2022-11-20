@@ -17,17 +17,15 @@ const Dialog = (props: IdialogProps) => {
   const [nextPage, setNextPage] = useState(defaultPageToken)
   const [isLoading, setIsLoading] = useState(false)
   const [userInfo, setUserInfo] = useState({ username: '', img: '' })
-  console.log(Math.round(window.innerHeight / 30))
   const fetchData = async (token: number, count: number) => {
     await getMessages(
       props.names,
       names.replace(user.name, '').toString().trim(),
       token,
-      Math.round(window.innerHeight / 30),
+      Math.round(window.innerHeight / 35),
     ).then((data: any) => {
       setMsgs([...msgs, ...data.items])
       setNextPage(data.page)
-
       setUserInfo({ username: data.username, img: data.pathImg })
     })
   }
