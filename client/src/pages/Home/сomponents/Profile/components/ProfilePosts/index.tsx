@@ -6,28 +6,19 @@ import { Ipost } from '../../../PostPage/types/post.interface'
 import Post from '../../../Posts/components/Post'
 
 const ProfilePosts = (props: { pathname: string; name: string }) => {
-  let page = 1
   const [posts, setPosts] = useState<Array<Ipost>>([])
+  const [nextPage, setNextPage] = useState(1)
   const { refetch } = useQuery('myPosts', () => {
-    getMyPosts(props.name).then((res) => {
-      if (res.status === 200) {
-        if (page < 2) {
-          setPosts(res.data)
-        } else {
-          setPosts([...posts, ...res.data])
-        }
-      }
+    getMyPosts(props.name, nextPage, Math.round(window.innerHeight / 200)).then((res) => {
+      setPosts([...posts, ...res.data])
+      setNextPage(res.page)
     })
   })
-  useEffect(() => {
-    page = 1
-    refetch()
-  }, [props.name])
+
   return (
     <>
       <InfiniteScroll
         next={() => {
-          page++
           refetch()
         }}
         hasMore={true}

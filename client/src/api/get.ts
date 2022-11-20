@@ -25,8 +25,8 @@ export async function getPath(name: string | object | any) {
     })
 }
 
-export async function getMyPosts(name: string) {
-  const response = await axios.get(`http://localhost:6060/posts/getMyPosts?name=${name}`)
+export async function getMyPosts(name: string, page: number, count: number) {
+  const response = await axios.get(`http://localhost:6060/posts/getMyPosts?name=${name}&page=${page}&count=${count}`)
   return response.data
 }
 

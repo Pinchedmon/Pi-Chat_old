@@ -7,7 +7,7 @@
     @apply h-200px w-full border-b-2 border-gray-300;
   }
   .profile {
-    @apply w-full dark:text-white flex p-16px self-center border-b-2 border-l-2 border-r-2 rounded-b-xl border-gray-300 pb-16px;
+    @apply w-full  dark:text-white flex p-16px self-center border-b-2 border-l-2 border-r-2 rounded-b-xl border-gray-300 pb-16px;
   }
   .profile-avatar {
     @apply rounded-xl w-100px h-100px ml-16px mr-16px;

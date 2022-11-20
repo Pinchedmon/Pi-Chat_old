@@ -89,7 +89,7 @@ class postController {
         return res.status(400).json({ error: err.message });
       }
       const page = parseInt(queryObject.page) || 1;
-      const pager = paginate(rows.length, page);
+      const pager = paginate(rows.length, page, queryObject.count);
       const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
       let x = 0;
       if (page > pager.totalPages) {
@@ -101,7 +101,7 @@ class postController {
           pageOfItems[i]['pathImg'] = user[0].pathImg
           x++;
           if (x === pageOfItems.length) {
-            return res.json({ pager, data: pageOfItems, status: 200 });
+            return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
           }
         })
       }
