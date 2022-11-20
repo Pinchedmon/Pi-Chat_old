@@ -92,6 +92,9 @@ class postController {
       const pager = paginate(rows.length, page);
       const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
       let x = 0;
+      if (page > pager.totalPages) {
+        return res.json({ data: [], status: 200 });
+      }
       for (let i = 0; i < pageOfItems.length; i++) {
         db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
           pageOfItems[i]['username'] = user[0].username

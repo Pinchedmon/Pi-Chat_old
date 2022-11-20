@@ -37,7 +37,7 @@
     @apply self-center dark:text-white right-16px absolute justify-end;
   }
   .dialogs-options-show {
-    @apply absolute bg-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center;
+    @apply absolute bg-white dark:bg-black dark:text-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center;
   }
   .dialogs-options-icon {
     @apply w-24px;

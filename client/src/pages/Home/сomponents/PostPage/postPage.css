@@ -15,7 +15,7 @@
     @apply w-24px hover:text-green-600;
   }
   .postPage-show-options {
-    @apply absolute bg-white z-10 rounded-lg border-green-600  border-2 -right-5px  mt-4px p-5px text-center;
+    @apply absolute bg-white dark:bg-black z-10 rounded-lg border-green-600  border-2 -right-5px  mt-4px p-5px text-center;
   }
   .postPage-show-options__button {
     @apply flex text-red-600 font-bold;
