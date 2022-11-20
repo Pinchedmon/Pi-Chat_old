@@ -13,9 +13,11 @@ const Options = (props: Ioptions) => {
         <Warning
           setIsOpen={() => {
             setOption({ ...option, showWarning: false })
+          }}
+          propsFunc={() => {
+            props.refetch()
             deletePost({ id: props.id, refetch: props.refetch })
           }}
-          propsFunc={props.refetch}
           title={'Вы действительно хотите удалить пост?'}
         />
       </Modal>

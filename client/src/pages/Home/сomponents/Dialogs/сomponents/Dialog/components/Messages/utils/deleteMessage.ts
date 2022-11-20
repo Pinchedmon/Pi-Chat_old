@@ -1,6 +1,6 @@
 import axios from 'axios'
 export const deleteMessage = (
-  refetch: () => void,
+  deleteMsg: (x: string) => void,
   dispatch: (arg0: any) => void,
   resetOn: () => void,
   statements: string[],
@@ -8,7 +8,9 @@ export const deleteMessage = (
   axios.delete(`http://localhost:6060/message/messages?id=${statements.join(' ')}`).then((res) => {
     if (res.status === 200) {
       dispatch(resetOn())
-      refetch()
+      for (let i = 0; i < statements.length; i++) {
+        deleteMsg(statements[i])
+      }
     }
   })
 }

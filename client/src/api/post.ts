@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Imessage } from '../pages/Home/сomponents/Dialogs/types/message.interface'
 
 interface apiParamComments {
   id: number
@@ -11,6 +12,7 @@ interface apiParamMessages {
   secondName: string
   text: string
   refetch: () => void
+  setMsgs: (x: Imessage) => void
 }
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await axios
@@ -38,7 +40,7 @@ export async function postMessage(props: apiParamMessages, messageImg: any): Pro
     )
     .then((res) => {
       if (res.status === 200) {
-        props.refetch()
+        props.setMsgs({ text: props.text, time: new Date().toUTCString(), name: props.firstName })
         return res
       }
     })

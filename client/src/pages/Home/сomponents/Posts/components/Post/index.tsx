@@ -12,7 +12,6 @@ const Post = (props: { data: any; refetch: () => void }) => {
   const { data, refetch } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
-  console.log(data)
   return (
     <>
       {data &&
@@ -21,7 +20,6 @@ const Post = (props: { data: any; refetch: () => void }) => {
             <div className='post'>
               <div className='flex'>
                 <ImageRenderer url={item.pathImg} onclick={() => navigate(`/${item.name}`)} classname='post__img' />
-
                 <ProfileInfo username={item.username} name={item.name} date={item.date} />
               </div>
               <Info text={item.text} img={item.postImg} />

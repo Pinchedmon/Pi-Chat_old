@@ -1,8 +1,8 @@
 export interface Imessage {
   name: string
-  messageImg: string
+  messageImg?: string
   dispatch?: (arg0: any) => void
-  ID: number
+  ID?: number
   text: string
   reset?: boolean
   time: string

@@ -45,17 +45,28 @@ class messageController {
     }
     async getMessages(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}' ORDER BY time `, [], (err, rows) => {
-            const page = parseInt(queryObject.page) || 1;
+        db.all(`SELECT * FROM messages_info WHERE names = '${queryObject.names}' OR names = '${queryObject.names.split(' ').reverse().join(' ')}' `, [], (err, rows) => {
+            const page = parseInt(queryObject.page);
             const pager = paginate(rows.length, page, queryObject.count);
             const pageOfItems = rows.reverse().slice(pager.startIndex, pager.endIndex + 1);
+
             db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
-                return res.json({
-                    status: 200,
-                    data: pageOfItems,
-                    username: user[0].username,
-                    pathImg: user[0].pathImg
-                })
+                if (page > pager.totalPages) {
+                    return res.json({
+                        status: 200,
+                        data: [],
+                        // username: user[0].username,
+                        // pathImg: user[0].pathImg
+                    })
+                } else {
+                    return res.json({
+                        status: 200,
+                        items: pageOfItems,
+                        page: Number(queryObject.page) + 1,
+                        username: user[0].username,
+                        pathImg: user[0].pathImg
+                    })
+                }
             })
 
         })

@@ -24,11 +24,11 @@ const Posts = (props: Iparams) => {
       }),
   )
   return (
-    <>
+    <div className='flex flex-col'>
       {posts ? (
         <>
           <AddPost />
-          <div className='flex flex-col '>
+          <div className='grow'>
             <InfiniteScroll
               next={() => {
                 page++
@@ -45,7 +45,7 @@ const Posts = (props: Iparams) => {
       ) : (
         'loading...'
       )}
-    </>
+    </div>
   )
 }
 export default Posts
