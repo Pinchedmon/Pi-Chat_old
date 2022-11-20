@@ -18,7 +18,7 @@ const PostData = () => {
   const user = useContext(UserContext)
 
   const { data, refetch } = useQuery('post', () =>
-    getPost({ search: location.search, page, count: Math.round(window.innerHeight / 100) }).then((res) => {
+    getPost({ search: location.search, page, count: 5 }).then((res) => {
       if (res.status === 200) {
         if (page < 2) {
           setComments(res.data.comments)

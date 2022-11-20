@@ -7,31 +7,26 @@ import Post from './components/Post'
 import { Iparams, Ipost } from './types/posts.interface'
 
 const Posts = (props: Iparams) => {
-  const [posts, setPosts] = useState<Array<Ipost>>()
+  const [posts, setPosts] = useState<Array<Ipost>>([])
   const { sort, category } = props
-  let page = 1
-  const { refetch } = useQuery(
-    'myPosts',
-    async () =>
-      await getPosts({ sort, category, page }).then((res) => {
-        if (res.status === 200) {
-          if (page < 2) {
-            setPosts(res.data)
-          } else {
-            setPosts([...posts, ...res.data])
-          }
-        }
-      }),
+  const [nextPage, setNextPage] = useState(1)
+  const { data, refetch } = useQuery('myPosts', () =>
+    getPosts({ sort, category, page: nextPage, count: Math.round(window.innerHeight / 200) }).then((res) => {
+      setPosts([...posts, ...res.data])
+      setNextPage(res.page)
+
+      return res
+    }),
   )
+
   return (
     <div className='flex flex-col'>
-      {posts ? (
+      {data ? (
         <>
           <AddPost />
           <div className='grow'>
             <InfiniteScroll
               next={() => {
-                page++
                 refetch()
               }}
               hasMore={true}
@@ -43,7 +38,7 @@ const Posts = (props: Iparams) => {
           </div>
         </>
       ) : (
-        'loading...'
+        <></>
       )}
     </div>
   )

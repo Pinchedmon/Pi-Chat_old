@@ -62,8 +62,12 @@ class postController {
         });
       }
       const page = parseInt(queryObject.page) || 1;
-      const pager = paginate(rows.length, page);
+      const pager = paginate(rows.length, page, queryObject.count);
       const pageOfItems = rows.slice(pager.startIndex, pager.endIndex + 1);
+      if (page > pager.totalPages) {
+        return res.json({ data: [], status: 200 });
+      }
+
       let x = 0;
       for (let i = 0; i < pageOfItems.length; i++) {
         await db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
@@ -71,7 +75,7 @@ class postController {
           pageOfItems[i]['pathImg'] = user[0].pathImg
           x++;
           if (x === pageOfItems.length) {
-            return res.json({ pager, data: pageOfItems, status: 200 });
+            return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
           }
         })
       }

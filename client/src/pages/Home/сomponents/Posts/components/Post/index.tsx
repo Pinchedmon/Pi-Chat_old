@@ -12,6 +12,7 @@ const Post = (props: { data: any; refetch: () => void }) => {
   const { data, refetch } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
+
   return (
     <>
       {data &&

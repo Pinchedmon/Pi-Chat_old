@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-export const getPosts = async (payload: { sort: string | number; category: string; page: number }) => {
-  const { sort, category, page } = payload
-  const response = await axios.get(`http://localhost:6060/posts/feed?sort=${sort}&category=${category}&page=${page}`)
+export const getPosts = async (payload: { sort: string | number; category: string; page: number; count: number }) => {
+  const { sort, category, page, count } = payload
+  const response = await axios.get(
+    `http://localhost:6060/posts/feed?sort=${sort}&category=${category}&page=${page}&count=${count}`,
+  )
   return response.data
 }
 
