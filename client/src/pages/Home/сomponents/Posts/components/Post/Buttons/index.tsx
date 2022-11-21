@@ -6,7 +6,7 @@ import { handleLike } from './utils/handleLike'
 
 function Buttons(props: Ibuttons) {
   const navigate = useNavigate()
-  const { refetch, name, ID, likes, comments } = props
+  const { likePost, name, ID, likes, comments } = props
   const showComments = async (id: number) => {
     navigate(`/post?id=${id}`)
   }
@@ -16,7 +16,7 @@ function Buttons(props: Ibuttons) {
       <button
         className='post__buttons__button mr-16px'
         onClick={() => {
-          handleLike(ID, name, refetch)
+          handleLike(ID, name, likePost)
         }}
       >
         <HeartIcon className='post__buttons__heart-icon' />

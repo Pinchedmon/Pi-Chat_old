@@ -43,10 +43,14 @@ class postController {
         if (err) return res.json({ status: 300, success: false, error: err });
       }
     );
-    return res.json({
-      status: 200,
-      success: true,
-    });
+    db.all(`SELECT * FROM posts WHERE name = "${queryObject.name}" and text = "${queryObject.text}"`, (err, rows) => {
+      console.log(rows)
+      return res.json({
+        status: 200,
+        post: rows[0],
+        success: true,
+      });
+    })
   }
 
   async getFeed(req, res) {
@@ -114,6 +118,7 @@ class postController {
       }" AND postId = "${Number(queryObject.postId)}"`,
       [],
       (err, rows) => {
+
         if (rows.length === 0) {
           db.all(
             `UPDATE posts SET likes = likes + 1  WHERE ID = ${queryObject.postId}`
@@ -122,6 +127,10 @@ class postController {
             queryObject.profileName,
             queryObject.postId,
           ]);
+          db.all(`SELECT COUNT(postId) FROM likes WHERE postId = "${queryObject.postId}"`, [], (err, likes) => {
+            return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
+          })
+
         } else {
           db.all(
             `UPDATE posts SET likes = likes - 1  WHERE ID = ${queryObject.postId}`
@@ -129,10 +138,13 @@ class postController {
           db.all(
             `DELETE FROM likes WHERE name = "${queryObject.profileName}" and postId = "${queryObject.postId}"`
           );
+          db.all(`SELECT COUNT(postId) FROM likes WHERE postId = "${queryObject.postId}"`, [], (err, likes) => {
+            return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
+          })
         }
       }
     );
-    return res.json({ status: 200 });
+
   }
   async getPost(req, res) {
     const queryObject = url.parse(req.url, true).query;

@@ -1,4 +1,4 @@
 export interface IdeletePost {
-  refetch: () => void
+  refetch: (id: number) => void
   id: number
 }

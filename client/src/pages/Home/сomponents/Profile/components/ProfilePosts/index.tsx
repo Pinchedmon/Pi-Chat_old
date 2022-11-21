@@ -25,7 +25,16 @@ const ProfilePosts = (props: { pathname: string; name: string }) => {
         loader={'loading'}
         dataLength={posts.length}
       >
-        <Post data={posts} refetch={refetch} />
+        <Post
+          data={posts}
+          refetch={refetch}
+          deletePost={function (x: number): void {
+            throw new Error('Function not implemented.')
+          }}
+          likePost={function (id: number, likes: number): void {
+            throw new Error('Function not implemented.')
+          }}
+        />
       </InfiniteScroll>
     </>
   )

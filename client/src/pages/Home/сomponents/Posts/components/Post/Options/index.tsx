@@ -15,8 +15,7 @@ const Options = (props: Ioptions) => {
             setOption({ ...option, showWarning: false })
           }}
           propsFunc={() => {
-            props.refetch()
-            deletePost({ id: props.id, refetch: props.refetch })
+            deletePost({ id: props.id, refetch: props.deletePost })
           }}
           title={'Вы действительно хотите удалить пост?'}
         />

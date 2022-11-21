@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { PaperClipIcon } from '@heroicons/react/outline'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useQuery } from 'react-query'
 import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
@@ -10,9 +9,10 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 import { IaddPost } from '../../../Nav/types/addPost.interface'
+import { Ipost } from '../../types/posts.interface'
 
-const AddPost = () => {
-  const { refetch } = useQuery('myPosts')
+const AddPost = (props: { refetch: (id: Ipost) => void }) => {
+  const { refetch } = props
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const [addPost, setAddPost] = useState<IaddPost>({
@@ -54,7 +54,7 @@ const AddPost = () => {
             category: addPost.category,
             course: addPost.course,
             file: addPost.file,
-            refetch,
+            refetch: refetch,
             navigate,
           })
           setAddPost({ ...addPost, text: '' })

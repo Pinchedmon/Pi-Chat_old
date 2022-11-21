@@ -8,8 +8,13 @@ import { UserContext } from '../../../../../../App'
 import { Ipost } from '../../../PostPage/types/post.interface'
 import ImageRenderer from '../../../../../../components/ui/ImageRenderer'
 
-const Post = (props: { data: any; refetch: () => void }) => {
-  const { data, refetch } = props
+const Post = (props: {
+  data: any
+  refetch: () => void
+  deletePost: (x: number) => void
+  likePost: (id: number, likes: number) => void
+}) => {
+  const { data, likePost, deletePost } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
 
@@ -30,10 +35,10 @@ const Post = (props: { data: any; refetch: () => void }) => {
                 comments={item.comments}
                 likes={item.likes}
                 role={user!.role}
-                refetch={refetch}
+                likePost={likePost}
               />
             </div>
-            <Options id={item.ID} refetch={refetch} />
+            <Options id={item.ID} deletePost={deletePost} />
           </div>
         ))}
     </>

@@ -38,7 +38,16 @@ const PostData = () => {
           </div>
 
           <div className='mb-7px '>
-            <Post data={data.data.post} refetch={refetch} />
+            <Post
+              data={data.data.post}
+              refetch={refetch}
+              deletePost={function (x: number): void {
+                throw new Error('Function not implemented.')
+              }}
+              likePost={function (id: number, likes: number): void {
+                throw new Error('Function not implemented.')
+              }}
+            />
           </div>
           <div className='overflow-y-scroll grow '>
             <Comments data={comments} refetch={refetch} />

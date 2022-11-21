@@ -3,7 +3,6 @@ import axios from 'axios'
 import { IaddPostSubmit } from '../../../types/addPostSubmit.interface'
 
 export const addPostSubmit = (event: FormEvent<HTMLFormElement>, props: IaddPostSubmit) => {
-  console.log('132131')
   let data = new FormData()
   data.append('post', props.file !== null ? props.file[0] : undefined)
   if (props.text !== '' && props.category !== '' && props.course !== '') {
@@ -14,9 +13,9 @@ export const addPostSubmit = (event: FormEvent<HTMLFormElement>, props: IaddPost
         }&time=${new Date().toUTCString()}`,
         data,
       )
-      .then((response) => {
+      .then((response: any) => {
         if (response.status === 200) {
-          props.refetch()
+          props.refetch(response.data.post)
           props.navigate('')
         }
       })

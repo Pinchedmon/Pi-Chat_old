@@ -3,7 +3,7 @@ export interface Iinfo {
   text: string
 }
 export interface Ibuttons {
-  refetch: () => void
+  likePost: (id: number, likes: number) => void
   name: string
   role: string
   ID: number
@@ -12,7 +12,7 @@ export interface Ibuttons {
 }
 export interface Ioptions {
   id: number
-  refetch: () => void
+  deletePost: (id: number) => void
 }
 
 export interface IprofileInfo {
