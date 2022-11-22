@@ -24,7 +24,10 @@ class messageController {
                 db.run('INSERT INTO messages (names) VALUES  (?)', [names])
             }
             db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
-                return res.json({ status: 200 })
+                db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}'`, [], (err, message) => {
+                    return res.json({ status: 200, message: message[0] })
+                })
+
             })
         })
     }

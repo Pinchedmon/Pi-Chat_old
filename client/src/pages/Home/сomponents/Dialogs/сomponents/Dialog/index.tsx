@@ -35,8 +35,12 @@ const Dialog = (props: IdialogProps) => {
     fetchData(nextPage, defaultPageToken)
     setIsLoading(false)
   }
-  const deleteMsg = (x: string) => {
-    setMsgs(msgs.filter((msg: Imessage) => msg.ID !== Number(x)))
+  const deleteMsg = (x: string[]) => {
+    for (let i = 0; i < x.length; i++) {
+      console.log('1')
+
+      setMsgs(msgs.filter((msg: Imessage) => msg.ID !== Number(x[i])))
+    }
   }
   const addMessage = (x: Imessage) => {
     setMsgs([x, ...msgs])

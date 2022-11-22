@@ -8,19 +8,21 @@ import { Iparams, Ipost } from './types/posts.interface'
 const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { sort, category } = props
+  const defaultCount = 10
   const [nextPage, setNextPage] = useState(1)
   const fetchData = async (token: number, count: number) => {
-    await getPosts({ sort, category, page: nextPage, count: count }).then((res) => {
-      setPosts([...posts, ...res.data])
-      setNextPage(res.page)
-      return res
-    })
+    token !== undefined &&
+      (await getPosts({ sort, category, page: token, count: count }).then((res) => {
+        setPosts([...posts, ...res.data])
+        setNextPage(res.page)
+        return res
+      }))
   }
   const handleFetchMore = () => {
-    fetchData(nextPage, 20)
+    fetchData(nextPage, defaultCount)
   }
   const deletePost = (id: number) => {
-    setPosts(posts.filter((msg: Ipost) => msg.ID !== id))
+    setPosts([...posts.filter((msg: Ipost) => msg.ID !== id)])
   }
   const addPost = (post: Ipost) => {
     setPosts([post, ...posts])
@@ -37,7 +39,7 @@ const Posts = (props: Iparams) => {
     ])
   }
   useEffect(() => {
-    fetchData(nextPage, 20)
+    fetchData(nextPage, defaultCount)
   }, [])
 
   return (
@@ -53,7 +55,7 @@ const Posts = (props: Iparams) => {
             loader={'424232'}
             dataLength={posts.length}
           >
-            <Post data={posts} refetch={() => fetchData(nextPage, 20)} deletePost={deletePost} likePost={likePost} />
+            <Post data={posts} deletePost={deletePost} likePost={likePost} />
           </InfiniteScroll>
         </div>
       </>

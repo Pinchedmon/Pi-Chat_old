@@ -40,7 +40,6 @@ const PostData = () => {
           <div className='mb-7px '>
             <Post
               data={data.data.post}
-              refetch={refetch}
               deletePost={function (x: number): void {
                 throw new Error('Function not implemented.')
               }}

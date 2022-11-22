@@ -40,7 +40,7 @@ export async function postMessage(props: apiParamMessages, messageImg: any): Pro
     )
     .then((res) => {
       if (res.status === 200) {
-        props.setMsgs({ text: props.text, time: new Date().toUTCString(), name: props.firstName })
+        props.setMsgs(res.data.message)
         return res
       }
     })

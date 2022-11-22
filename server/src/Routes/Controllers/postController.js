@@ -44,12 +44,16 @@ class postController {
       }
     );
     db.all(`SELECT * FROM posts WHERE name = "${queryObject.name}" and text = "${queryObject.text}"`, (err, rows) => {
-      console.log(rows)
-      return res.json({
-        status: 200,
-        post: rows[0],
-        success: true,
-      });
+      db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
+        rows[0]['username'] = user[0].username
+        rows[0]['pathImg'] = user[0].pathImg
+        return res.json({
+          status: 200,
+          post: rows[0],
+          success: true,
+        });
+      })
+
     })
   }
 
