@@ -8,11 +8,18 @@ import { Iparams, Ipost } from './types/posts.interface'
 const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { sort, category } = props
+  const [filter, setFilter] = useState(false)
   const defaultCount = 10
   const [nextPage, setNextPage] = useState(1)
   const fetchData = async (token: number, count: number) => {
     token !== undefined &&
       (await getPosts({ sort, category, page: token, count: count }).then((res) => {
+        if (filter) {
+          setFilter(false)
+          setPosts([...res.data])
+          setNextPage(res.page)
+          return res
+        }
         setPosts([...posts, ...res.data])
         setNextPage(res.page)
         return res
@@ -32,15 +39,16 @@ const Posts = (props: Iparams) => {
       ...posts,
       ...posts.filter((msg: Ipost) => {
         if (msg.ID === id) {
-          console.log('13')
           msg.likes = likes
         }
       }),
     ])
   }
+
   useEffect(() => {
-    fetchData(nextPage, defaultCount)
-  }, [])
+    setFilter(true)
+    fetchData(1, defaultCount)
+  }, [sort, category])
 
   return (
     <div className='flex flex-col'>

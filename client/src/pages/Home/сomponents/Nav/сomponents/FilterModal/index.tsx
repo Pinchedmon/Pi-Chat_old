@@ -1,5 +1,4 @@
 import React from 'react'
-import { useQuery } from 'react-query'
 import { setSort, setCategory } from '../../../../../../state/navReducer'
 import { IfilterModal } from '../../types/filterModal.interface'
 import { filterCategory } from './utils/filterCategory'
@@ -7,7 +6,7 @@ import { filterSort } from './utils/filterSort'
 
 export default function FilterModal(props: IfilterModal) {
   const { category, sort, dispatch } = props
-  const { refetch } = useQuery('myPosts')
+
   return (
     <div className='filterModal'>
       <p className='filterModal__title'>Сортировка</p>
@@ -15,7 +14,7 @@ export default function FilterModal(props: IfilterModal) {
         <select
           defaultValue={sort}
           onChange={(e) => {
-            filterSort(e, dispatch, setSort, refetch)
+            filterSort(e, dispatch, setSort)
           }}
           className='filterModal__filter'
         >
@@ -31,7 +30,7 @@ export default function FilterModal(props: IfilterModal) {
         <select
           defaultValue={category}
           onChange={(e) => {
-            filterCategory(e, dispatch, setCategory, refetch)
+            filterCategory(e, dispatch, setCategory)
           }}
           className='filterModal__filter'
         >

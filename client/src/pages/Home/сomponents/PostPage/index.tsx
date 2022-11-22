@@ -17,7 +17,7 @@ const PostData = () => {
   const [comments, setComments] = useState<Array<Icomment>>()
   const user = useContext(UserContext)
 
-  const { data, refetch } = useQuery('post', () =>
+  const { data, refetch } = useQuery(['post'], () =>
     getPost({ search: location.search, page, count: 5 }).then((res) => {
       if (res.status === 200) {
         if (page < 2) {

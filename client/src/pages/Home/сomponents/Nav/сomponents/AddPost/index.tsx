@@ -13,7 +13,7 @@ import { IaddPost } from '../../types/addPost.interface'
 
 const AddPost = (props: { setIsOpen: (item: boolean) => void }) => {
   const { setIsOpen } = props
-  const { refetch } = useQuery('myPosts')
+  const { refetch } = useQuery(['myPosts'])
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const [addPost, setAddPost] = useState<IaddPost>({

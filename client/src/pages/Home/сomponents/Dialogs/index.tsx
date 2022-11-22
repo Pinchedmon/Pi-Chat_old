@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 const Dialogs = () => {
   const user = useContext(UserContext)
   const navigate = useNavigate()
-  const { data, refetch } = useQuery('messages', () => getDialogs(user.name), {})
+  const { data, refetch } = useQuery(['messages'], () => getDialogs(user.name), {})
   const [names, setNames] = useState<string>('')
   const visible = useSelector((state: Istore) => state.nav.messageStyle)
   const dispatch = useDispatch()

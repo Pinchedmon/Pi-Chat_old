@@ -7,7 +7,7 @@ import { getSubscribes } from '../../../../api/get'
 
 const Subscribes = () => {
   const user = useContext(UserContext)
-  const { data, refetch } = useQuery('subscribes', () =>
+  const { data, refetch } = useQuery(['subscribes'], () =>
     getSubscribes(user.name).then((res) => {
       if (res.status === 200) {
         return res.data

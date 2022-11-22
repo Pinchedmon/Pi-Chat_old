@@ -10,7 +10,7 @@ const Profile = () => {
   let location = useLocation()
   const user = useContext(UserContext)
 
-  const { data, refetch } = useQuery('userData', () =>
+  const { data, refetch } = useQuery(['userData'], () =>
     getUserData({ name: location.pathname.slice(1).toString(), username: user.name }).then((res: any) => {
       return res.data
     }),

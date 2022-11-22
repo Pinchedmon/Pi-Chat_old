@@ -16,7 +16,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [loading, setLoading] = useState<boolean>(true)
   const navigate = useNavigate()
   const { refetch } = useQuery(
-    'main',
+    ['main'],
     () =>
       getCurrentUser().then((res: any) => {
         if (res.status === 200) {

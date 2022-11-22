@@ -26,7 +26,6 @@ const ProfilePosts = (props: { pathname: string; name: string }) => {
       ...posts,
       ...posts.filter((msg: Ipost) => {
         if (msg.ID === id) {
-          console.log('13')
           msg.likes = likes
         }
       }),
