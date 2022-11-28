@@ -21,6 +21,7 @@
   @import './pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/messages.css';
   @import './components/ux/Modal/modal.css';
   @import './pages/Home/сomponents/Profile/profile.css';
+  @import './components/ux/Warning/warning.css';
 }
 
 @layer base {

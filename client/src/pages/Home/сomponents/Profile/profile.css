@@ -40,19 +40,19 @@
     @apply w-24px hover:text-green-600;
   }
   .profile-options-area {
-    @apply absolute   rounded-lg border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
+    @apply absolute   rounded-lg dark:border-white border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
   }
   .addMessage {
-    @apply text-center flex flex-col bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
+    @apply text-center flex flex-col dark:bg-black bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
   }
   .addMessage-title {
-    @apply flex h-54px items-center text-green-600 rounded-2xl;
+    @apply flex h-54px items-center rounded-2xl;
   }
   .addMessage-title-icon {
-    @apply w-48px  rounded-md bg-gray-100 p-6px  hover:text-red-700;
+    @apply w-48px  rounded-md text-green-600 dark:text-white dark:bg-black bg-gray-100 p-6px dark:hover:text-red-600 hover:text-red-600;
   }
   .addMessage-title-name {
-    @apply absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold;
+    @apply absolute left-1/2 -translate-x-1/2 text-2xl dark:text-white text-green-600  rounded-xl p-10px font-bold;
   }
   .addMessage-textArea {
     @apply mb-10px mt-10px text-green-700 border-3 rounded-2xl resize-none outline-none p-10px;

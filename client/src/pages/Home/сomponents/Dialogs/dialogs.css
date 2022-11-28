@@ -34,22 +34,22 @@
     @apply flex flex-col w-full h-full items-stretch;
   }
   .dialogs-options {
-    @apply self-center dark:text-white right-16px absolute justify-end;
+    @apply self-start right-16px mt-16px absolute justify-end p-8px;
   }
   .dialogs-options-show {
-    @apply absolute bg-white dark:bg-black dark:text-white rounded-lg border-green-600 w-180px border-2 -right-5px  p-5px text-center;
+    @apply absolute bg-white dark:bg-black dark:text-white rounded-lg border-green-600 dark:border-white w-180px border-2 -right-5px  p-5px text-center;
   }
   .dialogs-options-icon {
-    @apply w-24px;
+    @apply w-24px dark:text-white hover:text-green-600;
   }
-  .dialogs-options-delete__button {
-    @apply flex text-red-600 font-bold;
+  .dialogs-options-delete-icon {
+    @apply text-red-600 w-24px;
   }
   .dialogs-show-warning-back {
     @apply backdrop-blur-sm w-full h-full absolute top-0px;
   }
   .dialogs-show-warning {
-    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white border-3 border-green-600;
+    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold dark:bg-black bg-white dark:text-white border-3 border-green-600;
   }
   .dialogs-show-warning-yes {
     @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;

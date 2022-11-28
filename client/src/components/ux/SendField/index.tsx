@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
-import { PaperClipIcon } from '@heroicons/react/solid'
 import { UserContext } from '../../../App'
-import handleChangeText from './utils/handleChangeText'
 import handleChangeFile from './utils/handleChangeFile'
 import handleSubmit from './utils/handleSubmit'
 import { Isendfield } from '../../../api/types/sendfield.interface'
 import { Itextarea } from '../../../api/types/textarea.interface'
+import TextArea from './components/TextArea'
+import handleChangeText from './utils/handleChangeText'
+import ChooseFileBtn from './ChooseFileBtn'
+import SendBtn from './SendBtn'
 
 const SendField = (props: Isendfield) => {
   const { postFuncProps, postFunc, object } = props
@@ -43,33 +44,10 @@ const SendField = (props: Isendfield) => {
           handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)
         }}
       >
-        <div className='postPage-sendField-textArea '>
-          <TextareaAutosize
-            cacheMeasurements
-            onChange={(e) => handleChangeText(e, setAreaData, areaData)}
-            value={areaData.textArea || ''}
-            className='postPage-sendField__textArea'
-            placeholder='Написать'
-          />
-        </div>
+        <TextArea handleChangeText={(e) => handleChangeText(e, setAreaData, areaData)} value={''} />
         <div className='postPage-sendField-buttons'>
-          <label className='postPage-sendField-buttons__label'>
-            <input
-              type='file'
-              className='hidden'
-              accept='.png,.gif,.jpg,.jpeg'
-              onChange={(e) => handleChangeFile(e, setAreaData, areaData)}
-            />
-            <i>
-              <PaperClipIcon className='postPage-sendField-buttons-icon' />
-            </i>
-            {areaData.preview !== null && (
-              <img className='postPage-sendField-buttons-previewImg ' alt='' src={areaData.preview} />
-            )}
-          </label>
-          <button disabled={!areaData.validForm} className='postPage-sendField-buttons__button'>
-            Отправить
-          </button>
+          <ChooseFileBtn handleChangeFile={(e) => handleChangeFile(e, setAreaData, areaData)} preview={''} />
+          <SendBtn validForm={areaData.validForm} />
         </div>
       </form>
     </>

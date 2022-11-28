@@ -25,7 +25,6 @@ class followController {
 
     }
     async getSubscribes(req, res) {
-
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM follows WHERE name = "${queryObject.name}"`, [], (err, follows) => {
             for (let i = 0; i < follows.length; i++) {
@@ -44,8 +43,6 @@ class followController {
                 }
             });
         });
-
-
     }
     async deleteFollow(req, res) {
         const queryObject = url.parse(req.url, true).query;

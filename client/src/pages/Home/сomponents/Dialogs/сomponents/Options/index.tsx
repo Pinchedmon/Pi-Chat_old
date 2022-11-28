@@ -13,11 +13,11 @@ const Options = (props: Ioptions) => {
         onMouseEnter={() => setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
       >
-        <DotsVerticalIcon className='dialogs-options-icon hover:text-green-600' />
+        <DotsVerticalIcon className='dialogs-options-icon ' />
         {showOptions && (
           <div className='dialogs-options-show'>
-            <button className='' onClick={() => setShowWarning(true)}>
-              <TrashIcon className='dialogs-options-icon' /> <p className='ml-5px'>Удалить диалог</p>
+            <button className='flex text-red-600 font-bold' onClick={() => setShowWarning(true)}>
+              <TrashIcon className='dialogs-options-delete-icon' /> <p className='ml-5px'>Удалить</p>
             </button>
           </div>
         )}

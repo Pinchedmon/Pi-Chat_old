@@ -52,24 +52,12 @@
     @apply self-start  right-16px absolute justify-end p-8px;
   }
   .post__option-icon {
-    @apply w-24px hover:text-green-600;
+    @apply w-24px dark:text-white hover:text-green-600;
   }
   .post__option-area {
     @apply absolute bg-white dark:bg-black rounded-lg dark:border-white border-green-600 w-180px border-2 -right-5px  mt-4px p-5px text-center;
   }
   .post__warning-background {
     @apply backdrop-blur-sm w-full h-full absolute top-0px;
-  }
-  .post__warning {
-    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white dark:bg-black dark:text-white border-3 border-green-600;
-  }
-  .post__warning-title {
-    @apply mb-16px;
-  }
-  .post__warning__button-yes {
-    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white;
-  }
-  .post__warning__button-no {
-    @apply ml-5px pl-10px pr-10px pt-4px pb-4px  bg-gray-600 text-white rounded-lg float-right;
   }
 }
