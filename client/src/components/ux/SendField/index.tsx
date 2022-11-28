@@ -6,12 +6,11 @@ import { Isendfield } from '../../../api/types/sendfield.interface'
 import { Itextarea } from '../../../api/types/textarea.interface'
 import TextArea from './components/TextArea'
 import handleChangeText from './utils/handleChangeText'
-import ChooseFileBtn from './ChooseFileBtn'
-import SendBtn from './SendBtn'
+import ChooseFileBtn from './components/ChooseFileBtn'
+import SendBtn from './components/SendBtn'
 
 const SendField = (props: Isendfield) => {
   const { postFuncProps, postFunc, object } = props
-  const user = useContext(UserContext)
   const [areaData, setAreaData] = useState<Itextarea>({
     file: null,
     preview: '',
@@ -28,7 +27,7 @@ const SendField = (props: Isendfield) => {
     } else {
       setAreaData((areaData: Itextarea) => ({ ...areaData, preview: null }))
     }
-  }, [areaData.file, user.name])
+  }, [areaData.file])
   useEffect(() => {
     if (areaData.textArea === '' && areaData.preview === null) {
       setAreaData((areaData: Itextarea) => ({ ...areaData, validForm: false }))

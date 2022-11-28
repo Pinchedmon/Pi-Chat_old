@@ -1,7 +1,6 @@
 import React from 'react'
-export interface IsendBtn {
-  validForm: boolean
-}
+import { IsendBtn } from './SendBtn.interface'
+
 const SendBtn = (props: IsendBtn) => {
   const { validForm } = props
   return (
