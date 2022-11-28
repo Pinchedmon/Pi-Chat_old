@@ -42,7 +42,7 @@
     @apply flex justify-center mb-10px;
   }
   .postPage-sendField__textArea {
-    @apply rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-90%;
+    @apply rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-full mr-16px ml-16px;
   }
   .postPage-sendField-buttons {
     @apply flex ml-16px;

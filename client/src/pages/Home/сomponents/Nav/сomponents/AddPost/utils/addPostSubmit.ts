@@ -15,7 +15,6 @@ export function addPostSubmit(event: FormEvent<HTMLFormElement>, props: IaddPost
       )
       .then((response) => {
         if (response.status === 200) {
-          props.refetch()
           props.navigate('')
         }
       })

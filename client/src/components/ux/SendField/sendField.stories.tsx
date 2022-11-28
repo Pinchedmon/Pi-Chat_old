@@ -10,8 +10,4 @@ export default {
 } as ComponentMeta<typeof SendField>
 const Template: ComponentStory<typeof SendField> = (args: Isendfield) => <SendField {...args} />
 export const Default = Template.bind({})
-Default.args = {
-  postFuncProps: () => false,
-  postFunc: () => false,
-  object: 'yes',
-}
+Default.args = {}

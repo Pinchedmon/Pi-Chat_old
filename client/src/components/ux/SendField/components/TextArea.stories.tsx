@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof TextArea>
 const Template: ComponentStory<typeof TextArea> = (args: ItextArea) => {
   const [localValue, setValue] = useState('')
-  return <TextArea value={localValue} handleChangeText={(e) => setValue('3123213')} />
+  return <TextArea value={localValue} handleChangeText={(e) => setValue(e.target.value)} />
 }
 
 export const Default = Template.bind({})

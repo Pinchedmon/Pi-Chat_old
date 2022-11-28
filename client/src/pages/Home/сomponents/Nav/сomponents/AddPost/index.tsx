@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ArrowLeftIcon, PaperClipIcon } from '@heroicons/react/outline'
-import TextareaAutosize from 'react-textarea-autosize'
-import { useQuery } from 'react-query'
+import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { addPostSubmit } from './utils/addPostSubmit'
 import { handleCourseChange } from './utils/handleCourseChange'
 import { handleCategoryChange } from './utils/handleCategoryChange'
@@ -10,10 +8,14 @@ import { handleChangeFile } from './utils/handleChangeFIle'
 import { UserContext } from '../../../../../../App'
 import { useNavigate } from 'react-router-dom'
 import { IaddPost } from '../../types/addPost.interface'
+import TextArea from '../../../../../../components/ux/SendField/components/TextArea'
+import SendBtn from '../../../../../../components/ux/SendField/components/SendBtn'
+import ChooseFileBtn from '../../../../../../components/ux/SendField/components/ChooseFileBtn'
+import CourseSelect from './CourseSelect'
+import CategorySelect from './CategorySelect'
 
 const AddPost = (props: { setIsOpen: (item: boolean) => void }) => {
   const { setIsOpen } = props
-  const { refetch } = useQuery(['myPosts'])
   const user = useContext(UserContext)
   const navigate = useNavigate()
   const [addPost, setAddPost] = useState<IaddPost>({
@@ -54,7 +56,6 @@ const AddPost = (props: { setIsOpen: (item: boolean) => void }) => {
             category: addPost.category,
             course: addPost.course,
             file: addPost.file,
-            refetch,
             navigate,
           })
           setAddPost({ ...addPost, text: '' })
@@ -66,60 +67,19 @@ const AddPost = (props: { setIsOpen: (item: boolean) => void }) => {
           <h1 className='nav__addPost-title-text'>Создание поста</h1>
         </div>
         <div className='nav__addPost-filters'>
-          <div className='nav__addPost-filter'>
-            <h4> Категория</h4>
-            <select
-              className='nav__addPost__select'
-              value={addPost.category}
-              onChange={(e) => handleCategoryChange(e, setAddPost, addPost)}
-            >
-              <option value='value1' disabled>
-                Категория
-              </option>
-              <option value='Общее'>Общее</option>
-              <option value='Предметы'>Предметы</option>
-              <option value='Вопросы'>Вопросы</option>
-            </select>
-          </div>
-
-          <div className='ml-10px nav__addPost-filter '>
-            <h4> Курс</h4>
-            <select
-              className='nav__addPost__select'
-              value={addPost.course}
-              onChange={(e) => handleCourseChange(e, setAddPost, addPost)}
-            >
-              <option disabled>Курс</option>
-              <option value='1'>1</option>
-              <option value='2'>2</option>
-              <option value='3'>3</option>
-              <option value='4'>4</option>
-            </select>
-          </div>
+          <CategorySelect
+            category={addPost.category}
+            handleCategoryChange={(e) => handleCategoryChange(e, setAddPost, addPost)}
+          />
+          <CourseSelect
+            course={addPost.course}
+            handleCourseChange={(e) => handleCourseChange(e, setAddPost, addPost)}
+          />
         </div>
-        <TextareaAutosize
-          cacheMeasurements
-          onChange={(e) => handleTextChange(e, setAddPost, addPost)}
-          value={addPost.text}
-          className='nav__addPost__textarea'
-          placeholder='Текст поста'
-        />
+        <TextArea handleChangeText={(e) => handleTextChange(e, setAddPost, addPost)} value={addPost.text} />
         <div className='flex'>
-          <label className='flex '>
-            <input
-              type='file'
-              className='hidden'
-              accept='.png,.gif,.jpg,.jpeg'
-              onChange={(e) => handleChangeFile(e, setAddPost, addPost)}
-            />
-            <i className=''>
-              <PaperClipIcon className='nav__addPost__file' />
-            </i>
-            {addPost.file !== null && <img className='nav__addPost__img' alt='загружается' src={addPost.preview} />}
-          </label>
-          <button disabled={!addPost.validForm} className='nav__addPost__button'>
-            Отправить
-          </button>
+          <ChooseFileBtn handleChangeFile={(e) => handleChangeFile(e, setAddPost, addPost)} preview={addPost.preview} />
+          <SendBtn validForm={addPost.validForm} />
         </div>
       </form>
     </>

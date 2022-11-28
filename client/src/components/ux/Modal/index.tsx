@@ -6,7 +6,7 @@ const Modal = ({ open, children, onClose }: any) => {
   if (!open) return null
   return createPortal(
     <>
-      <ModalArea onClose={onClose} children={''} />
+      <ModalArea onClose={onClose} children={children} />
     </>,
     document.getElementById('portal'),
   )

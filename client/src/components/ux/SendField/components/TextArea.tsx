@@ -9,8 +9,8 @@ const TextArea = (props: ItextArea) => {
       <div className='postPage-sendField-textArea '>
         <TextareaAutosize
           cacheMeasurements
-          onChange={() => handleChangeText}
-          value={value || ''}
+          onChange={handleChangeText}
+          value={value}
           className='postPage-sendField__textArea'
           placeholder='Написать'
         />

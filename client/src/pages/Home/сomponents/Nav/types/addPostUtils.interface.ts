@@ -6,6 +6,5 @@ export interface IaddPostSubmit {
   course: string
   category: string
   file: FileList | null
-  refetch: () => void
   navigate: NavigateFunction
 }

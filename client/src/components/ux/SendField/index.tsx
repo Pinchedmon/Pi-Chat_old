@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../../App'
+import React, { useEffect, useState } from 'react'
 import handleChangeFile from './utils/handleChangeFile'
 import handleSubmit from './utils/handleSubmit'
 import { Isendfield } from '../../../api/types/sendfield.interface'
@@ -43,7 +42,7 @@ const SendField = (props: Isendfield) => {
           handleSubmit(event, setAreaData, areaData, postFuncProps, postFunc, object)
         }}
       >
-        <TextArea handleChangeText={(e) => handleChangeText(e, setAreaData, areaData)} value={''} />
+        <TextArea handleChangeText={(e) => handleChangeText(e, setAreaData, areaData)} value={areaData.textArea} />
         <div className='postPage-sendField-buttons'>
           <ChooseFileBtn handleChangeFile={(e) => handleChangeFile(e, setAreaData, areaData)} preview={''} />
           <SendBtn validForm={areaData.validForm} />

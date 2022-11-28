@@ -1,5 +1,5 @@
 export interface Isendfield {
-  postFuncProps: any
+  postFuncProps?: any
   postFunc: (postFuncProps: any, areaImg: any) => void
-  object: string
+  object?: string
 }
