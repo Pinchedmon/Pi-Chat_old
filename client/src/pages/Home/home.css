@@ -4,7 +4,7 @@
 
 @layer components {
   .home {
-    @apply grid grid-cols-4 gap-0px  dark:bg-black dark:text-[#20A740];
+    @apply md:grid-rows-3 grid lg:grid-cols-4 gap-0px  dark:bg-black dark:text-[#20A740];
   }
   .content-area {
     @apply relative col-span-2 w-full min-h-screen border-gray-300;

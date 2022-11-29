@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import Input from '../../utils/input'
 import { Iform } from './types/login.interface'
 import { blurHandler } from './utils/blurHandler'
 import { handleChangeEmail } from './utils/handleChangeEmail'
@@ -39,26 +40,24 @@ export default function Login() {
       <form onSubmit={(e) => handleSubmit(e, form.email, form.password, logIn)} className='login__form'>
         <h1 className='login-form__h1'>ВХОД</h1>
         {form.emailDirty && form.emailError && <div className='login-form-error'>{form.emailError}</div>}
-        <input
-          className='login-form__input'
-          name='email'
-          placeholder='Email'
-          type='email'
+
+        <Input
           value={form.email}
-          onBlur={(e) => blurHandler(e, setForm, form)}
-          onChange={(e) => handleChangeEmail(e, setForm, form)}
+          blurHandler={(e) => blurHandler(e, setForm, form)}
+          handleChange={(e) => handleChangeEmail(e, setForm, form)}
+          name={'email'}
+          placeholder={'Email'}
+          type={'Email'}
         />
         {form.passwordDirty && form.passwordError && <div className='login-form-error'>{form.passwordError}</div>}
-        <input
-          className='login-form__input'
-          name='password'
-          placeholder='Пароль'
-          type='password'
+        <Input
           value={form.password}
-          onBlur={(e) => blurHandler(e, setForm, form)}
-          onChange={(e) => handleChangePassword(e, setForm, form)}
+          blurHandler={(e) => blurHandler(e, setForm, form)}
+          handleChange={(e) => handleChangePassword(e, setForm, form)}
+          name={'password'}
+          placeholder={'Password'}
+          type={'password'}
         />
-
         <button disabled={!form.validForm} className='login-form__button'>
           Вход
         </button>

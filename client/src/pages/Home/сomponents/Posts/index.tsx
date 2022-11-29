@@ -8,7 +8,7 @@ import { Iparams, Ipost } from './types/posts.interface'
 const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { sort, category } = props
-  const [filter, setFilter] = useState(false)
+  const [filter, setFilter] = useState(true)
   const defaultCount = 10
   const [nextPage, setNextPage] = useState(1)
   const fetchData = async (token: number, count: number) => {
@@ -19,10 +19,11 @@ const Posts = (props: Iparams) => {
           setPosts([...res.data])
           setNextPage(res.page)
           return res
+        } else {
+          setPosts([...posts, ...res.data])
+          setNextPage(res.page)
+          return res
         }
-        setPosts([...posts, ...res.data])
-        setNextPage(res.page)
-        return res
       }))
   }
   const handleFetchMore = () => {
@@ -46,7 +47,7 @@ const Posts = (props: Iparams) => {
   }
 
   useEffect(() => {
-    setFilter(true)
+    console.log('useEffect')
     fetchData(1, defaultCount)
   }, [sort, category])
 
@@ -58,6 +59,7 @@ const Posts = (props: Iparams) => {
           <InfiniteScroll
             next={() => {
               handleFetchMore()
+              console.log('refetch')
             }}
             hasMore={true}
             loader={'424232'}
