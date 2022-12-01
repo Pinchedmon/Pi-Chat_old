@@ -67,9 +67,7 @@ const Dialog = (props: IdialogProps) => {
               {userInfo.username}
             </div>
           </div>
-
           <Messages showMoreMsg={handleFetchMore} data={msgs} deleteMsg={deleteMsg} />
-
           <SendField
             postFuncProps={{
               firstName: user.name.trim(),

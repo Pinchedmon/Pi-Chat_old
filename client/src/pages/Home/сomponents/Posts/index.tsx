@@ -47,7 +47,6 @@ const Posts = (props: Iparams) => {
   }
 
   useEffect(() => {
-    console.log('useEffect')
     fetchData(1, defaultCount)
   }, [sort, category])
 
@@ -59,7 +58,6 @@ const Posts = (props: Iparams) => {
           <InfiniteScroll
             next={() => {
               handleFetchMore()
-              console.log('refetch')
             }}
             hasMore={true}
             loader={'424232'}

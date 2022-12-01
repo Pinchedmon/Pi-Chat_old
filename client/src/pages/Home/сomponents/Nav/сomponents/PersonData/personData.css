@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 .person-data {
-  @apply absolute bottom-32px flex items-center;
+  @apply lg:absolute bottom-32px  flex items-center;
 }
 .person-data__img {
   @apply border-2 rounded-2xl w-54px h-54px mr-16px;
 }
 .person-data__info {
-  @apply flex-col mr-32px;
+  @apply flex-col text-lg font-normal mr-32px;
 }
 .person-data__info__username {
   @apply text-xl font-bold dark:text-white;

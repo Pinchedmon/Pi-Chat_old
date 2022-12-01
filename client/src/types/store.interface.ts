@@ -8,6 +8,7 @@ export interface Istore {
     messageStyle: boolean
     addMessageStyle: boolean
     editProfileStyle: boolean
+    isNavExpanded: boolean
   }
   message: { selected: Iselected }
   modal: { isOpen: boolean }

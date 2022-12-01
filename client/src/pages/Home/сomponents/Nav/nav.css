@@ -4,10 +4,10 @@
 
 @layer components {
   .wrapper__nav {
-    @apply h-full flex justify-center;
+    @apply h-full  w-full flex justify-center;
   }
   .nav-area {
-    @apply fixed h-screen;
+    @apply lg:fixed lg:h-screen;
   }
   .nav {
     @apply flex flex-col items-center text-2xl font-bold;
@@ -25,6 +25,6 @@
     @apply w-32px h-32px mr-16px;
   }
   .nav-send__button {
-    @apply bg-[#20A740] text-white rounded-3xl  text-center pt-12px pb-12px w-260px text-xl font-bold;
+    @apply bg-[#20A740] text-white rounded-3xl mb-2rem  text-center pt-12px pb-12px w-260px text-xl font-bold;
   }
 }

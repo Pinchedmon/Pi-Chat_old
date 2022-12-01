@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, UserGroupIcon } from '@heroicons/react/solid'
+import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, UserGroupIcon, XIcon } from '@heroicons/react/solid'
 import { Link, NavLink } from 'react-router-dom'
-import { setMessageStyle } from '../../../../state/navReducer'
+import { setIsNavExpanded, setMessageStyle } from '../../../../state/navReducer'
 import { UserContext } from '../../../../App'
 import PersonData from './сomponents/PersonData'
 import Modal from '../../../../components/ux/Modal'
@@ -12,10 +12,17 @@ const Nav = () => {
   const user = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch()
-
+  // const [isNavExpanded, setIsNavExpanded] = useState(false)
+  //window.innerWidth
   return (
     <div className='wrapper__nav'>
-      <div className='nav-area'>
+      <div className='nav-area relative'>
+        {window.innerWidth < 1024 && (
+          <div className='absolute right-0px' onClick={() => dispatch(setIsNavExpanded(false))}>
+            <XIcon className='w-24px text-[#20A740]' />
+          </div>
+        )}
+
         <div className='nav'>
           <Link to='/' className='nav-logo'>
             / π - Чат /
@@ -48,14 +55,14 @@ const Nav = () => {
             <CogIcon className='nav-icon' />
             <p>Настройки</p>
           </NavLink>
-        </div>
-        <div onClick={() => setIsOpen(true)} className='nav-send__button'>
-          <button>За / π / ши</button>
+          <div onClick={() => setIsOpen(true)} className='nav-send__button'>
+            <button>За / π / ши</button>
+          </div>
+          <PersonData name={user.name} username={user.username} pathImg={user.pathImg} />
         </div>
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
           <AddPost setIsOpen={setIsOpen} />
         </Modal>
-        <PersonData name={user.name} username={user.username} pathImg={user.pathImg} />
       </div>
     </div>
   )
