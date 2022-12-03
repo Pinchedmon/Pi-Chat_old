@@ -7,6 +7,7 @@ let initialState = {
   messageStyle: false,
   editProfileStyle: false,
   isNavExpanded: false,
+  isMenuShowed: true,
 }
 
 const navSlice = createSlice({
@@ -34,6 +35,9 @@ const navSlice = createSlice({
     setIsNavExpanded: (state: { isNavExpanded: boolean }, action: { payload: boolean }) => {
       state.isNavExpanded = action.payload
     },
+    setIsMenuShowed: (state: { isMenuShowed: boolean }, action: { payload: boolean }) => {
+      state.isMenuShowed = action.payload
+    },
   },
 })
 
@@ -45,5 +49,6 @@ export const {
   setMessageStyle,
   setEditProfileStyle,
   setIsNavExpanded,
+  setIsMenuShowed,
 } = navSlice.actions
 export default navSlice.reducer

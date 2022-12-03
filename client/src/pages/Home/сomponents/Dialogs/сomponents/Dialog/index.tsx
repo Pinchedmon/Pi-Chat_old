@@ -5,7 +5,7 @@ import { postMessage } from '../../../../../../api/post'
 import { getMessages } from '../../../../../../api/get'
 import { UserContext } from '../../../../../../App'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
-import { setMessageStyle } from '../../../../../../state/navReducer'
+import { setIsMenuShowed, setMessageStyle } from '../../../../../../state/navReducer'
 import { resetOn } from '../../../../../../state/messageReducer'
 import { IdialogProps } from '../../types/dialogProps.interface'
 import { Imessage } from '../../types/message.interface'
@@ -58,6 +58,7 @@ const Dialog = (props: IdialogProps) => {
             <ArrowLeftIcon
               onClick={() => {
                 dispatch(setMessageStyle(!visible))
+                dispatch(setIsMenuShowed(true))
                 dispatch(resetOn())
               }}
               className='dialog-left-icon'

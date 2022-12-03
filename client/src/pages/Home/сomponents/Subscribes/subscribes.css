@@ -10,7 +10,7 @@
     @apply w-1/2  h-screen;
   }
   .follows-title {
-    @apply text-center p-16px text-xl  border-b-2 border-gray-300 font-extrabold;
+    @apply text-center p-16px lg:text-xl  border-b-2 border-gray-300 font-extrabold;
   }
   .follow {
     @apply flex mt-12px justify-center;
@@ -19,10 +19,10 @@
     @apply w-180px flex items-center;
   }
   .follow-info__img {
-    @apply rounded-xl mr-16px border-2 w-48px h-48px;
+    @apply rounded-xl mr-16px border-2 w-40px ml-8px lg:ml-0px h-40px lg:w-48px lg:h-48px;
   }
   .follow-info__p {
-    @apply text-xl font-medium;
+    @apply lg:text-xl font-medium;
   }
   .follow-close-icon {
     @apply w-32px;

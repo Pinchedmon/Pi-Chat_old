@@ -10,7 +10,7 @@
     @apply w-full  dark:text-white flex p-16px self-center border-b-2 border-l-2 border-r-2 rounded-b-xl border-gray-300 pb-16px;
   }
   .profile-avatar {
-    @apply rounded-xl w-100px h-100px ml-16px mr-16px;
+    @apply rounded-xl w-100px h-100px lg:ml-16px mr-16px;
   }
   .profile-info {
     @apply flex w-full flex-col;
@@ -19,7 +19,7 @@
     @apply flex items-center w-full -mt-6px;
   }
   .profile-info-naming-username {
-    @apply font-bold text-2xl;
+    @apply font-bold text-xl lg:text-2xl;
   }
   .profile-info-naming-name {
     @apply ml-8px font-bold text-gray-500;
@@ -34,13 +34,13 @@
     @apply ml-2px;
   }
   .profile-options {
-    @apply self-start right-16px absolute justify-end p-8px;
+    @apply self-start  right-16px absolute justify-end p-8px;
   }
   .profile-options-icon {
-    @apply w-24px hover:text-green-600;
+    @apply w-24px  hover:text-green-600;
   }
   .profile-options-area {
-    @apply absolute   rounded-lg dark:border-white border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
+    @apply absolute  dark:bg-black  bg-white rounded-lg dark:border-white border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
   }
   .addMessage {
     @apply text-center flex flex-col dark:bg-black bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;

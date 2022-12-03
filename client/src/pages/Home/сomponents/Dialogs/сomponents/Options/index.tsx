@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { DotsVerticalIcon, TrashIcon } from '@heroicons/react/solid'
 import { deleteDialog } from './utils/deleteDialog'
 import { Ioptions } from '../../types/options.interface'
+import Warning from '../../../../../../components/ux/Warning'
+import Modal from '../../../../../../components/ux/Modal'
 
 const Options = (props: Ioptions) => {
   const [showOptions, setShowOptions] = useState(false)
@@ -24,22 +26,13 @@ const Options = (props: Ioptions) => {
       </div>
       {showWarning && (
         <>
-          <div className='dialogs-show-warning-back'></div>
-          <div className='dialogs-show-warning'>
-            <div className='mb-16px'>Вы действительно уверены, что хотите удалить диалог?</div>
-            <button
-              className='dialogs-show-warning-yes'
-              onClick={() => {
-                setShowWarning(false)
-                deleteDialog({ names: props.names, refetch: props.refetch })
-              }}
-            >
-              Да
-            </button>
-            <button className='dialogs-show-warning-no' onClick={() => setShowWarning(false)}>
-              Нет
-            </button>
-          </div>
+          <Modal open={showWarning} onClose={() => setShowWarning(false)}>
+            <Warning
+              setIsOpen={() => setShowWarning(false)}
+              propsFunc={() => deleteDialog({ names: props.names, refetch: props.refetch })}
+              title={'Вы действительно уверены, что хотите удалить диалог?'}
+            />
+          </Modal>
         </>
       )}
     </>

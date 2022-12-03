@@ -29,7 +29,7 @@ const Options = (props: Ioptions) => {
         {option.showOptions && (
           <div className='post__option-area'>
             <button className='flex text-red-600 font-bold' onClick={() => setOption({ ...option, showWarning: true })}>
-              <TrashIcon className='w-24px' /> <p className='ml-5px'>Удалить пост</p>
+              <TrashIcon className='w-16px lg:w-24px' /> <p className='ml-5px'>Удалить пост</p>
             </button>
           </div>
         )}

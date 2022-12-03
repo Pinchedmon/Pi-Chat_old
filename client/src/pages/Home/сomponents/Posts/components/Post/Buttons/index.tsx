@@ -3,11 +3,15 @@ import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
 import { Ibuttons } from '../../../types/post.interface'
 import { handleLike } from './utils/handleLike'
+import { useDispatch } from 'react-redux'
+import { setIsMenuShowed } from '../../../../../../../state/navReducer'
 
 function Buttons(props: Ibuttons) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { likePost, name, ID, likes, comments } = props
   const showComments = async (id: number) => {
+    dispatch(setIsMenuShowed(false))
     navigate(`/post?id=${id}`)
   }
 

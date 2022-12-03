@@ -7,7 +7,7 @@ const EditAvatar = (props: { refetch: () => void }) => {
   const user = useContext(UserContext)
 
   return (
-    <div className='flex w-100px border-2 flex-col ml-16px mr-16px font-bold'>
+    <div className='flex w-100px mb-8px lg:mb-0px border-2 flex-col ml-16px mr-16px font-bold'>
       <img className='w-100px' src={user.pathImg} alt='загружается...' />
       <label className=' bg-green-600 text-sm text-white p-3px hover:bg-green-500 cursor-pointer'>
         <input

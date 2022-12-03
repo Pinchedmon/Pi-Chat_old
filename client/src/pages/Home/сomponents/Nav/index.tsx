@@ -27,35 +27,61 @@ const Nav = () => {
           <Link to='/' className='nav-logo'>
             / π - Чат /
           </Link>
-          <NavLink to={user.name} className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}>
+
+          <NavLink
+            to={user.name}
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
             <UserIcon className='nav-icon' />
             <p>Профиль</p>
           </NavLink>
-          <NavLink to='' className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}>
+          <NavLink
+            to=''
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
             <MenuAlt1Icon className='nav-icon' />
             <p>Посты</p>
           </NavLink>
           <NavLink
-            onClick={() => dispatch(setMessageStyle(false))}
             to='messages'
+            onClick={() => dispatch(setIsNavExpanded(false))}
             className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
           >
             <ChatIcon className='nav-icon' />
             <p>Сообщения</p>
           </NavLink>
-          <NavLink to='followers' className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}>
+          <NavLink
+            to='followers'
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
             <UserGroupIcon className='nav-icon' />
             <p>Подписки</p>
           </NavLink>
-          <NavLink to='notifs' className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}>
+          <NavLink
+            to='notifs'
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
             <BellIcon className='nav-icon' />
             <p>Уведомления</p>
           </NavLink>
-          <NavLink to='settings' className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}>
+          <NavLink
+            to='settings'
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
             <CogIcon className='nav-icon' />
             <p>Настройки</p>
           </NavLink>
-          <div onClick={() => setIsOpen(true)} className='nav-send__button'>
+          <div
+            onClick={() => {
+              setIsOpen(true)
+            }}
+            className='nav-send__button'
+          >
             <button>За / π / ши</button>
           </div>
           <PersonData name={user.name} username={user.username} pathImg={user.pathImg} />

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMessageStyle } from '../../../../state/navReducer'
+import { setIsMenuShowed, setMessageStyle } from '../../../../state/navReducer'
 import { getDialogs } from '../../../../api/get'
 import { UserContext } from '../../../../App'
 import { Istore } from '../../../../types/store.interface'
@@ -34,6 +34,7 @@ const Dialogs = () => {
                 <div
                   onClick={() => {
                     dispatch(setMessageStyle(!visible))
+                    dispatch(setIsMenuShowed(false))
                     setNames(item.names)
                   }}
                   className='dialogs-dialog-info'

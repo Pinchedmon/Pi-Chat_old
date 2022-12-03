@@ -4,10 +4,10 @@
 
 @layer components {
   .addPost {
-    @apply text-center flex flex-col p-16px border-b-2 border-l-2 border-r-2 rounded-b-2xl border-gray-300;
+    @apply text-center flex flex-col p-16px  lg:border-b-2 lg:border-l-2 lg:border-r-2 rounded-b-2xl border-gray-300;
   }
   .addPost__title {
-    @apply text-2xl font-bold text-left ml-4px mb-8px text-green-600;
+    @apply text-xl lg:text-2xl font-bold text-left ml-4px mb-8px text-green-600;
   }
   .addPost__textarea {
     @apply mb-10px text-green-700  border-3 rounded-2xl resize-none outline-none p-10px;
@@ -19,10 +19,10 @@
     @apply h-40px object-cover ml-40px rounded-md;
   }
   .addPost__filter-area {
-    @apply flex w-full justify-around items-center;
+    @apply flex w-full flex-col  lg:flex-row justify-around items-center;
   }
   .addPost-filter {
-    @apply w-100px text-lg  flex  font-bold;
+    @apply lg:w-100px text-base lg:text-lg  flex  font-bold;
   }
   .addPost-filter__naming {
     @apply mr-4px;

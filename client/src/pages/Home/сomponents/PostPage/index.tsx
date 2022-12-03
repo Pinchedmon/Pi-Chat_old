@@ -9,6 +9,8 @@ import SendField from '../../../../components/ux/SendField'
 import { useQuery } from 'react-query'
 import Post from '../Posts/components/Post'
 import { Icomment } from './types/comment.interface'
+import { useDispatch } from 'react-redux'
+import { setIsMenuShowed } from '../../../../state/navReducer'
 
 const PostData = () => {
   let page = 1
@@ -16,7 +18,7 @@ const PostData = () => {
   const location = useLocation()
   const [comments, setComments] = useState<Array<Icomment>>()
   const user = useContext(UserContext)
-
+  const dispatch = useDispatch()
   const { data, refetch } = useQuery(['post'], () =>
     getPost({ search: location.search, page, count: 5 }).then((res) => {
       if (res.status === 200) {
@@ -33,7 +35,13 @@ const PostData = () => {
     <div className='flex flex-col w-full h-screen items-stretch'>
       {comments && (
         <>
-          <div className='postPage-exit' onClick={() => navigate('/')}>
+          <div
+            className='postPage-exit'
+            onClick={() => {
+              navigate('/')
+              dispatch(setIsMenuShowed(true))
+            }}
+          >
             <ArrowLeftIcon className='postPage-exit__icon' />
           </div>
 

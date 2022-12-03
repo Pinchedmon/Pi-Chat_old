@@ -10,16 +10,16 @@
     @apply flex h-54px items-center  dark:text-white text-green-600 rounded-2xl;
   }
   .nav__addPost-title-icon {
-    @apply w-48px  rounded-md bg-gray-100 p-6px dark:bg-black  hover:text-red-700;
+    @apply w-40px lg:w-48px  rounded-md bg-gray-100 p-6px dark:bg-black  hover:text-red-700;
   }
   .nav__addPost-title-text {
-    @apply absolute left-1/2 -translate-x-1/2 text-2xl  rounded-xl p-10px font-bold;
+    @apply absolute left-1/2 -translate-x-1/2 text-xl lg:text-2xl  rounded-xl lg:p-10px font-bold;
   }
   .nav__addPost-filters {
-    @apply flex justify-evenly  items-center mt-12px mb-16px;
+    @apply flex justify-between lg:justify-evenly   items-center mt-12px mb-16px;
   }
   .nav__addPost-filter {
-    @apply w-100px text-lg   flex  font-bold;
+    @apply w-100px lg:text-lg   flex  font-bold;
   }
   .nav__addPost__select {
     @apply ml-4px border-2 dark:bg-black dark:text-white text-green-600 rounded-lg block;
@@ -32,8 +32,5 @@
   }
   .nav__addPost__img {
     @apply h-40px object-cover ml-40px rounded-md;
-  }
-  .nav__addPost__button {
-    @apply ml-auto bg-green-600 text-white pt-6px  pb-6px pl-16px pr-16px rounded-xl;
   }
 }

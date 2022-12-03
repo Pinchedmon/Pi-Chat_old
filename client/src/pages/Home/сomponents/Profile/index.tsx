@@ -17,7 +17,7 @@ const Profile = () => {
   )
   useEffect(() => {
     refetch()
-  }, [location.pathname])
+  }, [location.pathname, data])
   return (
     <>
       {data && (

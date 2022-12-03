@@ -9,7 +9,7 @@ function EditName(props: { refetch: () => void }) {
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.username)
   return (
-    <div className='border-2  dark:bg-white w-200px'>
+    <div className='border-2  dark:bg-white w-200px mb-8px lg:mb-0px '>
       {status === false && <div className='flex flex-col text-lg   font-bold '>{user.username}</div>}
       {status === true && (
         <input

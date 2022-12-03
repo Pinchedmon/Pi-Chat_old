@@ -9,7 +9,7 @@ const EditInfo = (props: { refetch: () => void }) => {
   const [status, setStatus] = useState(false)
   const [value, setValue] = useState(user.info)
   return (
-    <div className='border-2 dark:bg-white'>
+    <div className='border-2 dark:bg-white mb-8px lg:mb-0px'>
       {status === false && <div className='text-md  '>{user.info}</div>}
       {status === true && (
         <input

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Nav from './сomponents/Nav'
 import FilterModal from './сomponents/Nav/сomponents/FilterModal'
 import Post from './сomponents/PostPage'
@@ -22,7 +22,7 @@ const Home = () => {
   const [] = useDarkMode()
   const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
-
+  const location = useLocation()
   useEffect(() => {
     if (window.innerHeight > 1024) {
       dispatch(setIsNavExpanded(true))
@@ -46,8 +46,8 @@ const Home = () => {
             ''
           )}
           <div className='content-area '>
-            {window.innerWidth < 1024 && (
-              <div className='z-0 sticky justify-center w-full top-0px flex items-center align-center p-12px bg-[#20A740] text-white h-64px text-lg'>
+            {window.innerWidth < 1024 && nav.isMenuShowed && (
+              <div className='z-[100] sticky justify-center w-full top-0px flex items-center align-center p-12px bg-[#20A740] text-white h-64px text-lg'>
                 <p className='text-center font-bold text-3xl'> / π /</p>
                 <button
                   className={window.innerWidth > 1024 || nav.isNavExpanded ? `hidden` : `absolute right-12px top-1/3`}
@@ -59,7 +59,9 @@ const Home = () => {
                 </button>
               </div>
             )}
-            {window.innerWidth < 1024 && <FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />}
+            {window.innerWidth < 1024 && location.pathname === '/' && (
+              <FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />
+            )}
             <div className=''>
               <Routes>
                 <Route path='/' element={<Posts sort={nav.sort} category={nav.category} />} />
