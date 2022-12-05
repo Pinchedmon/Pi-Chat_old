@@ -1,0 +1,16 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+@layer components
+  .warning
+    @apply absolute left-20% right-20% text-xl rounded-xl bottom-2/3 p-10px font-bold bg-white dark:bg-black dark:text-white border-3 border-green-600
+
+  .warning-title
+    @apply mb-16px
+
+  .warning__button-yes
+    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white
+
+  .warning__button-no
+    @apply pl-10px pr-10px pt-4px pb-4px  bg-gray-600 text-white rounded-lg

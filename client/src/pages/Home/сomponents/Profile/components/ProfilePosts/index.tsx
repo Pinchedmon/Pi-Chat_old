@@ -6,13 +6,22 @@ import Post from '../../../Posts/components/Post'
 
 const ProfilePosts = (props: { pathname: string; name: string }) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
+  const [filter, setFilter] = useState(true)
   const [nextPage, setNextPage] = useState(1)
   const defaultCount = 20
   const fetchData = async (token: number, count: number) => {
     token !== undefined &&
       (await getMyPosts(props.name, nextPage, Math.round(window.innerHeight / 200)).then((res) => {
-        setPosts([...posts, ...res.data])
-        setNextPage(res.page)
+        if (filter) {
+          setFilter(false)
+          setPosts([...res.data])
+          setNextPage(res.page)
+          return res
+        } else {
+          setPosts([...posts, ...res.data])
+          setNextPage(res.page)
+          return res
+        }
       }))
   }
   const handleFetchMore = () => {
@@ -32,7 +41,7 @@ const ProfilePosts = (props: { pathname: string; name: string }) => {
     ])
   }
   useEffect(() => {
-    fetchData(nextPage, defaultCount)
+    fetchData(1, defaultCount)
   }, [])
   return (
     <>

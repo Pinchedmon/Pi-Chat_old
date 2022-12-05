@@ -91,7 +91,7 @@ class postController {
   }
   async getMyPosts(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    sql = `SELECT * FROM posts WHERE name = "${queryObject.name}" ORDER BY date DESC`;
+    sql = `SELECT * FROM posts WHERE name = "${queryObject.name}" ORDER BY id DESC`;
     db.all(sql, [], (err, rows) => {
       if (err) {
         return res.status(400).json({ error: err.message });

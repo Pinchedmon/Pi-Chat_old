@@ -11,7 +11,7 @@ export function addMessageSubmit(event: FormEvent<HTMLFormElement>, props: IaddM
     data.append('message', file)
     if (props.text !== '') {
       axios.post(
-        `http://localhost:6060/message/post?name=${firstName}&secondName=${secondName}&text=${text}&userImg=${path}`,
+        `http://localhost:6060/message/post?name=${firstName}&secondName=${secondName}&text=${text}&userImg=${path}&time=${new Date().toUTCString()}`,
         data,
       )
       event.preventDefault()

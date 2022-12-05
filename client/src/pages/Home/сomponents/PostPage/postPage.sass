@@ -1,0 +1,60 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+@layer components
+  .postPage-exit
+    @apply border-l-2 border-b-2 border-r-2 rounded-xl border-gray-300 p-8px
+
+  .postPage-exit__icon
+    @apply w-48px text-green-600 rounded-md bg-gray-100 p-6px hover:bg-green-600 dark:bg-black  dark:hover:text-red-400 hover:text-white
+
+  .postPage-options
+    @apply right-16px top-16px dark:text-white absolute p-8px
+
+  .postPage-options-icon
+    @apply w-24px hover:text-green-600
+
+  .postPage-show-options
+    @apply absolute bg-white dark:bg-black z-10 rounded-lg border-green-600  border-2 -right-5px  mt-4px p-5px text-center
+
+  .postPage-show-options__button
+    @apply flex text-red-600 font-bold
+
+  .postPage-show-options__img
+    @apply w-24px
+
+  .postPage-show-options__p
+    @apply ml-5px mr-5px
+
+  .postPage-warning
+    @apply text-xl rounded-xl p-10px font-bold h-full bg-white border-3 border-green-600
+
+  .postPage-warning-ask
+    @apply mb-16px
+
+  .postPage-warning__button
+    @apply pl-10px pr-10px pt-4px pb-4px bg-red-600 rounded-lg text-white
+
+  .postPage-sendField
+    @apply w-full mb-6px mt-6px
+
+  .postPage-sendField-textArea
+    @apply flex justify-center mb-10px
+
+  .postPage-sendField__textArea
+    @apply rounded-2xl resize-none outline-none pt-16px pb-16px pl-16px pr-16px border-2 w-full mr-16px ml-16px
+
+  .postPage-sendField-buttons
+    @apply flex ml-16px
+
+  .postPage-sendField-buttons__label
+    @apply flex
+
+  .postPage-sendField-buttons-icon
+    @apply w-40px text-white bg-green-600 p-6px rounded-xl
+
+  .postPage-sendField-buttons-previewImg
+    @apply h-40px object-cover ml-40px rounded-md
+
+  .postPage-sendField-buttons__button
+    @apply ml-auto mr-16px bg-green-600 text-white pt-6px pb-6px pl-16px pr-16px rounded-xl
