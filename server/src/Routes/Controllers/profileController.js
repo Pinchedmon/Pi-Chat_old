@@ -9,13 +9,13 @@ class profileController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename);
+            }).toFile('public/' + req.file.filename.replace(' ', ''));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
+        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename.replace(' ', '')}" WHERE name like ${queryObject.name}`, [])
         return res.json({
-            data: urlange + '/public/' + req.file.filename,
+            data: urlange + '/public/' + req.file.filename.replace(' ', ''),
             status: 200
         })
     }
@@ -23,13 +23,13 @@ class profileController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename);
+            }).toFile('public/' + req.file.filename.replace(' ', ''));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename}" WHERE name = "${queryObject.name.toString()}"`, [])
+        db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename.replace(' ', '')}" WHERE name = "${queryObject.name.toString()}"`, [])
         return res.status(200).json({
-            data: urlange + '/public/' + req.file.filename,
+            data: urlange + '/public/' + req.file.filename.replace(' ', ''),
             status: 200
         })
     }

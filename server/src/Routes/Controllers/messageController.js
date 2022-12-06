@@ -9,13 +9,13 @@ class messageController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename);
+            }).toFile('public/' + req.file.filename.replace(' ', ''));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         let messageImg;
         if (req.file) {
-            messageImg = urlange + "/public/" + req.file.filename;
+            messageImg = urlange + "/public/" + req.file.filename.replace(' ', '');
         } else {
             messageImg = "";
         }

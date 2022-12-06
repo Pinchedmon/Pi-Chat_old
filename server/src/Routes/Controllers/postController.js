@@ -13,10 +13,7 @@ const db = new sqlite.Database(
 let sql;
 
 class postController {
-
   async postUpload(req, res) {
-
-
     if (req.file) {
       await sharp(req.file.path).resize().jpeg({
         quality: 30
