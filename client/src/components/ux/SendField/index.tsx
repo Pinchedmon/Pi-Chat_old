@@ -44,7 +44,10 @@ const SendField = (props: Isendfield) => {
       >
         <TextArea handleChangeText={(e) => handleChangeText(e, setAreaData, areaData)} value={areaData.textArea} />
         <div className='postPage-sendField-buttons'>
-          <ChooseFileBtn handleChangeFile={(e) => handleChangeFile(e, setAreaData, areaData)} preview={''} />
+          <ChooseFileBtn
+            handleChangeFile={(e) => handleChangeFile(e, setAreaData, areaData)}
+            preview={areaData.preview}
+          />
           <SendBtn validForm={areaData.validForm} />
         </div>
       </form>

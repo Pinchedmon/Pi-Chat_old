@@ -42,24 +42,24 @@ class authController {
     }
     async login(req, res) {
         const { session } = req.body;
-        db.all(`SELECT ID, username, name, email, roles, pathImg, backImg, info  FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
+        db.all(`SELECT ID, username, name, email, roles, pathImg, backImg, password, info  FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
             if (rows === undefined) {
                 return res.json({
                     status: 400,
                     message: `Пользователь с таким ${session.email} не найден`
                 })
             }
-            // const validPassword = bcrypt.compareSync(session.password, `${rows[0].password}`)
-            // if (!validPassword) {
-            //     return res.json({
-            //         password: session.password,
-            //         know: rows[0].password,
-            //         status: 400,
-            //         message: "Введён неверный пароль"
-            //     })
-            // }
+            const validPassword = bcrypt.compareSync(`${session.password}`, `${rows[0].password}`)
+            if (!validPassword) {
+                return res.json({
+                    password: session.password,
+                    know: rows[0].password,
+                    status: 400,
+                    message: "Введён неверный пароль"
+                })
+            }
             const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: rows[0], authToken: token })
+            return res.json({ status: 200, user: { ID: rows[0].ID, username: rows[0].username, name: rows[0].name, roles: rows[0].roles }, authToken: token })
         });
     }
     async getUsers(req, res) {

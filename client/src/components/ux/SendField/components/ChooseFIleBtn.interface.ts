@@ -1,4 +1,4 @@
 export interface IchooseFileBtn {
-  handleChangeFile: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  handleChangeFile: (e: React.SyntheticEvent<HTMLInputElement, Event>) => void
   preview: string
 }

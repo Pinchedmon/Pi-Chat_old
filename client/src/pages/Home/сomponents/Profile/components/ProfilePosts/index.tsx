@@ -4,22 +4,23 @@ import { getMyPosts } from '../../../../../../api/get'
 import { Ipost } from '../../../PostPage/types/post.interface'
 import Post from '../../../Posts/components/Post'
 
-const ProfilePosts = (props: { pathname: string; name: string }) => {
+const ProfilePosts = (props: { setFilter: (status: any) => void; filter: boolean; pathname: string; name: string }) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
-  const [filter, setFilter] = useState(true)
   const [nextPage, setNextPage] = useState(1)
   const defaultCount = 20
   const fetchData = async (token: number, count: number) => {
     token !== undefined &&
-      (await getMyPosts(props.name, nextPage, Math.round(window.innerHeight / 200)).then((res) => {
-        if (filter) {
-          setFilter(false)
+      (await getMyPosts(props.pathname.substring(1), nextPage, defaultCount).then((res) => {
+        if (props.filter) {
+          props.setFilter(false)
           setPosts([...res.data])
           setNextPage(res.page)
+          console.log('filter')
           return res
         } else {
           setPosts([...posts, ...res.data])
           setNextPage(res.page)
+          console.log('fetch')
           return res
         }
       }))
@@ -41,8 +42,9 @@ const ProfilePosts = (props: { pathname: string; name: string }) => {
     ])
   }
   useEffect(() => {
+    setPosts([])
     fetchData(1, defaultCount)
-  }, [])
+  }, [props.pathname, props.filter])
   return (
     <>
       <InfiniteScroll

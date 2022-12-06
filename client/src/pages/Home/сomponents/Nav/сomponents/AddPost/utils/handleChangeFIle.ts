@@ -1,8 +1,7 @@
-import { ChangeEvent } from 'react'
 import { IaddPost } from '../../../types/addPost.interface'
 
 export const handleChangeFile = (
-  e: ChangeEvent<HTMLTextAreaElement>,
+  e: React.SyntheticEvent<HTMLInputElement, Event>,
   setAddPost: (addPost: IaddPost) => void,
   addPost: IaddPost,
 ) => {

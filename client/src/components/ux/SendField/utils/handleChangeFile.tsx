@@ -5,7 +5,7 @@ interface iTextAreaPage {
   validForm: boolean
 }
 const handleChangeFile = (
-  e: React.ChangeEvent<HTMLTextAreaElement>,
+  e: React.SyntheticEvent<HTMLInputElement, Event>,
   setAreaData: (text: iTextAreaPage) => void,
   areaData: iTextAreaPage,
 ) => {

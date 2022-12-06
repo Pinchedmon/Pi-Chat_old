@@ -7,7 +7,7 @@ const ChooseFileBtn = (props: IchooseFileBtn) => {
   return (
     <>
       <label className='postPage-sendField-buttons__label'>
-        <input type='file' className='hidden' accept='.png,.gif,.jpg,.jpeg' onChange={() => handleChangeFile} />
+        <input type='file' className='hidden' accept='.png,.gif,.jpg,.jpeg' onChange={(e) => handleChangeFile(e)} />
         <i>
           <PaperClipIcon className='postPage-sendField-buttons-icon' />
         </i>

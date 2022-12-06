@@ -40,7 +40,7 @@ const Message = (props: Imessage) => {
         ) : (
           <>
             <img src={messageImg} alt='' className='message-img rounded-xl' />
-            {name !== user.name ? time : null}
+            {name !== user.name ? moment(time).format('LT') : null}
           </>
         )}
       </div>

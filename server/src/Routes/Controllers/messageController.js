@@ -2,6 +2,7 @@ const sqlite = require('sqlite3').verbose();
 const path = require('path');
 const paginate = require("jw-paginate");
 const url = require('url');
+const sharp = require('sharp');
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class messageController {
     async postMessage(req, res) {
