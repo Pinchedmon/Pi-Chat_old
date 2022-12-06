@@ -13,17 +13,20 @@ const db = new sqlite.Database(
 let sql;
 
 class postController {
+
   async postUpload(req, res) {
+
+
     if (req.file) {
       await sharp(req.file.path).resize().jpeg({
-        quality: 50
-      }).toFile('public/' + req.file.filename);
+        quality: 30
+      }).toFile('public/' + req.file.filename.replace(' ', ''));
     }
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     let postImg;
     if (req.file) {
-      postImg = urlange + "/public/" + req.file.filename;
+      postImg = urlange + "/public/" + req.file.filename.replace(' ', '');
     } else {
       postImg = "";
     }

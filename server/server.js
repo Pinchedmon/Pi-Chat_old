@@ -1,6 +1,5 @@
 const express = require('express'),
   app = express(),
-  fs = require('fs'),
   cors = require('cors'),
   path = require('path'),
   sqlite = require('sqlite3').verbose(),
@@ -25,7 +24,7 @@ app.use('/message', messageRouter)
 app.use('/comment', commentRouter)
 app.use('/follow', followRouter)
 app.get('/public/*', function (req, res) {
-  return res.sendFile(path.resolve(__dirname, `server/..${req.url}`))
+  return res.sendFile(path.resolve(__dirname, "server", `..${req.url}`))
 })
 app.get('/path', (req, res) => {
   const queryObject = url.parse(req.url, true).query;
