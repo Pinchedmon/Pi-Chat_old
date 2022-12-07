@@ -15,12 +15,10 @@ const ProfilePosts = (props: { setFilter: (status: any) => void; filter: boolean
           props.setFilter(false)
           setPosts([...res.data])
           setNextPage(res.page)
-          console.log('filter')
           return res
         } else {
           setPosts([...posts, ...res.data])
           setNextPage(res.page)
-          console.log('fetch')
           return res
         }
       }))

@@ -9,27 +9,28 @@ class profileController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.replace(' ', ''));
+            }).toFile('public/' + req.file.filename.substring(0, 36));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename.replace(' ', '')}" WHERE name like ${queryObject.name}`, [])
+        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename.substring(0, 36)}" WHERE name like ${queryObject.name}`, [])
         return res.json({
-            data: urlange + '/public/' + req.file.filename.replace(' ', ''),
+            data: urlange + '/public/' + req.file.filename.substring(0, 36),
             status: 200
         })
     }
     async editBackground(req, res) {
+        console.log(req.file.filename.substring(0, 36))
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.replace(' ', ''));
+            }).toFile('public/' + req.file.filename.substring(0, 36));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename.replace(' ', '')}" WHERE name = "${queryObject.name.toString()}"`, [])
+        db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename.substring(0, 36)}" WHERE name = "${queryObject.name.toString()}"`, [])
         return res.status(200).json({
-            data: urlange + '/public/' + req.file.filename.replace(' ', ''),
+            data: urlange + '/public/' + req.file.filename.substring(0, 36),
             status: 200
         })
     }

@@ -16,7 +16,7 @@ class commentController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.replace(' ', ''));
+            }).toFile('public/' + req.file.filename.substring(0, 36));
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + "://" + req.get("host");
@@ -24,7 +24,7 @@ class commentController {
             "INSERT INTO comments (postId, name, text, commentImg, date) VALUES ( ?, ?, ?, ?, ?)";
         let commentImg;
         if (req.file) {
-            commentImg = urlange + "/public/" + req.file.filename.replace(' ', '');
+            commentImg = urlange + "/public/" + req.file.filename.substring(0, 36);
         } else {
             commentImg = "";
         }

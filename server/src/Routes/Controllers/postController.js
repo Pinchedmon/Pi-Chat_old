@@ -17,13 +17,13 @@ class postController {
     if (req.file) {
       await sharp(req.file.path).resize().jpeg({
         quality: 30
-      }).toFile('public/' + req.file.filename.replace(' ', ''));
+      }).toFile('public/' + req.file.filename.substring(0, 36));
     }
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     let postImg;
     if (req.file) {
-      postImg = urlange + "/public/" + req.file.filename.replace(' ', '');
+      postImg = urlange + "/public/" + req.file.filename.substring(0, 36);
     } else {
       postImg = "";
     }
