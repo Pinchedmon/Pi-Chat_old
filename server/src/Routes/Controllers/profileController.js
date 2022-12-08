@@ -6,6 +6,7 @@ const paginate = require("jw-paginate");
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class profileController {
     async setImg(req, res) {
+
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
@@ -20,7 +21,7 @@ class profileController {
         })
     }
     async editBackground(req, res) {
-        console.log(req.file.filename.substring(0, 36))
+        console.log(req.file)
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50

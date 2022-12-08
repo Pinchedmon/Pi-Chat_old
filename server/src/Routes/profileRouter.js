@@ -10,7 +10,8 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
 
-        cb(null, uuidv4() + '-' + file.originalname)
+        cb(null, uuidv4())
+
     }
 });
 let upload = multer({
