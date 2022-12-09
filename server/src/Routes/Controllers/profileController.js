@@ -2,7 +2,8 @@ const sqlite = require('sqlite3').verbose();
 const path = require('path');
 const url = require('url');
 const sharp = require('sharp');
-const paginate = require("jw-paginate");
+const fs = require('fs');
+
 const db = new sqlite.Database(path.resolve(__dirname, '../../db/posts.db'), sqlite.OPEN_READWRITE, (err) => { if (err) return console.error(err.message) });
 class profileController {
     async setImg(req, res) {
@@ -10,30 +11,37 @@ class profileController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.substring(0, 36));
+            }).toFile('public/' + req.file.filename);
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename.substring(0, 36)}" WHERE name like ${queryObject.name}`, [])
+        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
         return res.json({
-            data: urlange + '/public/' + req.file.filename.substring(0, 36),
+            data: urlange + '/public/' + req.file.filename,
             status: 200
         })
     }
     async editBackground(req, res) {
-        console.log(req.file)
+
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.substring(0, 36));
+            }).toFile('public/' + req.file.filename);
+
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename.substring(0, 36)}" WHERE name = "${queryObject.name.toString()}"`, [])
-        return res.status(200).json({
-            data: urlange + '/public/' + req.file.filename.substring(0, 36),
-            status: 200
+        db.all(`SELECT backimg FROM users WHERE name like "${queryObject.name}"`, [], (err, img) => {
+            fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].backImg.slice(28, img[0].backImg.length)}`))
+            db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename}" WHERE name = "${queryObject.name}"`, [], (err) => {
+                return res.status(200).json({
+                    data: urlange + '/public/' + req.file.filename,
+                    status: 200
+                })
+            })
         })
+
+
     }
     async editUsername(req, res) {
         const queryObject = url.parse(req.url, true).query;
