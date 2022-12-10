@@ -15,14 +15,18 @@ class profileController {
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
-        db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
-        return res.json({
-            data: urlange + '/public/' + req.file.filename,
-            status: 200
+        db.all(`SELECT backimg FROM users WHERE name like "${queryObject.name}"`, [], (err, img) => {
+            fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].backImg.slice(28, img[0].backImg.length)}`))
+            fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].backImg.slice(28, img[0].backImg.length)}`))
+            db.all(`UPDATE users SET pathimg = "${urlange + '/public/' + req.file.filename}" WHERE name like ${queryObject.name}`, [])
+            return res.json({
+                data: urlange + '/public/' + req.file.filename,
+                status: 200
+            })
         })
+
     }
     async editBackground(req, res) {
-
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
@@ -33,6 +37,7 @@ class profileController {
         const urlange = req.protocol + '://' + req.get('host')
         db.all(`SELECT backimg FROM users WHERE name like "${queryObject.name}"`, [], (err, img) => {
             fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].backImg.slice(28, img[0].backImg.length)}`))
+            fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].backImg.slice(28, img[0].backImg.length)}`))
             db.all(`UPDATE users SET backimg = "${urlange + '/public/' + req.file.filename}" WHERE name = "${queryObject.name}"`, [], (err) => {
                 return res.status(200).json({
                     data: urlange + '/public/' + req.file.filename,

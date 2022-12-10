@@ -1,6 +1,7 @@
 const sqlite = require("sqlite3")
 const path = require("path");
 const url = require("url");
+const fs = require("fs");
 const sharp = require('sharp');
 const paginate = require("jw-paginate");
 const db = new sqlite.Database(
@@ -17,13 +18,13 @@ class postController {
     if (req.file) {
       await sharp(req.file.path).resize().jpeg({
         quality: 30
-      }).toFile('public/' + req.file.filename.substring(0, 36));
+      }).toFile('public/' + req.file.filename);
     }
     const queryObject = url.parse(req.url, true).query;
     const urlange = req.protocol + "://" + req.get("host");
     let postImg;
     if (req.file) {
-      postImg = urlange + "/public/" + req.file.filename.substring(0, 36);
+      postImg = urlange + "/public/" + req.file.filename;
     } else {
       postImg = "";
     }
@@ -189,6 +190,13 @@ class postController {
   }
   async deletePost(req, res) {
     const queryObject = url.parse(req.url, true).query;
+    db.all(`SELECT postImg FROM posts WHERE ID = "${queryObject.id}"`, [], (err, img) => {
+
+      if (img[0].postImg !== '') {
+        fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].postImg.slice(28, img[0].postImg.length)}`))
+        fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].postImg.slice(28, img[0].postImg.length)}`))
+      }
+    })
     sql = `DELETE FROM posts WHERE ID = ${queryObject.id}`;
     db.run(sql, (err) => {
       if (err) return console.error(err.message);

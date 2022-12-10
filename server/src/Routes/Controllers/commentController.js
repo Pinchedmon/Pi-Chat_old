@@ -1,6 +1,7 @@
 const sqlite = require("sqlite3").verbose();
 const path = require("path");
 const url = require("url");
+const fs = require("fs");
 const sharp = require('sharp');
 const db = new sqlite.Database(
     path.resolve(__dirname, "../../db/posts.db"),
@@ -16,7 +17,7 @@ class commentController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.substring(0, 36));
+            }).toFile('public/' + req.file.filename);
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + "://" + req.get("host");
@@ -24,7 +25,7 @@ class commentController {
             "INSERT INTO comments (postId, name, text, commentImg, date) VALUES ( ?, ?, ?, ?, ?)";
         let commentImg;
         if (req.file) {
-            commentImg = urlange + "/public/" + req.file.filename.substring(0, 36);
+            commentImg = urlange + "/public/" + req.file.filename;
         } else {
             commentImg = "";
         }
@@ -62,6 +63,12 @@ class commentController {
     // }
     async deleteComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
+        db.all(`SELECT commentImg FROM comments WHERE postId = "${queryObject.postId}"`, [], (err, img) => {
+            if (img[0].commentImg !== '') {
+                fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
+                fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
+            }
+        })
         sql = `DELETE FROM comments WHERE id = ${queryObject.id}`;
         db.run(sql, (err) => {
             if (err) return console.error(err.message);

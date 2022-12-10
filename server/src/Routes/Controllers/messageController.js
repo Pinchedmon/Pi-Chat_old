@@ -1,5 +1,6 @@
 const sqlite = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 const paginate = require("jw-paginate");
 const url = require('url');
 const sharp = require('sharp');
@@ -9,13 +10,13 @@ class messageController {
         if (req.file) {
             await sharp(req.file.path).resize().jpeg({
                 quality: 50
-            }).toFile('public/' + req.file.filename.substring(0, 36));
+            }).toFile('public/' + req.file.filename);
         }
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + '://' + req.get('host')
         let messageImg;
         if (req.file) {
-            messageImg = urlange + "/public/" + req.file.filename.substring(0, 36);
+            messageImg = urlange + "/public/" + req.file.filename;
         } else {
             messageImg = "";
         }
@@ -85,7 +86,16 @@ class messageController {
         const queryObject = url.parse(req.url, true).query;
         let id = queryObject.id.split(' ')
         for (let i = 0; i < id.length; i++) {
+            db.all(`SELECT messageImg FROM messages_info WHERE id = "${id[i]}"`, [], (err, img) => {
+                if (img.length > 0) {
+                    if (img[0].messageImg !== '') {
+                        fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].messageImg.slice(28, img[0].messageImg.length)}`))
+                        fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].messageImg.slice(28, img[0].messageImg.length)}`))
+                    }
+                }
+            })
             db.all(`DELETE FROM messages_info WHERE id = "${id[i]}"`, [], (err, rows) => { })
+
         }
         return res.json({ status: 200 })
     }

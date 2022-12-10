@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
 
-        cb(null, uuidv4() + '-' + file.originalname)
+        cb(null, uuidv4() + file.originalname.match(".(?:jpg|gif|jpeg|png)")[0])
     }
 });
 let upload = multer({
