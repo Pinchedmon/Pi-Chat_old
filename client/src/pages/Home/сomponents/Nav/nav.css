@@ -4,13 +4,13 @@
 
 @layer components {
   .wrapper__nav {
-    @apply h-full  w-full flex justify-center;
+    @apply w-full;
   }
   .nav-area {
-    @apply lg:fixed lg:h-screen;
+    @apply lg:h-screen flex justify-center;
   }
   .nav {
-    @apply flex flex-col items-center text-xl lg:text-2xl font-bold;
+    @apply flex flex-col  lg:fixed items-center text-xl lg:text-2xl font-bold;
   }
   .nav-menu__active {
     @apply w-12.5rem flex lg:mb-32px mb-24px text-[#20A740];
