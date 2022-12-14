@@ -8,7 +8,7 @@ import { Imessage } from '../../../../types/message.interface'
 import { Istore } from '../../../../../../../../types/store.interface'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-const Messages = (props: { data: Array<Imessage>; deleteMsg: (x: string[]) => void; showMoreMsg: () => void }) => {
+const Messages = (props: { data: Array<Imessage>; deleteMsg: (x: Array<String>) => void; showMoreMsg: () => void }) => {
   const { data, deleteMsg, showMoreMsg } = props
   const selected = useSelector((state: Istore) => state.message.selected)
   const dispatch = useDispatch()

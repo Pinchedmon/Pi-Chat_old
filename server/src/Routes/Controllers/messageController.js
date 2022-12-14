@@ -22,11 +22,13 @@ class messageController {
         }
         let names = `${queryObject.secondName} ${queryObject.name}`
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
+
             if (rows.length < 1) {
                 db.run('INSERT INTO messages (names) VALUES  (?)', [names])
             }
             db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
                 db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}'`, [], (err, message) => {
+                    console.log(message)
                     return res.json({ status: 200, message: message[0] })
                 })
 
@@ -36,16 +38,19 @@ class messageController {
     async getLinks(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages WHERE names LIKE '%${queryObject.name}%'`, [], (err, rows) => {
-            for (let i = 0; i < rows.length; i++) {
-                db.all(`SELECT * FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
-                    rows[i]["backImg"] = user[0].pathImg
-                    if (i === rows.length - 1) {
-                        return res.json({ data: rows, status: 200 })
-                    }
-                })
+            if (rows) {
+                for (let i = 0; i < rows.length; i++) {
+                    db.all(`SELECT * FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
+                        rows[i]["backImg"] = user[0].pathImg
+                        if (i == rows.length - 1) {
+                            return res.json({ data: rows, status: 200 })
+                        }
+                    })
+                }
 
+            } else {
+                return res.json({ data: [], status: 200 })
             }
-
         })
     }
     async getMessages(req, res) {

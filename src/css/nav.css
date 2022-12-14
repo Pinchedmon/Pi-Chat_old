@@ -1,0 +1,27 @@
+@tailwind base {}@tailwind components {}@tailwind utilities {}@layer components {
+  .wrapper__nav {
+    @apply h-full  w-full flex justify-center {}
+  }
+  .nav-area {
+    @apply lg:fixed lg:h-screen {}
+  }
+  .nav {
+    @apply flex flex-col items-center text-xl lg:text-2xl font-bold {}
+  }
+  .nav-menu__active {
+    @apply w-12.5rem flex lg:mb-32px mb-24px text-[#20A740] {}
+  }
+  .nav-menu {
+    @apply w-12.5rem flex lg:mb-32px  mb-24px dark:text-white {}
+  }
+  .nav-logo {
+    @apply mt-8px mb-24px lg:mt-54px rounded-xl lg:mb-54px  text-[#20A740]  font-bold text-3xl lg:text-4xl {}
+  }
+  .nav-icon {
+    @apply w-24px h-24px lg:w-32px lg:h-32px mr-16px {}
+  }
+  .nav-send__button {
+    @apply bg-[#20A740] text-white rounded-3xl mb-16px  text-center pt-12px pb-12px w-200px lg:w-260px text-lg lg:text-xl font-bold {}
+  }
+}
+/*# sourceMappingURL=nav.css.map */

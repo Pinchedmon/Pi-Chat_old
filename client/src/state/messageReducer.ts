@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 interface iSelected {
   amount: number
-  statements: string[]
+  statements: any
   resetStatus: boolean
 }
 let initialState = {
-  selected: { amount: 0, statements: [''], resetStatus: false },
+  selected: { amount: 0, statements: [] as any[], resetStatus: false },
 }
 const navSlice = createSlice({
   name: 'login',

@@ -1,0 +1,24 @@
+@tailwind base {}@tailwind components {}@tailwind utilities {}.person-data {
+  @apply lg:absolute bottom-32px  flex items-center {}
+}
+
+.person-data__img {
+  @apply border-2 rounded-2xl w-48px h-48px lg:w-54px lg:h-54px mr-16px {}
+}
+
+.person-data__info {
+  @apply flex-col lg:text-lg font-normal mr-32px {}
+}
+
+.person-data__info__username {
+  @apply text-base lg:text-xl font-bold dark:text-white {}
+}
+
+.person-data__info__name {
+  @apply text-sm lg:text-base dark:text-gray-300 {}
+}
+
+.person-data__button {
+  @apply w-24px lg:w-32px lg:h-32px text-[#20A740] cursor-pointer {}
+}
+/*# sourceMappingURL=personData.css.map */

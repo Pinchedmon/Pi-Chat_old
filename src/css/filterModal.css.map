@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,SAAS,CAAT,IAAS,GACT,SAAS,CAAT,UAAS,GACT,SAAS,CAAT,SAAS,GAET,MAAM,CAAN,UAAM;EACJ,AAAA,YAAY,CAAC;IACX,MAAM,CAAN,eAAM;GAAqB;EAE7B,AAAA,mBAAmB,CAAC;IAClB,MAAM,CAAN,wDAAM;GAA8D;EAEtE,AAAA,qBAAqB,CAAC;IACpB,MAAM,CAAN,+DAAM;GAAqE;EAE7E,AAAA,oBAAoB,CAAC;IACnB,MAAM,CAAN,0EAAM;GAAgF",
+    "sources": [
+        "../../client/src/pages/Home/сomponents/Nav/сomponents/FilterModal/filterModal.sass"
+    ],
+    "names": [],
+    "file": "filterModal.css"
+}

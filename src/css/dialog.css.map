@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,SAAS,CAAT,IAAS,GACT,SAAS,CAAT,UAAS,GACT,SAAS,CAAT,SAAS,GAET,MAAM,CAAN,UAAM;EACJ,AAAA,OAAO,CAAC;IACN,MAAM,CAAN,4EAAM;GAAkF;EAE1F,AAAA,iBAAiB,CAAC;IAChB,MAAM,CAAN,4IAAM;GAAkJ;EAE1J,AAAA,YAAY,CAAC;IACX,MAAM,CAAN,2GAAM;GAAiH;EAEzH,AAAA,iBAAiB,CAAC;IAChB,MAAM,CAAN,uCAAM;GAA6C",
+    "sources": [
+        "../../client/src/pages/Home/сomponents/Dialogs/сomponents/Dialog/dialog.sass"
+    ],
+    "names": [],
+    "file": "dialog.css"
+}

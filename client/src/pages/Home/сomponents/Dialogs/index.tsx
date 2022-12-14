@@ -17,6 +17,7 @@ const Dialogs = () => {
   const [names, setNames] = useState<string>('')
   const visible = useSelector((state: Istore) => state.nav.messageStyle)
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(setMessageStyle(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +46,7 @@ const Dialogs = () => {
                       <div onClick={() => navigate('')} className='dialogs-dialog-info-name'>
                         {item.names.replace(user.name, '').trim()}
                       </div>
-                      <p className='dialogs-dialog-info-time'>24ч</p>
+                      <p className='dialogs-dialog-info-time'>24z</p>
                     </div>
                     <div className='dialogs-dialog-info-last'>{item.last}</div>
                   </div>

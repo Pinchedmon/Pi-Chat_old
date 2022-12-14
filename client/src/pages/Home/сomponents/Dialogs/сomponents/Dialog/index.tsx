@@ -17,8 +17,8 @@ const Dialog = (props: IdialogProps) => {
   const [nextPage, setNextPage] = useState(defaultPageToken)
   const [isLoading, setIsLoading] = useState(false)
   const [userInfo, setUserInfo] = useState({ username: '', img: '' })
-  const fetchData = async (token: number, count: number) => {
-    await getMessages(
+  const fetchData = (token: number, count: number) => {
+    getMessages(
       props.names,
       names.replace(user.name, '').toString().trim(),
       token,
@@ -35,12 +35,12 @@ const Dialog = (props: IdialogProps) => {
     fetchData(nextPage, defaultPageToken)
     setIsLoading(false)
   }
-  const deleteMsg = (x: string[]) => {
+  const deleteMsg = (x: Array<String>) => {
+    let a = msgs
     for (let i = 0; i < x.length; i++) {
-      console.log('1')
-
-      setMsgs(msgs.filter((msg: Imessage) => msg.ID !== Number(x[i])))
+      a = a.filter((msg: Imessage) => msg.ID !== Number(x[i]))
     }
+    setMsgs(a)
   }
   const addMessage = (x: Imessage) => {
     setMsgs([x, ...msgs])

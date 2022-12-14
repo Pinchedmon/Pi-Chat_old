@@ -1,0 +1,15 @@
+@tailwind base {}@tailwind components {}@tailwind utilities {}@layer components {
+  .filterModal {
+    @apply w-full flex-col {}
+  }
+  .filterModal__title {
+    @apply lg:text-2xl text-green-600 text-center font-bold mt-12px {}
+  }
+  .filterModal__filters {
+    @apply flex justify-center font-bold text-sm lg:text-lg text-green-600 {}
+  }
+  .filterModal__filter {
+    @apply flex pl-4px mr-4px pr-4px pt-2px pb-2px dark:bg-black border-2 rounded-3xl {}
+  }
+}
+/*# sourceMappingURL=filterModal.css.map */

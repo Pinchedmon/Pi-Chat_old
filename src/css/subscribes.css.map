@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,SAAS,CAAT,IAAS,GACT,SAAS,CAAT,UAAS,GACT,SAAS,CAAT,SAAS,GAET,MAAM,CAAN,UAAM;EACJ,AAAA,WAAW,CAAC;IACV,MAAM,CAAN,iDAAM;GAAuD;EAE/D,AAAA,QAAQ,CAAC;IACP,MAAM,CAAN,eAAM,OAGN,MAAM,CAAN,wEAAM;GAA8E;EAEtF,AAAA,OAAO,CAAC;IACN,MAAM,CAAN,2BAAM,OAGN,MAAM,CAAN,yBAAM,OAGN,MAAM,CAAN,8EAAM,OAGN,MAAM,CAAN,sBAAM;GAA4B;EAEpC,AAAA,kBAAkB,CAAC;IACjB,MAAM,CAAN,MAAM;GAAY",
+    "sources": [
+        "../../client/src/pages/Home/сomponents/Subscribes/subscribes.sass"
+    ],
+    "names": [],
+    "file": "subscribes.css"
+}

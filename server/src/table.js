@@ -1,6 +1,5 @@
 const sqlite = require('sqlite3').verbose(),
         path = require('path');
-const bcrypt = require('bcryptjs');
 const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.OPEN_READRIGHT, (err) => { if (err) return console.error(err.message) });
 
 
@@ -14,14 +13,14 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 //         if (err) return console.error(err.message)
 // })
 
-//const sql = "DROP TAble messages_info";
-//db.run(sql)
+// const sql = "DROP TAble messages";
+// db.run(sql)
 
 // const sql = `CREATE TABLE comments (ID INTEGER PRIMARY KEY AUTOINCREMENT, postId INTEGER, name, text, commentImg, date);`
 // db.run(sql)
 
-// const sql = ` CREATE TABLE messages (ID INTEGER PRIMARY KEY AUTOINCREMENT, names);`
-// db.run(sql)
+const sql = ` CREATE TABLE messages (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, last DEFAULT "", date DEFAULT "");`
+db.run(sql)
 // const sql = ` CREATE TABLE messages_info (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, name, text, messageImg, date);`
 // db.run(sql)
 // const sql = ` CREATE TABLE follows (ID INTEGER PRIMARY KEY AUTOINCREMENT, name, object);`

@@ -1,0 +1,9 @@
+@tailwind base {}@tailwind components {}@tailwind utilities {}@layer components {
+  .modal {
+    @apply flex justify-center fixed top-1/2 left-1/2 w-full  -translate-y-1/2 -translate-x-1/2 z-50 {}
+  }
+  .modal-overlay {
+    @apply backdrop-blur top-0px left-0px right-0px bottom-0px fixed bg-black/25 z-50 {}
+  }
+}
+/*# sourceMappingURL=modal.css.map */
