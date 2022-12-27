@@ -11,6 +11,6 @@ export interface Istore {
     isNavExpanded: boolean
     isMenuShowed: boolean
   }
-  message: { selected: Iselected }
+  message: { selected: Iselected; activeDialog: { avatar: string; name: string } }
   modal: { isOpen: boolean }
 }

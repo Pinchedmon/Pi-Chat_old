@@ -9,14 +9,16 @@ import { setIsMenuShowed, setMessageStyle } from '../../../../../../state/navRed
 import { resetOn } from '../../../../../../state/messageReducer'
 import { IdialogProps } from '../../types/dialogProps.interface'
 import { Imessage } from '../../types/message.interface'
+import { useSelector } from 'react-redux'
+import { Istore } from '../../../../../../types/store.interface'
 
 const Dialog = (props: IdialogProps) => {
-  const { dispatch, visible, names } = props
+  const { dispatch, visible, names, refetchDialogs } = props
   const [msgs, setMsgs] = useState<Array<Imessage>>([])
   const defaultPageToken = 1
+  const activeDialog = useSelector((state: Istore) => state.message.activeDialog)
   const [nextPage, setNextPage] = useState(defaultPageToken)
   const [isLoading, setIsLoading] = useState(false)
-  const [userInfo, setUserInfo] = useState({ username: '', img: '' })
   const fetchData = (token: number, count: number) => {
     getMessages(
       props.names,
@@ -24,9 +26,10 @@ const Dialog = (props: IdialogProps) => {
       token,
       Math.round(window.innerHeight / 35),
     ).then((data: any) => {
-      setMsgs([...msgs, ...data.items])
+      if (data.items.length > 0) {
+        setMsgs([...msgs, ...data.items])
+      }
       setNextPage(data.page)
-      setUserInfo({ username: data.username, img: data.pathImg })
     })
   }
 
@@ -52,34 +55,31 @@ const Dialog = (props: IdialogProps) => {
   const user = useContext(UserContext)
   return (
     <>
-      {msgs.length > 0 && (
-        <>
-          <div className='dialog'>
-            <ArrowLeftIcon
-              onClick={() => {
-                dispatch(setMessageStyle(!visible))
-                dispatch(setIsMenuShowed(true))
-                dispatch(resetOn())
-              }}
-              className='dialog-left-icon'
-            />
-            <div className='dialog-info'>
-              <img alt='' className='dialog-info__img' onClick={null} src={userInfo.img} />
-              {userInfo.username}
-            </div>
-          </div>
-          <Messages showMoreMsg={handleFetchMore} data={msgs} deleteMsg={deleteMsg} />
-          <SendField
-            postFuncProps={{
-              firstName: user.name.trim(),
-              secondName: names.replace(user.name, '').trim(),
-              setMsgs: addMessage,
-            }}
-            postFunc={postMessage}
-            object='message'
-          />
-        </>
-      )}
+      <div className='dialog'>
+        <ArrowLeftIcon
+          onClick={() => {
+            dispatch(setMessageStyle(!visible))
+            dispatch(setIsMenuShowed(true))
+            dispatch(resetOn())
+            refetchDialogs()
+          }}
+          className='dialog-left-icon'
+        />
+        <div className='dialog-info'>
+          <img alt='' className='dialog-info__img' onClick={null} src={activeDialog.avatar} />
+          {activeDialog.name}
+        </div>
+      </div>
+      <Messages showMoreMsg={handleFetchMore} data={msgs} deleteMsg={deleteMsg} />
+      <SendField
+        postFuncProps={{
+          firstName: user.name.trim(),
+          secondName: names.replace(user.name, '').trim(),
+          setMsgs: addMessage,
+        }}
+        postFunc={postMessage}
+        object='message'
+      />
     </>
   )
 }

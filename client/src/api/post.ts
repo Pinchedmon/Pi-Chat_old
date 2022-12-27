@@ -41,7 +41,6 @@ export async function postMessage(props: apiParamMessages, messageImg: any): Pro
     .then((res) => {
       if (res.status === 200) {
         props.setMsgs(res.data.message)
-        console.log(res.data)
         return res
       }
     })

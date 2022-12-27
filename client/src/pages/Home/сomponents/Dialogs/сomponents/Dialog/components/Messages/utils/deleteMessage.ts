@@ -9,7 +9,6 @@ export const deleteMessage = (
     if (res.status === 200) {
       dispatch(resetOn())
       deleteMsg(statements)
-      console.log(statements)
     }
   })
 }

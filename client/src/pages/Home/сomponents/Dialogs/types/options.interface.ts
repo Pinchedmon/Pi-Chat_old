@@ -1,4 +1,4 @@
 export interface Ioptions {
   names: string
-  refetch: () => void
+  refetchDialogs: (x: string) => void
 }

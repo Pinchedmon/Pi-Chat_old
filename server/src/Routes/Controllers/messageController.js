@@ -40,11 +40,23 @@ class messageController {
         db.all(`SELECT * FROM messages WHERE names LIKE '%${queryObject.name}%'`, [], (err, rows) => {
             if (rows) {
                 for (let i = 0; i < rows.length; i++) {
-                    db.all(`SELECT * FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
+                    db.all(`SELECT pathImg FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
                         rows[i]["backImg"] = user[0].pathImg
-                        if (i == rows.length - 1) {
-                            return res.json({ data: rows, status: 200 })
-                        }
+
+                        db.all(`SELECT text, time FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
+                            console.log(message)
+                            rows[i]["last"] = ''
+                            rows[i]["date"] = ''
+                            if (message.length !== 0) {
+                                rows[i]["last"] = message[0].text
+                                rows[i]["date"] = message[0].time
+                            }
+
+                            if (i == rows.length - 1) {
+                                return res.json({ data: rows, status: 200 })
+                            }
+                        })
+
                     })
                 }
 
@@ -59,26 +71,19 @@ class messageController {
             const page = parseInt(queryObject.page);
             const pager = paginate(rows.length, page, queryObject.count);
             const pageOfItems = rows.reverse().slice(pager.startIndex, pager.endIndex + 1);
-
-            db.all(`SELECT * FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
-                if (page > pager.totalPages) {
-                    return res.json({
-                        status: 200,
-                        data: [],
-                        // username: user[0].username,
-                        // pathImg: user[0].pathImg
-                    })
-                } else {
-                    return res.json({
-                        status: 200,
-                        items: pageOfItems,
-                        page: Number(queryObject.page) + 1,
-                        username: user[0].username,
-                        pathImg: user[0].pathImg
-                    })
-                }
-            })
-
+            if (page > pager.totalPages) {
+                return res.json({
+                    status: 200,
+                    data: [],
+                    items: []
+                })
+            } else {
+                return res.json({
+                    status: 200,
+                    items: [...pageOfItems],
+                    page: Number(queryObject.page) + 1,
+                })
+            }
         })
     }
     async deleteDialog(req, res) {

@@ -4,11 +4,16 @@ interface iSelected {
   statements: any
   resetStatus: boolean
 }
+interface iActiveDialog {
+  avatar: string
+  name: string
+}
 let initialState = {
   selected: { amount: 0, statements: [] as any[], resetStatus: false },
+  activeDialog: { avatar: '', name: '' },
 }
 const navSlice = createSlice({
-  name: 'login',
+  name: 'messages',
   initialState,
   reducers: {
     addSelected: (state: { selected: iSelected }, action: { payload: number }) => {
@@ -31,8 +36,14 @@ const navSlice = createSlice({
       state.selected.amount = 0
       state.selected.statements = []
     },
+    setActiveDialog: (
+      state: { activeDialog: iActiveDialog },
+      action: { payload: { avatar: string; name: string } },
+    ) => {
+      state.activeDialog = action.payload
+    },
   },
 })
 
-export const { addSelected, removeSelected, resetSelected, resetOn } = navSlice.actions
+export const { addSelected, removeSelected, resetSelected, resetOn, setActiveDialog } = navSlice.actions
 export default navSlice.reducer

@@ -1,4 +1,4 @@
 export interface IdeleteDialog {
-  refetch: () => void
+  refetch: (x: any) => void
   names: string
 }

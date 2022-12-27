@@ -18,8 +18,7 @@ const db = new sqlite.Database(path.resolve(__dirname, './db/posts.db'), sqlite.
 
 // const sql = `CREATE TABLE comments (ID INTEGER PRIMARY KEY AUTOINCREMENT, postId INTEGER, name, text, commentImg, date);`
 // db.run(sql)
-
-const sql = ` CREATE TABLE messages (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, last DEFAULT "", date DEFAULT "");`
+const sql = ` CREATE TABLE messages (ID INTEGER PRIMARY KEY AUTOINCREMENT, names);`
 db.run(sql)
 // const sql = ` CREATE TABLE messages_info (ID INTEGER PRIMARY KEY AUTOINCREMENT, names, name, text, messageImg, date);`
 // db.run(sql)

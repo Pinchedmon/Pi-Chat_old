@@ -29,7 +29,7 @@ const Options = (props: Ioptions) => {
           <Modal open={showWarning} onClose={() => setShowWarning(false)}>
             <Warning
               setIsOpen={() => setShowWarning(false)}
-              propsFunc={() => deleteDialog({ names: props.names, refetch: props.refetch })}
+              propsFunc={() => deleteDialog({ names: props.names, refetch: props.refetchDialogs })}
               title={'Вы действительно уверены, что хотите удалить диалог?'}
             />
           </Modal>
