@@ -6,8 +6,7 @@ import { IpersonDataProps } from '../../types/personData'
 const PersonData = (props: IpersonDataProps) => {
   const { logout } = useAuth()
   const { name, username, pathImg } = props
-  console.log(pathImg)
-  console.log(name)
+
   return (
     <div className='person-data'>
       <img className='person-data__img' src={pathImg} alt='adadsd' />

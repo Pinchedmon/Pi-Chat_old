@@ -28,7 +28,6 @@ class messageController {
             }
             db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
                 db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}'`, [], (err, message) => {
-                    console.log(message)
                     return res.json({ status: 200, message: message[0] })
                 })
 
@@ -38,20 +37,17 @@ class messageController {
     async getLinks(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM messages WHERE names LIKE '%${queryObject.name}%'`, [], (err, rows) => {
-            if (rows) {
+            if (rows.length > 0) {
                 for (let i = 0; i < rows.length; i++) {
                     db.all(`SELECT pathImg FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
                         rows[i]["backImg"] = user[0].pathImg
-
                         db.all(`SELECT text, time FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
-                            console.log(message)
                             rows[i]["last"] = ''
                             rows[i]["date"] = ''
                             if (message.length !== 0) {
                                 rows[i]["last"] = message[0].text
                                 rows[i]["date"] = message[0].time
                             }
-
                             if (i == rows.length - 1) {
                                 return res.json({ data: rows, status: 200 })
                             }
@@ -59,7 +55,6 @@ class messageController {
 
                     })
                 }
-
             } else {
                 return res.json({ data: [], status: 200 })
             }

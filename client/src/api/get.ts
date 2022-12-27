@@ -32,8 +32,7 @@ export async function getMyPosts(name: string, page: number, count: number) {
 
 export async function getDialogs(name: string) {
   const response = await axios.get(`http://localhost:6060/message/links?name=${name}`)
-
-  return response.data
+  return response.data.data
 }
 export async function getMessages(names: string, name: string, page: number, count: number) {
   // const response = await axios.get(

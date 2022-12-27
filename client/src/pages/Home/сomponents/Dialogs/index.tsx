@@ -15,44 +15,34 @@ import { setActiveDialog } from '../../../../state/messageReducer'
 const Dialogs = () => {
   const user = useContext(UserContext)
   const navigate = useNavigate()
-  const [dialogs, setDialogs] = useState<any[]>([])
-  const { refetch } = useQuery(['dialogs'], () =>
-    getDialogs(user.name).then((res) => {
-      if (res !== undefined) {
-        setDialogs(res.data)
-      }
-    }),
-  )
+  const { data, refetch } = useQuery(['dialogs'], () => getDialogs(user.name))
   const [names, setNames] = useState<string>('')
   const visible = useSelector((state: Istore) => state.nav.messageStyle)
   const dispatch = useDispatch()
   const deleteDialog = (x: string) => {
-    let a = dialogs
-    a = a.filter((dlg: any) => dlg.names !== x)
-    console.log(a)
-    setDialogs(a)
+    // let a = dialogs
+    // a = a.filter((dlg: any) => dlg.names !== x)
+    // console.log(a)
+    // setDialogs(a)
     refetch()
   }
   useEffect(() => {
-    if (dialogs.length === 0) {
-      refetch()
-    }
     refetch()
     dispatch(setMessageStyle(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dialogs.length])
+  }, [])
 
   return (
     <>
-      {dialogs && (
+      {data && (
         <div className='w-full h-screen'>
           {!visible && (
             <>
               <div className='dialogs'>
                 <p className='dialogs-title'>Диалоги</p>
               </div>
-              {dialogs.length > 0 ? (
-                dialogs.map((item: Idialogs, index: number) => (
+              {data.length > 0 ? (
+                data.map((item: Idialogs, index: number) => (
                   <div key={index} className='dialogs-dialog'>
                     <div
                       onClick={() => {

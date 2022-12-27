@@ -43,7 +43,7 @@
     @apply absolute  dark:bg-black  bg-white rounded-lg dark:border-white border-green-600 w-180px border-2 -right-5px  mt-4px p-5px  text-center;
   }
   .addMessage {
-    @apply text-center flex flex-col dark:bg-black bg-white p-16px w-90% rounded-3xl border-2 shadow-2xl;
+    @apply text-center flex flex-col dark:bg-black bg-white p-16px w-[50%] rounded-3xl border-2 shadow-2xl;
   }
   .addMessage-title {
     @apply flex h-54px items-center rounded-2xl;
