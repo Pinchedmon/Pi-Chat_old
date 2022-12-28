@@ -47,6 +47,7 @@ const Posts = (props: Iparams) => {
   }
 
   useEffect(() => {
+    setFilter(true)
     fetchData(1, defaultCount)
   }, [sort, category])
 
