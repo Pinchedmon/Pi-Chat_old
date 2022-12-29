@@ -17,6 +17,7 @@ const PostData = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [comments, setComments] = useState<Array<Icomment>>()
+  const [post, setPost] = useState([{ name: '', ID: 0 }])
   const user = useContext(UserContext)
   const dispatch = useDispatch()
   const { data, refetch } = useQuery(['post'], () =>
@@ -24,10 +25,16 @@ const PostData = () => {
       if (res.status === 200) {
         if (page < 2) {
           setComments(res.data.comments)
+          setPost(res.data.post)
         } else {
           setComments([...comments, ...res.data.comments])
+          setPost(res.data.post)
         }
         return res
+      }
+      if (res.status === 201) {
+        window.alert('Вы были переадресованы с несуществующей страницы')
+        navigate('/')
       }
     }),
   )
@@ -46,15 +53,7 @@ const PostData = () => {
           </div>
 
           <div className='mb-7px '>
-            <Post
-              data={data.data.post}
-              deletePost={function (x: number): void {
-                throw new Error('Function not implemented.')
-              }}
-              likePost={function (id: number, likes: number): void {
-                throw new Error('Function not implemented.')
-              }}
-            />
+            <Post data={post} deletePost={() => refetch()} likePost={() => refetch()} />
           </div>
           <div className='overflow-y-scroll grow '>
             <Comments data={comments} refetch={refetch} />
