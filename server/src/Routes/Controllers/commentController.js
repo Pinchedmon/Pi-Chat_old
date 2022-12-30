@@ -22,7 +22,7 @@ class commentController {
         const queryObject = url.parse(req.url, true).query;
         const urlange = req.protocol + "://" + req.get("host");
         sql =
-            "INSERT INTO comments (postId, name, text, commentImg, date) VALUES ( ?, ?, ?, ?, ?)";
+            "INSERT INTO comments (commentId, postId, name, text, commentImg, date) VALUES (?, ?, ?, ?, ?, ?)";
         let commentImg;
         if (req.file) {
             commentImg = urlange + "/public/" + req.file.filename;
@@ -32,6 +32,7 @@ class commentController {
         db.all(
             sql,
             [
+                queryObject.commentId,
                 queryObject.id,
                 queryObject.name,
                 queryObject.text,
@@ -55,12 +56,37 @@ class commentController {
             success: true,
         });
     }
-    // async likeComment(req, res) {
-    //     const queryObject = url.parse(req.url, true).query;
-    //     db.all(
-    //         `UPDATE comments SET likes = ${queryObject.likes} WHERE ID = ${queryObject.id}`
-    //     );
-    // }
+    async likeComment(req, res) {
+        const queryObject = url.parse(req.url, true).query;
+        db.all(
+            `SELECT * FROM likes WHERE name = "${queryObject.profileName
+            }" AND commentId = "${Number(queryObject.ID)}"`,
+            [],
+            (err, rows) => {
+                if (rows.length === 0) {
+                    db.all("INSERT INTO likes (name, commentId) values (? , ?)", [
+                        queryObject.profileName,
+                        queryObject.ID,
+                    ]);
+                    db.all(`SELECT COUNT(commentId) FROM likes WHERE commentId = "${queryObject.ID}"`, [], (err, likes) => {
+                        db.all(
+                            `UPDATE comments SET likes = ${likes[0]['COUNT(commentId)']}  WHERE ID = ${queryObject.ID}`
+                        );
+                        return res.json({ status: 200, likes: likes[0]['COUNT(commentId)'] });
+                    })
+                } else {
+                    db.all(
+                        `DELETE FROM likes WHERE name = "${queryObject.profileName}" and commentId = "${queryObject.ID}"`
+                    );
+                    db.all(`SELECT COUNT(commentId) FROM likes WHERE commentId = "${queryObject.ID}"`, [], (err, likes) => {
+                        db.all(
+                            `UPDATE comments SET likes = ${likes[0]['COUNT(commentId)']}  WHERE ID = ${queryObject.ID}`
+                        );
+                        return res.json({ status: 200, likes: likes[0]['COUNT(commentId)'] });
+                    })
+                }
+            })
+    }
     async deleteComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT commentImg FROM comments WHERE postId = "${queryObject.postId}"`, [], (err, img) => {

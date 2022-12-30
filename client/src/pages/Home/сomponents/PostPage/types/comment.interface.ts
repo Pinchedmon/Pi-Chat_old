@@ -1,4 +1,5 @@
 export type Icomment = {
+  commentId: number
   ID: number
   postId: number
   name: string
@@ -7,4 +8,6 @@ export type Icomment = {
   date: string
   username: string
   img: string
+  likes: number
+  comments: number
 }

@@ -26,7 +26,7 @@ var upload = multer({
 });
 
 router.post('/', upload.single('comment'), controller.commentUpload);
-// router.put('/', controller.likeComment)
+router.put('/', controller.likeComment)
 router.delete('/', controller.deleteComment);
 
 module.exports = router;

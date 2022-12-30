@@ -1,10 +1,10 @@
 import React from 'react'
 import { AnnotationIcon, HeartIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
-import { Ibuttons } from '../../../types/post.interface'
-import { handleLike } from './utils/handleLike'
 import { useDispatch } from 'react-redux'
 import { setIsMenuShowed } from '../../../../../../../state/navReducer'
+import { Ibuttons } from '../../../../Posts/types/post.interface'
+import { handleLike } from '../utils/handleLike'
 
 const Buttons = (props: Ibuttons) => {
   const navigate = useNavigate()

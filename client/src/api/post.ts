@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Imessage } from '../pages/Home/сomponents/Dialogs/types/message.interface'
 
 interface apiParamComments {
+  commentId: number
   id: number
   name: string
   text: string

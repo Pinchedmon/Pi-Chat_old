@@ -118,7 +118,6 @@ class postController {
   }
   async likePost(req, res) {
     const queryObject = url.parse(req.url, true).query;
-    console.log('e')
     db.all(
       `SELECT * FROM likes WHERE name = "${queryObject.profileName
       }" AND postId = "${Number(queryObject.postId)}"`,

@@ -38,6 +38,16 @@ const PostData = () => {
       }
     }),
   )
+  const likeComment = (id: number, likes: number) => {
+    setComments([
+      ...comments,
+      ...comments.filter((cmmt: Icomment) => {
+        if (cmmt.ID === id) {
+          cmmt.likes = likes
+        }
+      }),
+    ])
+  }
   return (
     <div className='flex flex-col w-full h-screen items-stretch'>
       {comments && (
@@ -56,7 +66,7 @@ const PostData = () => {
             <Post data={post} deletePost={() => refetch()} likePost={() => refetch()} />
           </div>
           <div className='overflow-y-scroll grow '>
-            <Comments data={comments} refetch={refetch} />
+            <Comments name={user.name} data={comments} refetch={refetch} likeComment={likeComment} />
             {data.continue && (
               <div
                 onClick={() => {
