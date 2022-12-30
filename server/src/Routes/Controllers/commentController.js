@@ -99,6 +99,9 @@ class commentController {
         db.run(sql, (err) => {
             if (err) return console.error(err.message);
         });
+        db.run(
+            `DELETE FROM likes WHERE commentId = '${queryObject.id}'`
+        );
         db.all(
             `SELECT * FROM comments WHERE postId = ${queryObject.postId}`,
             [],

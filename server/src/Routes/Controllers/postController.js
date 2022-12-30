@@ -125,25 +125,25 @@ class postController {
       (err, rows) => {
 
         if (rows.length === 0) {
-          db.all(
-            `UPDATE posts SET likes = likes + 1  WHERE ID = ${queryObject.postId}`
-          );
           db.all("INSERT INTO likes (name, postID) values (? , ?)", [
             queryObject.profileName,
             queryObject.postId,
           ]);
           db.all(`SELECT COUNT(postId) FROM likes WHERE postId = "${queryObject.postId}"`, [], (err, likes) => {
+            db.all(
+              `UPDATE posts SET likes = ${likes[0]['COUNT(postId)']}  WHERE ID = ${queryObject.postId}`
+            );
             return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
           })
 
         } else {
           db.all(
-            `UPDATE posts SET likes = likes - 1  WHERE ID = ${queryObject.postId}`
-          );
-          db.all(
             `DELETE FROM likes WHERE name = "${queryObject.profileName}" and postId = "${queryObject.postId}"`
           );
           db.all(`SELECT COUNT(postId) FROM likes WHERE postId = "${queryObject.postId}"`, [], (err, likes) => {
+            db.all(
+              `UPDATE posts SET likes = ${likes[0]['COUNT(postId)']}  WHERE ID = ${queryObject.postId}`
+            );
             return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
           })
         }
@@ -193,7 +193,6 @@ class postController {
   async deletePost(req, res) {
     const queryObject = url.parse(req.url, true).query;
     db.all(`SELECT postImg FROM posts WHERE ID = "${queryObject.id}"`, [], (err, img) => {
-
       if (img[0].postImg !== '') {
         fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].postImg.slice(28, img[0].postImg.length)}`))
         fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].postImg.slice(28, img[0].postImg.length)}`))
