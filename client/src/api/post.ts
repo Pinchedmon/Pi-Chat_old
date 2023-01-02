@@ -18,8 +18,8 @@ interface apiParamMessages {
 export async function postComment(props: apiParamComments, formData: any): Promise<any> {
   await axios
     .post(
-      `http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${
-        props.text
+      `http://localhost:6060/comment?id=${props.id}&name=${props.name}&text=${props.text}&commentId=${
+        props.commentId
       }&date=${new Date().toUTCString()}`,
       formData,
     )

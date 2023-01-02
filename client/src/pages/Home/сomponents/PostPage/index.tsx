@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getPost } from '../../../../api/get'
-import Comments from './components/Comment'
 import { postComment } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import SendField from '../../../../components/ux/SendField'
@@ -11,6 +10,7 @@ import Post from '../Posts/components/Post'
 import { Icomment } from './types/comment.interface'
 import { useDispatch } from 'react-redux'
 import { setIsMenuShowed } from '../../../../state/navReducer'
+import Comments from './components/Comments'
 
 const PostData = () => {
   let page = 1
@@ -66,7 +66,13 @@ const PostData = () => {
             <Post data={post} deletePost={() => refetch()} likePost={() => refetch()} />
           </div>
           <div className='overflow-y-scroll grow '>
-            <Comments name={user.name} data={comments} refetch={refetch} likeComment={likeComment} />
+            <Comments
+              postId={post[0].ID}
+              name={user.name}
+              data={comments}
+              refetch={refetch}
+              likeComment={likeComment}
+            />
             {data.continue && (
               <div
                 onClick={() => {

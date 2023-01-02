@@ -1,5 +1,5 @@
 export type Icomment = {
-  commentId: number
+  commentId: number | string
   ID: number
   postId: number
   name: string

@@ -29,6 +29,7 @@ class commentController {
         } else {
             commentImg = "";
         }
+        console.log(queryObject.commentId)
         db.all(
             sql,
             [

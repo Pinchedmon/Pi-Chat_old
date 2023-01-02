@@ -6,7 +6,7 @@
     @apply p-12px text-center text-gray-400;
   }
   .comment {
-    @apply w-full flex flex-row mb-8px mt-8px border-2 rounded-xl pt-8px border-gray-300 relative;
+    @apply w-full flex flex-row mb-2px rounded-xl pt-8px  relative;
   }
   .comment__img {
     @apply ml-12px lg:ml-24px border-2 border-[#20A740] mr-8px lg:mr-16px w-48px h-48px lg:h-54px rounded-3xl lg:w-54px;
