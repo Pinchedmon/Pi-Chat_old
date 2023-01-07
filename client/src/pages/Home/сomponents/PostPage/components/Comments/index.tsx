@@ -17,38 +17,36 @@ const Comments = (props: {
         <>
           {data &&
             data.map((item: Icomment, index: number) => (
-              <>
+              <div key={index}>
                 {(item.commentId === null || item.commentId === 'undefined') && (
-                  <div>
-                    <Comment
-                      item={{
-                        commentId: item.commentId,
-                        ID: item.ID,
-                        postId: item.postId,
-                        name: item.name,
-                        text: item.text,
-                        commentImg: item.commentImg,
-                        date: item.date,
-                        username: item.username,
-                        img: item.img,
-                        likes: item.likes,
-                        comments: item.comments,
-                      }}
-                      index={index}
-                      likeComment={likeComment}
-                      name={name}
-                      refetch={refetch}
-                      postId={postId}
-                      isMain={true}
-                    />
-                  </div>
+                  <Comment
+                    item={{
+                      commentId: item.commentId,
+                      ID: item.ID,
+                      postId: item.postId,
+                      name: item.name,
+                      text: item.text,
+                      commentImg: item.commentImg,
+                      date: item.date,
+                      username: item.username,
+                      img: item.img,
+                      likes: item.likes,
+                      comments: item.comments,
+                    }}
+                    index={index}
+                    likeComment={likeComment}
+                    name={name}
+                    refetch={refetch}
+                    postId={postId}
+                    isMain={true}
+                  />
                 )}
                 {data
                   .filter((comment: Icomment) => {
                     return comment.commentId === item.ID
                   })
                   .map((comm: Icomment, ind: number) => (
-                    <div className='ml-12px'>
+                    <div key={ind}>
                       {comm.commentId !== null && (
                         <Comment
                           item={{
@@ -74,7 +72,7 @@ const Comments = (props: {
                       )}
                     </div>
                   ))}
-              </>
+              </div>
             ))}
         </>
       )}

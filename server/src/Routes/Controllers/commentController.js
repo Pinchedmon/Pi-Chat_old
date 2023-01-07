@@ -29,7 +29,6 @@ class commentController {
         } else {
             commentImg = "";
         }
-        console.log(queryObject.commentId)
         db.all(
             sql,
             [
@@ -90,7 +89,8 @@ class commentController {
     }
     async deleteComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT commentImg FROM comments WHERE postId = "${queryObject.postId}"`, [], (err, img) => {
+        db.all(`SELECT commentImg FROM comments WHERE ID = ${Number(queryObject.id)}`, [], (err, img) => {
+
             if (img[0].commentImg !== '') {
                 fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
                 fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
