@@ -1,16 +1,22 @@
 import axios from 'axios'
 
-export const getPosts = async (payload: { sort: string | number; category: string; page: number; count: number }) => {
-  const { sort, category, page, count } = payload
+export const getPosts = async (payload: {
+  sort: string | number
+  category: string
+  page: number
+  count: number
+  name: string
+}) => {
+  const { sort, category, page, count, name } = payload
   const response = await axios.get(
-    `http://localhost:6060/posts/feed?sort=${sort}&category=${category}&page=${page}&count=${count}`,
+    `http://localhost:6060/posts/feed?sort=${sort}&category=${category}&page=${page}&count=${count}&name=${name}`,
   )
   return response.data
 }
 
-export const getPost = async (payload: { search: string; page: number; count: number }) => {
-  const { search, page, count } = payload
-  const response = await axios.get(`http://localhost:6060/posts/post${search}&page=${page}&count=${count}`)
+export const getPost = async (payload: { search: string; page: number; count: number; name: string }) => {
+  const { search, page, count, name } = payload
+  const response = await axios.get(`http://localhost:6060/posts/post${search}&page=${page}&count=${count}&name=${name}`)
   return response.data
 }
 

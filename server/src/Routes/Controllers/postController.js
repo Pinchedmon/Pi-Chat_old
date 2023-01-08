@@ -76,16 +76,23 @@ class postController {
       if (page > pager.totalPages) {
         return res.json({ data: [], status: 200 });
       }
-
       let x = 0;
       for (let i = 0; i < pageOfItems.length; i++) {
         await db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
           pageOfItems[i]['username'] = user[0].username
           pageOfItems[i]['pathImg'] = user[0].pathImg
-          x++;
-          if (x === pageOfItems.length) {
-            return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
-          }
+          db.all(`SELECT name FROM likes WHERE postId = "${pageOfItems[i]['ID']}" AND name = "${queryObject.name}"`, [], (err, likes) => {
+            pageOfItems[i]['liked'] = false
+            if (likes.length > 0) {
+              pageOfItems[i]['liked'] = true
+            }
+
+            x++;
+            if (x === pageOfItems.length) {
+              return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
+            }
+          })
+
         })
       }
     });
@@ -158,7 +165,14 @@ class postController {
         db.all(`SELECT * FROM users WHERE name = "${post[0].name}"`, [], (err, user) => {
           post[0]["username"] = user[0].username;
           post[0]["pathImg"] = user[0].pathImg;
+          db.all(`SELECT name FROM likes WHERE postId = "${post[0]['ID']}" AND name = "${queryObject.name}"`, [], (err, likes) => {
+            post[0]['liked'] = false
+            if (likes.length > 0) {
+              post[0]['liked'] = true
+            }
+          })
         })
+
         let x = 0;
         db.all(`SELECT * FROM comments WHERE postId = ${queryObject.id} ORDER BY id DESC`, [], (err, comments) => {
           if (comments.length === 0) {
@@ -174,14 +188,20 @@ class postController {
             db.all(`SELECT * FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
               pageOfItems[i]['username'] = user[0].username;
               pageOfItems[i]['img'] = user[0].pathImg;
-              x++;
-              if (x === pageOfItems.length) {
-                return res.json({
-                  data: { post, comments: pageOfItems },
-                  continue: pager.currentPage < pager.totalPages,
-                  status: 200
-                });
-              }
+              db.all(`SELECT name FROM likes WHERE commentID = "${pageOfItems[i]['ID']}" AND name = "${queryObject.name}"`, [], (err, likes) => {
+                pageOfItems[i]['liked'] = false
+                if (likes.length > 0) {
+                  pageOfItems[i]['liked'] = true
+                }
+                x++;
+                if (x === pageOfItems.length) {
+                  return res.json({
+                    data: { post, comments: pageOfItems },
+                    continue: pager.currentPage < pager.totalPages,
+                    status: 200
+                  });
+                }
+              })
             })
           }
         });

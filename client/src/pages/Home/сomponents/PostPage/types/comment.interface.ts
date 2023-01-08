@@ -10,4 +10,5 @@ export type Icomment = {
   img: string
   likes: number
   comments: number
+  liked: boolean
 }

@@ -30,6 +30,7 @@ const Post = (props: { data: any; deletePost: (x: number) => void; likePost: (id
                 likes={item.likes}
                 role={user!.role}
                 likePost={likePost}
+                liked={item.liked}
               />
             </div>
             <Options id={item.ID} deletePost={deletePost} />

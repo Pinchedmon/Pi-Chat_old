@@ -9,4 +9,5 @@ export type Ipost = {
   time: string
   pathImg: string
   username: string
+  liked: boolean
 }

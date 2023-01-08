@@ -32,6 +32,7 @@ const Comments = (props: {
                       img: item.img,
                       likes: item.likes,
                       comments: item.comments,
+                      liked: item.liked,
                     }}
                     index={index}
                     likeComment={likeComment}
@@ -46,7 +47,7 @@ const Comments = (props: {
                     return comment.commentId === item.ID
                   })
                   .map((comm: Icomment, ind: number) => (
-                    <div key={ind}>
+                    <div className='ml-16px' key={ind}>
                       {comm.commentId !== null && (
                         <Comment
                           item={{
@@ -61,6 +62,7 @@ const Comments = (props: {
                             img: comm.img,
                             likes: comm.likes,
                             comments: comm.comments,
+                            liked: comm.liked,
                           }}
                           index={ind}
                           likeComment={likeComment}

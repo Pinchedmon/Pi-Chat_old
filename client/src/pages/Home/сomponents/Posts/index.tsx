@@ -13,7 +13,7 @@ const Posts = (props: Iparams) => {
   const [nextPage, setNextPage] = useState(1)
   const fetchData = async (token: number, count: number) => {
     token !== undefined &&
-      (await getPosts({ sort, category, page: token, count: count }).then((res) => {
+      (await getPosts({ sort, category, page: token, count: count, name: props.name }).then((res) => {
         if (filter) {
           setFilter(false)
           setPosts([...res.data])

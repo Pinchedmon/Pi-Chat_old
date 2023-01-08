@@ -9,6 +9,7 @@ export interface Ibuttons {
   ID: number
   likes: number | string
   comments: number | string
+  liked: boolean
 }
 export interface Ioptions {
   id: number

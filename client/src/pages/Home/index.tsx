@@ -64,7 +64,7 @@ const Home = () => {
             )}
             <div className=''>
               <Routes>
-                <Route path='/' element={<Posts sort={nav.sort} category={nav.category} />} />
+                <Route path='/' element={<Posts sort={nav.sort} category={nav.category} name={user.name} />} />
                 <Route path='/post' element={<Post />} />
                 <Route path='/*' element={<Profile />} />
                 <Route path='/notifs' element={<Notifications />} />
