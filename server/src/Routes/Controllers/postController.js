@@ -115,10 +115,16 @@ class postController {
         db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${pageOfItems[i].name}"`, [], (err, user) => {
           pageOfItems[i]['username'] = user[0].username
           pageOfItems[i]['pathImg'] = user[0].pathImg
-          x++;
-          if (x === pageOfItems.length) {
-            return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
-          }
+          db.all(`SELECT name FROM likes WHERE postId = "${pageOfItems[i]['ID']}" AND name = "${queryObject.name}"`, [], (err, likes) => {
+            pageOfItems[i]['liked'] = false
+            if (likes.length > 0) {
+              pageOfItems[i]['liked'] = true
+            }
+            x++
+            if (x === pageOfItems.length) {
+              return res.json({ data: pageOfItems, page: Number(page) + 1, status: 200 });
+            }
+          })
         })
       }
     });
