@@ -13,16 +13,19 @@ let sql;
 class followController {
     async follow(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        sql = `INSERT INTO follows (name, object) VALUES ( ?,? )`;
-        db.all(`SELECT * FROM follows WHERE name = '${queryObject.name}' and object = '${queryObject.object}' `, [], (err, rows) => {
-            if (rows.length >= 1) {
-                return res.json({ status: 201 })
-            } else {
-                db.run(sql, [queryObject.name, queryObject.object])
-                return res.json({ status: 200 })
-            }
+        db.all(`SELECT * FROM follows WHERE name = "${queryObject.name}" and object = "${queryObject.object}" `, [], (err, rows) => {
+            db.run(`INSERT INTO follows (name, object) VALUES ( ?,? )`, [queryObject.name, queryObject.object])
+            db.all(`SELECT ID from follows where name = "${queryObject.name}" and object = "${queryObject.object}"`, [], (err, check) => {
+                db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                    queryObject.name,
+                    queryObject.object,
+                    3,
+                    check[0].ID,
+                    new Date().toUTCString()
+                ])
+            })
+            return res.json({ status: 200 })
         })
-
     }
     async getSubscribes(req, res) {
         const queryObject = url.parse(req.url, true).query;
@@ -46,8 +49,15 @@ class followController {
     }
     async deleteFollow(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        sql = `DELETE FROM follows WHERE name = '${queryObject.name}' AND object = '${queryObject.object}'`;
-        db.run(sql)
+        db.all(`SELECT ID from follows where name = '${queryObject.name}' AND object = '${queryObject.object}'`, [], (err, follow) => {
+            console.log(follow)
+            if (follow.length > 0) {
+                db.run(`DELETE FROM notifications WHERE senderName = "${queryObject.name}" and type = "3" and object = ${follow[0].ID}`)
+            }
+        })
+        db.run(`DELETE FROM follows WHERE name = '${queryObject.name}' AND object = '${queryObject.object}'`)
+
+
         return res.json({ status: 200 })
     }
 }

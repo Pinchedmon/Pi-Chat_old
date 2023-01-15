@@ -22,6 +22,7 @@
   @import './components/ux/Modal/modal.css';
   @import './pages/Home/сomponents/Profile/profile.css';
   @import './components/ux/Warning/warning.css';
+  @import './pages/Home/сomponents/Notifications/notification.css';
 }
 
 @layer base {

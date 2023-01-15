@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .notification {
+    @apply absolute top-54px right-[12px] bg-green-500 rounded-xl flex  text-white p-6px;
+  }
+  .notifsButton {
+    @apply w-[80%] self-center bg-green-700 text-white border rounded-md;
+  }
+}

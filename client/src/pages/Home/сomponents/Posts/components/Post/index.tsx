@@ -24,13 +24,14 @@ const Post = (props: { data: any; deletePost: (x: number) => void; likePost: (id
               </div>
               <Info text={item.text} img={item.postImg} />
               <Buttons
-                name={user!.name}
+                name={user.name}
                 ID={item.ID}
                 comments={item.comments}
                 likes={item.likes}
                 role={user!.role}
                 likePost={likePost}
                 liked={item.liked}
+                postName={item.name}
               />
             </div>
             <Options id={item.ID} deletePost={deletePost} />

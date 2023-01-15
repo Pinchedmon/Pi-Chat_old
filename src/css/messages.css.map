@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,SAAS,CAAT,IAAS,GACT,SAAS,CAAT,UAAS,GACT,SAAS,CAAT,SAAS,GAET,MAAM,CAAN,UAAM;EACJ,AAAA,SAAS,CAAC;IACR,MAAM,CAAN,2CAAM;GAAiD;EAEzD,AAAA,mBAAmB,CAAC;IAClB,MAAM,CAAN,oGAAM;GAA0G;EAElH,AAAA,2BAA2B,CAAC;IAC1B,MAAM,CAAN,4CAAM;GAAkD;EAE1D,AAAA,0BAA0B,CAAC;IACzB,MAAM,CAAN,sBAAM;GAA4B;EAEpC,AAAA,0BAA0B,CAAC;IACzB,MAAM,CAAN,IAAM;GAAU;EAElB,AAAA,+BAA+B,CAAC;IAC9B,MAAM,CAAN,aAAM;GAAmB;EAE3B,AAAA,cAAc,CAAC;IACb,MAAM,CAAN,mCAAM;GAAyC",
-    "sources": [
-        "../../client/src/pages/Home/сomponents/Dialogs/сomponents/Dialog/components/Messages/messages.sass"
-    ],
-    "names": [],
-    "file": "messages.css"
-}

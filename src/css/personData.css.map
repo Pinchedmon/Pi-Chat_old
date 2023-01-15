@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,SAAS,CAAT,IAAS,GACT,SAAS,CAAT,UAAS,GACT,SAAS,CAAT,SAAS,GAET,AAAA,YAAY,CAAC;EACX,MAAM,CAAN,0CAAM;CAAgD;;AAExD,AAAA,iBAAiB,CAAC;EAChB,MAAM,CAAN,8DAAM;CAAoE;;AAE5E,AAAA,kBAAkB,CAAC;EACjB,MAAM,CAAN,uCAAM;CAA6C;;AAErD,AAAA,4BAA4B,CAAC;EAC3B,MAAM,CAAN,8CAAM;CAAoD;;AAE5D,AAAA,wBAAwB,CAAC;EACvB,MAAM,CAAN,uCAAM;CAA6C;;AAErD,AAAA,oBAAoB,CAAC;EACnB,MAAM,CAAN,wDAAM;CAA8D",
-    "sources": [
-        "../../client/src/pages/Home/сomponents/Nav/сomponents/PersonData/personData.sass"
-    ],
-    "names": [],
-    "file": "personData.css"
-}

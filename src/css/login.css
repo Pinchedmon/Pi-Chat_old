@@ -1,6 +1,0 @@
-@tailwind base {}@tailwind components {}@tailwind utilities {}@layer components {
-  .login {
-    @apply bg-green-600 w-full h-screen flex flex-col justify-center {}    @apply ml-auto drop-shadow-md  mb-16px mr-auto w-260px h-100px rounded-3xl bg-white flex justify-center items-center {}    @apply text-center font-bold text-red-600 {}    @apply text-3xl text-center rounded-2xl shadow-lg pt-12px pb-12px pl-32px pr-32px  font-bold text-black border-3 border-green-600 {}    @apply w-300px md:w-346px drop-shadow-xl flex rounded-3xl bg-white  text-center flex-col self-center {}    @apply text-3xl font-bold mt-32px mb-24px drop-shadow-md {}    @apply text-red-600 {}    @apply w-220px ml-auto mr-auto rounded-xl font-bold p-3px mb-16px text-center border-3 border-green-600 {}    @apply w-200px rounded-xl ml-auto mr-auto font-bold p-3px mb-32px text-center border-3 border-green-600 {}    @apply text-sm text-green-600 underline  mb-8px {}
-  }
-}
-/*# sourceMappingURL=login.css.map */

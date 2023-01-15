@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Nav from './сomponents/Nav'
 import FilterModal from './сomponents/Nav/сomponents/FilterModal'
-import Post from './сomponents/PostPage'
+import PostPage from './сomponents/PostPage'
 import Profile from './сomponents/Profile'
 import Posts from './сomponents/Posts'
 import Messages from './сomponents/Dialogs'
@@ -16,13 +16,34 @@ import Notifications from './сomponents/Notifications'
 import { setIsNavExpanded } from '../../state/navReducer'
 import Modal from '../../components/ux/Modal'
 import { MenuIcon } from '@heroicons/react/outline'
+import { io } from 'socket.io-client'
 
+export const SocketContext = React.createContext(null)
 const Home = () => {
   const user = useContext(UserContext)
+  const [socket, setSocket] = useState(null)
   const [] = useDarkMode()
   const nav = useSelector((state: Istore) => state.nav)
   const dispatch = useDispatch()
   const location = useLocation()
+  const [notifications, setNotifications] = useState([])
+  const [openedNotifs, setOpenedNotifications] = useState(false)
+
+  const displayNotifications = ({ senderName, type }: any) => {
+    let action: string
+    if (type === 1) {
+      action = 'liked'
+    } else if (type === 2) {
+      action = 'commented'
+    } else {
+      action = 'shared'
+    }
+    return <span>{` ${senderName} ${action} your post`}</span>
+  }
+  const handleRead = () => {
+    setOpenedNotifications(false)
+    setNotifications([])
+  }
   useEffect(() => {
     if (window.innerHeight > 1024) {
       dispatch(setIsNavExpanded(true))
@@ -30,10 +51,30 @@ const Home = () => {
       dispatch(setIsNavExpanded(false))
     }
   }, [window.innerWidth])
+  useEffect(() => {
+    setSocket(io('http://localhost:6060'))
+  }, [])
+  useEffect(() => {
+    if (user !== undefined) {
+      socket?.emit('newUser', user.name)
+    }
+  }, [socket, user])
+  useEffect(() => {
+    socket?.on('getNotification', (data: any) => {
+      setOpenedNotifications(true)
+      setNotifications((prev: any) => [...prev, data])
+    })
+  }, [socket])
   return (
     <div className='home'>
       {user && (
         <>
+          {openedNotifs && (
+            <div className='notification flex flex-col' onClick={handleRead}>
+              {notifications.map((n: any) => displayNotifications(n))}
+              <button className='notifsButton'>Mark as read</button>
+            </div>
+          )}
           {window.innerWidth >= 1024 ? (
             <Nav />
           ) : nav.isNavExpanded ? (
@@ -63,15 +104,17 @@ const Home = () => {
               <FilterModal category={nav.category} sort={nav.sort} dispatch={dispatch} />
             )}
             <div className=''>
-              <Routes>
-                <Route path='/' element={<Posts sort={nav.sort} category={nav.category} name={user.name} />} />
-                <Route path='/post' element={<Post />} />
-                <Route path='/*' element={<Profile />} />
-                <Route path='/notifs' element={<Notifications />} />
-                <Route path='/messages' element={<Messages />} />
-                <Route path='/followers' element={<Subscribes />} />
-                <Route path='/settings' element={<Setting />} />
-              </Routes>
+              <SocketContext.Provider value={socket}>
+                <Routes>
+                  <Route path='/' element={<Posts sort={nav.sort} category={nav.category} name={user.name} />} />
+                  <Route path='/post' element={<PostPage />} />
+                  <Route path='/*' element={<Profile />} />
+                  <Route path='/notifs' element={<Notifications />} />
+                  <Route path='/messages' element={<Messages />} />
+                  <Route path='/followers' element={<Subscribes />} />
+                  <Route path='/settings' element={<Setting />} />
+                </Routes>
+              </SocketContext.Provider>
             </div>
           </div>
           <div className=''>

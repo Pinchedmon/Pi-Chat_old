@@ -42,10 +42,25 @@ class commentController {
                 if (err) return res.json({ status: 404, success: false, error: err });
             }
         );
+        if (queryObject.commentId !== 'undefined') {
+            db.all(`SELECT ID from comments WHERE date = "${queryObject.date}"`, (err, id) => {
+                db.all(`SELECT name from posts WHERE ID = ${queryObject.id}`, (err, postName) => {
+                    db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                        queryObject.name,
+                        postName[0].name,
+                        4,
+                        id[0].ID,
+                        new Date().toUTCString()
+                    ])
+                })
+            })
+
+        }
         db.all(
             `SELECT * FROM comments WHERE postId = ${queryObject.id}`,
             [],
             (err, rows) => {
+
                 db.all(
                     `UPDATE posts set comments = ${rows.length} WHERE ID = ${queryObject.id}`
                 );
@@ -69,19 +84,35 @@ class commentController {
                         queryObject.ID,
                     ]);
                     db.all(`SELECT COUNT(commentId) FROM likes WHERE commentId = "${queryObject.ID}"`, [], (err, likes) => {
-                        db.all(
+                        db.run(
                             `UPDATE comments SET likes = ${likes[0]['COUNT(commentId)']}  WHERE ID = ${queryObject.ID}`
                         );
+                        db.all(`SELECT name from comments WHERE id = "${queryObject.ID}"`, [], (err, name) => {
+                            if (name.length > 0) {
+                                console.log('created')
+                                db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                                    queryObject.profileName,
+                                    name[0].name,
+                                    2,
+                                    queryObject.ID,
+                                    new Date().toUTCString()
+                                ])
+                            }
+
+                        })
                         return res.json({ status: 200, likes: likes[0]['COUNT(commentId)'] });
+
                     })
                 } else {
-                    db.all(
+                    db.run(
                         `DELETE FROM likes WHERE name = "${queryObject.profileName}" and commentId = "${queryObject.ID}"`
                     );
+                    db.run(`DELETE FROM notifications WHERE senderName = "${queryObject.profileName}" and type = "2" and object = "${queryObject.ID}"`)
                     db.all(`SELECT COUNT(commentId) FROM likes WHERE commentId = "${queryObject.ID}"`, [], (err, likes) => {
-                        db.all(
+                        db.run(
                             `UPDATE comments SET likes = ${likes[0]['COUNT(commentId)']}  WHERE ID = ${queryObject.ID}`
                         );
+
                         return res.json({ status: 200, likes: likes[0]['COUNT(commentId)'] });
                     })
                 }
@@ -89,11 +120,15 @@ class commentController {
     }
     async deleteComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
-        db.all(`SELECT commentImg FROM comments WHERE ID = ${Number(queryObject.id)}`, [], (err, img) => {
-
-            if (img[0].commentImg !== '') {
-                fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
-                fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
+        db.all(`SELECT commentImg, commentId FROM comments WHERE ID = ${queryObject.id}`, [], (err, comment) => {
+            if (comment.length > 0) {
+                if (comment[0].commentImg !== '') {
+                    fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
+                    fs.unlinkSync(path.resolve(__dirname, `../../../public/original/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
+                }
+                if (comment[0].commentId !== '') {
+                    db.all(`DELETE FROM notifications WHERE type = "4" and object = ${queryObject.id} `)
+                }
             }
         })
         sql = `DELETE FROM comments WHERE id = ${queryObject.id}`;

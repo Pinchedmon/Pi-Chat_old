@@ -8,7 +8,7 @@ import Home from './pages/Home'
 import useAuth, { AuthProvider } from './hooks/useAuth'
 
 interface iUser {
-  id: number
+  ID: number
   email: string
   pathImg: string
   name: string
@@ -18,7 +18,8 @@ interface iUser {
   backImg: string
 }
 export const UserContext = React.createContext<iUser>(null)
-function AuthenticatedRoute(props: { component: () => JSX.Element }) {
+
+const AuthenticatedRoute = (props: { component: () => JSX.Element }) => {
   const { user } = useAuth()
   if (document.cookie === '0' || !document.cookie) return <Navigate to='/login' />
   if (user !== undefined) {
@@ -29,7 +30,7 @@ function AuthenticatedRoute(props: { component: () => JSX.Element }) {
     )
   }
 }
-function App() {
+const App = () => {
   const queryClient = new QueryClient()
   return (
     <>

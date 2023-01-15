@@ -57,6 +57,7 @@ const Comment = (props: {
             likes={item.likes}
             comments={item.comments}
             liked={item.liked}
+            postName={item.name}
           />
           <Options id={item.ID} postId={item.postId} refetch={refetch} />
           {isMain && (

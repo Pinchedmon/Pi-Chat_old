@@ -7,13 +7,13 @@ import { Iparams, Ipost } from './types/posts.interface'
 
 const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
-  const { sort, category } = props
+  const { sort, category, name } = props
   const [filter, setFilter] = useState(true)
   const defaultCount = 10
   const [nextPage, setNextPage] = useState(1)
   const fetchData = async (token: number, count: number) => {
     token !== undefined &&
-      (await getPosts({ sort, category, page: token, count: count, name: props.name }).then((res) => {
+      (await getPosts({ sort, category, page: token, count: count, name: name }).then((res) => {
         if (filter) {
           setFilter(false)
           setPosts([...res.data])
@@ -35,7 +35,7 @@ const Posts = (props: Iparams) => {
   const addPost = (post: Ipost) => {
     setPosts([post, ...posts])
   }
-  const likePost = (id: number, likes: number) => {
+  const likePost = (id: number, likes: number | string) => {
     setPosts([
       ...posts,
       ...posts.filter((msg: Ipost) => {

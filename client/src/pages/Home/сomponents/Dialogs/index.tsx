@@ -11,7 +11,6 @@ import { Idialogs } from './types/dialogs.interface'
 import { useNavigate } from 'react-router-dom'
 import { formatLeft } from '../../../../utils/dates'
 import { setActiveDialog } from '../../../../state/messageReducer'
-
 const Dialogs = () => {
   const user = useContext(UserContext)
   const navigate = useNavigate()
