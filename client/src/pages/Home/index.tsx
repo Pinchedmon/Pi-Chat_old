@@ -71,7 +71,9 @@ const Home = () => {
         <>
           {openedNotifs && (
             <div className='notification flex flex-col' onClick={handleRead}>
-              {notifications.map((n: any) => displayNotifications(n))}
+              {notifications.map((n: any, index: number) => (
+                <div key={index}>{displayNotifications(n)}</div>
+              ))}
               <button className='notifsButton'>Mark as read</button>
             </div>
           )}

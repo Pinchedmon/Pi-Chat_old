@@ -45,13 +45,15 @@ class commentController {
         if (queryObject.commentId !== 'undefined') {
             db.all(`SELECT ID from comments WHERE date = "${queryObject.date}"`, (err, id) => {
                 db.all(`SELECT name from posts WHERE ID = ${queryObject.id}`, (err, postName) => {
-                    db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
-                        queryObject.name,
-                        postName[0].name,
-                        4,
-                        id[0].ID,
-                        new Date().toUTCString()
-                    ])
+                    if (queryObject.profileName !== postName[0].name) {
+                        db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                            queryObject.name,
+                            postName[0].name,
+                            4,
+                            id[0].ID,
+                            new Date().toUTCString()
+                        ])
+                    }
                 })
             })
 
@@ -89,16 +91,16 @@ class commentController {
                         );
                         db.all(`SELECT name from comments WHERE id = "${queryObject.ID}"`, [], (err, name) => {
                             if (name.length > 0) {
-                                console.log('created')
-                                db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
-                                    queryObject.profileName,
-                                    name[0].name,
-                                    2,
-                                    queryObject.ID,
-                                    new Date().toUTCString()
-                                ])
+                                if (queryObject.profileName !== name[0].name) {
+                                    db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                                        queryObject.profileName,
+                                        name[0].name,
+                                        2,
+                                        queryObject.ID,
+                                        new Date().toUTCString()
+                                    ])
+                                }
                             }
-
                         })
                         return res.json({ status: 200, likes: likes[0]['COUNT(commentId)'] });
 

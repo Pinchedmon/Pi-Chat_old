@@ -148,13 +148,15 @@ class postController {
             );
             db.all(`SELECT name from posts WHERE ID = "${queryObject.postId}"`, [], (err, name) => {
               if (name.length > 0) {
-                db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
-                  queryObject.profileName,
-                  name[0].name,
-                  1,
-                  queryObject.postId,
-                  new Date().toUTCString()
-                ])
+                if (queryObject.profileName !== name[0].name) {
+                  db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
+                    queryObject.profileName,
+                    name[0].name,
+                    1,
+                    queryObject.postId,
+                    new Date().toUTCString()
+                  ])
+                }
               }
             })
             return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
@@ -164,7 +166,7 @@ class postController {
           db.all(
             `DELETE FROM likes WHERE name = "${queryObject.profileName}" and postId = "${queryObject.postId}"`
           );
-          db.run(`DELETE FROM notifications WHERE senderName = "${queryObject.profileName}" and type = "1" and object = "${queryObject.ID}"`)
+          db.run(`DELETE FROM notifications WHERE senderName = "${queryObject.profileName}" and type = "1" and object = "${queryObject.postId}"`)
 
           db.all(`SELECT COUNT(postId) FROM likes WHERE postId = "${queryObject.postId}"`, [], (err, likes) => {
             db.all(
