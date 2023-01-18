@@ -1,3 +1,4 @@
+
 const Router = require('express');
 const router = new Router();
 const controller = require('./Controllers/postController');
@@ -24,11 +25,14 @@ var upload = multer({
         }
     }
 });
+console.log(router.io)
+
 router.post('/feed', upload.single('post'), controller.postUpload);
 router.get('/feed', controller.getFeed);
+
 router.get('/getMyPosts', controller.getMyPosts);
 router.get('/post', controller.getPost);
 router.put('/feed', controller.likePost);
 router.delete('/feed', controller.deletePost);
 
-module.exports = router;
+module.exports = () => router;

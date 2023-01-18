@@ -18,14 +18,6 @@ const Buttons = (props: Ibuttons) => {
     navigate(`/post?id=${id}`)
   }
   const [likedStatus, setLikedStatus] = useState(liked)
-  const handleNotification = (type: number) => {
-    setLikedStatus(!likedStatus)
-    socket.emit('sendNotification', {
-      senderName: name,
-      receiverName: postName,
-      type,
-    })
-  }
 
   return (
     <div className='post__buttons'>
@@ -33,7 +25,14 @@ const Buttons = (props: Ibuttons) => {
         className='post__buttons__button mr-16px'
         onClick={(type) => {
           handleLike(ID, name, likePost)
-          handleNotification(1)
+          setLikedStatus(!likedStatus)
+          if (!likedStatus) {
+            socket.emit('sendNotification', {
+              senderName: name,
+              receiverName: postName,
+              type: 1,
+            })
+          }
         }}
       >
         {likedStatus && <HeartIcon className='post__buttons__heart-icon' />}

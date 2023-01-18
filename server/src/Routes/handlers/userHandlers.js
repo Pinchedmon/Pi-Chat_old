@@ -21,6 +21,7 @@ module.exports = (io, socket, onlineUsers) => {
         }
 
     })
+
     socket.on("sendMessage", ({ senderName, receiverName, type }) => {
         const receiver = getUser(receiverName)
         if (receiver !== undefined) {

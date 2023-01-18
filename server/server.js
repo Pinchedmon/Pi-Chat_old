@@ -1,5 +1,3 @@
-const { on } = require('events');
-
 const express = require('express'),
   app = express(),
   cors = require('cors'),
@@ -31,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({}))
 
 app.use('/auth', authRouter)
-app.use('/posts', postRouter)
+app.use('/posts', postRouter(io))
 app.use('/profile', profileRouter)
 app.use('/message', messageRouter)
 app.use('/comment', commentRouter)
@@ -57,4 +55,6 @@ io.on('connection', (socket) => {
   registerUserHandlers(io, socket, onlineUsers)
 });
 
+
 server.listen(port)
+

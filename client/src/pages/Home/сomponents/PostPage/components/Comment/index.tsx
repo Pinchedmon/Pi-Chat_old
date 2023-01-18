@@ -1,11 +1,13 @@
 import { PaperAirplaneIcon, PaperClipIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { formatLeft } from '../../../../../../utils/dates'
 import Buttons from '../Comments/Buttons'
 import Options from '../Comments/Options'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Icomment } from '../../types/comment.interface'
 import { postComment } from '../../../../../../api/post'
+import { UserContext } from '../../../../../../App'
+import { SocketContext } from '../../../..'
 
 const Comment = (props: {
   item: Icomment
@@ -16,6 +18,8 @@ const Comment = (props: {
   postId: number
   isMain: boolean
 }) => {
+  const user = useContext(UserContext)
+  const socket = useContext(SocketContext)
   const { index, item, likeComment, name, refetch, postId, isMain } = props
   const [TAData, setTAData] = useState('')
   const [file, setFile] = useState(null)
@@ -28,12 +32,14 @@ const Comment = (props: {
       {
         commentId: item.ID,
         id: postId,
-        name: name,
+        name: user.name,
         refetch: () => {
           refetch()
           setTAData('')
         },
         text: TAData,
+        commentName: name,
+        socket: socket,
       },
       formData,
     )

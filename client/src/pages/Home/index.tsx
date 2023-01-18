@@ -31,14 +31,20 @@ const Home = () => {
 
   const displayNotifications = ({ senderName, type }: any) => {
     let action: string
-    if (type === 1) {
-      action = 'liked'
-    } else if (type === 2) {
-      action = 'commented'
-    } else {
-      action = 'shared'
+    switch (type) {
+      case 1:
+        action = 'лайкнул(а) ваш пост'
+        break
+      case 2:
+        action = 'лайкнул(а) ваш комментарий'
+        break
+      case 3:
+        action = 'подписался(ась)'
+        break
+      case 4:
+        action = 'ответил(а) на ваш комментарий'
     }
-    return <span>{` ${senderName} ${action} your post`}</span>
+    return <span>{` ${senderName} ${action}`}</span>
   }
   const handleRead = () => {
     setOpenedNotifications(false)
@@ -74,7 +80,7 @@ const Home = () => {
               {notifications.map((n: any, index: number) => (
                 <div key={index}>{displayNotifications(n)}</div>
               ))}
-              <button className='notifsButton'>Mark as read</button>
+              <button className='notifsButton'>Отметить как прочитанное</button>
             </div>
           )}
           {window.innerWidth >= 1024 ? (

@@ -159,6 +159,7 @@ class postController {
                 }
               }
             })
+
             return res.json({ status: 200, likes: likes[0]['COUNT(postId)'] });
           })
 

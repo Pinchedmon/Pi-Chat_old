@@ -4,9 +4,11 @@ import { Imessage } from '../pages/Home/сomponents/Dialogs/types/message.interf
 interface apiParamComments {
   commentId: number
   id: number
-  name: string
+  commentName: string
   text: string
   refetch: () => void
+  socket: any
+  name: string
 }
 interface apiParamMessages {
   firstName: string
@@ -29,6 +31,11 @@ export async function postComment(props: apiParamComments, formData: any): Promi
         return res.data.data
       }
     })
+  props.socket.emit('sendNotification', {
+    senderName: props.name,
+    receiverName: props.commentName,
+    type: 4,
+  })
 }
 
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {
