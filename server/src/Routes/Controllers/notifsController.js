@@ -1,7 +1,6 @@
 const sqlite = require("sqlite3").verbose();
 const path = require("path");
 const url = require("url");
-const { callbackify } = require("util");
 const db = new sqlite.Database(
     path.resolve(__dirname, "../../db/posts.db"),
     sqlite.OPEN_READWRITE,
@@ -31,7 +30,7 @@ class notifsController {
 
                     db.get(sql, (err, data) => {
                         if (data !== undefined) {
-                            console.log(data)
+
                             rows[i]["objectImg"] = data.img
                             rows[i]["objectText"] = data.text
                         }
@@ -49,9 +48,16 @@ class notifsController {
         })
     }
     async readNotif(req, res) {
-        const queryObject = url.parse(req.url, true).query;
+        let notify = JSON.parse(req.body.notify)
+        let x = 0;
+        for (let i = 0; i < notify.length; i++) {
+            db.run(`UPDATE notifications set read = true WHERE receiverName = "${notify[i].receiverName}" and senderName = "${notify[i].senderName}" and type = "${notify[i].type}" and object = ${notify[i].object}`)
+            x++
+        }
+        if (x === notify.length) {
+            return res.json({ status: 200 })
+        }
 
     }
-
 }
 module.exports = new notifsController();

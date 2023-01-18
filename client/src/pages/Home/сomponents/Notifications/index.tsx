@@ -1,7 +1,9 @@
-import React, { useContext } from 'react'
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { SocketContext } from '../..'
 import { getNotifications } from '../../../../api/get'
+import { postNotify } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import { formatLeft } from '../../../../utils/dates'
 interface Inotifs {
@@ -19,10 +21,13 @@ interface Inotifs {
 
 const Notifications = () => {
   const socket = useContext(SocketContext)
+  const [notifications, setNotifications] = useState([])
   const user = useContext(UserContext)
+  let [readCount, setReadCount] = useState([])
   const { data, refetch } = useQuery(['notifs'], () =>
     getNotifications(user.name).then((res) => {
       if (res.status === 200) {
+        setNotifications(res.data)
         return res.data
       }
     }),
@@ -39,6 +44,16 @@ const Notifications = () => {
         return 'упомянул(а) вас'
     }
   }
+  useEffect(() => {
+    if (notifications.length > 0) {
+      postNotify(
+        refetch,
+        notifications.filter((item: Inotifs) => {
+          return item.read === 0
+        }),
+      )
+    }
+  }, [notifications.length])
   return (
     <div className='h-screen'>
       {data && (
@@ -46,7 +61,7 @@ const Notifications = () => {
           <div className='dialogs mb-8px'>
             <p className='dialogs-title'>Уведомления</p>
           </div>
-          {data.map((item: Inotifs, index: number) => (
+          {notifications.map((item: Inotifs, index: number) => (
             <div key={index} className='mb-6px'>
               <div className='justify-between flex rounded-xl border border-gray-300 p-10px    '>
                 <div className='flex'>
@@ -56,7 +71,10 @@ const Notifications = () => {
                     <p className='w-full'>{`${renderSwitch(item.type)}`}</p>
                   </div>
                 </div>
-                <div className='text-gray-400'>{formatLeft(item.date)}</div>
+                <div className='text-gray-400'>
+                  {formatLeft(item.date)}
+                  {item.read === 1 ? <EyeIcon className='w-16px' /> : <EyeOffIcon className='w-16px' />}
+                </div>
               </div>
               {item.objectText && (
                 <div className='ml-40px flex rounded-xl border-b border-l border-r border-gray-300 p-8px  mb-6px '>
