@@ -8,7 +8,7 @@ import moment from 'moment'
 
 const Message = (props: Imessage) => {
   const user = useContext(UserContext)
-  const { name, messageImg, dispatch, text, reset, ID, time } = props
+  const { name, messageImg, dispatch, text, reset, ID, date } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   useEffect(() => {
     if (reset) {
@@ -24,7 +24,7 @@ const Message = (props: Imessage) => {
           name === user.name ? 'justify-end' : ''
         } `}
       >
-        <div className='message-info'> {name === user.name ? moment(time).format('LT') : null}</div>
+        <div className='message-info'> {name === user.name ? moment(date).format('LT') : null}</div>
         {text !== '' ? (
           <>
             <div
@@ -35,12 +35,12 @@ const Message = (props: Imessage) => {
               <div className='message-text'>{text}</div>
               <img src={messageImg} alt='' className='message-img rounded-b-xl' />
             </div>
-            <div className='message-date'>{name !== user.name ? moment(time).format('LT') : null}</div>
+            <div className='message-date'>{name !== user.name ? moment(date).format('LT') : null}</div>
           </>
         ) : (
           <>
             <img src={messageImg} alt='' className='message-img rounded-xl' />
-            {name !== user.name ? moment(time).format('LT') : null}
+            {name !== user.name ? moment(date).format('LT') : null}
           </>
         )}
       </div>

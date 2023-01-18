@@ -26,7 +26,7 @@ class messageController {
             if (rows.length < 1) {
                 db.run('INSERT INTO messages (names) VALUES  (?)', [names])
             }
-            db.run('INSERT INTO messages_info (names, name, text, messageImg, time) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
+            db.run('INSERT INTO messages_info (names, name, text, messageImg, date) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
                 db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}'`, [], (err, message) => {
                     return res.json({ status: 200, message: message[0] })
                 })
@@ -41,12 +41,12 @@ class messageController {
                 for (let i = 0; i < rows.length; i++) {
                     db.all(`SELECT pathImg FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
                         rows[i]["backImg"] = user[0].pathImg
-                        db.all(`SELECT text, time FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
+                        db.all(`SELECT text, date FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
                             rows[i]["last"] = ''
                             rows[i]["date"] = ''
                             if (message.length !== 0) {
                                 rows[i]["last"] = message[0].text
-                                rows[i]["date"] = message[0].time
+                                rows[i]["date"] = message[0].date
                             }
                             if (i == rows.length - 1) {
                                 return res.json({ data: rows, status: 200 })

@@ -60,7 +60,7 @@ const Messages = (props: { data: Array<Imessage>; deleteMsg: (x: Array<String>) 
                   text={item.text}
                   dispatch={dispatch}
                   reset={selected.resetStatus}
-                  time={item.time}
+                  date={item.date}
                 />
               </div>
             ))}

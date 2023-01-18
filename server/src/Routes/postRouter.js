@@ -25,7 +25,7 @@ var upload = multer({
         }
     }
 });
-console.log(router.io)
+
 
 router.post('/feed', upload.single('post'), controller.postUpload);
 router.get('/feed', controller.getFeed);
