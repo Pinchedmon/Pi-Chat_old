@@ -34,10 +34,10 @@
     @apply flex flex-col w-full h-full items-stretch;
   }
   .dialogs-options {
-    @apply self-start right-16px mt-16px absolute justify-end p-8px;
+    @apply self-center flex justify-end p-8px;
   }
   .dialogs-options-show {
-    @apply absolute bg-white dark:bg-black dark:text-white rounded-lg border-green-600 dark:border-white w-180px border-2 -right-5px  p-5px text-center;
+    @apply absolute mr-16px mt-16px bg-white dark:bg-black dark:text-white rounded-lg border-green-600 dark:border-white w-180px border-2 -right-5px  p-5px text-center;
   }
   .dialogs-options-icon {
     @apply w-24px dark:text-white hover:text-green-600;

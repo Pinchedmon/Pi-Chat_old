@@ -1,9 +1,8 @@
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 import React, { useContext, useEffect, useState } from 'react'
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 import { useQuery } from 'react-query'
-import { SocketContext } from '../..'
 import { getNotifications } from '../../../../api/get'
-import { postNotify } from '../../../../api/post'
+import { readNotify } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import { formatLeft } from '../../../../utils/dates'
 interface Inotifs {
@@ -20,10 +19,8 @@ interface Inotifs {
 }
 
 const Notifications = () => {
-  const socket = useContext(SocketContext)
   const [notifications, setNotifications] = useState([])
   const user = useContext(UserContext)
-  let [readCount, setReadCount] = useState([])
   const { data, refetch } = useQuery(['notifs'], () =>
     getNotifications(user.name).then((res) => {
       if (res.status === 200) {
@@ -46,8 +43,11 @@ const Notifications = () => {
   }
   useEffect(() => {
     if (notifications.length > 0) {
-      postNotify(
-        refetch,
+      readNotify(
+        () => {
+          refetch()
+          user.refetchUser()
+        },
         notifications.filter((item: Inotifs) => {
           return item.read === 0
         }),

@@ -7,4 +7,6 @@ export interface Iuser {
   info: string
   role: string
   backImg: string
+  notys: number
+  msgNotys: number
 }

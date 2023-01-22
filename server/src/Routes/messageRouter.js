@@ -29,4 +29,5 @@ router.delete('/dialog', controller.deleteDialog);
 router.delete('/messages', controller.deleteMessages);
 router.get('/links', controller.getLinks);
 router.get('/info', controller.getMessages);
+router.put('/read', upload.none(), controller.readMessages)
 module.exports = router;

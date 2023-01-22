@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, UserGroupIcon, XIcon } from '@heroicons/react/solid'
 import { Link, NavLink } from 'react-router-dom'
-import { setIsNavExpanded, setMessageStyle } from '../../../../state/navReducer'
+import { setIsNavExpanded } from '../../../../state/navReducer'
 import { UserContext } from '../../../../App'
 import PersonData from './сomponents/PersonData'
 import Modal from '../../../../components/ux/Modal'
@@ -49,7 +49,12 @@ const Nav = () => {
             onClick={() => dispatch(setIsNavExpanded(false))}
             className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
           >
-            <ChatIcon className='nav-icon' />
+            <div className='relative inline-block'>
+              <ChatIcon className='nav-icon' />
+              <span className='absolute -top-12px pl-2px pr-2px text-white bg-red-500 rounded-xl text-center right-12px text-lg'>
+                {(user.msgNotys !== 0) === true ? (user.msgNotys < 1000 === true ? user.msgNotys : '999+') : ''}
+              </span>
+            </div>
             <p>Сообщения</p>
           </NavLink>
           <NavLink
@@ -65,7 +70,12 @@ const Nav = () => {
             onClick={() => dispatch(setIsNavExpanded(false))}
             className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
           >
-            <BellIcon className='nav-icon' />
+            <div className='relative inline-block'>
+              <BellIcon className='nav-icon' />
+              <span className='absolute -top-12px pl-2px pr-2px text-white bg-red-500 rounded-xl text-center right-12px text-lg'>
+                {(user.notys !== 0) === true ? (user.notys < 1000 === true ? user.notys : '999+') : ''}
+              </span>
+            </div>
             <p>Уведомления</p>
           </NavLink>
           <NavLink

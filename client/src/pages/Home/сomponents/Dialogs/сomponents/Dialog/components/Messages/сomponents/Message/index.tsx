@@ -5,10 +5,10 @@ import { addSelected, removeSelected, resetSelected } from '../../../../../../..
 import { UserContext } from '../../../../../../../../../../App'
 import { Imessage } from '../../../../../../types/message.interface'
 import moment from 'moment'
-
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 const Message = (props: Imessage) => {
   const user = useContext(UserContext)
-  const { name, messageImg, dispatch, text, reset, ID, date } = props
+  const { name, messageImg, dispatch, text, reset, ID, date, read } = props
   const [selectedMsg, setSelectedMsg] = useState('')
   useEffect(() => {
     if (reset) {
@@ -18,7 +18,7 @@ const Message = (props: Imessage) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, text, ID])
   return (
-    <div className={`message ${selectedMsg}  `}>
+    <div className={`message ${selectedMsg} ${user.name !== name ? (read === 0 ? 'bg-gray-100' : '') : ''} `}>
       <div
         className={`message-position ${selectedMsg !== '' && name === user.name ? 'mr-32px' : ''}  ${
           name === user.name ? 'justify-end' : ''
@@ -49,6 +49,7 @@ const Message = (props: Imessage) => {
         onClick={() => handleClick({ selectedMsg, addSelected, removeSelected, dispatch, setSelectedMsg, ID })}
       >
         <CheckCircleIcon className={`check-message-icon ${selectedMsg === '' ? 'text-gray-300' : 'text-green-500'}`} />
+        {user.name === name ? read === 1 ? <EyeIcon className='w-16px' /> : <EyeOffIcon className='w-16px' /> : ''}
       </div>
     </div>
   )

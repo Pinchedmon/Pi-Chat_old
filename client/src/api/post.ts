@@ -53,7 +53,7 @@ export async function postMessage(props: apiParamMessages, messageImg: any): Pro
       }
     })
 }
-export async function postNotify(refetch: () => void, notifys: any): Promise<any> {
+export async function readNotify(refetch: () => void, notifys: any): Promise<any> {
   const fd = new FormData()
   fd.append('notify', JSON.stringify(notifys))
   await axios.put(`http://localhost:6060/notifs/read`, fd).then((res) => {

@@ -58,8 +58,12 @@ class authController {
                     message: "Введён неверный пароль"
                 })
             }
-            const token = generateAccessToken(rows[0].ID, rows[0].roles);
-            return res.json({ status: 200, user: { ID: rows[0].ID, username: rows[0].username, name: rows[0].name, pathImg: rows[0].pathImg, roles: rows[0].roles }, authToken: token })
+            db.all(`SELECT * FROM messages_info WHERE names like '%${rows[0].name}%' and read = 0`, [], (err, msgNotys) => {
+                db.all(`SELECT * FROM notifications WHERE receivername = "${rows[0].name}" and read = 0`, (err, notys) => {
+                    const token = generateAccessToken(rows[0].ID, rows[0].roles);
+                    return res.json({ status: 200, user: { ID: rows[0].ID, username: rows[0].username, name: rows[0].name, pathImg: rows[0].pathImg, roles: rows[0].roles, "msgNotys": msgNotys.length, 'notys': notys.length }, authToken: token })
+                })
+            })
         });
     }
     async getUsers(req, res) {
@@ -82,17 +86,21 @@ class authController {
     async getUser(req, res) {
         if (req.user !== undefined) {
             const { id } = req.user
-            db.all(`SELECT * FROM users WHERE ID = ${id}`, [], (err, rows) => {
+
+            db.get(`SELECT username, name, email, roles, pathImg, backImg, info FROM users WHERE ID = ${id}`, [], (err, rows) => {
                 if (err) {
                     return res.json({
                         status: 400
                     })
                 }
-                return res.json({
-                    status: 200,
-                    "data": rows[0]
+                db.all(`SELECT * FROM messages_info WHERE names like '${rows.name}%' and read = 0`, [], (err, msgNotys) => {
+                    db.all(`SELECT * FROM notifications WHERE receivername = "${rows.name}" and read = 0`, (err, notys) => {
+                        return res.json({
+                            status: 200,
+                            "data": { ...rows, "notys": notys.length, "msgNotys": msgNotys.length }
+                        })
+                    })
                 })
-
             })
         }
     }

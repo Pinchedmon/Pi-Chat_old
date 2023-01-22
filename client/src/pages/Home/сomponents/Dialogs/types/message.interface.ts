@@ -6,4 +6,5 @@ export interface Imessage {
   text: string
   reset?: boolean
   date: string
+  read: number
 }

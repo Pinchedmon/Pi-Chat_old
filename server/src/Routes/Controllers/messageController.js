@@ -22,15 +22,13 @@ class messageController {
         }
         let names = `${queryObject.secondName} ${queryObject.name}`
         db.all(`SELECT * from messages WHERE names = '${names}' OR names = '${names.split(' ').reverse().join(' ')}'`, [], (err, rows) => {
-
             if (rows.length < 1) {
                 db.run('INSERT INTO messages (names) VALUES  (?)', [names])
             }
             db.run('INSERT INTO messages_info (names, name, text, messageImg, date) VALUES  (?,?,?,?,?)', [names.toString(), `${queryObject.name}`, `${queryObject.text}`, messageImg, `${queryObject.time}`], () => {
-                db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}'`, [], (err, message) => {
+                db.all(`SELECT * from messages_info WHERE names = '${names}' and text = '${queryObject.text}' and name = '${queryObject.name}' and date = '${queryObject.time}' `, [], (err, message) => {
                     return res.json({ status: 200, message: message[0] })
                 })
-
             })
         })
     }
@@ -39,21 +37,24 @@ class messageController {
         db.all(`SELECT * FROM messages WHERE names LIKE '%${queryObject.name}%'`, [], (err, rows) => {
             if (rows.length > 0) {
                 for (let i = 0; i < rows.length; i++) {
-                    db.all(`SELECT pathImg FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
-                        rows[i]["backImg"] = user[0].pathImg
-                        db.all(`SELECT text, date FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
-                            rows[i]["last"] = ''
-                            rows[i]["date"] = ''
-                            if (message.length !== 0) {
-                                rows[i]["last"] = message[0].text
-                                rows[i]["date"] = message[0].date
-                            }
-                            if (i == rows.length - 1) {
-                                return res.json({ data: rows, status: 200 })
-                            }
+                    db.get(`SELECT COUNT(*) FROM messages_info WHERE read = false and name != "${queryObject.name}"`, (err, count) => {
+                        rows[i]["notys"] = count['COUNT(*)']
+                        db.all(`SELECT pathImg FROM users WHERE name = "${rows[i].names.replace(queryObject.name, '').trim()}"`, [], (err, user) => {
+                            rows[i]["backImg"] = user[0].pathImg
+                            db.all(`SELECT text, date FROM messages_info WHERE names = "${rows[i].names}" OR names = "${rows[i].names.split(' ').reverse().join(' ')}" ORDER BY ID DESC`, [], (err, message) => {
+                                rows[i]["last"] = ''
+                                rows[i]["date"] = ''
+                                if (message.length !== 0) {
+                                    rows[i]["last"] = message[0].text
+                                    rows[i]["date"] = message[0].date
+                                }
+                                if (i == rows.length - 1) {
+                                    return res.json({ data: rows, status: 200 })
+                                }
+                            })
                         })
-
                     })
+
                 }
             } else {
                 return res.json({ data: [], status: 200 })
@@ -103,6 +104,18 @@ class messageController {
 
         }
         return res.json({ status: 200 })
+    }
+    async readMessages(req, res) {
+        let msg = JSON.parse(req.body.msg)
+        let x = 0;
+        for (let i = 0; i < msg.length; i++) {
+            db.run(`UPDATE messages_info set read = true WHERE names = "${msg[i].names}" and name = "${msg[i].name}" and text = "${msg[i].text}" and messageImg = "${msg[i].messageImg}" and date = "${msg[i].date}"`)
+            x++
+        }
+        if (x === msg.length) {
+            return res.json({ status: 200 })
+        }
+
     }
 }
 module.exports = new messageController;

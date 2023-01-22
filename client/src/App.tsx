@@ -16,15 +16,18 @@ interface iUser {
   info: string
   role: string
   backImg: string
+  notys: number
+  msgNotys: number
+  refetchUser: () => void
 }
 export const UserContext = React.createContext<iUser>(null)
 
 const AuthenticatedRoute = (props: { component: () => JSX.Element }) => {
-  const { user } = useAuth()
+  const { user, refetchUser } = useAuth()
   if (document.cookie === '0' || !document.cookie) return <Navigate to='/login' />
   if (user !== undefined) {
     return (
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ ...user, refetchUser }}>
         <props.component />
       </UserContext.Provider>
     )

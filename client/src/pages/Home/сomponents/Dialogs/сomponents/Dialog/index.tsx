@@ -11,7 +11,17 @@ import { IdialogProps } from '../../types/dialogProps.interface'
 import { Imessage } from '../../types/message.interface'
 import { useSelector } from 'react-redux'
 import { Istore } from '../../../../../../types/store.interface'
-
+import axios from 'axios'
+const readMsgs = async (refetch: () => void, msgs: any) => {
+  const fd = new FormData()
+  fd.append('msg', JSON.stringify(msgs))
+  await axios.put(`http://localhost:6060/message/read`, fd).then((res) => {
+    if (res.status === 200) {
+      refetch()
+      return res
+    }
+  })
+}
 const Dialog = (props: IdialogProps) => {
   const { dispatch, visible, names, refetchDialogs } = props
   const [msgs, setMsgs] = useState<Array<Imessage>>([])
@@ -32,7 +42,21 @@ const Dialog = (props: IdialogProps) => {
       setNextPage(data.page)
     })
   }
-
+  useEffect(() => {
+    let x = msgs.filter((item: Imessage) => {
+      return item.read === 0 && item.name !== user.name
+    })
+    if (x.length > 0) {
+      readMsgs(() => {
+        let a = msgs
+        for (let i = 0; i < a.length; i++) {
+          a[i].read = 1
+        }
+        setMsgs(a)
+        user.refetchUser()
+      }, x)
+    }
+  }, [msgs.length])
   const handleFetchMore = () => {
     setIsLoading(true)
     fetchData(nextPage, defaultPageToken)
@@ -51,7 +75,6 @@ const Dialog = (props: IdialogProps) => {
   useEffect(() => {
     fetchData(nextPage, 20)
   }, [])
-
   const user = useContext(UserContext)
   return (
     <>
@@ -83,5 +106,4 @@ const Dialog = (props: IdialogProps) => {
     </>
   )
 }
-
 export default Dialog

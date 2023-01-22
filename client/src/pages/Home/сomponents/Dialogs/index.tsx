@@ -42,7 +42,7 @@ const Dialogs = () => {
               </div>
               {data.length > 0 ? (
                 data.map((item: Idialogs, index: number) => (
-                  <div key={index} className='dialogs-dialog'>
+                  <div key={index} className={`dialogs-dialog ${item.notys > 0 ? 'bg-gray-200' : ''}`}>
                     <div
                       onClick={() => {
                         dispatch(setMessageStyle(!visible))
@@ -69,6 +69,13 @@ const Dialogs = () => {
                         </div>
                         <div className='dialogs-dialog-info-last'>{item.last}</div>
                       </div>
+                    </div>
+                    <div className='flex-column self-center'>
+                      {item.notys > 0 ? (
+                        <span className='bg-red-600 text-white p-8px pl-12px pr-12px rounded-xl'>{item.notys}</span>
+                      ) : (
+                        ''
+                      )}
                     </div>
                     <Options names={item.names} refetchDialogs={deleteDialog} />
                   </div>

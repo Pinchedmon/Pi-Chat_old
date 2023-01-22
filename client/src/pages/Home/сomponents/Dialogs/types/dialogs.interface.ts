@@ -3,4 +3,5 @@ export interface Idialogs {
   last: string
   backImg: string
   date: string
+  notys: number
 }
