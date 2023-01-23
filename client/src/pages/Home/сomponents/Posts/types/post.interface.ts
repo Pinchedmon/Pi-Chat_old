@@ -21,6 +21,7 @@ export interface IprofileInfo {
   username: string
   name: string
   date: any
+  onLink: () => void
 }
 export interface IuserImg {
   name: string

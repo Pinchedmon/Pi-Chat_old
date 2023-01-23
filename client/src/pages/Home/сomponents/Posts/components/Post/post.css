@@ -10,7 +10,7 @@
     @apply flex flex-col ml-12px lg:ml-24px;
   }
   .post__img {
-    @apply border mr-16px lg:h-54px w-48px rounded-xl lg:w-54px cursor-pointer;
+    @apply border mr-16px lg:h-54px w-48px h-48px rounded-xl lg:w-54px cursor-pointer;
   }
   .post__profile-info {
     @apply flex font-bold  items-center mb-2px  -mt-6px;

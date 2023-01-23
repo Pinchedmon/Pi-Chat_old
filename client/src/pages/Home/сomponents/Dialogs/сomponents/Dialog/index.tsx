@@ -12,6 +12,7 @@ import { Imessage } from '../../types/message.interface'
 import { useSelector } from 'react-redux'
 import { Istore } from '../../../../../../types/store.interface'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const readMsgs = async (refetch: () => void, msgs: any) => {
   const fd = new FormData()
   fd.append('msg', JSON.stringify(msgs))
@@ -24,6 +25,7 @@ const readMsgs = async (refetch: () => void, msgs: any) => {
 }
 const Dialog = (props: IdialogProps) => {
   const { dispatch, visible, names, refetchDialogs } = props
+  const navigate = useNavigate()
   const [msgs, setMsgs] = useState<Array<Imessage>>([])
   const defaultPageToken = 1
   const activeDialog = useSelector((state: Istore) => state.message.activeDialog)
@@ -89,8 +91,15 @@ const Dialog = (props: IdialogProps) => {
           className='dialog-left-icon'
         />
         <div className='dialog-info'>
-          <img alt='' className='dialog-info__img' onClick={null} src={activeDialog.avatar} />
-          {activeDialog.name}
+          <img
+            onClick={() => navigate(`/${activeDialog.name}`)}
+            alt=''
+            className='dialog-info__img hover:cursor-pointer'
+            src={activeDialog.avatar}
+          />
+          <span className='hover:cursor-pointer' onClick={() => navigate(`/${activeDialog.name}`)}>
+            {activeDialog.name}
+          </span>
         </div>
       </div>
       <Messages showMoreMsg={handleFetchMore} data={msgs} deleteMsg={deleteMsg} />

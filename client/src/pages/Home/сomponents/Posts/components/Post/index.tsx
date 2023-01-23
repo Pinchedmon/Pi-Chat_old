@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import ProfileInfo from './ProfileInfo'
-import Info from './Info'
 import Buttons from './Buttons'
 import { useNavigate } from 'react-router-dom'
 import Options from './Options'
@@ -20,9 +19,17 @@ const Post = (props: { data: any; deletePost: (x: number) => void; likePost: (id
             <div className='post'>
               <div className='flex'>
                 <img className='post__img' src={item.pathImg} alt='' onClick={() => navigate(`/${item.name}`)} />
-                <ProfileInfo username={item.username} name={item.name} date={item.date} />
+                <ProfileInfo
+                  username={item.username}
+                  name={item.name}
+                  date={item.date}
+                  onLink={() => navigate(`/${item.name}`)}
+                />
               </div>
-              <Info text={item.text} img={item.postImg} />
+              <div className='post__info'>
+                <div className='post__info-text'>{item.text}</div>
+                {item.postImg !== '' && <img className='post__info-img' src={item.postImg} alt=' ' />}
+              </div>
               <Buttons
                 name={user.name}
                 ID={item.ID}

@@ -86,7 +86,6 @@ class authController {
     async getUser(req, res) {
         if (req.user !== undefined) {
             const { id } = req.user
-
             db.get(`SELECT username, name, email, roles, pathImg, backImg, info FROM users WHERE ID = ${id}`, [], (err, rows) => {
                 if (err) {
                     return res.json({

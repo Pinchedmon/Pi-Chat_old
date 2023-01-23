@@ -8,6 +8,7 @@ import { Icomment } from '../../types/comment.interface'
 import { postComment } from '../../../../../../api/post'
 import { UserContext } from '../../../../../../App'
 import { SocketContext } from '../../../..'
+import { useNavigate } from 'react-router-dom'
 
 const Comment = (props: {
   item: Icomment
@@ -18,6 +19,7 @@ const Comment = (props: {
   postId: number
   isMain: boolean
 }) => {
+  const navigate = useNavigate()
   const user = useContext(UserContext)
   const socket = useContext(SocketContext)
   const { index, item, likeComment, name, refetch, postId, isMain } = props
@@ -48,10 +50,17 @@ const Comment = (props: {
   return (
     <>
       <div key={index} className='comment'>
-        <img src={item.img} className='comment__img' onClick={undefined} alt='' />
+        <img
+          src={item.img}
+          className='comment__img hover:cursor-pointer'
+          onClick={() => navigate(`/${item.name}`)}
+          alt=''
+        />
         <div className='w-full'>
-          <div className='comment-info'>
-            <div className='comment-info-username'>{item.username}</div>
+          <div className='comment-info '>
+            <div onClick={() => navigate(`/${item.name}`)} className='comment-info-username hover:cursor-pointer'>
+              {item.username}
+            </div>
             <p className='comment-info-time'>{formatLeft(item.date)}</p>
           </div>
           <div className='comment-info-text'>{item.text}</div>

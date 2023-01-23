@@ -19,10 +19,6 @@ const Dialogs = () => {
   const visible = useSelector((state: Istore) => state.nav.messageStyle)
   const dispatch = useDispatch()
   const deleteDialog = (x: string) => {
-    // let a = dialogs
-    // a = a.filter((dlg: any) => dlg.names !== x)
-    // console.log(a)
-    // setDialogs(a)
     refetch()
   }
   useEffect(() => {

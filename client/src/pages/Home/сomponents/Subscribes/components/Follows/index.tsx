@@ -17,11 +17,11 @@ const Follows = (props: Ifollowers) => {
               <div className='follow-info'>
                 <img
                   alt=''
-                  className='follow-info__img'
+                  className='follow-info__img hover:cursor-pointer'
                   onClick={() => navigate(`/../${items.object}`)}
                   src={items.img}
                 />
-                <p className='follow-info__p' onClick={() => navigate(`/../${items.object}`)}>
+                <p className='follow-info__p hover:cursor-pointer' onClick={() => navigate(`/../${items.object}`)}>
                   {items.object}
                 </p>
               </div>
