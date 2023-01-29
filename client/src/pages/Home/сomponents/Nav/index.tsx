@@ -12,11 +12,9 @@ const Nav = () => {
   const user = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch()
-  // const [isNavExpanded, setIsNavExpanded] = useState(false)
-  //window.innerWidth
   return (
     <div className='wrapper__nav'>
-      <div className='nav-area relative'>
+      <div className='nav-area '>
         {window.innerWidth < 1024 && (
           <div className='absolute right-0px' onClick={() => dispatch(setIsNavExpanded(false))}>
             <XIcon className='w-24px text-[#20A740]' />

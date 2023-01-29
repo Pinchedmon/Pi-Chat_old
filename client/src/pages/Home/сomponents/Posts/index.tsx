@@ -15,11 +15,11 @@ const Posts = (props: Iparams) => {
       (await getPosts({ sort, category, page: token, count: count, name: name }).then((res) => {
         if (filter) {
           setFilter(false)
-          setPosts([...res.data])
+          setPosts(res.data)
           setNextPage(res.page)
           return res
         } else {
-          setPosts([...posts, ...res.data])
+          setPosts((prev) => [...prev, ...res.data])
           setNextPage(res.page)
           return res
         }
@@ -46,7 +46,7 @@ const Posts = (props: Iparams) => {
   }
 
   useEffect(() => {
-    setFilter(true)
+    setPosts([])
     fetchData(1, defaultCount)
   }, [sort, category])
 

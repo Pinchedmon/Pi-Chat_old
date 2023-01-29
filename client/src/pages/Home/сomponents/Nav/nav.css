@@ -4,10 +4,10 @@
 
 @layer components {
   .wrapper__nav {
-    @apply w-full;
+    @apply w-full lg:flex  lg:justify-center;
   }
   .nav-area {
-    @apply lg:h-screen flex justify-center;
+    @apply lg:h-screen flex justify-center lg:fixed;
   }
   .nav {
     @apply flex flex-col  items-center text-xl lg:text-2xl font-bold;
