@@ -4,7 +4,6 @@ import { getPosts } from '../../../../api/get'
 import AddPost from './components/AddPost'
 import Post from './components/Post'
 import { Iparams, Ipost } from './types/posts.interface'
-
 const Posts = (props: Iparams) => {
   const [posts, setPosts] = useState<Array<Ipost>>([])
   const { sort, category, name } = props

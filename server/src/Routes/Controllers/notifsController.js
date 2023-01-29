@@ -17,20 +17,10 @@ class notifsController {
                 db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${rows[i].senderName}"`, [], (err, user) => {
                     rows[i]['username'] = user[0].username
                     rows[i]['pathImg'] = user[0].pathImg
-                    let sql = ''
-                    switch (rows[i].type) {
-                        case 1:
-                            sql = `SELECT text, postimg as img FROM posts WHERE ID = ${rows[i].object}`
-                        case 2:
-                            sql = `SELECT text, commentimg as img from comments WHERE ID = ${rows[i].object}`
-                        case 4:
-                            sql = `SELECT text, commentimg as img from comments WHERE ID = ${rows[i].object}`
-                    }
-                    db.get(sql, (err, data) => {
-                        if (data !== undefined) {
-
-                            rows[i]["objectImg"] = data.img
-                            rows[i]["objectText"] = data.text
+                    db.all(`SELECT text, ${rows[i].type !== 1 ? 'commentImg' : 'postImg'} as img FROM ${rows[i].type !== 1 ? 'comments' : 'posts'} WHERE ID = ${rows[i].object}`, [], (err, data) => {
+                        if (data[0] !== undefined) {
+                            rows[i]["objectImg"] = data[0].img
+                            rows[i]["objectText"] = data[0].text
                         }
                         x++
                         if (x === rows.length) {
