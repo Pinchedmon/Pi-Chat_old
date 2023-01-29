@@ -20,7 +20,8 @@ const express = require('express'),
   commentRouter = require('./src/Routes/commentRouter'),
   followRouter = require('./src/Routes/followRouter'),
   notifsRouter = require('./src/Routes/notifsRouter'),
-  registerUserHandlers = require('./src/Routes/handlers/userHandlers');
+  registerUserHandlers = require('./src/Routes/handlers/userHandlers'),
+  searchRouter = require('./src/Routes/searchRouter');
 
 
 app.set('view engine', 'ejs');
@@ -35,6 +36,7 @@ app.use('/message', messageRouter)
 app.use('/comment', commentRouter)
 app.use('/follow', followRouter)
 app.use('/notifs', notifsRouter)
+app.use('/search', searchRouter)
 
 app.get('/public/*', function (req, res) {
   return res.sendFile(path.resolve(__dirname, "server", `..${req.url}`))

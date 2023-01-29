@@ -1,5 +1,14 @@
 import React, { useContext, useState } from 'react'
-import { MenuAlt1Icon, BellIcon, ChatIcon, UserIcon, CogIcon, UserGroupIcon, XIcon } from '@heroicons/react/solid'
+import {
+  MenuAlt1Icon,
+  BellIcon,
+  ChatIcon,
+  UserIcon,
+  CogIcon,
+  UserGroupIcon,
+  XIcon,
+  SearchIcon,
+} from '@heroicons/react/solid'
 import { Link, NavLink } from 'react-router-dom'
 import { setIsNavExpanded } from '../../../../state/navReducer'
 import { UserContext } from '../../../../App'
@@ -25,7 +34,14 @@ const Nav = () => {
           <Link to='/' className='nav-logo'>
             / π - Чат /
           </Link>
-
+          <NavLink
+            to='search'
+            onClick={() => dispatch(setIsNavExpanded(false))}
+            className={({ isActive }) => (isActive ? 'nav-menu__active' : 'nav-menu')}
+          >
+            <SearchIcon className='nav-icon' />
+            <p>Поиск</p>
+          </NavLink>
           <NavLink
             to={user.name}
             onClick={() => dispatch(setIsNavExpanded(false))}

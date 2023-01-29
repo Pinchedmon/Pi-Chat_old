@@ -17,6 +17,7 @@ import { setIsNavExpanded } from '../../state/navReducer'
 import Modal from '../../components/ux/Modal'
 import { MenuIcon } from '@heroicons/react/outline'
 import { io } from 'socket.io-client'
+import Search from './сomponents/Search'
 
 export const SocketContext = React.createContext(null)
 const Home = () => {
@@ -121,6 +122,7 @@ const Home = () => {
                   <Route path='/messages' element={<Messages />} />
                   <Route path='/followers' element={<Subscribes />} />
                   <Route path='/settings' element={<Setting />} />
+                  <Route path='/search' element={<Search />} />
                 </Routes>
               </SocketContext.Provider>
             </div>
