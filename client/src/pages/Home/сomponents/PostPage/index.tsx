@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/solid'
 import { getPost } from '../../../../api/get'
-import { postComment } from '../../../../api/post'
+import { deleteNotify, postComment } from '../../../../api/post'
 import { UserContext } from '../../../../App'
 import SendField from '../../../../components/ux/SendField'
 import { useQuery } from 'react-query'
@@ -16,6 +16,7 @@ const PostData = () => {
   let page = 1
   const navigate = useNavigate()
   const location = useLocation()
+  console.log(location.search.replace(/[^0-9]/g, ''))
   const [comments, setComments] = useState<Array<Icomment>>()
   const [post, setPost] = useState([{ name: '', ID: 0 }])
   const user = useContext(UserContext)
@@ -34,6 +35,9 @@ const PostData = () => {
       }
       if (res.status === 201) {
         window.alert('Вы были переадресованы с несуществующей страницы')
+
+        deleteNotify(Number(location.search.replace(/[^0-9]/g, '')), 1)
+
         navigate('/')
       }
     }),

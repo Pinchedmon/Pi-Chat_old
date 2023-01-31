@@ -63,3 +63,6 @@ export async function readNotify(refetch: () => void, notifys: any): Promise<any
     }
   })
 }
+export async function deleteNotify(id: number, type: number): Promise<any> {
+  await axios.put(`http://localhost:6060/notifs/delete&id=${id}&type=${type}`)
+}

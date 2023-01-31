@@ -26,8 +26,10 @@ class searchController {
                         })
                     }
                 }
-            }
-            else {
+                else {
+                    return res.json({ status: 200, data: [] })
+                }
+            } else {
                 return res.json({ status: 200, data: [] })
             }
 
