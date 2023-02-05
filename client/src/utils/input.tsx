@@ -1,11 +1,11 @@
 import React from 'react'
 export interface Iinput {
   value: string | number
-  blurHandler: (e: any) => void
+  blurHandler?: (e: any) => void
   handleChange: (e: any) => void
-  name: string
+  name?: string
   placeholder: string
-  type: any
+  type?: any
 }
 function Input(props: Iinput) {
   const { value, blurHandler, handleChange, name, placeholder, type } = props
@@ -17,8 +17,8 @@ function Input(props: Iinput) {
         placeholder={placeholder}
         type={type}
         value={value}
-        onBlur={(e) => blurHandler(e)}
-        onChange={(e) => handleChange(e)}
+        onBlur={blurHandler}
+        onChange={handleChange}
       />
     </>
   )

@@ -8,5 +8,5 @@ const upload = multer();
 
 router.get('/', controller.getNotifs);
 router.put('/read', upload.none(), controller.readNotif);
-
+router.delete('/delete', controller.deleteNotif);
 module.exports = router;

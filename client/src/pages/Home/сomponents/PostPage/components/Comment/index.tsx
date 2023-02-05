@@ -40,7 +40,7 @@ const Comment = (props: {
           setTAData('')
         },
         text: TAData,
-        commentName: name,
+        commentName: item.name,
         socket: socket,
       },
       formData,
@@ -94,6 +94,7 @@ const Comment = (props: {
                   setTAData(e.target.value)
                 }}
                 value={TAData}
+                maxRows={3}
                 style={{ height: 28 }}
                 className='border-2 pb-2px rounded-xl w-full text-sm pt-2px pl-8px resize-none h-32px'
                 placeholder='Написать коммент'

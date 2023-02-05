@@ -16,7 +16,6 @@ const PostData = () => {
   let page = 1
   const navigate = useNavigate()
   const location = useLocation()
-  console.log(location.search.replace(/[^0-9]/g, ''))
   const [comments, setComments] = useState<Array<Icomment>>()
   const [post, setPost] = useState([{ name: '', ID: 0 }])
   const user = useContext(UserContext)

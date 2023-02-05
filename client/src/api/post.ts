@@ -28,14 +28,14 @@ export async function postComment(props: apiParamComments, formData: any): Promi
     .then((res) => {
       if (res.status === 200) {
         props.refetch()
+        props.socket.emit('sendNotification', {
+          senderName: props.name,
+          receiverName: props.commentName,
+          type: 4,
+        })
         return res.data.data
       }
     })
-  props.socket.emit('sendNotification', {
-    senderName: props.name,
-    receiverName: props.commentName,
-    type: 4,
-  })
 }
 
 export async function postMessage(props: apiParamMessages, messageImg: any): Promise<any> {

@@ -12,11 +12,10 @@ class notifsController {
     async getNotifs(req, res) {
         const queryObject = url.parse(req.url, true).query;
         db.all(`SELECT * FROM notifications WHERE receiverName = "${queryObject.name}"`, [], (err, rows) => {
-            // console.log(rows.length)
-            // if (rows.length > 0) {
-            //     db.run(`DELETE FROM notifications WHERE date = "${queryObject.name}"`);
-            // }
             let x = 0;
+            if (rows.length > 10) {
+                db.all(`DELETE FROM notifications where date in(SELECT date FROM notifications WHERE receiverName = "${queryObject.name}" order by date asc limit ${rows.length - 10})`);
+            }
             for (let i = 0; i < rows.length; i++) {
                 db.all(`SELECT USERNAME, pathimg FROM users WHERE name = "${rows[i].senderName}"`, [], (err, user) => {
                     rows[i]['username'] = user[0].username
@@ -37,6 +36,7 @@ class notifsController {
                 })
             }
         })
+
     }
     async readNotif(req, res) {
         let notify = JSON.parse(req.body.notify)

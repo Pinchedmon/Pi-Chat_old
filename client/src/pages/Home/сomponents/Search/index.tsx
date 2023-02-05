@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 import TextareaAutosize from 'react-textarea-autosize'
+import Input from '../../../../utils/input'
 import Switch from '../../../../utils/switch'
 const Search = (props: any) => {
   const [value, setValue] = useState('')
@@ -28,14 +29,8 @@ const Search = (props: any) => {
 
   return (
     <div className='mt-40px'>
-      <TextareaAutosize
-        cacheMeasurements
-        onChange={handleChangeText}
-        value={value}
-        maxRows={1}
-        className='postPage-sendField__textArea'
-        placeholder='Поиск'
-      />
+      <form className=''></form>
+      <Input value={value} handleChange={handleChangeText} placeholder={'Поиск'} />
       <Switch isOn={filter} handleToggle={() => setFilter(!filter)} />
       Пост
       <select

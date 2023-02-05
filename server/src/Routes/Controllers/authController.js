@@ -43,12 +43,13 @@ class authController {
     async login(req, res) {
         const { session } = req.body;
         db.all(`SELECT ID, username, name, email, roles, pathImg, backImg, password, info  FROM users WHERE email = "${session.email}";`, [], (err, rows) => {
-            if (rows === undefined) {
+            if (rows === undefined || rows.length === 0) {
                 return res.json({
                     status: 400,
                     message: `Пользователь с таким ${session.email} не найден`
                 })
             }
+
             const validPassword = bcrypt.compareSync(`${session.password}`, `${rows[0].password}`)
             if (!validPassword) {
                 return res.json({
@@ -66,20 +67,19 @@ class authController {
             })
         });
     }
-    async getUsers(req, res) {
-        db.all('SELECT * FROM users', [], (err, rows) => {
-            if (err) {
-                return res.json({
-                    status: 400
-                })
-            }
-            return res.json({
-                status: 200,
-                "data": rows
-            })
-
-        })
-    }
+    // async getUsers(req, res) {
+    //     db.all('SELECT * FROM users', [], (err, rows) => {
+    //         if (err) {
+    //             return res.json({
+    //                 status: 400
+    //             })
+    //         }
+    //         return res.json({
+    //             status: 200,
+    //             "data": rows
+    //         })
+    //     })
+    // }
     async logout(req, res) {
         jwt.destroy(token)
     }
