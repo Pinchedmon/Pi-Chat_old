@@ -4,7 +4,7 @@
 
 @layer components {
   .wrapper__nav {
-    @apply w-full lg:flex  lg:justify-center;
+    @apply w-full lg:flex lg:justify-center;
   }
   .nav-area {
     @apply lg:h-screen flex justify-center lg:fixed;
@@ -13,13 +13,13 @@
     @apply flex flex-col  items-center text-xl lg:text-2xl font-bold;
   }
   .nav-menu__active {
-    @apply w-12.5rem flex lg:mb-32px mb-24px text-[#20A740];
+    @apply w-12.5rem flex lg:mb-[4vh] mb-24px text-[#20A740];
   }
   .nav-menu {
-    @apply w-12.5rem flex lg:mb-32px  mb-24px dark:text-white;
+    @apply w-12.5rem flex lg:mb-[4vh]  mb-24px dark:text-white;
   }
   .nav-logo {
-    @apply mt-8px mb-24px lg:mt-54px rounded-xl lg:mb-54px  text-[#20A740]  font-bold text-3xl lg:text-4xl;
+    @apply mt-8px mb-24px lg:mt-[7vh] rounded-xl lg:mb-54px  text-[#20A740]  font-bold text-3xl lg:text-4xl;
   }
   .nav-icon {
     @apply w-24px h-24px lg:w-32px lg:h-32px mr-16px;

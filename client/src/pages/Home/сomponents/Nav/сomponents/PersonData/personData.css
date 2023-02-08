@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .person-data {
-  @apply bottom-32px lg:absolute  flex items-center;
+  @apply bottom-32px flex items-center;
 }
 .person-data__img {
   @apply border-2 rounded-2xl w-48px h-48px lg:w-54px lg:h-54px mr-16px;

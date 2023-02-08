@@ -9,11 +9,13 @@ import { filterSort } from './utils/filterSort'
 const FilterModal = (props: IfilterModal) => {
   const { category, sort, dispatch } = props
   return (
-    <div className='filterModal'>
-      <p className='filterModal__title'>Сортировка</p>
-      <div className='filterModal__filters'>
-        <SortSelect sort={sort} filterSort={(e) => filterSort(e, dispatch, setSort)} />/
-        <CategorySelect category={category} filterCategory={(e) => filterCategory(e, dispatch, setCategory)} />
+    <div className='sticky top-0px '>
+      <div className='filterModal'>
+        <p className='filterModal__title'>Сортировка</p>
+        <div className='filterModal__filters'>
+          <SortSelect sort={sort} filterSort={(e) => filterSort(e, dispatch, setSort)} />
+          <CategorySelect category={category} filterCategory={(e) => filterCategory(e, dispatch, setCategory)} />
+        </div>
       </div>
     </div>
   )
