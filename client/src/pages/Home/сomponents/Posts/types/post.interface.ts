@@ -3,7 +3,8 @@ export interface Iinfo {
   text: string
 }
 export interface Ibuttons {
-  likePost: (id: number, likes: number) => void
+  likePost?: (id: number, likes: number) => void
+  likeComment?: (id: number, likes: number) => void
   name: string
   role: string
   ID: number

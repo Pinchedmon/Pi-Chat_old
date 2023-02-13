@@ -13,19 +13,19 @@ import { useNavigate } from 'react-router-dom'
 const Comment = (props: {
   item: Icomment
   index: number
+  deleteComment: (id: number) => void
+  addComment: (comment: Icomment) => void
   likeComment: (id: number, likes: number) => void
   name: string
-  refetch: () => void
   postId: number
   isMain: boolean
 }) => {
   const navigate = useNavigate()
   const user = useContext(UserContext)
   const socket = useContext(SocketContext)
-  const { index, item, likeComment, name, refetch, postId, isMain } = props
+  const { index, item, name, deleteComment, addComment, likeComment, postId, isMain } = props
   const [TAData, setTAData] = useState('')
   const [file, setFile] = useState(null)
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData()
     formData.append('comment', file)
@@ -35,9 +35,9 @@ const Comment = (props: {
         commentId: item.ID,
         id: postId,
         name: user.name,
-        refetch: () => {
-          refetch()
+        refetch: (comment: Icomment) => {
           setTAData('')
+          addComment(comment)
         },
         text: TAData,
         commentName: item.name,
@@ -46,7 +46,6 @@ const Comment = (props: {
       formData,
     )
   }
-
   return (
     <>
       <div key={index} className='comment'>
@@ -65,7 +64,7 @@ const Comment = (props: {
           </div>
           <div className='comment-info-text'>{item.text}</div>
           <Buttons
-            likePost={likeComment}
+            likeComment={likeComment}
             name={name}
             role={''}
             ID={item.ID}
@@ -74,7 +73,7 @@ const Comment = (props: {
             liked={item.liked}
             postName={item.name}
           />
-          <Options id={item.ID} postId={item.postId} refetch={refetch} />
+          <Options id={item.ID} postId={item.postId} refetch={deleteComment} commentId={Number(item.commentId)} />
           {isMain && (
             <form className='flex mb-4px h-28px' onSubmit={(event) => handleSubmit(event)}>
               <label className='flex mr-4px'>

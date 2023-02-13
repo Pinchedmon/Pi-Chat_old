@@ -10,7 +10,7 @@ const Options = (props: Ioptions) => {
     <>
       <Modal open={option.showWarning} isClose={() => setOption({ ...option, showWarning: false })}>
         <Warning
-          propsFunc={() => handleDelete(props.id, props.postId, props.refetch)}
+          propsFunc={() => handleDelete(props.id, props.postId, props.refetch, props.commentId)}
           setIsOpen={() => setOption({ ...option, showWarning: false })}
           title={'Вы действительно хотите удалить комментарий?'}
         />

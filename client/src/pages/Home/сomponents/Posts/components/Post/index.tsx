@@ -6,8 +6,13 @@ import Options from './Options'
 import { UserContext } from '../../../../../../App'
 import { Ipost } from '../../../PostPage/types/post.interface'
 
-const Post = (props: { data: any; deletePost: (x: number) => void; likePost: (id: number, likes: number) => void }) => {
-  const { data, likePost, deletePost } = props
+const Post = (props: {
+  data: any
+  refetch?: () => void
+  deletePost: (x: number) => void
+  likePost: (id: number, likes: number) => void
+}) => {
+  const { data, likePost, deletePost, refetch } = props
   const navigate = useNavigate()
   const user = useContext(UserContext)
 

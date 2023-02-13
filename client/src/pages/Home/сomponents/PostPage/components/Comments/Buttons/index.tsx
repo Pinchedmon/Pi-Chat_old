@@ -12,13 +12,13 @@ const Buttons = (props: Ibuttons) => {
   const socket = useContext(SocketContext)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { likePost, name, ID, likes, comments, liked, postName } = props
+  const { likeComment, name, ID, likes, comments, liked, postName } = props
   const showComments = async (id: number) => {
     dispatch(setIsMenuShowed(false))
     navigate(`/post?id=${id}`)
   }
   const handleCommentLike = (type: number) => {
-    handleLike(ID, name, likePost)
+    handleLike(ID, name, likeComment)
     setLikedStatus(!likedStatus)
     if (!likedStatus) {
       socket.emit('sendNotification', {

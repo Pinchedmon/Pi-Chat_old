@@ -1,4 +1,11 @@
 import React, { useContext, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { setIsNavExpanded } from '../../../../state/navReducer'
+import { UserContext } from '../../../../App'
+import PersonData from './сomponents/PersonData'
+import Modal from '../../../../components/ux/Modal'
+import AddPost from './сomponents/AddPost'
+import { useDispatch } from 'react-redux'
 import {
   MenuAlt1Icon,
   BellIcon,
@@ -9,14 +16,6 @@ import {
   XIcon,
   SearchIcon,
 } from '@heroicons/react/solid'
-import { Link, NavLink } from 'react-router-dom'
-import { setIsNavExpanded } from '../../../../state/navReducer'
-import { UserContext } from '../../../../App'
-import PersonData from './сomponents/PersonData'
-import Modal from '../../../../components/ux/Modal'
-import AddPost from './сomponents/AddPost'
-import { useDispatch } from 'react-redux'
-
 const Nav = () => {
   const user = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false)

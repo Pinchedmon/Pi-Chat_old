@@ -45,7 +45,7 @@ class commentController {
         if (queryObject.commentId !== 'undefined') {
             db.all(`SELECT ID from comments WHERE date = "${queryObject.date}"`, (err, id) => {
                 db.all(`SELECT name from posts WHERE ID = ${queryObject.id}`, (err, postName) => {
-                    if (queryObject.profileName !== postName[0].name) {
+                    if (queryObject.name !== postName[0].name) {
                         db.run("INSERT INTO notifications (senderName, receiverName, type, object, date) values (?, ?, ?, ?, ?)", [
                             queryObject.name,
                             postName[0].name,
@@ -68,10 +68,19 @@ class commentController {
                 );
             }
         );
-        return res.json({
-            status: 200,
-            success: true,
-        });
+        db.all(`SELECT * FROM comments WHERE name = "${queryObject.name}" and text = "${queryObject.text}"`, (err, rows) => {
+            db.all(`SELECT username, pathimg FROM users WHERE name = "${queryObject.name}"`, [], (err, user) => {
+                rows[0]['username'] = user[0].username
+                rows[0]['img'] = user[0].pathImg
+                return res.json({
+                    status: 200,
+                    comment: rows[0],
+                    success: true,
+                });
+            })
+
+        })
+
     }
     async likeComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
@@ -122,7 +131,12 @@ class commentController {
     }
     async deleteComment(req, res) {
         const queryObject = url.parse(req.url, true).query;
+        console.log(queryObject)
+        if (queryObject.commentId === "NaN") {
+            db.all(`DELETE FROM comments WHERE commentId = ${queryObject.id}`);
+        }
         db.all(`SELECT commentImg, commentId FROM comments WHERE ID = ${queryObject.id}`, [], (err, comment) => {
+
             if (comment.length > 0) {
                 if (comment[0].commentImg !== '') {
                     fs.unlinkSync(path.resolve(__dirname, `../../../public/${img[0].commentImg.slice(28, img[0].commentImg.length)}`))
@@ -133,23 +147,13 @@ class commentController {
                 }
             }
         })
-        sql = `DELETE FROM comments WHERE id = ${queryObject.id}`;
-        db.run(sql, (err) => {
+        db.all(`DELETE FROM comments WHERE postId = ${queryObject.postId} and id = ${queryObject.id}`, (err) => {
             if (err) return console.error(err.message);
         });
-        db.run(
+        db.all(
             `DELETE FROM likes WHERE commentId = '${queryObject.id}'`
         );
-        db.all(
-            `SELECT * FROM comments WHERE postId = ${queryObject.postId}`,
-            [],
-            (err, rows) => {
-                db.all(
-                    `UPDATE posts set comments = ${rows.length} WHERE ID = ${queryObject.postId}`
-                );
-                return res.json({ status: 200 });
-            }
-        );
+        return res.json({ status: 200 });
 
     }
 }

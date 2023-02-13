@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { Imessage } from '../pages/Home/сomponents/Dialogs/types/message.interface'
+import { Icomment } from '../pages/Home/сomponents/PostPage/types/comment.interface'
 
 interface apiParamComments {
   commentId: number
   id: number
   commentName: string
   text: string
-  refetch: () => void
+  refetch: (comment: Icomment) => void
   socket: any
   name: string
 }
@@ -27,12 +28,15 @@ export async function postComment(props: apiParamComments, formData: any): Promi
     )
     .then((res) => {
       if (res.status === 200) {
-        props.refetch()
-        props.socket.emit('sendNotification', {
-          senderName: props.name,
-          receiverName: props.commentName,
-          type: 4,
-        })
+        props.refetch(res.data.comment)
+        console.log(props)
+        if (props.name !== props.commentName) {
+          props.socket.emit('sendNotification', {
+            senderName: props.name,
+            receiverName: props.commentName,
+            type: 4,
+          })
+        }
         return res.data.data
       }
     })
