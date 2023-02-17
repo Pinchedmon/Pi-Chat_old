@@ -1,9 +1,8 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-
-import TextareaAutosize from 'react-textarea-autosize'
+import React, { useEffect, useRef, useState } from 'react'
 import Input from '../../../../utils/input'
 import Switch from '../../../../utils/switch'
+import { throttle } from 'lodash'
 const Search = (props: any) => {
   const [value, setValue] = useState('')
   const [filterCategory, setFilterCategory] = useState('Общее')
@@ -13,18 +12,26 @@ const Search = (props: any) => {
     setValue(e.target.value)
   }
   const [filter, setFilter] = useState(true)
+  const throttled = useRef(
+    throttle(
+      (newValue, filterCategory, filterCourse, filter) =>
+        axios
+          .get(
+            `http://localhost:6060/search/${
+              filter ? `post?category=${filterCategory}&course=${filterCourse}&` : `user?`
+            }query=${newValue}`,
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              setItems(res.data.data)
+            }
+          }),
+      500,
+    ),
+  )
+
   useEffect(() => {
-    axios
-      .get(
-        `http://localhost:6060/search/${
-          filter ? `post?category=${filterCategory}&course=${filterCourse}&` : `user?`
-        }query=${value}`,
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          setItems(res.data.data)
-        }
-      })
+    throttled.current(value, filterCategory, filterCourse, filter)
   }, [filterCategory, filterCourse, value, filter])
 
   return (
