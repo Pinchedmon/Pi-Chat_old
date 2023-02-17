@@ -29,7 +29,18 @@ const Home = () => {
   const location = useLocation()
   const [notifications, setNotifications] = useState([])
   const [openedNotifs, setOpenedNotifications] = useState(false)
+  const [width, setWidth] = useState(0)
 
+  useEffect(() => {
+    const updateWindowDimensions = () => {
+      const newWidth = window.innerWidth
+      setWidth(newWidth)
+    }
+
+    window.addEventListener('resize', updateWindowDimensions)
+
+    return () => window.removeEventListener('resize', updateWindowDimensions)
+  }, [])
   const displayNotifications = ({ senderName, type }: any) => {
     let action: string
     switch (type) {
@@ -52,12 +63,12 @@ const Home = () => {
     setNotifications([])
   }
   useEffect(() => {
-    if (window.innerHeight > 1024) {
+    if (width > 1024) {
       dispatch(setIsNavExpanded(true))
     } else {
       dispatch(setIsNavExpanded(false))
     }
-  }, [window.innerWidth])
+  }, [width])
   useEffect(() => {
     setSocket(io('http://localhost:6060'))
   }, [])
